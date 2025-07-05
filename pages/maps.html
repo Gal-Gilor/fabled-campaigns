@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive Maps - Fabled Campaigns</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -23,30 +24,11 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background-color: var(--bg-dark);
             color: var(--text-light);
             line-height: 1.6;
             overflow-x: hidden;
-        }
-
-        /* Animated background */
-        .bg-animation {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            background: linear-gradient(45deg, #1a1a1a, #2a2a2a, #1a1a1a);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
-        }
-
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
         }
 
         /* Navigation */
@@ -70,8 +52,9 @@
         }
 
         .logo {
+            font-family: 'Cinzel', serif;
             font-size: 1.5rem;
-            font-weight: bold;
+            font-weight: 600;
             color: var(--secondary-color);
             text-decoration: none;
             transition: transform 0.3s ease;
@@ -112,7 +95,9 @@
         }
 
         .page-header h1 {
+            font-family: 'Cinzel', serif;
             font-size: 3rem;
+            font-weight: 600;
             background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -141,8 +126,10 @@
         }
 
         .creator-header h2 {
+            font-family: 'Cinzel', serif;
             color: var(--secondary-color);
             font-size: 2rem;
+            font-weight: 400;
         }
 
         .create-form {
@@ -161,6 +148,7 @@
             color: var(--text-dim);
             margin-bottom: 0.5rem;
             font-size: 0.9rem;
+            font-weight: 500;
         }
 
         .form-group input,
@@ -172,6 +160,7 @@
             padding: 0.75rem;
             color: var(--text-light);
             transition: border-color 0.3s ease;
+            font-family: 'Roboto', sans-serif;
         }
 
         .form-group input:focus,
@@ -193,7 +182,7 @@
             padding: 1rem 2rem;
             border-radius: 50px;
             font-size: 1.1rem;
-            font-weight: bold;
+            font-weight: 500;
             cursor: pointer;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
@@ -201,6 +190,7 @@
             align-items: center;
             gap: 0.5rem;
             margin: 0 auto;
+            font-family: 'Roboto', sans-serif;
         }
 
         .generate-btn:hover {
@@ -259,8 +249,10 @@
         }
 
         .gallery-header h2 {
+            font-family: 'Cinzel', serif;
             color: var(--secondary-color);
             font-size: 2rem;
+            font-weight: 400;
         }
 
         .filter-tabs {
@@ -276,11 +268,14 @@
             color: var(--text-dim);
             cursor: pointer;
             transition: all 0.3s ease;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
         }
 
         .filter-tab.active {
             background-color: var(--secondary-color);
             color: var(--bg-dark);
+            font-weight: 500;
         }
 
         .maps-grid {
@@ -296,6 +291,7 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
         }
 
         .map-card:hover {
@@ -319,8 +315,10 @@
         }
 
         .map-info h3 {
+            font-family: 'Cinzel', serif;
             color: var(--secondary-color);
             margin-bottom: 0.5rem;
+            font-weight: 400;
         }
 
         .map-info p {
@@ -335,6 +333,100 @@
             align-items: center;
             font-size: 0.8rem;
             color: var(--text-dim);
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background-color: rgba(244, 67, 54, 0.8);
+            color: white;
+            border: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .delete-btn:hover {
+            background-color: rgba(244, 67, 54, 1);
+            transform: scale(1.1);
+        }
+
+        .delete-btn:active {
+            transform: scale(0.95);
+        }
+
+        .delete-confirmation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(26, 26, 26, 0.95);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            text-align: center;
+            border-radius: 10px;
+            z-index: 20;
+        }
+
+        .delete-confirmation p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .confirmation-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .confirm-btn {
+            background-color: var(--danger-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+        }
+
+        .cancel-btn {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            border: 1px solid var(--text-dim);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+        }
+
+        .confirm-btn:hover {
+            background-color: #d32f2f;
+        }
+
+        .cancel-btn:hover {
+            background-color: var(--text-dim);
+            color: var(--bg-dark);
         }
 
         /* Loading spinner */
@@ -390,8 +482,6 @@
     </style>
 </head>
 <body>
-    <div class="bg-animation"></div>
-    
     <nav>
         <div class="container">
             <a href="/" class="logo">⚔️ Fabled Campaigns</a>
@@ -488,6 +578,7 @@
             <div class="maps-grid" id="mapsGrid">
                 <!-- Example map cards -->
                 <div class="map-card" data-type="battle">
+                    <button class="delete-btn" onclick="showDeleteConfirmation(this)">×</button>
                     <div class="map-thumbnail">🏰</div>
                     <div class="map-info">
                         <h3>Castle Courtyard</h3>
@@ -500,6 +591,7 @@
                 </div>
                 
                 <div class="map-card" data-type="dungeon">
+                    <button class="delete-btn" onclick="showDeleteConfirmation(this)">×</button>
                     <div class="map-thumbnail">💀</div>
                     <div class="map-info">
                         <h3>Crypt of Shadows</h3>
@@ -512,6 +604,7 @@
                 </div>
                 
                 <div class="map-card" data-type="world">
+                    <button class="delete-btn" onclick="showDeleteConfirmation(this)">×</button>
                     <div class="map-thumbnail">🌍</div>
                     <div class="map-info">
                         <h3>Realm of Eldoria</h3>
@@ -566,7 +659,7 @@
                 mapPreview.classList.add('has-map');
                 mapPreview.innerHTML = `
                     <div style="text-align: center;">
-                        <h3 style="color: var(--secondary-color); margin-bottom: 1rem;">Map Generated!</h3>
+                        <h3 style="color: var(--secondary-color); margin-bottom: 1rem; font-family: 'Cinzel', serif;">Map Generated!</h3>
                         <p style="color: var(--text-dim);">Your map "${mapName}" is ready</p>
                         <p style="margin-top: 2rem; font-size: 5rem;">🗺️</p>
                         <p style="color: var(--text-dim); margin-top: 1rem;">
@@ -622,6 +715,7 @@
             };
             
             newCard.innerHTML = `
+                <button class="delete-btn" onclick="showDeleteConfirmation(this)">×</button>
                 <div class="map-thumbnail">${icons[type] || '🗺️'}</div>
                 <div class="map-info">
                     <h3>${name}</h3>
@@ -654,6 +748,57 @@
             });
             
             return await response.json();
+        }
+
+        // Show delete confirmation overlay
+        function showDeleteConfirmation(button) {
+            // Prevent card click event
+            event.stopPropagation();
+            
+            const mapCard = button.closest('.map-card');
+            const mapName = mapCard.querySelector('h3').textContent;
+            
+            // Create confirmation overlay
+            const confirmationDiv = document.createElement('div');
+            confirmationDiv.className = 'delete-confirmation';
+            confirmationDiv.innerHTML = `
+                <p>Are you sure you want to delete this map?</p>
+                <div class="confirmation-buttons">
+                    <button class="confirm-btn" onclick="confirmDelete(this)">Yes</button>
+                    <button class="cancel-btn" onclick="cancelDelete(this)">Cancel</button>
+                </div>
+            `;
+            
+            mapCard.appendChild(confirmationDiv);
+        }
+
+        // Confirm deletion
+        function confirmDelete(button) {
+            const mapCard = button.closest('.map-card');
+            
+            // Add fade out animation
+            mapCard.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            mapCard.style.opacity = '0';
+            mapCard.style.transform = 'scale(0.9)';
+            
+            // Remove from DOM after animation
+            setTimeout(() => {
+                mapCard.remove();
+            }, 300);
+            
+            // Future: Call API to delete from backend
+            // deleteMapFromAPI(mapId);
+        }
+
+        // Cancel deletion
+        function cancelDelete(button) {
+            const confirmationDiv = button.closest('.delete-confirmation');
+            confirmationDiv.remove();
+        }
+
+        // Delete map function (keeping for backward compatibility)
+        function deleteMap(button) {
+            showDeleteConfirmation(button);
         }
     </script>
 </body>

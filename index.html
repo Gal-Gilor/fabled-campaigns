@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fabled Campaigns - Your Epic D&D Adventure Awaits</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -21,30 +22,11 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background-color: var(--bg-dark);
             color: var(--text-light);
             line-height: 1.6;
             overflow-x: hidden;
-        }
-
-        /* Animated background */
-        .bg-animation {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            background: linear-gradient(45deg, #1a1a1a, #2a2a2a, #1a1a1a);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
-        }
-
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
         }
 
         /* Navigation */
@@ -68,8 +50,9 @@
         }
 
         .logo {
+            font-family: 'Cinzel', serif;
             font-size: 1.5rem;
-            font-weight: bold;
+            font-weight: 600;
             color: var(--secondary-color);
             text-decoration: none;
             transition: transform 0.3s ease;
@@ -107,7 +90,9 @@
         }
 
         .hero-content h1 {
+            font-family: 'Cinzel', serif;
             font-size: 4rem;
+            font-weight: 600;
             margin-bottom: 1rem;
             background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
             -webkit-background-clip: text;
@@ -155,8 +140,10 @@
         }
 
         .section-title {
+            font-family: 'Cinzel', serif;
             text-align: center;
             font-size: 3rem;
+            font-weight: 400;
             margin-bottom: 3rem;
             color: var(--secondary-color);
         }
@@ -181,14 +168,37 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
+        .feature-card-link {
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+        }
+
+        .feature-card-link:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .feature-card-link h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--secondary-color);
+            font-weight: 400;
+        }
+
+        .feature-card-link:hover h3 {
+            color: var(--text-light);
+        }
+
         .feature-icon {
             font-size: 3rem;
             margin-bottom: 1rem;
         }
 
         .feature-card h3 {
+            font-family: 'Cinzel', serif;
             color: var(--secondary-color);
             margin-bottom: 1rem;
+            font-weight: 400;
         }
 
         /* Coming Soon Section */
@@ -253,15 +263,14 @@
     </style>
 </head>
 <body>
-    <div class="bg-animation"></div>
-    
+
     <nav>
         <div class="container">
             <a href="#" class="logo">⚔️ Fabled Campaigns</a>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
-                <li><a href="pages/maps">Features</a></li>
-                <li><a href="#api">API</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="pages/maps.html">Maps</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
@@ -277,7 +286,7 @@
 
     <section id="features" class="features">
         <div class="container">
-            <h2 class="section-title">Forge Your Legend</h2>
+            <h2 class="section-title">Forge Your Path</h2>
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">📜</div>
@@ -289,16 +298,16 @@
                     <h3>Character Vault</h3>
                     <p>Build and store unlimited characters. Track stats, inventory, and backstories in one place.</p>
                 </div>
-                <div class="feature-card">
+                <a href="pages/maps.html" class="feature-card feature-card-link">
                     <div class="feature-icon">🗺️</div>
                     <h3>Interactive Maps</h3>
                     <p>Design custom maps for your adventures. Perfect for virtual tabletop sessions.</p>
-                </div>
+                </a>
             </div>
         </div>
     </section>
 
-    <section id="api" class="coming-soon">
+    <!-- <section id="api" class="coming-soon">
         <div class="container">
             <h2 class="section-title">API Coming Soon</h2>
             <p>Integrate Fabled Campaigns into your own tools and applications</p>
@@ -316,7 +325,7 @@ Authorization: Bearer YOUR_API_KEY<br><br>
                 </code>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <footer>
         <p>&copy; 2025 Fabled Campaigns. Roll for initiative!</p>

@@ -1,5 +1,6 @@
 {
   "routes": [
-    { "src": "/maps", "dest": "/pages/maps.html" }
+    { "src": "/maps", "dest": "/pages/maps.html" },
+    { "src": "/", "dest": "/index.html" }
   ]
 }
