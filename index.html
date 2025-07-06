@@ -34,55 +34,6 @@
             line-height: 1.6;
         }
 
-        /* Navigation */
-        nav {
-            background-color: rgba(248, 250, 252, 0.95);
-            backdrop-filter: blur(12px);
-            padding: 1rem 2rem;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid var(--neutral-200);
-        }
-
-        nav .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-family: 'Cinzel', serif;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--primary-blue);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .logo:hover {
-            color: var(--accent-gold);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--neutral-600);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary-blue);
-        }
 
         .hero {
             min-height: 100vh;
@@ -91,10 +42,9 @@
             justify-content: center;
             text-align: center;
             padding: 2rem;
-            margin-top: 60px;
             background: 
                 linear-gradient(135deg, rgba(219, 234, 254, 0.8) 0%, rgba(248, 250, 252, 0.75) 100%),
-                url('images/hero/hero-bg.webp') center/cover no-repeat;
+                url('./images/hero/hero-bg.webp') center/cover no-repeat;
             position: relative;
         }
 
@@ -207,18 +157,6 @@
             display: block;
         }
 
-        .feature-icon {
-            width: 56px;
-            height: 56px;
-            background: linear-gradient(135deg, var(--accent-gold), var(--light-gold));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
         .feature-card h3 {
             font-family: 'Cinzel', serif;
             color: var(--neutral-900);
@@ -232,6 +170,58 @@
             line-height: 1.7;
         }
 
+        /* Shared styles for image-based feature cards */
+        .feature-card.map-feature,
+        .feature-card.journey-feature {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            text-align: center;
+            padding: 2rem;
+            min-height: 320px;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Shared overlay for text contrast */
+        .feature-card.map-feature::before,
+        .feature-card.journey-feature::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(248, 250, 252, 0.95) 0%, rgba(248, 250, 252, 0.85) 40%, transparent 100%);
+            border-radius: 12px;
+            z-index: 1;
+        }
+
+        /* Shared text styling */
+        .feature-card.map-feature h3,
+        .feature-card.journey-feature h3 {
+            position: relative;
+            z-index: 2;
+            color: var(--neutral-900);
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+            margin-bottom: 0;
+            font-size: 1.75rem;
+            margin-top: 0;
+            font-weight: 700;
+        }
+
+        /* Individual background images */
+        .feature-card.map-feature {
+            background-image: url('images/features/chart-realm.webp');
+        }
+
+        .feature-card.journey-feature {
+            background-image: url('images/features/define-journey.webp');
+        }
+                
         /* Call to Action Section */
         .cta-section {
             padding: 6rem 2rem;
@@ -339,9 +329,6 @@
                 font-size: 1.2rem;
             }
             
-            .nav-links {
-                display: none;
-            }
 
             .footer-links {
                 flex-direction: column;
@@ -383,18 +370,6 @@
 </head>
 <body>
 
-    <nav>
-        <div class="container">
-            <a href="#" class="logo">Fabled Campaigns</a>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="pages/maps.html">Chart Your Realm</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
-
     <section id="home" class="hero">
         <div class="hero-content">
             <div class="beta-badge">
@@ -411,15 +386,11 @@
             <h2 class="section-title">Craft Epic Campaigns</h2>
             <p class="section-subtitle">Focus on adventure, storytelling, and the moments that make your campaigns legendary.</p>
             <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">📋</div>
+                <div class="feature-card journey-feature">
                     <h3>Define the Journey</h3>
-                    <p>Organize your campaigns with clarity. Track story beats, manage NPCs, and keep your world-building notes in one accessible place.</p>
                 </div>
-                <a href="pages/maps.html" class="feature-card feature-card-link">
-                    <div class="feature-icon">🗺️</div>
+                <a href="pages/maps.html" class="feature-card feature-card-link map-feature">
                     <h3>Chart Your Realm</h3>
-                    <p>Bring your world to life with custom maps.</p>
                 </a>
             </div>
         </div>
