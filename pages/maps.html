@@ -501,6 +501,26 @@
                 justify-content: center;
             }
         }
+
+        /* Beta badge */
+        .beta-badge {
+            background: linear-gradient(135deg, var(--primary-blue), var(--light-blue));
+            color: white;
+            padding: 0.5rem 1.25rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            display: inline-block;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+            backdrop-filter: blur(8px);
+        }
+
+        .beta-badge span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
     </style>
 </head>
 <body>
@@ -518,6 +538,9 @@
 
     <main class="main-content">
         <div class="page-header">
+            <div class="beta-badge">
+                <span>Early Access • Site Under Construction</span>
+            </div>
             <h1>Chart Your Realm</h1>
             <p>Design maps that bring your adventures to life</p>
         </div>
