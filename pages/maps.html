@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chart Your Realm - Fabled Campaigns</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS with color-blind friendly palette -->
+    <link rel="stylesheet" href="/css/filter-colors.css">
+
     <style>
         * {
             margin: 0;
@@ -107,30 +111,22 @@
             border: 1px solid var(--neutral-200);
         }
 
-        .creator-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2.5rem;
-        }
-
-        .creator-header h2 {
-            font-family: 'Cinzel', serif;
-            color: var(--neutral-900);
-            font-size: 2rem;
-            font-weight: 600;
-        }
-
         .create-form {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
             margin-bottom: 2.5rem;
         }
 
         .form-group {
             display: flex;
             flex-direction: column;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
         }
 
         .form-group label {
@@ -181,7 +177,10 @@
             align-items: center;
             gap: 0.5rem;
             margin: 0 auto;
+            margin-top: 2rem; 
+            margin-bottom: 3rem; 
             font-family: 'Roboto', sans-serif;
+            
         }
 
         .generate-btn:hover {
@@ -247,31 +246,39 @@
             font-weight: 600;
         }
 
-        .filter-tabs {
+        /* FILTER DROPDOWN STYLES */
+        .filter-section-dropdown {
             display: flex;
-            gap: 0.5rem;
-            background-color: var(--neutral-100);
-            padding: 0.25rem;
-            border-radius: 8px;
+            align-items: center;
         }
 
-        .filter-tab {
-            background-color: transparent;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            color: var(--neutral-600);
+        .filter-dropdown-group {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .filter-dropdown {
+            background-color: var(--neutral-50);
+            border: 2px solid var(--neutral-200);
+            border-radius: 8px;
+            padding: 0.5rem 0.75rem;
+            color: var(--neutral-700);
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-family: 'Roboto', sans-serif;
-            font-weight: 500;
-            font-size: 0.9rem;
+            min-width: 140px;
         }
 
-        .filter-tab.active {
+        .filter-dropdown:focus {
+            outline: none;
+            border-color: var(--primary-blue);
             background-color: white;
-            color: var(--primary-blue);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .filter-dropdown:hover {
+            border-color: var(--primary-blue);
         }
 
         .maps-grid {
@@ -314,12 +321,27 @@
         .map-info h3 {
             font-family: 'Cinzel', serif;
             color: var(--neutral-900);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
             font-weight: 600;
             font-size: 1.2rem;
         }
 
-        .map-info p {
+        .map-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .map-tag {
+            padding: 0.25rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            border: 1px solid;
+        }
+
+        .map-description {
             color: var(--neutral-600);
             font-size: 0.9rem;
             margin-bottom: 1rem;
@@ -333,6 +355,7 @@
             font-size: 0.8rem;
             color: var(--neutral-600);
         }
+
 
         .delete-btn {
             position: absolute;
@@ -476,12 +499,24 @@
 
             .gallery-header {
                 flex-direction: column;
-                gap: 1rem;
+                gap: 1.5rem;
                 align-items: stretch;
             }
-
-            .filter-tabs {
-                justify-content: center;
+            
+            /* Adjustments for filter section */
+            .filter-dropdown-group {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .filter-dropdown {
+                width: 100%;
+                min-width: auto;
+            }
+            
+            /* Add this line: */
+            .form-row {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -523,40 +558,54 @@
 
         <!-- Map Creator -->
         <section class="map-creator">
-            <div class="creator-header">
-                <h2>Create New Map</h2>
-            </div>
-            
+        
             <form id="mapForm" class="create-form">
                 <div class="form-group">
-                    <label for="mapName">Map Name</label>
+                    <label for="mapName">Name</label>
                     <input type="text" id="mapName" placeholder="The Whispering Woods" required>
                 </div>
                 
-                <div class="form-group">
-                    <label for="mapType">Map Type</label>
-                    <select id="mapType" required>
-                        <option value="battle">Battle Map</option>
-                        <option value="dungeon">Dungeon</option>
-                        <option value="city">City</option>
-                        <option value="world">World Map</option>
-                        <option value="building">Building Interior</option>
-                    </select>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="terrainType">Terrain</label>
+                        <select id="terrainType" required>
+                            <option value="forest" selected>Forest</option>
+                            <option value="grassland">Grassland</option>
+                            <option value="mountain">Mountain</option>
+                            <option value="desert">Desert</option>
+                            <option value="tundra">Tundra</option>
+                            <option value="jungle">Jungle</option>
+                            <option value="swamp">Swamp</option>
+                            <option value="ocean">Ocean</option>
+                            <option value="underground">Underground</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="locationType">Setting</label>
+                        <select id="locationType" required>
+                            <option value="tavern" selected>Tavern</option>
+                            <option value="village">Village</option>
+                            <option value="fortress">Fortress</option>
+                            <option value="temple">Temple</option>
+                            <option value="ruins">Ruins</option>
+                            <option value="cave">Cave</option>
+                            <option value="campsite">Campsite</option>
+                            <option value="trading-post">Trading Post</option>
+                        </select>
+                    </div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="mapSize">Grid Size</label>
+                    <label for="mapSize">Size</label>
                     <select id="mapSize">
-                        <option value="20x20">20×20</option>
-                        <option value="30x30" selected>30×30</option>
-                        <option value="40x40">40×40</option>
-                        <option value="custom">Custom</option>
+                        <option value="size-20x20">20×20</option>
+                        <option value="size-30x30" selected>30×30</option>
+                        <option value="size-40x40">40×40</option>
                     </select>
                 </div>
                 
-
-                
-                <div class="form-group" style="grid-column: span 2;">
+                <div class="form-group">
                     <label for="mapDescription">You step into...</label>
                     <textarea id="mapDescription" placeholder="A mystical forest clearing with ancient stone circles, winding paths, and hidden alcoves perfect for ambushes..." required></textarea>
                 </div>
@@ -577,51 +626,92 @@
         <!-- Maps Gallery -->
         <section class="maps-gallery">
             <div class="gallery-header">
-                <h2>Your Map Collection</h2>
-                <div class="filter-tabs">
-                    <button class="filter-tab active" data-filter="all">All Maps</button>
-                    <button class="filter-tab" data-filter="battle">Battle</button>
-                    <button class="filter-tab" data-filter="dungeon">Dungeon</button>
-                    <button class="filter-tab" data-filter="world">World</button>
+                <h2>Collections</h2>
+                <div class="filter-section-dropdown">
+                    <div class="filter-dropdown-group">
+                        <select class="filter-dropdown" data-type="setting">
+                            <option value="all">All Settings</option>
+                            <option value="tavern">Tavern</option>
+                            <option value="village">Village</option>
+                            <option value="fortress">Fortress</option>
+                            <option value="temple">Temple</option>
+                            <option value="ruins">Ruins</option>
+                            <option value="cave">Cave</option>
+                            <option value="campsite">Campsite</option>
+                            <option value="trading-post">Trading Post</option>
+                        </select>
+                        
+                        <select class="filter-dropdown" data-type="terrain">
+                            <option value="all">All Terrains</option>
+                            <option value="forest">Forest</option>
+                            <option value="grassland">Grassland</option>
+                            <option value="mountain">Mountain</option>
+                            <option value="desert">Desert</option>
+                            <option value="tundra">Tundra</option>
+                            <option value="jungle">Jungle</option>
+                            <option value="swamp">Swamp</option>
+                            <option value="ocean">Ocean</option>
+                            <option value="underground">Underground</option>
+                        </select>
+                        
+                        <select class="filter-dropdown" data-type="size">
+                            <option value="all">All Sizes</option>
+                            <option value="size-20x20">20×20</option>
+                            <option value="size-30x30">30×30</option>
+                            <option value="size-40x40">40×40</option>
+                        </select>
+                    </div>
                 </div>
             </div>
             
             <div class="maps-grid" id="mapsGrid">
-                <!-- Example map cards -->
-                <div class="map-card" data-type="battle">
+                <!-- Example map cards with new tag system -->
+                <div class="map-card" data-setting="fortress" data-terrain="mountain" data-size="size-30x30">
                     <button class="delete-btn" onclick="showDeleteConfirmation(this)">×</button>
                     <div class="map-thumbnail">🏰</div>
                     <div class="map-info">
                         <h3>Riverside Keep</h3>
-                        <p>A strategic fortress overlooking the merchant route</p>
+                        <div class="map-tags">
+                            <span class="map-tag setting fortress">Fortress</span>
+                            <span class="map-tag terrain mountain">Mountain</span>
+                            <span class="map-tag size size-30x30">30×30</span>
+                        </div>
+                        <p class="map-description">A strategic fortress overlooking the merchant route with crumbling stone walls</p>
                         <div class="map-meta">
-                            <span>Battle Map • 30×30</span>
                             <span>3 days ago</span>
                         </div>
                     </div>
                 </div>
-                
-                <div class="map-card" data-type="dungeon">
+
+                <div class="map-card" data-setting="temple" data-terrain="underground" data-size="size-40x40">
                     <button class="delete-btn" onclick="showDeleteConfirmation(this)">×</button>
-                    <div class="map-thumbnail">🕳️</div>
+                    <div class="map-thumbnail">⛪</div>
                     <div class="map-info">
                         <h3>Sunken Crypts</h3>
-                        <p>Ancient burial chambers beneath the old cathedral</p>
+                        <div class="map-tags">
+                            <span class="map-tag setting temple">Temple</span>
+                            <span class="map-tag terrain underground">Underground</span>
+                            <span class="map-tag size size-40x40">40×40</span>
+                        </div>
+                        <p class="map-description">Ancient burial chambers beneath the old cathedral with mysterious carvings</p>
                         <div class="map-meta">
-                            <span>Dungeon • 40×40</span>
                             <span>1 week ago</span>
                         </div>
                     </div>
                 </div>
-                
-                <div class="map-card" data-type="world">
+
+                <div class="map-card" data-setting="village" data-terrain="forest" data-size="size-20x20">
                     <button class="delete-btn" onclick="showDeleteConfirmation(this)">×</button>
-                    <div class="map-thumbnail">🌍</div>
+                    <div class="map-thumbnail">🏘️</div>
                     <div class="map-info">
-                        <h3>Northern Territories</h3>
-                        <p>The frontier lands where civilization meets the wild</p>
+                        <h3>Whisperleaf Village</h3>
+                        <div class="map-tags">
+                            <span class="map-tag setting village">Village</span>
+                            <span class="map-tag terrain forest">Forest</span>
+                            <span class="map-tag size size-20x20">20×20</span>
+                        </div>
+                        <p class="map-description">A peaceful woodland settlement with treehouses and winding paths</p>
                         <div class="map-meta">
-                            <span>World Map • Custom</span>
                             <span>2 weeks ago</span>
                         </div>
                     </div>
@@ -689,26 +779,42 @@
         });
 
         // Filter tabs
-        const filterTabs = document.querySelectorAll('.filter-tab');
+        const filterDropdowns = document.querySelectorAll('.filter-dropdown');
         const mapCards = document.querySelectorAll('.map-card');
 
-        filterTabs.forEach(tab => {
-            tab.addEventListener('click', function() {
-                // Update active tab
-                filterTabs.forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
+        let activeFilters = {
+            setting: 'all',
+            terrain: 'all', 
+            size: 'all'
+        };
+
+        filterDropdowns.forEach(dropdown => {
+            dropdown.addEventListener('change', function() {
+                const filterType = this.dataset.type;
+                const filterValue = this.value;
                 
-                // Filter maps
-                const filter = this.dataset.filter;
-                mapCards.forEach(card => {
-                    if (filter === 'all' || card.dataset.type === filter) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
+                activeFilters[filterType] = filterValue;
+                filterMaps();
             });
         });
+
+        function filterMaps() {
+            mapCards.forEach(card => {
+                const cardSetting = card.dataset.setting;
+                const cardTerrain = card.dataset.terrain;
+                const cardSize = card.dataset.size;
+                
+                const matchesSetting = activeFilters.setting === 'all' || cardSetting === activeFilters.setting;
+                const matchesTerrain = activeFilters.terrain === 'all' || cardTerrain === activeFilters.terrain;
+                const matchesSize = activeFilters.size === 'all' || cardSize === activeFilters.size;
+                
+                if (matchesSetting && matchesTerrain && matchesSize) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
 
         // Add new map to gallery
         function addMapToGallery(name, type) {

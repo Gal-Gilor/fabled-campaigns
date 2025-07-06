@@ -1,0 +1,294 @@
+/**
+ * FABLED CAMPAIGNS - FILTER COLOR SYSTEM
+ * Color-blind friendly palettes for map filtering
+ * 
+ * Color Philosophy:
+ * - Settings (Blues): Structural/Location-based
+ * - Terrains (Greens/Earth): Natural/Environmental  
+ * - Sizes (Orange/Red): Intensity/Scale-based
+ */
+
+/* ==========================================================================
+   SETTINGS - Blue Family (Structural/Location)
+   ========================================================================== */
+
+.tag-setting, .map-tag.setting {
+    font-weight: 500;
+}
+
+/* Tavern - Light Blue */
+.tag-setting.tavern, .map-tag.setting.tavern { 
+    background: #dbeafe; 
+    border-color: #3b82f6; 
+    color: #1e40af; 
+}
+.tag-setting.tavern.active { 
+    background: #3b82f6; 
+    border-color: #3b82f6; 
+    color: white; 
+}
+
+/* Village - Sky Blue */
+.tag-setting.village, .map-tag.setting.village { 
+    background: #e0f2fe; 
+    border-color: #0284c7; 
+    color: #0c4a6e; 
+}
+.tag-setting.village.active { 
+    background: #0284c7; 
+    border-color: #0284c7; 
+    color: white; 
+}
+
+/* Fortress - Indigo */
+.tag-setting.fortress, .map-tag.setting.fortress { 
+    background: #e0e7ff; 
+    border-color: #6366f1; 
+    color: #3730a3; 
+}
+.tag-setting.fortress.active { 
+    background: #6366f1; 
+    border-color: #6366f1; 
+    color: white; 
+}
+
+/* Temple - Purple */
+.tag-setting.temple, .map-tag.setting.temple { 
+    background: #ede9fe; 
+    border-color: #8b5cf6; 
+    color: #581c87; 
+}
+.tag-setting.temple.active { 
+    background: #8b5cf6; 
+    border-color: #8b5cf6; 
+    color: white; 
+}
+
+/* Ruins - Violet */
+.tag-setting.ruins, .map-tag.setting.ruins { 
+    background: #f3e8ff; 
+    border-color: #a855f7; 
+    color: #6b21a8; 
+}
+.tag-setting.ruins.active { 
+    background: #a855f7; 
+    border-color: #a855f7; 
+    color: white; 
+}
+
+/* Cave - Light Purple */
+.tag-setting.cave, .map-tag.setting.cave { 
+    background: #fdf4ff; 
+    border-color: #c084fc; 
+    color: #7c2d92; 
+}
+.tag-setting.cave.active { 
+    background: #c084fc; 
+    border-color: #c084fc; 
+    color: white; 
+}
+
+/* Campsite - Slate */
+.tag-setting.campsite, .map-tag.setting.campsite { 
+    background: #f1f5f9; 
+    border-color: #64748b; 
+    color: #334155; 
+}
+.tag-setting.campsite.active { 
+    background: #64748b; 
+    border-color: #64748b; 
+    color: white; 
+}
+
+/* Trading Post - Dark Slate */
+.tag-setting.trading-post, .map-tag.setting.trading-post { 
+    background: #f8fafc; 
+    border-color: #475569; 
+    color: #1e293b; 
+}
+.tag-setting.trading-post.active { 
+    background: #475569; 
+    border-color: #475569; 
+    color: white; 
+}
+
+/* ==========================================================================
+   TERRAINS - Green/Earth Family (Natural/Environmental)
+   ========================================================================== */
+
+.tag-terrain, .map-tag.terrain {
+    font-weight: 500;
+}
+
+/* Forest - Emerald Green */
+.tag-terrain.forest, .map-tag.terrain.forest { 
+    background: #d1fae5; 
+    border-color: #10b981; 
+    color: #047857; 
+}
+.tag-terrain.forest.active { 
+    background: #10b981; 
+    border-color: #10b981; 
+    color: white; 
+}
+
+/* Grassland - Lime Green */
+.tag-terrain.grassland, .map-tag.terrain.grassland { 
+    background: #dcfce7; 
+    border-color: #22c55e; 
+    color: #15803d; 
+}
+.tag-terrain.grassland.active { 
+    background: #22c55e; 
+    border-color: #22c55e; 
+    color: white; 
+}
+
+/* Mountain - Stone Gray */
+.tag-terrain.mountain, .map-tag.terrain.mountain { 
+    background: #f3f4f6; 
+    border-color: #6b7280; 
+    color: #374151; 
+}
+.tag-terrain.mountain.active { 
+    background: #6b7280; 
+    border-color: #6b7280; 
+    color: white; 
+}
+
+/* Desert - Sandy Amber */
+.tag-terrain.desert, .map-tag.terrain.desert { 
+    background: #fef3c7; 
+    border-color: #f59e0b; 
+    color: #92400e; 
+}
+.tag-terrain.desert.active { 
+    background: #f59e0b; 
+    border-color: #f59e0b; 
+    color: white; 
+}
+
+/* Tundra - Ice Blue */
+.tag-terrain.tundra, .map-tag.terrain.tundra { 
+    background: #e0f2fe; 
+    border-color: #0ea5e9; 
+    color: #0c4a6e; 
+}
+.tag-terrain.tundra.active { 
+    background: #0ea5e9; 
+    border-color: #0ea5e9; 
+    color: white; 
+}
+
+/* Jungle - Deep Green */
+.tag-terrain.jungle, .map-tag.terrain.jungle { 
+    background: #bbf7d0; 
+    border-color: #059669; 
+    color: #065f46; 
+}
+.tag-terrain.jungle.active { 
+    background: #059669; 
+    border-color: #059669; 
+    color: white; 
+}
+
+/* Swamp - Murky Green */
+.tag-terrain.swamp, .map-tag.terrain.swamp { 
+    background: #ecfdf5; 
+    border-color: #16a34a; 
+    color: #14532d; 
+}
+.tag-terrain.swamp.active { 
+    background: #16a34a; 
+    border-color: #16a34a; 
+    color: white; 
+}
+
+/* Ocean - Deep Blue */
+.tag-terrain.ocean, .map-tag.terrain.ocean { 
+    background: #dbeafe; 
+    border-color: #2563eb; 
+    color: #1e3a8a; 
+}
+.tag-terrain.ocean.active { 
+    background: #2563eb; 
+    border-color: #2563eb; 
+    color: white; 
+}
+
+/* Underground - Earth Brown */
+.tag-terrain.underground, .map-tag.terrain.underground { 
+    background: #f5f5f4; 
+    border-color: #78716c; 
+    color: #44403c; 
+}
+.tag-terrain.underground.active { 
+    background: #78716c; 
+    border-color: #78716c; 
+    color: white; 
+}
+
+/* ==========================================================================
+   SIZES - Orange/Red Family (Intensity/Scale)
+   ========================================================================== */
+
+.tag-size, .map-tag.size {
+    font-weight: 500;
+}
+
+/* Small (20×20) - Light Orange */
+.tag-size.size-20x20, .map-tag.size.size-20x20 { 
+    background: #fed7aa; 
+    border-color: #fb923c; 
+    color: #c2410c; 
+}
+.tag-size.size-20x20.active { 
+    background: #fb923c; 
+    border-color: #fb923c; 
+    color: white; 
+}
+
+/* Medium (30×30) - Red */
+.tag-size.size-30x30, .map-tag.size.size-30x30 { 
+    background: #fecaca; 
+    border-color: #f87171; 
+    color: #dc2626; 
+}
+.tag-size.size-30x30.active { 
+    background: #f87171; 
+    border-color: #f87171; 
+    color: white; 
+}
+
+/* Large (40×40) - Amber */
+.tag-size.size-40x40, .map-tag.size.size-40x40 { 
+    background: #fde68a; 
+    border-color: #fbbf24; 
+    color: #d97706; 
+}
+.tag-size.size-40x40.active { 
+    background: #fbbf24; 
+    border-color: #fbbf24; 
+    color: white; 
+}
+
+/* ==========================================================================
+   ACCESSIBILITY & UTILITIES
+   ========================================================================== */
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .tag-setting, .tag-terrain, .tag-size,
+    .map-tag.setting, .map-tag.terrain, .map-tag.size {
+        border-width: 3px;
+        font-weight: 600;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .tag-setting, .tag-terrain, .tag-size,
+    .map-tag.setting, .map-tag.terrain, .map-tag.size {
+        transition: none;
+    }
+}
