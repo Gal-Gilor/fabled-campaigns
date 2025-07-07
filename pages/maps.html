@@ -73,7 +73,6 @@
             color: var(--accent-gold);
         }
 
-
         /* Main content */
         .main-content {
             margin-top: 80px;
@@ -180,7 +179,6 @@
             margin-top: 2rem; 
             margin-bottom: 3rem; 
             font-family: 'Roboto', sans-serif;
-            
         }
 
         .generate-btn:hover {
@@ -195,6 +193,82 @@
         .generate-btn.loading {
             opacity: 0.8;
             cursor: not-allowed;
+        }
+
+        /* Shared Action Button Styles */
+        .action-btn {
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Roboto', sans-serif;
+            text-decoration: none;
+            width: auto;
+            flex: none;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .action-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Download Button - Blue (matching schema) */
+        .download-btn {
+            background: linear-gradient(135deg, var(--primary-blue), var(--light-blue));
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .download-btn:hover {
+            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.3);
+        }
+
+        /* Generate Button - Blue */
+        .generate-btn {
+            background: linear-gradient(135deg, var(--primary-blue), var(--light-blue));
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .generate-btn:hover {
+            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.3);
+        }
+
+        /* Special styling for the main generate button (not in actions) */
+        #generateBtn {
+            margin: 0 auto;
+            margin-top: 2rem; 
+            margin-bottom: 3rem;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            display: flex;
+        }
+
+        /* Action buttons container */
+        .map-actions {
+            display: flex !important;
+            flex-direction: row !important;
+            gap: 1rem;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: nowrap !important;
+            margin-top: 1.5rem;
+            width: 100%;
+        }
+
+        .map-actions .action-btn {
+            flex-shrink: 0;
+            white-space: nowrap;
+            min-width: auto;
+            max-width: none;
         }
 
         /* Map Preview Area */
@@ -213,6 +287,31 @@
 
         .map-preview.has-map {
             border: 2px solid var(--pale-blue);
+            padding: 2rem;
+        }
+
+        /* Hover download for generated map */
+        .map-preview.has-map .map-image-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .map-preview.has-map .map-image-container:hover::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 40px;
+            height: 40px;
+            background: var(--primary-blue);
+            border-radius: 50%;
+            opacity: 0.9;
+            z-index: 10;
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M12 15.577l-3.539-3.538.707-.707L12 14.164l2.832-2.832.707.707L12 15.577zM6 20c-.552 0-1-.448-1-1s.448-1 1-1h12c.552 0 1 .448 1 1s-.448 1-1 1H6z'/%3E%3Cpath d='M12 3v9h-1V3h1z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 20px 20px;
         }
 
         .preview-placeholder {
@@ -303,6 +402,50 @@
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
         }
 
+        /* Download overlay on hover */
+        .map-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(37, 99, 235, 0.9);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .map-card:hover::before {
+            opacity: 1;
+        }
+
+        .map-card::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 6;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='%232563eb'%3E%3Cpath d='M12 15.577l-3.539-3.538.707-.707L12 14.164l2.832-2.832.707.707L12 15.577zM6 20c-.552 0-1-.448-1-1s.448-1 1-1h12c.552 0 1 .448 1 1s-.448 1-1 1H6z'/%3E%3Cpath d='M12 3v9h-1V3h1z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 20px 20px;
+        }
+
+        .map-card:hover::after {
+            opacity: 1;
+        }
+
         .map-thumbnail {
             width: 100%;
             height: 200px;
@@ -355,7 +498,6 @@
             font-size: 0.8rem;
             color: var(--neutral-600);
         }
-
 
         .delete-btn {
             position: absolute;
@@ -483,41 +625,46 @@
             box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
+        .page-header h1 {
+            font-size: 2.25rem;
+        }
 
-            .page-header h1 {
-                font-size: 2.25rem;
-            }
+        .maps-grid {
+            grid-template-columns: 1fr;
+        }
 
-            .maps-grid {
-                grid-template-columns: 1fr;
-            }
+        .gallery-header {
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: stretch;
+        }
+        
+        /* Adjustments for filter section */
+        .filter-dropdown-group {
+            flex-direction: column;
+            width: 100%;
+        }
+        
+        .filter-dropdown {
+            width: 100%;
+            min-width: auto;
+        }
+        
+        /* Add this line: */
+        .form-row {
+            grid-template-columns: 1fr;
+        }
 
-            .gallery-header {
-                flex-direction: column;
-                gap: 1.5rem;
-                align-items: stretch;
-            }
-            
-            /* Adjustments for filter section */
-            .filter-dropdown-group {
-                flex-direction: column;
-                width: 100%;
-            }
-            
-            .filter-dropdown {
-                width: 100%;
-                min-width: auto;
-            }
-            
-            /* Add this line: */
-            .form-row {
-                grid-template-columns: 1fr;
-            }
+        .map-actions {
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .map-actions .action-btn {
+            width: 100%;
+            max-width: 280px;
+            justify-content: center;
         }
 
         /* Beta badge */
@@ -611,7 +758,7 @@
                 </div>
             </form>
             
-            <button type="button" id="generateBtn" class="generate-btn">
+            <button type="button" id="generateBtn" class="action-btn generate-btn">
                 <span>Roll to Quest</span>
             </button>
             
@@ -666,8 +813,8 @@
             
             <div class="maps-grid" id="mapsGrid">
                 <!-- Example map cards with new tag system -->
-                <div class="map-card" data-setting="fortress" data-terrain="mountain" data-size="size-30x30">
-                    <button class="delete-btn" onclick="showDeleteConfirmation(this)">×</button>
+                <div class="map-card" data-setting="fortress" data-terrain="mountain" data-size="size-30x30" onclick="downloadSampleMap('riverside-keep')">
+                    <button class="delete-btn" onclick="event.stopPropagation(); showDeleteConfirmation(this)">×</button>
                     <div class="map-thumbnail">🏰</div>
                     <div class="map-info">
                         <h3>Riverside Keep</h3>
@@ -683,8 +830,8 @@
                     </div>
                 </div>
 
-                <div class="map-card" data-setting="temple" data-terrain="underground" data-size="size-40x40">
-                    <button class="delete-btn" onclick="showDeleteConfirmation(this)">×</button>
+                <div class="map-card" data-setting="temple" data-terrain="underground" data-size="size-40x40" onclick="downloadSampleMap('sunken-crypts')">
+                    <button class="delete-btn" onclick="event.stopPropagation(); showDeleteConfirmation(this)">×</button>
                     <div class="map-thumbnail">⛪</div>
                     <div class="map-info">
                         <h3>Sunken Crypts</h3>
@@ -700,8 +847,8 @@
                     </div>
                 </div>
 
-                <div class="map-card" data-setting="village" data-terrain="forest" data-size="size-20x20">
-                    <button class="delete-btn" onclick="showDeleteConfirmation(this)">×</button>
+                <div class="map-card" data-setting="village" data-terrain="forest" data-size="size-20x20" onclick="downloadSampleMap('whisperleaf-village')">
+                    <button class="delete-btn" onclick="event.stopPropagation(); showDeleteConfirmation(this)">×</button>
                     <div class="map-thumbnail">🏘️</div>
                     <div class="map-info">
                         <h3>Whisperleaf Village</h3>
@@ -724,6 +871,9 @@
     <button class="fab" title="Quick Create">+</button>
 
     <script>
+        // Global variable to store generated map data
+        let currentMapData = null;
+
         // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -744,6 +894,9 @@
             // Validate form
             const mapName = document.getElementById('mapName').value;
             const mapDescription = document.getElementById('mapDescription').value;
+            const terrainType = document.getElementById('terrainType').value;
+            const locationType = document.getElementById('locationType').value;
+            const mapSize = document.getElementById('mapSize').value;
             
             if (!mapName || !mapDescription) {
                 alert('Please fill in all required fields');
@@ -754,29 +907,198 @@
             generateBtn.classList.add('loading');
             generateBtn.innerHTML = '<span class="spinner"></span><span>Creating...</span>';
             
-            // Simulate API call
-            setTimeout(() => {
-                // Show success state
-                mapPreview.classList.add('has-map');
-                mapPreview.innerHTML = `
-                    <div style="text-align: center;">
-                        <h3 style="color: var(--primary-blue); margin-bottom: 1rem; font-family: 'Cinzel', serif;">Map Created Successfully!</h3>
-                        <p style="color: var(--neutral-600);">"${mapName}" is ready for your next session</p>
-                        <p style="margin-top: 2rem; font-size: 4rem;">🗺️</p>
-                        <p style="color: var(--neutral-600); margin-top: 1rem; font-style: italic;">
-                            Map generation powered by AI coming soon
-                        </p>
-                    </div>
-                `;
+            try {
+                // Here you would call your AI image generation API
+                // For now, we'll simulate the process
+                await simulateMapGeneration({
+                    name: mapName,
+                    description: mapDescription,
+                    terrain: terrainType,
+                    setting: locationType,
+                    size: mapSize
+                });
                 
+            } catch (error) {
+                console.error('Map generation failed:', error);
+                alert('Failed to generate map. Please try again.');
+            } finally {
                 // Reset button
                 generateBtn.classList.remove('loading');
                 generateBtn.innerHTML = '<span>Roll to Quest</span>';
-                
-                // Add to gallery
-                addMapToGallery(mapName, document.getElementById('mapType').value);
-            }, 2000);
+            }
         });
+
+        // Simulate map generation (replace with actual API call)
+        async function simulateMapGeneration(mapParams) {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    // Simulate receiving map data from API
+                    currentMapData = {
+                        id: Date.now().toString(),
+                        ...mapParams,
+                        imageUrl: generatePlaceholderImage(mapParams), // This would be the actual image URL from your AI service
+                        createdAt: new Date().toISOString()
+                    };
+                    
+                    showMapSuccess(currentMapData);
+                    resolve(currentMapData);
+                }, 2000);
+            });
+        }
+
+        // Generate placeholder image (replace with actual AI service)
+        function generatePlaceholderImage(mapParams) {
+            // This creates a simple placeholder image URL
+            // In production, this would be the URL returned from your AI image generation API
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = 800;
+            canvas.height = 600;
+            
+            // Create a simple map-like gradient
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, '#4ade80'); // Green
+            gradient.addColorStop(0.5, '#fbbf24'); // Gold
+            gradient.addColorStop(1, '#3b82f6'); // Blue
+            
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Add some text
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 24px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(mapParams.name, canvas.width / 2, canvas.height / 2);
+            ctx.font = '16px Arial';
+            ctx.fillText(`${mapParams.terrain} • ${mapParams.setting}`, canvas.width / 2, canvas.height / 2 + 40);
+            
+            return canvas.toDataURL('image/png');
+        }
+
+        // Show map generation success
+        function showMapSuccess(mapData) {
+            mapPreview.classList.add('has-map');
+            mapPreview.innerHTML = `
+                <div style="text-align: center; width: 100%;">
+                    <h3 style="color: var(--primary-blue); margin-bottom: 1rem; font-family: 'Cinzel', serif;">Map Created Successfully!</h3>
+                    <p style="color: var(--neutral-600);">"${mapData.name}" is ready for your next session</p>
+                    
+                    <!-- Map preview image with hover download -->
+                    <div style="margin: 2rem 0;">
+                        <div class="map-image-container" onclick="downloadMap('${mapData.id}')">
+                            <img src="${mapData.imageUrl}" alt="${mapData.name}" 
+                                 style="max-width: 100%; max-height: 300px; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); cursor: pointer;">
+                        </div>
+                    </div>
+                    
+                    <!-- Action buttons -->
+                    <div class="map-actions">
+                        <button onclick="downloadMap('${mapData.id}')" class="action-btn download-btn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 15.577l-3.539-3.538.707-.707L12 14.164l2.832-2.832.707.707L12 15.577zM6 20c-.552 0-1-.448-1-1s.448-1 1-1h12c.552 0 1 .448 1 1s-.448 1-1 1H6z"/>
+                                <path d="M12 3v9h-1V3h1z"/>
+                            </svg>
+                            Download Map
+                        </button>
+                        <button onclick="createNewMap()" class="action-btn generate-btn" style="margin: 0;">
+                            🎲 Reroll
+                        </button>
+                    </div>
+                    
+                    <p style="color: var(--neutral-600); margin-top: 2rem; font-style: italic; font-size: 0.9rem;">
+                        Map generation powered by AI
+                    </p>
+                </div>
+            `;
+            
+            // Add to gallery
+            addMapToGallery(mapData);
+        }
+
+        // Download map function
+        function downloadMap(mapId) {
+            if (!currentMapData || currentMapData.id !== mapId) {
+                alert('Map data not found');
+                return;
+            }
+            
+            try {
+                // Create download link
+                const link = document.createElement('a');
+                link.download = `${currentMapData.name.replace(/[^a-z0-9]/gi, '_')}_map.png`;
+                link.href = currentMapData.imageUrl;
+                
+                // Trigger download
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                // Show feedback
+                showDownloadFeedback();
+                
+            } catch (error) {
+                console.error('Download failed:', error);
+                alert('Failed to download map. Please try again.');
+            }
+        }
+
+        // Show download feedback
+        function showDownloadFeedback() {
+            const feedback = document.createElement('div');
+            feedback.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: var(--success-color);
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+                z-index: 1001;
+                font-family: 'Roboto', sans-serif;
+                font-weight: 500;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+            `;
+            feedback.textContent = '✅ Map downloaded successfully!';
+            
+            document.body.appendChild(feedback);
+            
+            // Animate in
+            setTimeout(() => {
+                feedback.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                feedback.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    document.body.removeChild(feedback);
+                }, 300);
+            }, 3000);
+        }
+
+        // Create new map function
+        function createNewMap() {
+            // Reset form
+            document.getElementById('mapForm').reset();
+            
+            // Reset preview
+            mapPreview.classList.remove('has-map');
+            mapPreview.innerHTML = `
+                <div class="preview-placeholder">
+                    <span class="icon">🗺️</span>
+                    <p>Your map will appear here once generated</p>
+                </div>
+            `;
+            
+            // Clear current map data
+            currentMapData = null;
+            
+            // Scroll to form
+            document.querySelector('.map-creator').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('mapName').focus();
+        }
 
         // Filter tabs
         const filterDropdowns = document.querySelectorAll('.filter-dropdown');
@@ -817,28 +1139,37 @@
         }
 
         // Add new map to gallery
-        function addMapToGallery(name, type) {
+        function addMapToGallery(mapData) {
             const mapsGrid = document.getElementById('mapsGrid');
             const newCard = document.createElement('div');
             newCard.className = 'map-card';
-            newCard.dataset.type = type;
+            newCard.dataset.setting = mapData.setting;
+            newCard.dataset.terrain = mapData.terrain;
+            newCard.dataset.size = mapData.size;
             
             const icons = {
-                battle: '⚔️',
-                dungeon: '🏚️',
-                city: '🏛️',
-                world: '🌍',
-                building: '🏠'
+                tavern: '🍺',
+                village: '🏘️',
+                fortress: '🏰',
+                temple: '⛪',
+                ruins: '🏛️',
+                cave: '🕳️',
+                campsite: '🏕️',
+                'trading-post': '🏪'
             };
             
             newCard.innerHTML = `
                 <button class="delete-btn" onclick="showDeleteConfirmation(this)">×</button>
-                <div class="map-thumbnail">${icons[type] || '🗺️'}</div>
+                <div class="map-thumbnail">${icons[mapData.setting] || '🗺️'}</div>
                 <div class="map-info">
-                    <h3>${name}</h3>
-                    <p>Freshly created ${type} map ready for adventure</p>
+                    <h3>${mapData.name}</h3>
+                    <div class="map-tags">
+                        <span class="map-tag setting ${mapData.setting}">${mapData.setting.charAt(0).toUpperCase() + mapData.setting.slice(1)}</span>
+                        <span class="map-tag terrain ${mapData.terrain}">${mapData.terrain.charAt(0).toUpperCase() + mapData.terrain.slice(1)}</span>
+                        <span class="map-tag size ${mapData.size}">${mapData.size.replace('size-', '')}</span>
+                    </div>
+                    <p class="map-description">${mapData.description.substring(0, 100)}...</p>
                     <div class="map-meta">
-                        <span>${type.charAt(0).toUpperCase() + type.slice(1)} Map</span>
                         <span>Just now</span>
                     </div>
                 </div>
@@ -892,17 +1223,76 @@
             confirmationDiv.remove();
         }
 
-        // Future API integration
-        async function generateMapWithAI(params) {
-            const response = await fetch('/api/maps/generate', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(params)
-            });
+        // Download sample map function
+        function downloadSampleMap(mapId) {
+            // Create a simple placeholder image for demo
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = 800;
+            canvas.height = 600;
             
-            return await response.json();
+            // Create different colors for different maps
+            const mapColors = {
+                'riverside-keep': { start: '#6b7280', end: '#3b82f6' },
+                'sunken-crypts': { start: '#1f2937', end: '#6366f1' },
+                'whisperleaf-village': { start: '#059669', end: '#10b981' }
+            };
+            
+            const colors = mapColors[mapId] || { start: '#6b7280', end: '#3b82f6' };
+            
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, colors.start);
+            gradient.addColorStop(1, colors.end);
+            
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Add map name
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 32px Arial';
+            ctx.textAlign = 'center';
+            ctx.shadowColor = 'rgba(0,0,0,0.5)';
+            ctx.shadowBlur = 4;
+            
+            const mapNames = {
+                'riverside-keep': 'Riverside Keep',
+                'sunken-crypts': 'Sunken Crypts',
+                'whisperleaf-village': 'Whisperleaf Village'
+            };
+            
+            ctx.fillText(mapNames[mapId] || 'Sample Map', canvas.width / 2, canvas.height / 2);
+            
+            // Download the image
+            const link = document.createElement('a');
+            link.download = `${mapNames[mapId] || 'sample-map'}.png`;
+            link.href = canvas.toDataURL('image/png');
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            showDownloadFeedback();
+        }
+        async function generateMapWithAI(params) {
+            try {
+                const response = await fetch('/api/maps/generate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(params)
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                return result;
+            } catch (error) {
+                console.error('API call failed:', error);
+                throw error;
+            }
         }
     </script>
 </body>
