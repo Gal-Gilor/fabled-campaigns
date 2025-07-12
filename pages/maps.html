@@ -349,7 +349,7 @@
             
             try {
                 // Call the real AI image generation API
-                const result = await generateMapWithAI({
+                const result = await generateMap({
                     name: mapData.name,
                     description: mapData.description,
                     terrain: mapData.terrain,
@@ -581,7 +581,7 @@
                 
                 try {
                     // Generate new map with same parameters
-                    const result = await generateMapWithAI({
+                    const result = await generateMap({
                         name: currentMapData.name,
                         description: currentMapData.description,
                         terrain: currentMapData.terrain,
@@ -870,12 +870,13 @@
          * @param {Object} params - Map generation parameters (name, description, terrain, etc.)
          * @returns {Promise<Object>} The generated map data from the API
          */
-        async function generateMapWithAI(params) {
+        async function generateMap(params) {
             try {
                 const response = await fetch('/api/maps/generate', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        'x-vercel-protection-bypass': window.VERCEL_BYPASS_SECRET || '',
                     },
                     body: JSON.stringify(params)
                 });
