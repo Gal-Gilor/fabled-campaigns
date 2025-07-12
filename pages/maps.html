@@ -8,685 +8,8 @@
 
     <!-- Custom CSS with color-blind friendly palette -->
     <link rel="stylesheet" href="/css/filter-colors.css">
+    <link rel="stylesheet" href="/css/maps.css">
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary-blue: #2563eb;
-            --light-blue: #3b82f6;
-            --pale-blue: #dbeafe;
-            --accent-gold: #f59e0b;
-            --light-gold: #fbbf24;
-            --pale-gold: #fef3c7;
-            --neutral-50: #f8fafc;
-            --neutral-100: #f1f5f9;
-            --neutral-200: #e2e8f0;
-            --neutral-600: #475569;
-            --neutral-700: #334155;
-            --neutral-900: #0f172a;
-            --success-color: #10b981;
-            --danger-color: #ef4444;
-        }
-
-        body {
-            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background-color: var(--neutral-50);
-            color: var(--neutral-700);
-            line-height: 1.6;
-        }
-
-        /* Navigation */
-        nav {
-            background-color: rgba(248, 250, 252, 0.95);
-            backdrop-filter: blur(12px);
-            padding: 1rem 2rem;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid var(--neutral-200);
-        }
-
-        nav .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-family: 'Cinzel', serif;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--primary-blue);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .logo:hover {
-            color: var(--accent-gold);
-        }
-
-        /* Main content */
-        .main-content {
-            margin-top: 80px;
-            padding: 3rem 2rem;
-            max-width: 1400px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .page-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .page-header h1 {
-            font-family: 'Cinzel', serif;
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--neutral-900);
-            margin-bottom: 0.5rem;
-        }
-
-        .page-header p {
-            font-size: 1.2rem;
-            color: var(--neutral-600);
-        }
-
-        /* Map Creator Section */
-        .map-creator {
-            background-color: white;
-            border-radius: 16px;
-            padding: 3rem;
-            margin-bottom: 4rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
-            border: 1px solid var(--neutral-200);
-        }
-
-        .create-form {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-        }
-
-        .form-group label {
-            color: var(--neutral-700);
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            background-color: var(--neutral-50);
-            border: 2px solid var(--neutral-200);
-            border-radius: 8px;
-            padding: 0.875rem;
-            color: var(--neutral-700);
-            transition: all 0.3s ease;
-            font-family: 'Roboto', sans-serif;
-            font-size: 0.95rem;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary-blue);
-            background-color: white;
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .generate-btn {
-            background: linear-gradient(135deg, var(--primary-blue), var(--light-blue));
-            color: white;
-            border: none;
-            padding: 1rem 2.5rem;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin: 0 auto;
-            margin-top: 2rem; 
-            margin-bottom: 3rem; 
-            font-family: 'Roboto', sans-serif;
-        }
-
-        .generate-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.3);
-        }
-
-        .generate-btn:active {
-            transform: translateY(0);
-        }
-
-        .generate-btn.loading {
-            opacity: 0.8;
-            cursor: not-allowed;
-        }
-
-        /* Shared Action Button Styles */
-        .action-btn {
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-family: 'Roboto', sans-serif;
-            text-decoration: none;
-            width: auto;
-            flex: none;
-        }
-
-        .action-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .action-btn:active {
-            transform: translateY(0);
-        }
-
-        /* Download Button - Blue (matching schema) */
-        .download-btn {
-            background: linear-gradient(135deg, var(--primary-blue), var(--light-blue));
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
-        }
-
-        .download-btn:hover {
-            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.3);
-        }
-
-        /* Generate Button - Blue */
-        .generate-btn {
-            background: linear-gradient(135deg, var(--primary-blue), var(--light-blue));
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
-        }
-
-        .generate-btn:hover {
-            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.3);
-        }
-
-        /* Special styling for the main generate button (not in actions) */
-        #generateBtn {
-            margin: 0 auto;
-            margin-top: 2rem; 
-            margin-bottom: 3rem;
-            padding: 1rem 2.5rem;
-            font-size: 1.1rem;
-            display: flex;
-        }
-
-        /* Action buttons container */
-        .map-actions {
-            display: flex !important;
-            flex-direction: row !important;
-            gap: 1rem;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: nowrap !important;
-            margin-top: 1.5rem;
-            width: 100%;
-        }
-
-        .map-actions .action-btn {
-            flex-shrink: 0;
-            white-space: nowrap;
-            min-width: auto;
-            max-width: none;
-        }
-
-        /* Map Preview Area */
-        .map-preview {
-            background-color: var(--neutral-50);
-            border-radius: 12px;
-            padding: 3rem;
-            min-height: 400px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px dashed var(--neutral-200);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .map-preview.has-map {
-            border: 2px solid var(--pale-blue);
-            padding: 2rem;
-        }
-
-        /* Hover download for generated map */
-        .map-preview.has-map .map-image-container {
-            position: relative;
-            display: inline-block;
-        }
-
-        .map-preview.has-map .map-image-container:hover::before {
-            content: '';
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            width: 40px;
-            height: 40px;
-            background: var(--primary-blue);
-            border-radius: 50%;
-            opacity: 0.9;
-            z-index: 10;
-            cursor: pointer;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M12 15.577l-3.539-3.538.707-.707L12 14.164l2.832-2.832.707.707L12 15.577zM6 20c-.552 0-1-.448-1-1s.448-1 1-1h12c.552 0 1 .448 1 1s-.448 1-1 1H6z'/%3E%3Cpath d='M12 3v9h-1V3h1z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: 20px 20px;
-        }
-
-        .preview-placeholder {
-            text-align: center;
-            color: var(--neutral-600);
-        }
-
-        .preview-placeholder .icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            display: block;
-            opacity: 0.6;
-        }
-
-        /* Maps Gallery */
-        .maps-gallery {
-            margin-bottom: 4rem;
-        }
-
-        .gallery-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2.5rem;
-        }
-
-        .gallery-header h2 {
-            font-family: 'Cinzel', serif;
-            color: var(--neutral-900);
-            font-size: 2rem;
-            font-weight: 600;
-        }
-
-        /* FILTER DROPDOWN STYLES */
-        .filter-section-dropdown {
-            display: flex;
-            align-items: center;
-        }
-
-        .filter-dropdown-group {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .filter-dropdown {
-            background-color: var(--neutral-50);
-            border: 2px solid var(--neutral-200);
-            border-radius: 8px;
-            padding: 0.5rem 0.75rem;
-            color: var(--neutral-700);
-            font-family: 'Roboto', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            min-width: 140px;
-        }
-
-        .filter-dropdown:focus {
-            outline: none;
-            border-color: var(--primary-blue);
-            background-color: white;
-        }
-
-        .filter-dropdown:hover {
-            border-color: var(--primary-blue);
-        }
-
-        .maps-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 2rem;
-        }
-
-        .map-card {
-            background-color: white;
-            border-radius: 12px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-            border: 1px solid var(--neutral-200);
-            position: relative;
-        }
-
-        .map-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-        }
-
-        /* Download overlay on hover */
-        .map-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(37, 99, 235, 0.9);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 5;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .map-card:hover::before {
-            opacity: 1;
-        }
-
-        .map-card::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 40px;
-            height: 40px;
-            background: white;
-            border-radius: 50%;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 6;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='%232563eb'%3E%3Cpath d='M12 15.577l-3.539-3.538.707-.707L12 14.164l2.832-2.832.707.707L12 15.577zM6 20c-.552 0-1-.448-1-1s.448-1 1-1h12c.552 0 1 .448 1 1s-.448 1-1 1H6z'/%3E%3Cpath d='M12 3v9h-1V3h1z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: 20px 20px;
-        }
-
-        .map-card:hover::after {
-            opacity: 1;
-        }
-
-        .map-thumbnail {
-            width: 100%;
-            height: 200px;
-            background-color: var(--neutral-100);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--neutral-600);
-            font-size: 3rem;
-        }
-
-        .map-info {
-            padding: 1.5rem;
-        }
-
-        .map-info h3 {
-            font-family: 'Cinzel', serif;
-            color: var(--neutral-900);
-            margin-bottom: 0.75rem;
-            font-weight: 600;
-            font-size: 1.2rem;
-        }
-
-        .map-tags {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .map-tag {
-            padding: 0.25rem 0.6rem;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: 500;
-            border: 1px solid;
-        }
-
-        .map-description {
-            color: var(--neutral-600);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            line-height: 1.5;
-        }
-
-        .map-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.8rem;
-            color: var(--neutral-600);
-        }
-
-        .delete-btn {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background-color: rgba(71, 85, 105, 0.9);
-            color: white;
-            border: none;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            font-size: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Roboto', sans-serif;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-        }
-
-        .delete-btn:hover {
-            background-color: var(--primary-blue);
-            transform: scale(1.1);
-        }
-
-        .delete-confirmation {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(255, 255, 255, 0.98);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 1.5rem;
-            text-align: center;
-            border-radius: 12px;
-            z-index: 20;
-        }
-
-        .delete-confirmation p {
-            color: var(--neutral-700);
-            margin-bottom: 1.5rem;
-            font-size: 0.9rem;
-            line-height: 1.4;
-        }
-
-        .confirmation-buttons {
-            display: flex;
-            gap: 0.75rem;
-        }
-
-        .confirm-btn {
-            background-color: var(--danger-color);
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Inter', sans-serif;
-            font-weight: 500;
-        }
-
-        .cancel-btn {
-            background-color: var(--neutral-100);
-            color: var(--neutral-700);
-            border: 1px solid var(--neutral-200);
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Inter', sans-serif;
-            font-weight: 500;
-        }
-
-        .confirm-btn:hover {
-            background-color: var(--primary-blue);
-        }
-
-        .cancel-btn:hover {
-            background-color: var(--neutral-200);
-        }
-
-        /* Loading spinner */
-        .spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 1s ease-in-out infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Floating action button */
-        .fab {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: linear-gradient(135deg, var(--accent-gold), var(--light-gold));
-            color: white;
-            border: none;
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            font-size: 1.25rem;
-            cursor: pointer;
-            box-shadow: 0 4px 16px rgba(245, 158, 11, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .fab:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
-        }
-
-        .page-header h1 {
-            font-size: 2.25rem;
-        }
-
-        .maps-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .gallery-header {
-            flex-direction: column;
-            gap: 1.5rem;
-            align-items: stretch;
-        }
-        
-        /* Adjustments for filter section */
-        .filter-dropdown-group {
-            flex-direction: column;
-            width: 100%;
-        }
-        
-        .filter-dropdown {
-            width: 100%;
-            min-width: auto;
-        }
-        
-        /* Add this line: */
-        .form-row {
-            grid-template-columns: 1fr;
-        }
-
-        .map-actions {
-            flex-direction: column;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .map-actions .action-btn {
-            width: 100%;
-            max-width: 280px;
-            justify-content: center;
-        }
-
-        /* Beta badge */
-        .beta-badge {
-            background: linear-gradient(135deg, var(--primary-blue), var(--light-blue));
-            color: white;
-            padding: 0.5rem 1.25rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 2rem;
-            display: inline-block;
-            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
-            backdrop-filter: blur(8px);
-        }
-
-        .beta-badge span {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-    </style>
 </head>
 <body>
     <nav>
@@ -705,32 +28,23 @@
 
         <!-- Map Creator -->
         <section class="map-creator">
-        
+            <!-- Tab Navigation -->
+            <div class="tab-navigation">
+                <button type="button" class="tab-btn active" data-tab="simple">Quick Roll</button>
+                <button type="button" class="tab-btn" data-tab="advanced">Homebrew</button>
+            </div>
+            
             <form id="mapForm" class="create-form">
-                <div class="form-group">
-                    <label for="mapName">Name</label>
-                    <input type="text" id="mapName" placeholder="The Whispering Woods" required>
-                </div>
-                
-                <div class="form-row">
+                <!-- Simple Tab Content -->
+                <div id="simpleTab" class="tab-content active">
                     <div class="form-group">
-                        <label for="terrainType">Terrain</label>
-                        <select id="terrainType" required>
-                            <option value="forest" selected>Forest</option>
-                            <option value="grassland">Grassland</option>
-                            <option value="mountain">Mountain</option>
-                            <option value="desert">Desert</option>
-                            <option value="tundra">Tundra</option>
-                            <option value="jungle">Jungle</option>
-                            <option value="swamp">Swamp</option>
-                            <option value="ocean">Ocean</option>
-                            <option value="underground">Underground</option>
-                        </select>
+                        <label for="simpleName">Name <span class="optional">(optional)</span></label>
+                        <input type="text" id="simpleName" placeholder="The Flying Rhino">
                     </div>
                     
                     <div class="form-group">
-                        <label for="locationType">Setting</label>
-                        <select id="locationType" required>
+                        <label for="simpleLocationType">Setting</label>
+                        <select id="simpleLocationType" required>
                             <option value="tavern" selected>Tavern</option>
                             <option value="village">Village</option>
                             <option value="fortress">Fortress</option>
@@ -741,24 +55,72 @@
                             <option value="trading-post">Trading Post</option>
                         </select>
                     </div>
+                    
+                    <div class="form-group">
+                        <label for="simpleDescription">You step into... <span class="optional">(optional)</span></label>
+                        <textarea id="simpleDescription" placeholder="A mystical forest clearing with ancient stone circles, winding paths, and hidden alcoves perfect for ambushes..."></textarea>
+                    </div>
                 </div>
                 
-                <div class="form-group">
-                    <label for="mapSize">Size</label>
-                    <select id="mapSize">
-                        <option value="size-20x20">20×20</option>
-                        <option value="size-30x30" selected>30×30</option>
-                        <option value="size-40x40">40×40</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="mapDescription">You step into...</label>
-                    <textarea id="mapDescription" placeholder="A mystical forest clearing with ancient stone circles, winding paths, and hidden alcoves perfect for ambushes..." required></textarea>
+                <!-- Advanced Tab Content -->
+                <div id="advancedTab" class="tab-content">
+                    <div class="form-group">
+                        <label for="mapName">Name</label>
+                        <input type="text" id="mapName" placeholder="The Whispering Woods" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="terrainType">Terrain</label>
+                            <select id="terrainType" required>
+                                <option value="forest" selected>Forest</option>
+                                <option value="grassland">Grassland</option>
+                                <option value="mountain">Mountain</option>
+                                <option value="desert">Desert</option>
+                                <option value="tundra">Tundra</option>
+                                <option value="jungle">Jungle</option>
+                                <option value="swamp">Swamp</option>
+                                <option value="ocean">Ocean</option>
+                                <option value="underground">Underground</option>
+                                <option value="urban">Urban</option>
+                                <option value="volcanic">Volcanic</option>
+                                <option value="industrial">Industrial</option>
+                                <option value="indoor">Indoor</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="locationType">Setting</label>
+                            <select id="locationType" required>
+                                <option value="tavern" selected>Tavern</option>
+                                <option value="village">Village</option>
+                                <option value="fortress">Fortress</option>
+                                <option value="temple">Temple</option>
+                                <option value="ruins">Ruins</option>
+                                <option value="cave">Cave</option>
+                                <option value="campsite">Campsite</option>
+                                <option value="trading-post">Trading Post</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mapSize">Size</label>
+                        <select id="mapSize">
+                            <option value="size-20x20">20×20</option>
+                            <option value="size-30x30" selected>30×30</option>
+                            <option value="size-40x40">40×40</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mapDescription">You step into...</label>
+                        <textarea id="mapDescription" placeholder="A mystical forest clearing with ancient stone circles, winding paths, and hidden alcoves perfect for ambushes..." required></textarea>
+                    </div>
                 </div>
             </form>
             
-            <button type="button" id="generateBtn" class="action-btn generate-btn">
+            <button type="button" id="generate-btn" class="action-btn generate-btn">
                 <span>Roll to Quest</span>
             </button>
             
@@ -799,6 +161,10 @@
                             <option value="swamp">Swamp</option>
                             <option value="ocean">Ocean</option>
                             <option value="underground">Underground</option>
+                            <option value="urban">Urban</option>
+                            <option value="volcanic">Volcanic</option>
+                            <option value="industrial">Industrial</option>
+                            <option value="indoor">Indoor</option>
                         </select>
                         
                         <select class="filter-dropdown" data-type="size">
@@ -814,7 +180,7 @@
             <div class="maps-grid" id="mapsGrid">
                 <!-- Example map cards with new tag system -->
                 <div class="map-card" data-setting="fortress" data-terrain="mountain" data-size="size-30x30" onclick="downloadSampleMap('riverside-keep')">
-                    <button class="delete-btn" onclick="event.stopPropagation(); showDeleteConfirmation(this)">×</button>
+                    <button class="delete-btn" onclick="showDeleteConfirmation(this, event)">×</button>
                     <div class="map-thumbnail">🏰</div>
                     <div class="map-info">
                         <h3>Riverside Keep</h3>
@@ -831,7 +197,7 @@
                 </div>
 
                 <div class="map-card" data-setting="temple" data-terrain="underground" data-size="size-40x40" onclick="downloadSampleMap('sunken-crypts')">
-                    <button class="delete-btn" onclick="event.stopPropagation(); showDeleteConfirmation(this)">×</button>
+                    <button class="delete-btn" onclick="showDeleteConfirmation(this, event)">×</button>
                     <div class="map-thumbnail">⛪</div>
                     <div class="map-info">
                         <h3>Sunken Crypts</h3>
@@ -848,7 +214,7 @@
                 </div>
 
                 <div class="map-card" data-setting="village" data-terrain="forest" data-size="size-20x20" onclick="downloadSampleMap('whisperleaf-village')">
-                    <button class="delete-btn" onclick="event.stopPropagation(); showDeleteConfirmation(this)">×</button>
+                    <button class="delete-btn" onclick="showDeleteConfirmation(this, event)">×</button>
                     <div class="map-thumbnail">🏘️</div>
                     <div class="map-info">
                         <h3>Whisperleaf Village</h3>
@@ -874,7 +240,30 @@
         // Global variable to store generated map data
         let currentMapData = null;
 
-        // Smooth scrolling
+        /**
+         * Tab switching functionality
+         * Handles switching between 'Quick Roll' and 'Homebrew' tabs
+         */
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const targetTab = this.dataset.tab;
+                
+                // Remove active class from all tabs and buttons
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked button and corresponding content
+                this.classList.add('active');
+                document.getElementById(targetTab + 'Tab').classList.add('active');
+            });
+        });
+
+        /**
+         * Smooth scrolling for anchor links
+         */
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -885,97 +274,186 @@
             });
         });
 
-        // Map generation
-        const generateBtn = document.getElementById('generateBtn');
+        /**
+         * Map generation functionality
+         * Handles form validation, API calls, and UI updates for map creation
+         */
+        const generateBtn = document.getElementById('generate-btn');
         const mapForm = document.getElementById('mapForm');
         const mapPreview = document.getElementById('mapPreview');
 
-        generateBtn.addEventListener('click', async function() {
-            // Validate form
-            const mapName = document.getElementById('mapName').value;
-            const mapDescription = document.getElementById('mapDescription').value;
-            const terrainType = document.getElementById('terrainType').value;
-            const locationType = document.getElementById('locationType').value;
-            const mapSize = document.getElementById('mapSize').value;
-            
-            if (!mapName || !mapDescription) {
-                alert('Please fill in all required fields');
+        generateBtn.addEventListener('click', async function(event) {
+            // Prevent any potential double-clicks or rapid clicking
+            if (generateBtn.classList.contains('loading')) {
+                console.log('Generation already in progress, ignoring click');
                 return;
             }
-
-            // Show loading state
-            generateBtn.classList.add('loading');
-            generateBtn.innerHTML = '<span class="spinner"></span><span>Creating...</span>';
             
-            try {
-                // Here you would call your AI image generation API
-                // For now, we'll simulate the process
-                await simulateMapGeneration({
+            console.log('Generate button clicked'); // Debug log
+            
+            // Determine which tab is active and get form data accordingly
+            const activeTab = document.querySelector('.tab-content.active').id;
+            let mapData;
+
+            if (activeTab === 'simpleTab') {
+                // Simple tab data
+                const mapName = document.getElementById('simpleName').value || generateRandomName();
+                const locationType = document.getElementById('simpleLocationType').value;
+                const mapDescription = document.getElementById('simpleDescription').value || generateDefaultDescription(locationType);
+                
+                mapData = {
+                    name: mapName,
+                    description: mapDescription,
+                    terrain: getDefaultTerrain(locationType), // Auto-assign terrain based on setting
+                    setting: locationType,
+                    size: 'size-30x30', // Default size for simple mode
+                    generationMode: 'quick' // Use fast model for Quick Roll
+                };
+            } else {
+                // Advanced tab data
+                const mapName = document.getElementById('mapName').value.trim();
+                const mapDescription = document.getElementById('mapDescription').value.trim();
+                const terrainType = document.getElementById('terrainType').value;
+                const locationType = document.getElementById('locationType').value;
+                const mapSize = document.getElementById('mapSize').value;
+                
+                if (!mapName || !mapDescription) {
+                    alert('Please fill in all required fields');
+                    return;
+                }
+
+                mapData = {
                     name: mapName,
                     description: mapDescription,
                     terrain: terrainType,
                     setting: locationType,
-                    size: mapSize
+                    size: mapSize,
+                    generationMode: 'detailed' // Use high-quality model for Homebrew
+                };
+            }
+
+            // Show loading state - ensure it's properly applied
+            generateBtn.disabled = true; // Explicitly disable button
+            generateBtn.classList.add('loading');
+            generateBtn.innerHTML = '<span class="spinner"></span><span>Creating...</span>';
+            
+            // Reset preview area to loading state (in case there was a previous map)
+            mapPreview.classList.remove('has-map');
+            mapPreview.innerHTML = `
+                <div class="preview-placeholder">
+                    <span class="icon">⚙️</span>
+                    <p>Generating your epic battle map...</p>
+                    <div class="loading-spinner"></div>
+                </div>
+            `;
+            
+            try {
+                // Call the real AI image generation API
+                const result = await generateMapWithAI({
+                    name: mapData.name,
+                    description: mapData.description,
+                    terrain: mapData.terrain,
+                    setting: mapData.setting,
+                    size: mapData.size,
+                    generationMode: mapData.generationMode
                 });
+                
+                // Store the generated map data
+                currentMapData = {
+                    id: result.mapId,
+                    name: mapData.name,
+                    description: mapData.description,
+                    terrain: mapData.terrain,
+                    setting: mapData.setting,
+                    size: mapData.size,
+                    generationMode: mapData.generationMode,
+                    imageUrl: result.imageUrl,
+                    createdAt: result.metadata.generatedAt,
+                    fallback: result.fallback || false
+                };
+                
+                showMapSuccess(currentMapData);
                 
             } catch (error) {
                 console.error('Map generation failed:', error);
-                alert('Failed to generate map. Please try again.');
+                
+                // Show more specific error message
+                let errorMessage = 'Failed to generate map. Please try again.';
+                if (error.message.includes('Rate limit')) {
+                    errorMessage = 'Too many requests. Please wait a moment before trying again.';
+                } else if (error.message.includes('Invalid parameters')) {
+                    errorMessage = 'Please check your input and try again.';
+                }
+                
+                alert(errorMessage);
             } finally {
-                // Reset button
+                // Reset button - ensure it's fully restored
+                generateBtn.disabled = false; // Re-enable button
                 generateBtn.classList.remove('loading');
                 generateBtn.innerHTML = '<span>Roll to Quest</span>';
+                console.log('Button reset completed'); // Debug log
             }
         });
 
-        // Simulate map generation (replace with actual API call)
-        async function simulateMapGeneration(mapParams) {
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    // Simulate receiving map data from API
-                    currentMapData = {
-                        id: Date.now().toString(),
-                        ...mapParams,
-                        imageUrl: generatePlaceholderImage(mapParams), // This would be the actual image URL from your AI service
-                        createdAt: new Date().toISOString()
-                    };
-                    
-                    showMapSuccess(currentMapData);
-                    resolve(currentMapData);
-                }, 2000);
-            });
+        /**
+         * Helper functions for simple mode
+         * These functions provide defaults when users don't fill in optional fields
+         */
+        
+        /**
+         * Generates a random fantasy location name
+         * @returns {string} A randomly generated name like "The Golden Haven"
+         */
+        function generateRandomName() {
+            const adjectives = ['Golden', 'Silver', 'Ancient', 'Mystic', 'Royal', 'Hidden', 'Sacred', 'Lost', 'Enchanted', 'Forgotten'];
+            const nouns = ['Haven', 'Lodge', 'Keep', 'Hall', 'Inn', 'Sanctuary', 'Chamber', 'Grove', 'Rest', 'Refuge'];
+            const adjective = adjectives[Math.floor(Math.random() * adjectives.length)];
+            const noun = nouns[Math.floor(Math.random() * nouns.length)];
+            return `The ${adjective} ${noun}`;
         }
 
-        // Generate placeholder image (replace with actual AI service)
-        function generatePlaceholderImage(mapParams) {
-            // This creates a simple placeholder image URL
-            // In production, this would be the URL returned from your AI image generation API
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-            canvas.width = 800;
-            canvas.height = 600;
-            
-            // Create a simple map-like gradient
-            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-            gradient.addColorStop(0, '#4ade80'); // Green
-            gradient.addColorStop(0.5, '#fbbf24'); // Gold
-            gradient.addColorStop(1, '#3b82f6'); // Blue
-            
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            // Add some text
-            ctx.fillStyle = 'white';
-            ctx.font = 'bold 24px Arial';
-            ctx.textAlign = 'center';
-            ctx.fillText(mapParams.name, canvas.width / 2, canvas.height / 2);
-            ctx.font = '16px Arial';
-            ctx.fillText(`${mapParams.terrain} • ${mapParams.setting}`, canvas.width / 2, canvas.height / 2 + 40);
-            
-            return canvas.toDataURL('image/png');
+        /**
+         * Generates a default description based on the selected setting type
+         * @param {string} setting - The location type (tavern, village, fortress, etc.)
+         * @returns {string} A descriptive text appropriate for the setting
+         */
+        function generateDefaultDescription(setting) {
+            const descriptions = {
+                tavern: 'A cozy gathering place with warm lighting and the smell of hearty food.',
+                village: 'A peaceful settlement with winding paths and friendly faces.',
+                fortress: 'A sturdy stronghold with thick walls and strategic vantage points.',
+                temple: 'A sacred space filled with divine energy and ancient wisdom.',
+                ruins: 'Crumbling remnants of a once-great structure, mysterious and weathered.',
+                cave: 'A natural shelter carved from stone, echoing with hidden secrets.',
+                campsite: 'A temporary refuge under the open sky, simple but secure.',
+                'trading-post': 'A bustling hub of commerce where travelers gather to trade.'
+            };
+            return descriptions[setting] || 'An interesting location waiting to be explored.';
         }
 
-        // Show map generation success
+        /**
+         * Maps setting types to appropriate default terrain types
+         * @param {string} setting - The location type
+         * @returns {string} The most appropriate terrain type for this setting
+         */
+        function getDefaultTerrain(setting) {
+            const defaultTerrains = {
+                tavern: 'grassland',
+                village: 'grassland',
+                fortress: 'mountain',
+                temple: 'forest',
+                ruins: 'mountain',
+                cave: 'underground',
+                campsite: 'forest',
+                'trading-post': 'grassland'
+            };
+            return defaultTerrains[setting] || 'grassland';
+        }
+
+        /**
+         * Displays the successfully generated map in the preview area
+         * @param {Object} mapData - The generated map data including imageUrl, name, etc.
+         */
         function showMapSuccess(mapData) {
             mapPreview.classList.add('has-map');
             mapPreview.innerHTML = `
@@ -987,7 +465,7 @@
                     <div style="margin: 2rem 0;">
                         <div class="map-image-container" onclick="downloadMap('${mapData.id}')">
                             <img src="${mapData.imageUrl}" alt="${mapData.name}" 
-                                 style="max-width: 100%; max-height: 300px; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); cursor: pointer;">
+                                 style="width: 100%; height: auto; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); cursor: pointer;">
                         </div>
                     </div>
                     
@@ -1006,7 +484,7 @@
                     </div>
                     
                     <p style="color: var(--neutral-600); margin-top: 2rem; font-style: italic; font-size: 0.9rem;">
-                        Map generation powered by AI
+                        Model may output inaccurate or offensive content that doesn't represent Fabled Tale's views
                     </p>
                 </div>
             `;
@@ -1015,7 +493,10 @@
             addMapToGallery(mapData);
         }
 
-        // Download map function
+        /**
+         * Downloads the generated map as a PNG file
+         * @param {string} mapId - The ID of the map to download
+         */
         function downloadMap(mapId) {
             if (!currentMapData || currentMapData.id !== mapId) {
                 alert('Map data not found');
@@ -1042,7 +523,9 @@
             }
         }
 
-        // Show download feedback
+        /**
+         * Shows a temporary success notification when a map is downloaded
+         */
         function showDownloadFeedback() {
             const feedback = document.createElement('div');
             feedback.style.cssText = `
@@ -1078,29 +561,105 @@
             }, 3000);
         }
 
-        // Create new map function
-        function createNewMap() {
-            // Reset form
-            document.getElementById('mapForm').reset();
-            
-            // Reset preview
-            mapPreview.classList.remove('has-map');
-            mapPreview.innerHTML = `
-                <div class="preview-placeholder">
-                    <span class="icon">🗺️</span>
-                    <p>Your map will appear here once generated</p>
-                </div>
-            `;
-            
-            // Clear current map data
-            currentMapData = null;
-            
-            // Scroll to form
-            document.querySelector('.map-creator').scrollIntoView({ behavior: 'smooth' });
-            document.getElementById('mapName').focus();
+        /**
+         * Creates a new map or rerolls the current one
+         * If there's current map data, rerolls with same parameters
+         * Otherwise, resets the form for a fresh start
+         */
+        async function createNewMap() {
+            // If we have current map data, reroll with same parameters
+            if (currentMapData) {
+                // Show loading state
+                mapPreview.classList.remove('has-map');
+                mapPreview.innerHTML = `
+                    <div class="preview-placeholder">
+                        <span class="icon">🎲</span>
+                        <p>Rerolling "${currentMapData.name}"...</p>
+                        <div class="loading-spinner"></div>
+                    </div>
+                `;
+                
+                try {
+                    // Generate new map with same parameters
+                    const result = await generateMapWithAI({
+                        name: currentMapData.name,
+                        description: currentMapData.description,
+                        terrain: currentMapData.terrain,
+                        setting: currentMapData.setting,
+                        size: currentMapData.size,
+                        generationMode: currentMapData.generationMode || 'detailed'
+                    });
+                    
+                    // Update current map data with new result
+                    currentMapData = {
+                        ...currentMapData,
+                        id: result.mapId,
+                        imageUrl: result.imageUrl,
+                        createdAt: result.metadata.generatedAt,
+                        fallback: result.fallback || false
+                    };
+                    
+                    // Show the new map
+                    showMapSuccess(currentMapData);
+                    
+                } catch (error) {
+                    console.error('Reroll failed:', error);
+                    
+                    // Show error state
+                    mapPreview.innerHTML = `
+                        <div class="preview-placeholder">
+                            <span class="icon">⚠️</span>
+                            <p>Reroll failed. Please try again.</p>
+                            <button onclick="createNewMap()" class="action-btn generate-btn" style="margin-top: 1rem;">
+                                🎲 Try Again
+                            </button>
+                        </div>
+                    `;
+                }
+            } else {
+                // No current map data - start fresh
+                // Reset both simple and advanced forms
+                document.getElementById('simpleName').value = '';
+                document.getElementById('simpleLocationType').selectedIndex = 0;
+                document.getElementById('simpleDescription').value = '';
+                
+                document.getElementById('mapName').value = '';
+                document.getElementById('terrainType').selectedIndex = 0;
+                document.getElementById('locationType').selectedIndex = 0;
+                document.getElementById('mapSize').selectedIndex = 1; // Default to 30x30
+                document.getElementById('mapDescription').value = '';
+                
+                // Reset preview
+                mapPreview.classList.remove('has-map');
+                mapPreview.innerHTML = `
+                    <div class="preview-placeholder">
+                        <span class="icon">🗺️</span>
+                        <p>Your map will appear here once generated</p>
+                    </div>
+                `;
+                
+                // Clear current map data
+                currentMapData = null;
+                
+                // Switch back to simple tab
+                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                
+                document.querySelector('.tab-btn[data-tab="simple"]').classList.add('active');
+                document.getElementById('simpleTab').classList.add('active');
+                
+                // Scroll to form and focus
+                document.querySelector('.map-creator').scrollIntoView({ behavior: 'smooth' });
+                setTimeout(() => {
+                    document.getElementById('simpleName').focus();
+                }, 500);
+            }
         }
 
-        // Filter tabs
+        /**
+         * Gallery filtering functionality
+         * Allows users to filter displayed maps by setting, terrain, and size
+         */
         const filterDropdowns = document.querySelectorAll('.filter-dropdown');
         const mapCards = document.querySelectorAll('.map-card');
 
@@ -1120,6 +679,10 @@
             });
         });
 
+        /**
+         * Filters the map gallery based on active filter selections
+         * Shows/hides map cards that match the current filter criteria
+         */
         function filterMaps() {
             mapCards.forEach(card => {
                 const cardSetting = card.dataset.setting;
@@ -1138,7 +701,10 @@
             });
         }
 
-        // Add new map to gallery
+        /**
+         * Adds a newly generated map to the gallery section
+         * @param {Object} mapData - The map data to add to the gallery
+         */
         function addMapToGallery(mapData) {
             const mapsGrid = document.getElementById('mapsGrid');
             const newCard = document.createElement('div');
@@ -1159,7 +725,7 @@
             };
             
             newCard.innerHTML = `
-                <button class="delete-btn" onclick="showDeleteConfirmation(this)">×</button>
+                <button class="delete-btn" onclick="showDeleteConfirmation(this, event)">×</button>
                 <div class="map-thumbnail">${icons[mapData.setting] || '🗺️'}</div>
                 <div class="map-info">
                     <h3>${mapData.name}</h3>
@@ -1178,14 +744,31 @@
             mapsGrid.insertBefore(newCard, mapsGrid.firstChild);
         }
 
-        // Quick create button
+        /**
+         * Floating Action Button (FAB) functionality
+         * Provides quick access to map creation by switching to simple tab
+         */
         document.querySelector('.fab').addEventListener('click', function() {
+            // Switch to simple tab
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            document.querySelector('.tab-btn[data-tab="simple"]').classList.add('active');
+            document.getElementById('simpleTab').classList.add('active');
+            
+            // Scroll to form and focus
             document.querySelector('.map-creator').scrollIntoView({ behavior: 'smooth' });
-            document.getElementById('mapName').focus();
+            setTimeout(() => {
+                document.getElementById('simpleName').focus();
+            }, 500);
         });
 
-        // Show delete confirmation overlay
-        function showDeleteConfirmation(button) {
+        /**
+         * Shows a confirmation dialog before deleting a map
+         * @param {HTMLElement} button - The delete button that was clicked
+         * @param {Event} event - The click event
+         */
+        function showDeleteConfirmation(button, event) {
             event.stopPropagation();
             
             const mapCard = button.closest('.map-card');
@@ -1204,7 +787,10 @@
             mapCard.appendChild(confirmationDiv);
         }
 
-        // Confirm deletion
+        /**
+         * Confirms and executes map deletion with animation
+         * @param {HTMLElement} button - The confirm button that was clicked
+         */
         function confirmDelete(button) {
             const mapCard = button.closest('.map-card');
             
@@ -1217,13 +803,19 @@
             }, 300);
         }
 
-        // Cancel deletion
+        /**
+         * Cancels the deletion process and removes the confirmation dialog
+         * @param {HTMLElement} button - The cancel button that was clicked
+         */
         function cancelDelete(button) {
             const confirmationDiv = button.closest('.delete-confirmation');
             confirmationDiv.remove();
         }
 
-        // Download sample map function
+        /**
+         * Downloads a sample/demo map with generated placeholder content
+         * @param {string} mapId - The ID of the sample map to download
+         */
         function downloadSampleMap(mapId) {
             // Create a simple placeholder image for demo
             const canvas = document.createElement('canvas');
@@ -1273,6 +865,11 @@
             
             showDownloadFeedback();
         }
+        /**
+         * Calls the backend API to generate a map using AI
+         * @param {Object} params - Map generation parameters (name, description, terrain, etc.)
+         * @returns {Promise<Object>} The generated map data from the API
+         */
         async function generateMapWithAI(params) {
             try {
                 const response = await fetch('/api/maps/generate', {
