@@ -1,9 +1,11 @@
 /**
- * Vercel Serverless Function: Map Generation API
- * Handles AI-powered map generation requests
+ * @file api/maps/generateMap.js
+ * @description API endpoint for generating maps with terrain and settings.
+ * Handles rate limiting, CORS, parameter validation, and map generation.
  */
 
 const ImagenService = require('../../lib/imagenService');
+const { PLACE_TYPES, TERRAIN_ELEMENTS } = require('../../lib/nameConstants');
 
 // Rate limiting cache (in production, use Redis or similar)
 const rateLimitCache = new Map();
@@ -54,26 +56,30 @@ function validateParams(params) {
   
   const errors = [];
   
-  if (!name || typeof name !== 'string' || name.length > 100) {
-    errors.push('Invalid map name (required, max 100 characters)');
+  // Name is optional for terrain-only generation
+  if (name && (typeof name !== 'string' || name.length > 100)) {
+    errors.push('Invalid map name (max 100 characters)');
   }
   
-  if (!description || typeof description !== 'string' || description.length > 1000) {
-    errors.push('Invalid description (required, max 1000 characters)');
+  // Description is optional for terrain-only generation
+  if (description && (typeof description !== 'string' || description.length > 1000)) {
+    errors.push('Invalid description (max 1000 characters)');
   }
   
-  const validTerrains = ['forest', 'grassland', 'mountain', 'desert', 'tundra', 'jungle', 'swamp', 'ocean', 'underground', 'urban', 'volcanic', 'industrial', 'indoor'];
+  const validTerrains = Object.keys(TERRAIN_ELEMENTS);
   if (!terrain || !validTerrains.includes(terrain)) {
     errors.push('Invalid terrain type');
   }
   
-  const validSettings = ['tavern', 'village', 'fortress', 'temple', 'ruins', 'cave', 'campsite', 'trading-post'];
-  if (!setting || !validSettings.includes(setting)) {
+  // Setting is optional for terrain-only generation
+  const validSettings = Object.keys(PLACE_TYPES);
+  if (setting && !validSettings.includes(setting)) {
     errors.push('Invalid setting type');
   }
   
+  // Size defaults to 20x20 if not provided
   const validSizes = ['size-20x20', 'size-30x30', 'size-40x40'];
-  if (!size || !validSizes.includes(size)) {
+  if (size && !validSizes.includes(size)) {
     errors.push('Invalid map size');
   }
   
@@ -144,15 +150,56 @@ export default async function handler(req, res) {
     
     const { name, description, terrain, setting, size, generationMode = 'detailed' } = req.body;
     
-    console.log('Generating map:', { name, terrain, setting, size, generationMode });
+    // Generate name if not provided
+    let finalName = name;
+    if (!name || name.trim() === '') {
+      if (setting) {
+        // Simplified name generation for settings
+        try {
+          const SimpleNameService = require('../../lib/simpleNameService');
+          const nameService = new SimpleNameService();
+          const nameResult = nameService.generateNames('place', { type: setting, terrain });
+          if (nameResult.success && nameResult.names.length > 0) {
+            finalName = nameResult.names[0];
+          } else {
+            throw new Error('Name generation failed');
+          }
+        } catch (error) {
+          // Simple fallback name generation
+          const terrainCapitalized = terrain.charAt(0).toUpperCase() + terrain.slice(1);
+          const settingCapitalized = setting.charAt(0).toUpperCase() + setting.slice(1);
+          finalName = `The ${terrainCapitalized} ${settingCapitalized}`;
+        }
+      } else {
+        // Generate terrain-only name
+        const terrainCapitalized = terrain.charAt(0).toUpperCase() + terrain.slice(1);
+        finalName = `${terrainCapitalized} Terrain`;
+      }
+    }
+    
+    // Generate description if not provided (for terrain-only maps)
+    let finalDescription = description;
+    if ((!description || description.trim() === '') && !setting) {
+      // Use terrain-based description generation
+      const terrainData = TERRAIN_ELEMENTS[terrain];
+      if (terrainData && terrainData.adjectives && terrainData.modifiers) {
+        const adjective = terrainData.adjectives[Math.floor(Math.random() * terrainData.adjectives.length)];
+        const modifier1 = terrainData.modifiers[Math.floor(Math.random() * terrainData.modifiers.length)];
+        const modifier2 = terrainData.modifiers[Math.floor(Math.random() * terrainData.modifiers.length)];
+        finalDescription = `${adjective} ${terrain} terrain with ${modifier1} and ${modifier2}, perfect for exploration and adventure.`;
+      } else {
+        finalDescription = `A ${terrain} terrain map perfect for tabletop adventures.`;
+      }
+    }
+    
     
     // Initialize Imagen service
     const imagenService = new ImagenService();
     
     // Generate map
     const result = await imagenService.generateMapImage({
-      name,
-      description,
+      name: finalName,
+      description: finalDescription,
       terrain,
       setting,
       size,
@@ -162,11 +209,12 @@ export default async function handler(req, res) {
     // Prepare response
     const response = {
       success: result.success,
-      mapId: `map_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+      mapId: `map_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`,
       imageUrl: result.imageUrl,
+      generatedName: finalName, // Include the generated name
       metadata: {
-        name,
-        description,
+        name: finalName,
+        description: finalDescription,
         terrain,
         setting,
         size,

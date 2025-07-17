@@ -123,7 +123,7 @@ A modern web application that generates fantasy battle maps using Google's Image
 
 ## API Documentation
 
-### POST /api/maps/generate
+### POST /api/maps/generateMap
 
 Generate a new fantasy battle map.
 

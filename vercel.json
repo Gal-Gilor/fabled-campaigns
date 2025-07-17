@@ -2,9 +2,13 @@
   "buildCommand": "echo 'No build required'",
   "outputDirectory": ".",
   "functions": {
-    "api/maps/generate.js": {
+    "api/maps/generateMap.js": {
       "maxDuration": 30,
-      "memory": 1024
+      "memory": 512
+    },
+    "api/maps/generateName.js": {
+      "maxDuration": 15,
+      "memory": 512
     }
   },
   "rewrites": [
