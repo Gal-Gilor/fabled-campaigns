@@ -30,35 +30,53 @@
         <section class="map-creator">
             <!-- Tab Navigation -->
             <div class="tab-navigation">
-                <button type="button" class="tab-btn active" data-tab="simple">Quick Roll</button>
+                <button type="button" class="tab-btn active" data-tab="terrain">Terrain</button>
+                <button type="button" class="tab-btn" data-tab="setting">Setting</button>
                 <button type="button" class="tab-btn" data-tab="advanced">Homebrew</button>
             </div>
             
             <form id="mapForm" class="create-form">
-                <!-- Simple Tab Content -->
-                <div id="simpleTab" class="tab-content active">
+                <!-- Terrain Tab Content -->
+                <div id="terrainTab" class="tab-content active">
                     <div class="form-group">
-                        <label for="simpleName">Name <span class="optional">(optional)</span></label>
-                        <input type="text" id="simpleName" placeholder="The Flying Rhino">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="simpleLocationType">Setting</label>
-                        <select id="simpleLocationType" required>
-                            <option value="tavern" selected>Tavern</option>
-                            <option value="village">Village</option>
-                            <option value="fortress">Fortress</option>
-                            <option value="temple">Temple</option>
-                            <option value="ruins">Ruins</option>
-                            <option value="cave">Cave</option>
-                            <option value="campsite">Campsite</option>
-                            <option value="trading-post">Trading Post</option>
+                        <label for="terrainTypeSimple">Terrain</label>
+                        <select id="terrainTypeSimple" required>
+                            <option value="forest" selected>Forest</option>
+                            <option value="grassland">Grassland</option>
+                            <option value="mountain">Mountain</option>
+                            <option value="desert">Desert</option>
+                            <option value="tundra">Tundra</option>
+                            <option value="jungle">Jungle</option>
+                            <option value="swamp">Swamp</option>
+                            <option value="ocean">Ocean</option>
+                            <option value="underground">Underground</option>
+                            <option value="urban">Urban</option>
                         </select>
                     </div>
                     
                     <div class="form-group">
-                        <label for="simpleDescription">You step into... <span class="optional">(optional)</span></label>
-                        <textarea id="simpleDescription" placeholder="A mystical forest clearing with ancient stone circles, winding paths, and hidden alcoves perfect for ambushes..."></textarea>
+                        <label for="terrainDescription">You step into... <span class="optional">(optional)</span></label>
+                        <textarea id="terrainDescription" placeholder="A mystical forest clearing with ancient stone circles, winding paths, and hidden alcoves perfect for ambushes..."></textarea>
+                    </div>
+                </div>
+                
+                <!-- Setting Tab Content -->
+                <div id="settingTab" class="tab-content">
+                    <div class="form-group">
+                        <label for="settingName">Name <span class="optional">(optional)</span></label>
+                        <input type="text" id="settingName" placeholder="The Sunken Temple">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="settingLocationType">Setting</label>
+                        <select id="settingLocationType" required>
+                            <!-- Options will be populated by script -->
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="settingDescription">You step into... <span class="optional">(optional)</span></label>
+                        <textarea id="settingDescription" placeholder="An ancient, waterlogged temple with glowing runes and submerged corridors..."></textarea>
                     </div>
                 </div>
                 
@@ -92,14 +110,7 @@
                         <div class="form-group">
                             <label for="locationType">Setting</label>
                             <select id="locationType" required>
-                                <option value="tavern" selected>Tavern</option>
-                                <option value="village">Village</option>
-                                <option value="fortress">Fortress</option>
-                                <option value="temple">Temple</option>
-                                <option value="ruins">Ruins</option>
-                                <option value="cave">Cave</option>
-                                <option value="campsite">Campsite</option>
-                                <option value="trading-post">Trading Post</option>
+                                <!-- Options will be populated by script -->
                             </select>
                         </div>
                     </div>
@@ -140,14 +151,7 @@
                     <div class="filter-dropdown-group">
                         <select class="filter-dropdown" data-type="setting">
                             <option value="all">All Settings</option>
-                            <option value="tavern">Tavern</option>
-                            <option value="village">Village</option>
-                            <option value="fortress">Fortress</option>
-                            <option value="temple">Temple</option>
-                            <option value="ruins">Ruins</option>
-                            <option value="cave">Cave</option>
-                            <option value="campsite">Campsite</option>
-                            <option value="trading-post">Trading Post</option>
+                            <!-- Options will be populated by script -->
                         </select>
                         
                         <select class="filter-dropdown" data-type="terrain">
@@ -240,6 +244,59 @@
         // Global variable to store generated map data
         let currentMapData = null;
 
+        // Single source of truth for setting options
+        const SETTING_OPTIONS = [
+            { value: 'tavern', label: 'Tavern' },
+            { value: 'village', label: 'Village' },
+            { value: 'fortress', label: 'Fortress' },
+            { value: 'temple', label: 'Temple', selected: true },
+            { value: 'ruins', label: 'Ruins' },
+            { value: 'cave', label: 'Cave' },
+            { value: 'campsite', label: 'Campsite' },
+            { value: 'trading-post', label: 'Trading Post' },
+            { value: 'dungeon', label: 'Dungeon' },
+            { value: 'market', label: 'Market' },
+            { value: 'library', label: 'Library' },
+            { value: 'ship', label: 'Ship' },
+            { value: 'sewer', label: 'Sewer' }
+        ];
+
+        /**
+         * Populates all setting dropdowns from a single source of truth.
+         */
+        function populateSettingDropdowns() {
+            const settingTabSelect = document.getElementById('settingLocationType');
+            const advancedTabSelect = document.getElementById('locationType');
+            const filterSelect = document.querySelector('.filter-dropdown[data-type="setting"]');
+
+            // Clear any existing options except the "All Settings" in the filter
+            settingTabSelect.innerHTML = '';
+            advancedTabSelect.innerHTML = '';
+            const firstFilterOption = filterSelect.options[0];
+            filterSelect.innerHTML = '';
+            filterSelect.appendChild(firstFilterOption);
+
+            SETTING_OPTIONS.forEach(opt => {
+                // Create option for Setting Tab
+                const option1 = new Option(opt.label, opt.value);
+                if (opt.selected) {
+                    option1.selected = true;
+                }
+                settingTabSelect.add(option1);
+
+                // Create option for Advanced Tab
+                const option2 = new Option(opt.label, opt.value);
+                advancedTabSelect.add(option2);
+
+                // Create option for Filter Dropdown
+                const option3 = new Option(opt.label, opt.value);
+                filterSelect.add(option3);
+            });
+        }
+
+        // Populate dropdowns when the page loads
+        document.addEventListener('DOMContentLoaded', populateSettingDropdowns);
+
         /**
          * Tab switching functionality
          * Handles switching between 'Quick Roll' and 'Homebrew' tabs
@@ -295,19 +352,33 @@
             const activeTab = document.querySelector('.tab-content.active').id;
             let mapData;
 
-            if (activeTab === 'simpleTab') {
-                // Simple tab data
-                const mapName = document.getElementById('simpleName').value || generateRandomName();
-                const locationType = document.getElementById('simpleLocationType').value;
-                const mapDescription = document.getElementById('simpleDescription').value || generateDefaultDescription(locationType);
+            if (activeTab === 'terrainTab') {
+                // Terrain tab data
+                const mapName = generateRandomName();
+                const terrainType = document.getElementById('terrainTypeSimple').value;
+                const mapDescription = document.getElementById('terrainDescription').value || generateDefaultDescription(terrainType);
+                
+                mapData = {
+                    name: mapName,
+                    description: mapDescription,
+                    terrain: terrainType,
+                    setting: 'campsite', // Default setting for this mode
+                    size: 'size-30x30', // Default size for simple mode
+                    generationMode: 'quick' // Use fast model for Quick Roll
+                };
+            } else if (activeTab === 'settingTab') {
+                // Setting tab data
+                const mapName = document.getElementById('settingName').value || generateRandomName();
+                const locationType = document.getElementById('settingLocationType').value;
+                const mapDescription = document.getElementById('settingDescription').value || generateDefaultDescription(locationType);
                 
                 mapData = {
                     name: mapName,
                     description: mapDescription,
                     terrain: getDefaultTerrain(locationType), // Auto-assign terrain based on setting
                     setting: locationType,
-                    size: 'size-30x30', // Default size for simple mode
-                    generationMode: 'quick' // Use fast model for Quick Roll
+                    size: 'size-30x30', // Default size for this mode
+                    generationMode: 'detailed' // Use detailed model for this mode
                 };
             } else {
                 // Advanced tab data
@@ -426,7 +497,12 @@
                 ruins: 'Crumbling remnants of a once-great structure, mysterious and weathered.',
                 cave: 'A natural shelter carved from stone, echoing with hidden secrets.',
                 campsite: 'A temporary refuge under the open sky, simple but secure.',
-                'trading-post': 'A bustling hub of commerce where travelers gather to trade.'
+                'trading-post': 'A bustling hub of commerce where travelers gather to trade.',
+                dungeon: 'A dark and dangerous place with locked doors and hidden traps.',
+                market: 'A vibrant square filled with merchants, goods, and the sounds of haggling.',
+                library: 'A quiet hall of knowledge, with towering shelves of ancient books and scrolls.',
+                ship: 'The wooden deck of a vessel at sea, with rigging overhead and waves below.',
+                sewer: 'A foul-smelling network of tunnels beneath a city, dark and damp.'
             };
             return descriptions[setting] || 'An interesting location waiting to be explored.';
         }
@@ -445,7 +521,12 @@
                 ruins: 'mountain',
                 cave: 'underground',
                 campsite: 'forest',
-                'trading-post': 'grassland'
+                'trading-post': 'grassland',
+                dungeon: 'underground',
+                market: 'urban',
+                library: 'indoor',
+                ship: 'ocean',
+                sewer: 'underground'
             };
             return defaultTerrains[setting] || 'grassland';
         }
@@ -618,11 +699,14 @@
                 }
             } else {
                 // No current map data - start fresh
-                // Reset both simple and advanced forms
-                document.getElementById('simpleName').value = '';
-                document.getElementById('simpleLocationType').selectedIndex = 0;
-                document.getElementById('simpleDescription').value = '';
+                // Reset all form tabs
+                document.getElementById('terrainTypeSimple').selectedIndex = 0;
+                document.getElementById('terrainDescription').value = '';
                 
+                document.getElementById('settingName').value = '';
+                document.getElementById('settingLocationType').selectedIndex = 3; // Default to Temple
+                document.getElementById('settingDescription').value = '';
+
                 document.getElementById('mapName').value = '';
                 document.getElementById('terrainType').selectedIndex = 0;
                 document.getElementById('locationType').selectedIndex = 0;
@@ -641,17 +725,17 @@
                 // Clear current map data
                 currentMapData = null;
                 
-                // Switch back to simple tab
+                // Switch back to terrain tab
                 document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
                 document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
                 
-                document.querySelector('.tab-btn[data-tab="simple"]').classList.add('active');
-                document.getElementById('simpleTab').classList.add('active');
+                document.querySelector('.tab-btn[data-tab="terrain"]').classList.add('active');
+                document.getElementById('terrainTab').classList.add('active');
                 
                 // Scroll to form and focus
                 document.querySelector('.map-creator').scrollIntoView({ behavior: 'smooth' });
                 setTimeout(() => {
-                    document.getElementById('simpleName').focus();
+                    document.getElementById('terrainTypeSimple').focus();
                 }, 500);
             }
         }
@@ -721,7 +805,12 @@
                 ruins: '🏛️',
                 cave: '🕳️',
                 campsite: '🏕️',
-                'trading-post': '🏪'
+                'trading-post': '🏪',
+                dungeon: '⛓️',
+                market: '⚖️',
+                library: '📚',
+                ship: '⛵',
+                sewer: '💧'
             };
             
             newCard.innerHTML = `
@@ -749,17 +838,17 @@
          * Provides quick access to map creation by switching to simple tab
          */
         document.querySelector('.fab').addEventListener('click', function() {
-            // Switch to simple tab
+            // Switch to terrain tab
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
             
-            document.querySelector('.tab-btn[data-tab="simple"]').classList.add('active');
-            document.getElementById('simpleTab').classList.add('active');
+            document.querySelector('.tab-btn[data-tab="terrain"]').classList.add('active');
+            document.getElementById('terrainTab').classList.add('active');
             
             // Scroll to form and focus
             document.querySelector('.map-creator').scrollIntoView({ behavior: 'smooth' });
             setTimeout(() => {
-                document.getElementById('simpleName').focus();
+                document.getElementById('terrainTypeSimple').focus();
             }, 500);
         });
 
