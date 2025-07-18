@@ -1,0 +1,198 @@
+/**
+ * Vercel Serverless Function: Name Generation API
+ * Uses Gemini 2.0 Flash with fallback to local generation
+ */
+
+const { GoogleGenAI } = require('@google/genai');
+const { getGoogleCredentials, validateEnvironment } = require('../../lib/credentials');
+const { getRecommendedModel } = require('../../lib/models');
+const SimpleNameService = require('../../lib/simpleNameService');
+
+// Rate limiting cache
+const rateLimitCache = new Map();
+
+function rateLimit(ip, windowMs = 15 * 60 * 1000, maxRequests = 10) {
+  const now = Date.now();
+  const key = `${ip}:${Math.floor(now / windowMs)}`;
+  const count = rateLimitCache.get(key) || 0;
+  
+  if (count >= maxRequests) return false;
+  
+  rateLimitCache.set(key, count + 1);
+  if (rateLimitCache.size > 1000) rateLimitCache.clear();
+  
+  return true;
+}
+
+function setCorsHeaders(res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, x-vercel-protection-bypass');
+}
+
+function validateParams(params) {
+  const { terrain, setting, description } = params;
+  const errors = [];
+  
+  if (!terrain && !setting) {
+    errors.push('Either terrain or setting must be provided');
+  }
+  
+  if (description && description.length > 2000) {
+    errors.push('Description too long (max 2000 characters)');
+  }
+  
+  return { valid: errors.length === 0, errors };
+}
+
+function buildPrompt({ terrain, setting, description }) {
+  let prompt = `Generate a fantasy location name for:\n`;
+  
+  if (terrain) prompt += `Terrain: ${terrain}\n`;
+  if (setting) prompt += `Setting: ${setting}\n`;
+  if (description) prompt += `Description: ${description}\n`;
+  
+  prompt += `\nCreate an evocative name suitable for a tabletop RPG battle map.`;
+  return prompt;
+}
+
+async function generateWithGemini(params) {
+  try {
+    validateEnvironment();
+    
+    // Handle production credentials
+    if (process.env.NODE_ENV === 'production' || process.env.VERCEL) {
+      const credentials = getGoogleCredentials();
+      const fs = require('fs');
+      const tmpCredPath = '/tmp/gcp-credentials.json';
+      fs.writeFileSync(tmpCredPath, JSON.stringify(credentials));
+      process.env.GOOGLE_APPLICATION_CREDENTIALS = tmpCredPath;
+    }
+    
+    const client = new GoogleGenAI({
+      vertexai: true,
+      project: process.env.GOOGLE_CLOUD_PROJECT,
+      location: process.env.GOOGLE_CLOUD_LOCATION
+    });
+    
+    const model = getRecommendedModel('name-generation');
+    const prompt = buildPrompt(params);
+    
+    const response = await client.models.generateContent({
+      model: model,
+      contents: prompt,
+      config: {
+        temperature: 1.5,
+        maxOutputTokens: 100,
+        responseMimeType: "application/json",
+        responseSchema: {
+          type: "object",
+          properties: {
+            name: { type: "string" }
+          },
+          propertyOrdering: ["name"]
+        }
+      }
+    });
+    
+    if (!response?.text) {
+      throw new Error('No response from Gemini');
+    }
+    
+    // Parse the JSON response
+    const parsedResponse = JSON.parse(response.text);
+    const name = parsedResponse.name;
+    
+    if (!name || typeof name !== 'string') {
+      throw new Error('Invalid name in response');
+    }
+    
+    return {
+      success: true,
+      name: name.trim(),
+      metadata: {
+        method: 'gemini',
+        prompt,
+        tokenUsage: response.metadata?.tokenUsage,
+        generatedAt: new Date().toISOString()
+      }
+    };
+    
+  } catch (error) {
+    throw error;
+  }
+}
+
+function generateWithFallback(params) {
+  const nameService = new SimpleNameService();
+  const result = nameService.generateNames('place', {
+    type: params.setting || params.terrain,
+    terrain: params.terrain
+  });
+  
+  const name = result.success && result.names.length > 0 
+    ? result.names[0]
+    : `The ${(params.terrain || 'Unknown').charAt(0).toUpperCase() + (params.terrain || 'unknown').slice(1)} ${(params.setting || 'Location').charAt(0).toUpperCase() + (params.setting || 'location').slice(1)}`;
+  
+  return {
+    success: true,
+    name,
+    metadata: {
+      method: 'fallback',
+      generatedAt: new Date().toISOString()
+    }
+  };
+}
+
+export default async function handler(req, res) {
+  try {
+    setCorsHeaders(res);
+    
+    if (req.method === 'OPTIONS') {
+      res.status(200).end();
+      return;
+    }
+    
+    if (req.method !== 'POST') {
+      res.status(405).json({ error: 'Method not allowed' });
+      return;
+    }
+    
+    // Rate limiting
+    const clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress || 'unknown';
+    if (!rateLimit(clientIp)) {
+      res.status(429).json({ error: 'Rate limit exceeded' });
+      return;
+    }
+    
+    // Validation
+    const validation = validateParams(req.body || {});
+    if (!validation.valid) {
+      res.status(400).json({ error: validation.errors.join(', ') });
+      return;
+    }
+    
+    const { terrain, setting, description } = req.body;
+    
+    let result;
+    try {
+      result = await generateWithGemini({ terrain, setting, description });
+    } catch (error) {
+      result = generateWithFallback({ terrain, setting, description });
+      result.metadata.geminiError = error.message;
+    }
+    
+    res.status(200).json({
+      success: result.success,
+      name: result.name,
+      metadata: {
+        ...result.metadata,
+        parameters: { terrain, setting, description }
+      }
+    });
+    
+  } catch (error) {
+    console.error('Name generation error:', error);
+    res.status(500).json({ error: 'Name generation failed' });
+  }
+}
