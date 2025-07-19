@@ -15,13 +15,13 @@ const { sendErrorResponse, validateMethod, createError } = require('../../lib/ut
 
 
 function buildPrompt({ terrain, setting, description }) {
-  let prompt = `Generate a fantasy location name for:\n`;
+  let prompt = 'Generate a fantasy location name for:\n';
   
   if (terrain) prompt += `Terrain: ${terrain}\n`;
   if (setting) prompt += `Setting: ${setting}\n`;
   if (description) prompt += `Description: ${description}\n`;
   
-  prompt += `\nCreate an evocative name suitable for a tabletop RPG battle map.`;
+  prompt += '\nCreate an evocative name suitable for a tabletop RPG battle map.';
   return prompt;
 }
 
@@ -29,19 +29,18 @@ async function generateWithGemini(params) {
   try {
     validateEnvironment();
     
-    // Handle production credentials
-    if (process.env.NODE_ENV === 'production' || process.env.VERCEL) {
-      const credentials = getGoogleCredentials();
-      const fs = require('fs');
-      const tmpCredPath = '/tmp/gcp-credentials.json';
-      fs.writeFileSync(tmpCredPath, JSON.stringify(credentials));
-      process.env.GOOGLE_APPLICATION_CREDENTIALS = tmpCredPath;
-    }
+    // Get decoded credentials in memory only
+    const credentials = getGoogleCredentials();
     
+    // Use in-memory authentication without writing credentials to disk
     const client = new GoogleGenAI({
       vertexai: true,
       project: process.env.GOOGLE_CLOUD_PROJECT,
-      location: process.env.GOOGLE_CLOUD_LOCATION
+      location: process.env.GOOGLE_CLOUD_LOCATION,
+      // Pass credentials directly to avoid file system usage
+      googleAuthOptions: {
+        credentials: credentials
+      }
     });
     
     const model = getRecommendedModel('name-generation');
@@ -53,13 +52,13 @@ async function generateWithGemini(params) {
       config: {
         temperature: 1.5,
         maxOutputTokens: 100,
-        responseMimeType: "application/json",
+        responseMimeType: 'application/json',
         responseSchema: {
-          type: "object",
+          type: 'object',
           properties: {
-            name: { type: "string" }
+            name: { type: 'string' }
           },
-          propertyOrdering: ["name"]
+          propertyOrdering: ['name']
         }
       }
     });

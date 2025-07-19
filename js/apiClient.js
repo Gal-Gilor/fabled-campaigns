@@ -9,32 +9,32 @@
  * @returns {Promise<Object>} The generated name data from the API
  */
 async function generateName(params) {
-    try {
-        const response = await fetch('/api/maps/generateName', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'x-vercel-protection-bypass': window.VERCEL_BYPASS_SECRET || '',
-            },
-            body: JSON.stringify(params)
-        });
+  try {
+    const response = await fetch('/api/maps/generateName', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-vercel-protection-bypass': window.VERCEL_BYPASS_SECRET || ''
+      },
+      body: JSON.stringify(params)
+    });
         
-        if (!response.ok) {
-            const errorData = await response.json().catch(() => ({}));
-            throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
-        }
-        
-        const result = await response.json();
-        
-        if (!result.success) {
-            throw new Error(result.error || 'Name generation failed');
-        }
-        
-        return result;
-    } catch (error) {
-        console.error('Name generation API call failed:', error);
-        throw error;
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
     }
+        
+    const result = await response.json();
+        
+    if (!result.success) {
+      throw new Error(result.error || 'Name generation failed');
+    }
+        
+    return result;
+  } catch (error) {
+    console.error('Name generation API call failed:', error);
+    throw error;
+  }
 }
 
 /**
@@ -43,42 +43,42 @@ async function generateName(params) {
  * @returns {Promise<Object>} The generated map data from the API
  */
 async function generateMap(params) {
-    try {
-        const response = await fetch('/api/maps/generateMap', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'x-vercel-protection-bypass': window.VERCEL_BYPASS_SECRET || '',
-            },
-            body: JSON.stringify(params)
-        });
+  try {
+    const response = await fetch('/api/maps/generateMap', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-vercel-protection-bypass': window.VERCEL_BYPASS_SECRET || ''
+      },
+      body: JSON.stringify(params)
+    });
         
-        if (!response.ok) {
-            const errorData = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
             
-            // Handle specific error types
-            if (response.status === 429) {
-                throw new Error('Rate limit exceeded. Please wait before trying again.');
-            } else if (response.status === 400) {
-                throw new Error(errorData.message || 'Invalid parameters provided.');
-            } else if (response.status >= 500) {
-                throw new Error('Server error. Please try again later.');
-            }
+      // Handle specific error types
+      if (response.status === 429) {
+        throw new Error('Rate limit exceeded. Please wait before trying again.');
+      } else if (response.status === 400) {
+        throw new Error(errorData.message || 'Invalid parameters provided.');
+      } else if (response.status >= 500) {
+        throw new Error('Server error. Please try again later.');
+      }
             
-            throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
-        }
-        
-        const result = await response.json();
-        
-        if (!result.success) {
-            throw new Error(result.error || 'Map generation failed');
-        }
-        
-        return result;
-    } catch (error) {
-        console.error('Map generation API call failed:', error);
-        throw error;
+      throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
     }
+        
+    const result = await response.json();
+        
+    if (!result.success) {
+      throw new Error(result.error || 'Map generation failed');
+    }
+        
+    return result;
+  } catch (error) {
+    console.error('Map generation API call failed:', error);
+    throw error;
+  }
 }
 
 /**
@@ -87,19 +87,19 @@ async function generateMap(params) {
  * @returns {string} User-friendly error message
  */
 function handleApiError(error) {
-    console.error('API Error:', error);
+  console.error('API Error:', error);
     
-    if (error.message.includes('Rate limit')) {
-        return 'Too many requests. Please wait a moment before trying again.';
-    } else if (error.message.includes('Invalid parameters')) {
-        return 'Please check your input and try again.';
-    } else if (error.message.includes('Server error')) {
-        return 'Service temporarily unavailable. Please try again later.';
-    } else if (error.message.includes('Failed to fetch')) {
-        return 'Network error. Please check your connection and try again.';
-    }
+  if (error.message.includes('Rate limit')) {
+    return 'Too many requests. Please wait a moment before trying again.';
+  } else if (error.message.includes('Invalid parameters')) {
+    return 'Please check your input and try again.';
+  } else if (error.message.includes('Server error')) {
+    return 'Service temporarily unavailable. Please try again later.';
+  } else if (error.message.includes('Failed to fetch')) {
+    return 'Network error. Please check your connection and try again.';
+  }
     
-    return error.message || 'An unexpected error occurred. Please try again.';
+  return error.message || 'An unexpected error occurred. Please try again.';
 }
 
 // Expose API functions to global scope
