@@ -23,7 +23,7 @@
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
-          "value": "*"
+          "value": "https://fabled-campaigns.vercel.app"
         },
         {
           "key": "Access-Control-Allow-Methods",

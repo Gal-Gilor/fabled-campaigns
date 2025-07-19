@@ -1,49 +1,18 @@
 /**
  * Vercel Serverless Function: Name Generation API
  * Uses Gemini 2.0 Flash with fallback to local generation
+ * Refactored to use shared utility modules
  */
 
 const { GoogleGenAI } = require('@google/genai');
 const { getGoogleCredentials, validateEnvironment } = require('../../lib/credentials');
 const { getRecommendedModel } = require('../../lib/models');
 const SimpleNameService = require('../../lib/simpleNameService');
+const { rateLimit } = require('../../lib/middleware/rateLimiter');
+const { setCorsHeaders, handlePreflight } = require('../../lib/middleware/cors');
+const { validateRequest } = require('../../lib/middleware/validation');
+const { sendErrorResponse, validateMethod, createError } = require('../../lib/utils/errorHandler');
 
-// Rate limiting cache
-const rateLimitCache = new Map();
-
-function rateLimit(ip, windowMs = 15 * 60 * 1000, maxRequests = 10) {
-  const now = Date.now();
-  const key = `${ip}:${Math.floor(now / windowMs)}`;
-  const count = rateLimitCache.get(key) || 0;
-  
-  if (count >= maxRequests) return false;
-  
-  rateLimitCache.set(key, count + 1);
-  if (rateLimitCache.size > 1000) rateLimitCache.clear();
-  
-  return true;
-}
-
-function setCorsHeaders(res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, x-vercel-protection-bypass');
-}
-
-function validateParams(params) {
-  const { terrain, setting, description } = params;
-  const errors = [];
-  
-  if (!terrain && !setting) {
-    errors.push('Either terrain or setting must be provided');
-  }
-  
-  if (description && description.length > 2000) {
-    errors.push('Description too long (max 2000 characters)');
-  }
-  
-  return { valid: errors.length === 0, errors };
-}
 
 function buildPrompt({ terrain, setting, description }) {
   let prompt = `Generate a fantasy location name for:\n`;
@@ -146,33 +115,32 @@ function generateWithFallback(params) {
 
 export default async function handler(req, res) {
   try {
+    // Set CORS headers
     setCorsHeaders(res);
     
-    if (req.method === 'OPTIONS') {
-      res.status(200).end();
+    // Handle preflight requests
+    if (handlePreflight(req, res)) {
       return;
     }
     
-    if (req.method !== 'POST') {
-      res.status(405).json({ error: 'Method not allowed' });
+    // Validate HTTP method
+    if (!validateMethod(req, res, ['POST'])) {
       return;
     }
     
-    // Rate limiting
+    // Rate limiting (higher limit for name generation)
     const clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress || 'unknown';
-    if (!rateLimit(clientIp)) {
-      res.status(429).json({ error: 'Rate limit exceeded' });
-      return;
+    if (!rateLimit(clientIp, 15 * 60 * 1000, 10)) { // 10 requests per 15 minutes
+      return sendErrorResponse(res, createError.rateLimit('Too many name generation requests. Please try again later.'));
     }
     
-    // Validation
-    const validation = validateParams(req.body || {});
+    // Validate request body
+    const validation = validateRequest(req.body, 'name');
     if (!validation.valid) {
-      res.status(400).json({ error: validation.errors.join(', ') });
-      return;
+      return sendErrorResponse(res, createError.validation(validation.errors.join(', '), validation.errors));
     }
     
-    const { terrain, setting, description } = req.body;
+    const { terrain, setting, description } = validation.sanitized;
     
     let result;
     try {
@@ -193,6 +161,6 @@ export default async function handler(req, res) {
     
   } catch (error) {
     console.error('Name generation error:', error);
-    res.status(500).json({ error: 'Name generation failed' });
+    sendErrorResponse(res, createError.internal('Name generation failed', { originalError: error.message }));
   }
 }
