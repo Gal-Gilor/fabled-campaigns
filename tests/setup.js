@@ -25,13 +25,15 @@ global.console = {
 // Mock fetch for API tests
 global.fetch = jest.fn();
 
-// Mock DOM methods for frontend tests
-Object.defineProperty(window, 'location', {
-  value: {
-    href: 'http://localhost:3000'
-  },
-  writable: true
-});
+// Mock DOM methods for frontend tests (only in jsdom environment)
+if (typeof window !== 'undefined') {
+  Object.defineProperty(window, 'location', {
+    value: {
+      href: 'http://localhost:3000'
+    },
+    writable: true
+  });
+}
 
 // Reset all mocks after each test
 afterEach(() => {
