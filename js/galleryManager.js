@@ -63,11 +63,9 @@ function addMapToGallery(mapData) {
   newCard.dataset.terrain = mapData.terrain;
   newCard.dataset.size = mapData.size;
     
-  const icon = SETTING_ICONS[mapData.setting] || '🗺️';
-    
   newCard.innerHTML = `
         <button class="delete-btn" onclick="showDeleteConfirmation(this, event)">×</button>
-        <div class="map-thumbnail">${icon}</div>
+        <div class="map-thumbnail"></div>
         <div class="map-info">
             <h3>${mapData.name}</h3>
             <div class="map-tags">

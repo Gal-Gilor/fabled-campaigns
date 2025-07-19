@@ -43,13 +43,19 @@
                         <select id="terrainTypeSimple" required>
                             <option value="forest" selected>Forest</option>
                             <option value="grassland">Grassland</option>
+                            <option value="hills">Hills</option>
                             <option value="mountain">Mountain</option>
                             <option value="desert">Desert</option>
                             <option value="tundra">Tundra</option>
                             <option value="jungle">Jungle</option>
                             <option value="swamp">Swamp</option>
                             <option value="ocean">Ocean</option>
+                            <option value="coastal">Coastal</option>
                             <option value="underground">Underground</option>
+                            <option value="underdark">Underdark</option>
+                            <option value="badlands">Badlands</option>
+                            <option value="feywild">Feywild</option>
+                            <option value="shadowfell">Shadowfell</option>
                             <option value="urban">Urban</option>
                         </select>
                     </div>
@@ -93,13 +99,19 @@
                             <select id="terrainType" required>
                                 <option value="forest" selected>Forest</option>
                                 <option value="grassland">Grassland</option>
+                                <option value="hills">Hills</option>
                                 <option value="mountain">Mountain</option>
                                 <option value="desert">Desert</option>
                                 <option value="tundra">Tundra</option>
                                 <option value="jungle">Jungle</option>
                                 <option value="swamp">Swamp</option>
                                 <option value="ocean">Ocean</option>
+                                <option value="coastal">Coastal</option>
                                 <option value="underground">Underground</option>
+                                <option value="underdark">Underdark</option>
+                                <option value="badlands">Badlands</option>
+                                <option value="feywild">Feywild</option>
+                                <option value="shadowfell">Shadowfell</option>
                                 <option value="urban">Urban</option>
                                 <option value="volcanic">Volcanic</option>
                                 <option value="industrial">Industrial</option>
@@ -137,7 +149,6 @@
             
             <div id="mapPreview" class="map-preview">
                 <div class="preview-placeholder">
-                    <span class="icon">🗺️</span>
                     <p>Your map will appear here once generated</p>
                 </div>
             </div>
@@ -158,13 +169,19 @@
                             <option value="all">All Terrains</option>
                             <option value="forest">Forest</option>
                             <option value="grassland">Grassland</option>
+                            <option value="hills">Hills</option>
                             <option value="mountain">Mountain</option>
                             <option value="desert">Desert</option>
                             <option value="tundra">Tundra</option>
                             <option value="jungle">Jungle</option>
                             <option value="swamp">Swamp</option>
                             <option value="ocean">Ocean</option>
+                            <option value="coastal">Coastal</option>
                             <option value="underground">Underground</option>
+                            <option value="underdark">Underdark</option>
+                            <option value="badlands">Badlands</option>
+                            <option value="feywild">Feywild</option>
+                            <option value="shadowfell">Shadowfell</option>
                             <option value="urban">Urban</option>
                             <option value="volcanic">Volcanic</option>
                             <option value="industrial">Industrial</option>
@@ -185,7 +202,7 @@
                 <!-- Example map cards with new tag system -->
                 <div class="map-card" data-setting="fortress" data-terrain="mountain" data-size="size-30x30" onclick="downloadSampleMap('riverside-keep')">
                     <button class="delete-btn" onclick="showDeleteConfirmation(this, event)">×</button>
-                    <div class="map-thumbnail">🏰</div>
+                    <div class="map-thumbnail"></div>
                     <div class="map-info">
                         <h3>Riverside Keep</h3>
                         <div class="map-tags">
@@ -202,7 +219,7 @@
 
                 <div class="map-card" data-setting="temple" data-terrain="underground" data-size="size-40x40" onclick="downloadSampleMap('sunken-crypts')">
                     <button class="delete-btn" onclick="showDeleteConfirmation(this, event)">×</button>
-                    <div class="map-thumbnail">⛪</div>
+                    <div class="map-thumbnail"></div>
                     <div class="map-info">
                         <h3>Sunken Crypts</h3>
                         <div class="map-tags">
@@ -219,7 +236,7 @@
 
                 <div class="map-card" data-setting="village" data-terrain="forest" data-size="size-20x20" onclick="downloadSampleMap('whisperleaf-village')">
                     <button class="delete-btn" onclick="showDeleteConfirmation(this, event)">×</button>
-                    <div class="map-thumbnail">🏘️</div>
+                    <div class="map-thumbnail"></div>
                     <div class="map-info">
                         <h3>Whisperleaf Village</h3>
                         <div class="map-tags">

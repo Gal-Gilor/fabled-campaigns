@@ -49,7 +49,6 @@ function initMapGeneration() {
     mapPreview.classList.remove('has-map');
     mapPreview.innerHTML = `
             <div class="preview-placeholder">
-                <span class="icon">⚙️</span>
                 <p>Generating your epic battle map...</p>
                 <div class="loading-spinner"></div>
             </div>
@@ -156,7 +155,7 @@ async function processSettingTab(generateBtn) {
     terrain: getDefaultTerrain(locationType),
     setting: locationType,
     size: 'size-30x30',
-    generationMode: 'detailed'
+    generationMode: 'quick'
   };
 }
 
@@ -239,7 +238,7 @@ function showMapSuccess(mapData) {
                     Download Map
                 </button>
                 <button onclick="createNewMap()" class="action-btn generate-btn" style="margin: 0;">
-                    🎲 Reroll
+                    Reroll
                 </button>
             </div>
             
@@ -265,7 +264,6 @@ async function createNewMap() {
     mapPreview.classList.remove('has-map');
     mapPreview.innerHTML = `
             <div class="preview-placeholder">
-                <span class="icon">🎲</span>
                 <p>Rerolling "${currentMapData.name}"...</p>
                 <div class="loading-spinner"></div>
             </div>
@@ -300,10 +298,9 @@ async function createNewMap() {
       // Show error state
       mapPreview.innerHTML = `
                 <div class="preview-placeholder">
-                    <span class="icon">⚠️</span>
                     <p>Reroll failed. Please try again.</p>
                     <button onclick="createNewMap()" class="action-btn generate-btn" style="margin-top: 1rem;">
-                        🎲 Try Again
+                        Try Again
                     </button>
                 </div>
             `;
@@ -337,7 +334,6 @@ function resetForm() {
   mapPreview.classList.remove('has-map');
   mapPreview.innerHTML = `
         <div class="preview-placeholder">
-            <span class="icon">🗺️</span>
             <p>Your map will appear here once generated</p>
         </div>
     `;
