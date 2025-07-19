@@ -69,7 +69,7 @@ function initMapGeneration() {
         size: mapData.size,
         generationMode: mapData.generationMode,
         imageUrl: result.imageUrl,
-        createdAt: result.metadata.generatedAt,
+        createdAt: result.metadata?.generatedAt || new Date().toISOString(),
         fallback: result.fallback || false
       };
             

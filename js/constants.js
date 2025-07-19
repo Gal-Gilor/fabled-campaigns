@@ -3,7 +3,8 @@
  */
 
 // Global variable to store generated map data
-const currentMapData = null;
+// eslint-disable-next-line prefer-const
+let currentMapData = null;
 
 // Single source of truth for setting options
 const SETTING_OPTIONS = [
