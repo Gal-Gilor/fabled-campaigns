@@ -82,10 +82,14 @@ export default async function handler(req, res) {
       }
     };
     
-    // Add error information if generation failed
+    // Handle response based on generation result
     if (!result.success) {
-      response.fallback = true;
-      response.error = result.error;
+      // Return error status when image generation fails
+      return res.status(500).json({
+        success: false,
+        error: result.error || 'Map generation failed',
+        message: 'Failed to generate map image. Please try again.'
+      });
     }
     
     res.status(200).json(response);
