@@ -62,6 +62,7 @@ function addMapToGallery(mapData) {
   newCard.dataset.setting = mapData.setting || 'terrain';
   newCard.dataset.terrain = mapData.terrain;
   newCard.dataset.size = mapData.size || 'auto';
+  newCard.onclick = () => downloadMap(mapData.id);
     
   // Handle null values for terrain-only maps
   const displayName = mapData.name || 'Unnamed Terrain';
@@ -74,7 +75,9 @@ function addMapToGallery(mapData) {
     
   newCard.innerHTML = `
         <button class="delete-btn" onclick="showDeleteConfirmation(this, event)">×</button>
-        <div class="map-thumbnail"></div>
+        <div class="map-thumbnail">
+            ${mapData.imageUrl ? `<img src="${mapData.imageUrl}" alt="${displayName}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px;">` : ''}
+        </div>
         <div class="map-info">
             <h3>${displayName}</h3>
             <div class="map-tags">
