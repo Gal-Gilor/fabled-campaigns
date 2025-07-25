@@ -6,6 +6,9 @@
 // eslint-disable-next-line prefer-const
 let currentMapData = null;
 
+// Storage for all generated maps (for download access)
+const allMapsData = new Map();
+
 // Single source of truth for setting options
 const SETTING_OPTIONS = [
   { value: 'tavern', label: 'Tavern' },
@@ -34,9 +37,45 @@ const SETTING_OPTIONS = [
 ];
 
 
+/**
+ * Helper functions for managing map state (without visual indicators)
+ */
+function setCurrentMapData(mapData) {
+  currentMapData = mapData;
+  // Store in all maps collection for download access
+  allMapsData.set(mapData.id, mapData);
+}
+
+function getCurrentMapData() {
+  return currentMapData;
+}
+
+function hasCurrentMapData() {
+  return currentMapData !== null;
+}
+
+function clearCurrentMapData() {
+  currentMapData = null;
+}
+
+/**
+ * Get map data by ID from storage
+ * @param {string} mapId - The ID of the map to retrieve
+ * @returns {Object|null} The map data or null if not found
+ */
+function getMapDataById(mapId) {
+  return allMapsData.get(mapId) || null;
+}
+
 // Expose to global scope for browser usage
 window.SETTING_OPTIONS = SETTING_OPTIONS;
 window.currentMapData = currentMapData;
+window.allMapsData = allMapsData;
+window.setCurrentMapData = setCurrentMapData;
+window.getCurrentMapData = getCurrentMapData;
+window.hasCurrentMapData = hasCurrentMapData;
+window.clearCurrentMapData = clearCurrentMapData;
+window.getMapDataById = getMapDataById;
 
 // Export for module usage (if needed)
 if (typeof module !== 'undefined' && module.exports) {

@@ -17,15 +17,15 @@ function initMapGeneration() {
 
   console.log('Map generation initialized, button found:', generateBtn);
 
-  generateBtn.addEventListener('click', async function() {
+  generateBtn.addEventListener('click', async function () {
     // Prevent any potential double-clicks or rapid clicking
     if (generateBtn.classList.contains('loading')) {
       console.log('Generation already in progress, ignoring click');
       return;
     }
-        
+
     console.log('Generate button clicked'); // Debug log
-        
+
     // Determine which tab is active and get form data accordingly
     const activeTab = document.querySelector('.tab-content.active').id;
     let mapData;
@@ -43,7 +43,7 @@ function initMapGeneration() {
     // Show loading state
     generateBtn.disabled = true;
     generateBtn.classList.add('loading');
-        
+
     // Reset preview area to loading state
     mapPreview.classList.remove('has-map');
     mapPreview.innerHTML = `
@@ -52,13 +52,13 @@ function initMapGeneration() {
                 <div class="loading-spinner"></div>
             </div>
         `;
-        
+
     try {
       // Call the real AI image generation API
       const result = await generateMap(mapData);
-            
-      // Store the generated map data
-      currentMapData = {
+
+      // Store the generated map data using the helper function
+      const newMapData = {
         id: result.mapId,
         name: mapData.name || null, // Explicitly null instead of undefined
         description: mapData.description,
@@ -70,12 +70,13 @@ function initMapGeneration() {
         createdAt: result.metadata?.generatedAt || new Date().toISOString(),
         fallback: result.fallback || false
       };
-            
+
+      window.setCurrentMapData(newMapData);
+
       showMapSuccess(currentMapData);
-            
     } catch (error) {
       console.error('Map generation failed:', error);
-            
+
       // Show more specific error message
       let errorMessage = 'Failed to generate map. Please try again.';
       if (error.message.includes('Rate limit')) {
@@ -83,7 +84,7 @@ function initMapGeneration() {
       } else if (error.message.includes('Invalid parameters')) {
         errorMessage = 'Please check your input and try again.';
       }
-            
+
       alert(errorMessage);
     } finally {
       // Reset button
@@ -100,11 +101,12 @@ function initMapGeneration() {
  */
 async function processTerrainTab(generateBtn) {
   const terrainType = document.getElementById('terrainTypeSimple').value;
-  const mapDescription = document.getElementById('terrainDescription').value || generateDefaultDescription(terrainType);
-    
+  const mapDescription =
+    document.getElementById('terrainDescription').value || generateDefaultDescription(terrainType);
+
   // Update button to show map creation is starting
   generateBtn.innerHTML = '<span>Charting unknown lands...</span>';
-    
+
   // For terrain-only maps, don't generate names - these are unnamed wilderness encounters
   return {
     description: mapDescription,
@@ -121,22 +123,22 @@ async function processTerrainTab(generateBtn) {
 async function processSettingTab(generateBtn) {
   let mapName = document.getElementById('settingName').value.trim();
   const locationType = document.getElementById('settingLocationType').value;
-  const mapDescription = document.getElementById('settingDescription').value || generateDefaultDescription(locationType);
-    
+  const mapDescription =
+    document.getElementById('settingDescription').value || generateDefaultDescription(locationType);
+
   // If name is empty, generate one using the API
   if (!mapName) {
     try {
       generateBtn.innerHTML = '<span class="spinner"></span><span>Legends whisper a name...</span>';
-            
+
       const nameResult = await generateName({
         setting: locationType,
         terrain: getDefaultTerrain(locationType)
       });
-            
+
       mapName = nameResult.name;
       document.getElementById('settingName').value = mapName;
       generateBtn.innerHTML = '<span>Scrolls unfurl... Your world awakens.</span>';
-            
     } catch (error) {
       console.error('Name generation failed:', error);
       mapName = generateRandomName();
@@ -146,7 +148,7 @@ async function processSettingTab(generateBtn) {
   } else {
     generateBtn.innerHTML = '<span>Charting unknown lands...</span>';
   }
-    
+
   return {
     name: mapName,
     description: mapDescription,
@@ -166,12 +168,12 @@ async function processAdvancedTab(generateBtn) {
   const terrainType = document.getElementById('terrainType').value;
   const locationType = document.getElementById('locationType').value;
   const mapSize = document.getElementById('mapSize').value;
-    
+
   if (!mapDescription) {
     alert('Please fill in the description field');
     return null;
   }
-    
+
   // If name is empty, generate one using the API
   if (!mapName) {
     try {
@@ -182,11 +184,10 @@ async function processAdvancedTab(generateBtn) {
         setting: locationType,
         description: mapDescription
       });
-            
+
       mapName = nameResult.name;
       document.getElementById('mapName').value = mapName;
       generateBtn.innerHTML = '<span>Scrolls unfurl... Your world awakens.</span>';
-
     } catch (error) {
       console.error('Name generation failed:', error);
       mapName = generateRandomName();
@@ -215,7 +216,7 @@ function showMapSuccess(mapData) {
     console.log('Showing map success with data:', mapData);
     const mapPreview = document.getElementById('mapPreview');
     mapPreview.classList.add('has-map');
-  mapPreview.innerHTML = `
+    mapPreview.innerHTML = `
         <div style="text-align: center; width: 100%;">
             <h3 style="color: var(--primary-blue); margin-bottom: 1rem; font-family: 'Cinzel', serif;">Ready to Play!</h3>
             <p style="color: var(--neutral-600);">${mapData.name ? `"${mapData.name}" is ready for your next session` : 'Your terrain map is ready for your next session'}</p>
@@ -247,7 +248,7 @@ function showMapSuccess(mapData) {
             </p>
         </div>
     `;
-    
+
     // Add to gallery
     addMapToGallery(mapData);
     console.log('Map success display completed');
@@ -262,7 +263,7 @@ function showMapSuccess(mapData) {
  */
 async function createNewMap() {
   const mapPreview = document.getElementById('mapPreview');
-    
+
   // If we have current map data, reroll with same parameters
   if (currentMapData) {
     // Show loading state
@@ -273,7 +274,7 @@ async function createNewMap() {
                 <div class="loading-spinner"></div>
             </div>
         `;
-        
+
     try {
       // Generate new map with same parameters
       const result = await generateMap({
@@ -284,22 +285,24 @@ async function createNewMap() {
         size: currentMapData.size,
         generationMode: currentMapData.generationMode || 'detailed'
       });
-            
-      // Update current map data with new result
-      currentMapData = {
+
+      // Update current map data with new result using helper function
+      const updatedMapData = {
         ...currentMapData,
         id: result.mapId,
         imageUrl: result.imageUrl,
         createdAt: result.metadata.generatedAt,
         fallback: result.fallback || false
       };
-            
+
+      // Store in all maps collection for download access
+      window.setCurrentMapData(updatedMapData);
+
       // Show the new map
       showMapSuccess(currentMapData);
-            
     } catch (error) {
       console.error('Reroll failed:', error);
-            
+
       // Show error state
       mapPreview.innerHTML = `
                 <div class="preview-placeholder">
@@ -323,7 +326,7 @@ function resetForm() {
   // Reset all form tabs
   document.getElementById('terrainTypeSimple').selectedIndex = 0;
   document.getElementById('terrainDescription').value = '';
-    
+
   document.getElementById('settingName').value = '';
   document.getElementById('settingLocationType').selectedIndex = 3; // Default to Temple
   document.getElementById('settingDescription').value = '';
@@ -333,7 +336,7 @@ function resetForm() {
   document.getElementById('locationType').selectedIndex = 0;
   document.getElementById('mapSize').selectedIndex = 1; // Default to 30x30
   document.getElementById('mapDescription').value = '';
-    
+
   // Reset preview
   const mapPreview = document.getElementById('mapPreview');
   mapPreview.classList.remove('has-map');
@@ -342,17 +345,17 @@ function resetForm() {
             <p>Your map will appear here once generated</p>
         </div>
     `;
-    
-  // Clear current map data
-  currentMapData = null;
-    
+
+  // Clear current map data using helper function
+  window.clearCurrentMapData();
+
   // Switch back to terrain tab
   document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
   document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-    
+
   document.querySelector('.tab-btn[data-tab="terrain"]').classList.add('active');
   document.getElementById('terrainTab').classList.add('active');
-    
+
   // Scroll to form and focus
   document.querySelector('.map-creator').scrollIntoView({ behavior: 'smooth' });
   setTimeout(() => {
