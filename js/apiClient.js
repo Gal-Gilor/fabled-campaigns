@@ -18,18 +18,18 @@ async function generateName(params) {
       },
       body: JSON.stringify(params)
     });
-        
+
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
       throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
     }
-        
+
     const result = await response.json();
-        
+
     if (!result.success) {
       throw new Error(result.error || 'Name generation failed');
     }
-        
+
     return result;
   } catch (error) {
     console.error('Name generation API call failed:', error);
@@ -46,7 +46,7 @@ async function generateMap(params) {
   try {
     console.log('=== FRONTEND API CALL ===');
     console.log('Sending map generation request with params:', JSON.stringify(params, null, 2));
-    
+
     const response = await fetch('/api/maps/generateMap', {
       method: 'POST',
       headers: {
@@ -55,14 +55,14 @@ async function generateMap(params) {
       },
       body: JSON.stringify(params)
     });
-    
+
     console.log('Response status:', response.status);
     console.log('Response ok:', response.ok);
-        
+
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
       console.log('Error response data:', JSON.stringify(errorData, null, 2));
-            
+
       // Handle specific error types
       if (response.status === 429) {
         throw new Error('Rate limit exceeded. Please wait before trying again.');
@@ -71,18 +71,18 @@ async function generateMap(params) {
       } else if (response.status >= 500) {
         throw new Error('Server error. Please try again later.');
       }
-            
+
       throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
     }
-        
+
     const result = await response.json();
     console.log('Successful response data:', JSON.stringify(result, null, 2));
-        
+
     if (!result.success) {
       console.log('API returned success=false:', result.error);
       throw new Error(result.error || 'Map generation failed');
     }
-        
+
     return result;
   } catch (error) {
     console.error('Map generation API call failed:', error);
@@ -97,7 +97,7 @@ async function generateMap(params) {
  */
 function handleApiError(error) {
   console.error('API Error:', error);
-    
+
   if (error.message.includes('Rate limit')) {
     return 'Too many requests. Please wait a moment before trying again.';
   } else if (error.message.includes('Invalid parameters')) {
@@ -107,7 +107,7 @@ function handleApiError(error) {
   } else if (error.message.includes('Failed to fetch')) {
     return 'Network error. Please check your connection and try again.';
   }
-    
+
   return error.message || 'An unexpected error occurred. Please try again.';
 }
 

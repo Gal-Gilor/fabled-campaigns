@@ -9,8 +9,10 @@ const { rateLimit } = require('../../lib/middleware/rateLimiter');
 const { setCorsHeaders, handlePreflight } = require('../../lib/middleware/cors');
 const { validateRequest } = require('../../lib/middleware/validation');
 const { sendErrorResponse, validateMethod, createError } = require('../../lib/utils/errorHandler');
-const { generateMapName, generateMapDescription } = require('../../lib/services/mapGenerationService');
-
+const {
+  generateMapName,
+  generateMapDescription
+} = require('../../lib/services/mapGenerationService');
 
 /**
  * Main API handler
@@ -21,51 +23,64 @@ export default async function handler(req, res) {
   try {
     console.log('=== MAP GENERATION REQUEST START ===');
     console.log('Request body:', JSON.stringify(req.body, null, 2));
-    
+
     // Set CORS headers
     setCorsHeaders(res);
-    
+
     // Handle preflight requests
     if (handlePreflight(req, res)) {
       console.log('Handled preflight request');
       return;
     }
-    
+
     // Validate HTTP method
     if (!validateMethod(req, res, ['POST'])) {
       console.log('Method validation failed');
       return;
     }
-    
+
     // Rate limiting
     const clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress || 'unknown';
     console.log('Client IP:', clientIp);
     if (!rateLimit(clientIp)) {
       console.log('Rate limit exceeded for IP:', clientIp);
-      return sendErrorResponse(res, createError.rateLimit('Too many map generation requests. Please try again later.'));
+      return sendErrorResponse(
+        res,
+        createError.rateLimit('Too many map generation requests. Please try again later.')
+      );
     }
-    
+
     // Validate request body
     const validation = validateRequest(req.body, 'map');
     if (!validation.valid) {
       console.log('Validation failed with errors:', validation.errors);
-      return sendErrorResponse(res, createError.validation(validation.errors.join(', '), validation.errors));
+      return sendErrorResponse(
+        res,
+        createError.validation(validation.errors.join(', '), validation.errors)
+      );
     }
-    
+
     const { name, description, terrain, setting, size, generationMode } = validation.sanitized;
-    console.log('Sanitized parameters:', { name, description, terrain, setting, size, generationMode });
-    
+    console.log('Sanitized parameters:', {
+      name,
+      description,
+      terrain,
+      setting,
+      size,
+      generationMode
+    });
+
     // Generate name if not provided (except for terrain-only requests)
     const finalName = name || (setting ? generateMapName({ terrain, setting }) : null);
     console.log('Final name:', finalName);
-    
+
     // Generate description if not provided
     const finalDescription = description || generateMapDescription({ terrain, setting });
     console.log('Final description:', finalDescription);
-    
+
     // Initialize Imagen service
     const imagenService = new ImagenService();
-    
+
     // Generate map (only pass size if it exists)
     const mapParams = {
       name: finalName,
@@ -74,16 +89,16 @@ export default async function handler(req, res) {
       setting,
       generationMode
     };
-    
+
     // Only include size if provided (Advanced tab)
     if (size) {
       mapParams.size = size;
     }
     console.log('Map params being sent to ImagenService:', JSON.stringify(mapParams, null, 2));
-    
+
     const result = await imagenService.generateMapImage(mapParams);
     console.log('ImagenService result success:', result.success);
-    
+
     // Prepare response
     const response = {
       success: result.success,
@@ -102,7 +117,7 @@ export default async function handler(req, res) {
         model: result.metadata?.model || 'imagen-3.0-generate-002'
       }
     };
-    
+
     // Handle response based on generation result
     if (!result.success) {
       console.log('Image generation failed:', result.error);
@@ -113,15 +128,14 @@ export default async function handler(req, res) {
         message: 'Failed to generate map image. Please try again.'
       });
     }
-    
+
     console.log('Map generation successful, sending response');
     res.status(200).json(response);
-    
   } catch (error) {
     console.error('Map generation API error:', error);
     console.error('Error stack:', error.stack);
-    
-    res.status(500).json({ 
+
+    res.status(500).json({
       error: 'Internal server error',
       message: 'Map generation failed. Please try again later.'
     });

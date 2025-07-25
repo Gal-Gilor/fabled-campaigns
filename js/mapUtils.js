@@ -8,8 +8,30 @@
  * @returns {string} A randomly generated name like "The Golden Haven"
  */
 function generateRandomName() {
-  const adjectives = ['Golden', 'Silver', 'Ancient', 'Mystic', 'Royal', 'Hidden', 'Sacred', 'Lost', 'Enchanted', 'Forgotten'];
-  const nouns = ['Haven', 'Lodge', 'Keep', 'Hall', 'Inn', 'Sanctuary', 'Chamber', 'Grove', 'Rest', 'Refuge'];
+  const adjectives = [
+    'Golden',
+    'Silver',
+    'Ancient',
+    'Mystic',
+    'Royal',
+    'Hidden',
+    'Sacred',
+    'Lost',
+    'Enchanted',
+    'Forgotten'
+  ];
+  const nouns = [
+    'Haven',
+    'Lodge',
+    'Keep',
+    'Hall',
+    'Inn',
+    'Sanctuary',
+    'Chamber',
+    'Grove',
+    'Rest',
+    'Refuge'
+  ];
   const adjective = adjectives[Math.floor(Math.random() * adjectives.length)];
   const noun = nouns[Math.floor(Math.random() * nouns.length)];
   return `The ${adjective} ${noun}`;
@@ -27,13 +49,15 @@ function generateDefaultDescription(setting) {
     village: 'A peaceful settlement with winding paths and friendly faces.',
     fortress: 'An imposing military stronghold with thick walls and strategic defenses.',
     castle: 'A grand noble residence with high walls, towers, and impressive architecture.',
-    tower: 'A tall structure reaching toward the sky, offering commanding views of the surrounding lands.',
+    tower:
+      'A tall structure reaching toward the sky, offering commanding views of the surrounding lands.',
     temple: 'A sacred space filled with divine energy and ancient wisdom.',
     ruins: 'Crumbling remnants of a once-great structure, mysterious and weathered.',
     cave: 'A natural shelter carved from stone, echoing with hidden secrets.',
     mine: 'Deep excavated tunnels where precious metals and gems are extracted from the earth.',
     campsite: 'A temporary refuge under the open sky, simple but secure.',
-    crossroads: 'A crucial intersection where multiple paths meet, often marked by signposts and travelers.',
+    crossroads:
+      'A crucial intersection where multiple paths meet, often marked by signposts and travelers.',
     bridge: 'A vital crossing over water or chasm, connecting distant shores or lands.',
     'trading-post': 'A bustling hub of commerce where travelers gather to trade.',
     docks: 'A busy waterfront where ships are loaded and unloaded, filled with maritime activity.',
@@ -46,7 +70,7 @@ function generateDefaultDescription(setting) {
     graveyard: 'A solemn resting place for the dead, with weathered headstones and ancient tombs.',
     ship: 'The wooden deck of a vessel at sea, with rigging overhead and waves below.',
     sewer: 'A foul-smelling network of tunnels beneath a city, dark and damp.',
-        
+
     // Terrain descriptions (for terrain-only generation)
     forest: 'Ancient woods where sunlight filters through a verdant canopy.',
     grassland: 'Rolling fields of verdant grass with gentle hills and peaceful meadows.',
@@ -59,10 +83,13 @@ function generateDefaultDescription(setting) {
     ocean: 'Endless waters with crashing waves, coral reefs, and hidden depths.',
     coastal: 'Rocky shores where land meets sea, with tide pools and weathered cliffs.',
     underground: 'Deep caverns and tunnels with echoing chambers and hidden secrets.',
-    underdark: 'The vast underground realm filled with bioluminescent fungi, crystal formations, and strange creatures.',
+    underdark:
+      'The vast underground realm filled with bioluminescent fungi, crystal formations, and strange creatures.',
     badlands: 'Harsh wasteland of cracked earth and twisted rock formations.',
-    feywild: 'A magical realm where reality bends, colors are more vivid, and ancient fey magic permeates the air.',
-    shadowfell: 'A dark reflection of the world, where shadows linger and the air carries whispers of the dead.',
+    feywild:
+      'A magical realm where reality bends, colors are more vivid, and ancient fey magic permeates the air.',
+    shadowfell:
+      'A dark reflection of the world, where shadows linger and the air carries whispers of the dead.',
     urban: 'Bustling cityscape with cobblestone streets, towering buildings, and busy markets.',
     volcanic: 'Smoldering landscape with lava flows, steaming vents, and scorched terrain.',
     industrial: 'Mechanized landscape with steam-powered machinery, forges, and workshops.',
@@ -110,31 +137,40 @@ function getDefaultTerrain(setting) {
  * @param {string} mapId - The ID of the map to download
  */
 function downloadMap(mapId) {
-  if (!currentMapData || currentMapData.id !== mapId) {
+  // First check if it's the current map, otherwise look in all maps storage
+  let mapData = null;
+  if (currentMapData && currentMapData.id === mapId) {
+    mapData = currentMapData;
+  } else {
+    mapData = window.getMapDataById(mapId);
+  }
+
+  if (!mapData) {
     alert('Map data not found');
     return;
   }
-    
+
   try {
     // Create download link
     const link = document.createElement('a');
-    link.download = `${currentMapData.name.replace(/[^a-z0-9]/gi, '_')}_map.png`;
-    link.href = currentMapData.imageUrl;
-        
+    const fileName = mapData.name
+      ? `${mapData.name.replace(/[^a-z0-9]/gi, '_')}_map.png`
+      : `terrain_map_${mapId.substring(0, 8)}.png`;
+    link.download = fileName;
+    link.href = mapData.imageUrl;
+
     // Trigger download
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-        
+
     // Show feedback
     showDownloadFeedback();
-        
   } catch (error) {
     console.error('Download failed:', error);
     alert('Failed to download map. Please try again.');
   }
 }
-
 
 // Expose functions to global scope for inline onclick handlers
 window.generateRandomName = generateRandomName;

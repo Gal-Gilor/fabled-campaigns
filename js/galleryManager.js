@@ -6,7 +6,7 @@
 // Gallery filtering state
 const activeFilters = {
   setting: 'all',
-  terrain: 'all', 
+  terrain: 'all',
   size: 'all'
 };
 
@@ -15,12 +15,12 @@ const activeFilters = {
  */
 function initGalleryFiltering() {
   const filterDropdowns = document.querySelectorAll('.filter-dropdown');
-    
+
   filterDropdowns.forEach(dropdown => {
-    dropdown.addEventListener('change', function() {
+    dropdown.addEventListener('change', function () {
       const filterType = this.dataset.type;
       const filterValue = this.value;
-            
+
       activeFilters[filterType] = filterValue;
       filterMaps();
     });
@@ -33,16 +33,16 @@ function initGalleryFiltering() {
  */
 function filterMaps() {
   const mapCards = document.querySelectorAll('.map-card');
-    
+
   mapCards.forEach(card => {
     const cardSetting = card.dataset.setting;
     const cardTerrain = card.dataset.terrain;
     const cardSize = card.dataset.size;
-        
+
     const matchesSetting = activeFilters.setting === 'all' || cardSetting === activeFilters.setting;
     const matchesTerrain = activeFilters.terrain === 'all' || cardTerrain === activeFilters.terrain;
     const matchesSize = activeFilters.size === 'all' || cardSize === activeFilters.size;
-        
+
     if (matchesSetting && matchesTerrain && matchesSize) {
       card.style.display = 'block';
     } else {
@@ -62,23 +62,27 @@ function addMapToGallery(mapData) {
   newCard.dataset.setting = mapData.setting || 'terrain';
   newCard.dataset.terrain = mapData.terrain;
   newCard.dataset.size = mapData.size || 'auto';
-  newCard.onclick = (event) => {
+  newCard.dataset.mapId = mapData.id;
+
+
+  newCard.onclick = event => {
     // Don't trigger download if clicking on delete button or confirmation dialog
     if (event.target.closest('.delete-btn') || event.target.closest('.delete-confirmation')) {
       return;
     }
     downloadMap(mapData.id);
   };
-    
+
   // Handle null values for terrain-only maps
   const displayName = mapData.name || 'Unnamed Terrain';
-  const settingTag = mapData.setting 
+  const settingTag = mapData.setting
     ? `<span class="map-tag setting ${mapData.setting}">${mapData.setting.charAt(0).toUpperCase() + mapData.setting.slice(1)}</span>`
     : '';
-  const sizeTag = mapData.size 
+  const sizeTag = mapData.size
     ? `<span class="map-tag size ${mapData.size}">${mapData.size.replace('size-', '')}</span>`
     : '<span class="map-tag size auto">Auto Grid</span>';
-    
+
+
   newCard.innerHTML = `
         <button class="delete-btn" onclick="showDeleteConfirmation(this, event)">×</button>
         <div class="map-thumbnail">
@@ -97,8 +101,9 @@ function addMapToGallery(mapData) {
             </div>
         </div>
     `;
-    
+
   mapsGrid.insertBefore(newCard, mapsGrid.firstChild);
+
 }
 
 /**
@@ -108,10 +113,10 @@ function addMapToGallery(mapData) {
  */
 function showDeleteConfirmation(button, event) {
   event.stopPropagation();
-    
+
   const mapCard = button.closest('.map-card');
   const mapName = mapCard.querySelector('h3').textContent;
-    
+
   const confirmationDiv = document.createElement('div');
   confirmationDiv.className = 'delete-confirmation';
   confirmationDiv.innerHTML = `
@@ -121,7 +126,7 @@ function showDeleteConfirmation(button, event) {
             <button class="cancel-btn" onclick="cancelDelete(this)">Cancel</button>
         </div>
     `;
-    
+
   mapCard.appendChild(confirmationDiv);
 }
 
@@ -131,11 +136,11 @@ function showDeleteConfirmation(button, event) {
  */
 function confirmDelete(button) {
   const mapCard = button.closest('.map-card');
-    
+
   mapCard.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
   mapCard.style.opacity = '0';
   mapCard.style.transform = 'scale(0.95)';
-    
+
   setTimeout(() => {
     mapCard.remove();
   }, 300);
@@ -149,6 +154,7 @@ function cancelDelete(button) {
   const confirmationDiv = button.closest('.delete-confirmation');
   confirmationDiv.remove();
 }
+
 
 // Expose functions to global scope for inline onclick handlers and HTML initialization
 window.initGalleryFiltering = initGalleryFiltering;
