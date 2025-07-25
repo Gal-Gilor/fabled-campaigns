@@ -6,7 +6,17 @@
 // eslint-disable-next-line prefer-const
 let currentMapData = null;
 
-// Storage for all generated maps (for download access)
+/**
+ * A global Map to store all generated map data for download access.
+ * 
+ * - **Key**: A unique identifier for each map (e.g., `mapData.id`).
+ * - **Value**: The map data object containing all relevant information about the map.
+ * 
+ * Lifecycle:
+ * - Maps are added using the `setCurrentMapData` function.
+ * - Maps can be retrieved by ID using the `getMapDataById` function.
+ * - The Map persists all generated maps until explicitly cleared or the application is reset.
+ */
 const allMapsData = new Map();
 
 // Single source of truth for setting options

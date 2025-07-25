@@ -37,7 +37,31 @@ function populateSettingDropdowns() {
 }
 
 /**
+ * Preserves map state when switching between tabs
+ * @returns {Object} State object containing map preservation data
+ */
+function preserveMapStateForTabSwitch() {
+  const hasCurrentMap = currentMapData !== null;
+  const mapPreviewHasContent = document
+    .getElementById('mapPreview')
+    .classList.contains('has-map');
+  
+  return { hasCurrentMap, mapPreviewHasContent };
+}
+
+/**
+ * Restores map preview state after tab switch if conditions are met
+ * @param {Object} mapState - State object from preserveMapStateForTabSwitch
+ */
+function restoreMapStateAfterTabSwitch(mapState) {
+  if (mapState.hasCurrentMap && mapState.mapPreviewHasContent) {
+    showMapPreview(currentMapData);
+  }
+}
+
+/**
  * Initialize tab switching functionality
+ * Handles switching between different form tabs (terrain, setting, advanced)
  */
 function initTabSwitching() {
   const tabButtons = document.querySelectorAll('.tab-btn');
@@ -55,11 +79,8 @@ function initTabSwitching() {
       const targetTab = this.dataset.tab;
       console.log('Tab clicked:', targetTab);
 
-      // Preserve current map data and preview state before switching
-      const hasCurrentMap = currentMapData !== null;
-      const mapPreviewHasContent = document
-        .getElementById('mapPreview')
-        .classList.contains('has-map');
+      // Preserve current map state before switching
+      const mapState = preserveMapStateForTabSwitch();
 
       // Remove active class from all tabs and buttons
       tabButtons.forEach(btn => btn.classList.remove('active'));
@@ -72,10 +93,8 @@ function initTabSwitching() {
         targetContent.classList.add('active');
         console.log('Tab switched to:', targetTab);
 
-        // Restore map preview if we had one - ensure it stays visible across tabs
-        if (hasCurrentMap && mapPreviewHasContent) {
-          showMapPreview(currentMapData);
-        }
+        // Restore map preview if conditions are met
+        restoreMapStateAfterTabSwitch(mapState);
       } else {
         console.error('Tab content not found for:', targetTab + 'Tab');
       }
