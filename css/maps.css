@@ -482,6 +482,8 @@ nav .container {
     justify-content: center;
     color: var(--neutral-600);
     font-size: 3rem;
+    overflow: hidden;
+    border-radius: 6px 6px 0 0;
 }
 
 .map-info {

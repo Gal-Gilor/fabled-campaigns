@@ -217,7 +217,7 @@ function showMapSuccess(mapData) {
     mapPreview.classList.add('has-map');
   mapPreview.innerHTML = `
         <div style="text-align: center; width: 100%;">
-            <h3 style="color: var(--primary-blue); margin-bottom: 1rem; font-family: 'Cinzel', serif;">Map Created Successfully!</h3>
+            <h3 style="color: var(--primary-blue); margin-bottom: 1rem; font-family: 'Cinzel', serif;">Ready to Play!</h3>
             <p style="color: var(--neutral-600);">${mapData.name ? `"${mapData.name}" is ready for your next session` : 'Your terrain map is ready for your next session'}</p>
             
             <!-- Map preview image with hover download -->

@@ -135,63 +135,9 @@ function downloadMap(mapId) {
   }
 }
 
-/**
- * Downloads a sample/demo map with generated placeholder content
- * @param {string} mapId - The ID of the sample map to download
- */
-function downloadSampleMap(mapId) {
-  // Create a simple placeholder image for demo
-  const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d');
-  canvas.width = 800;
-  canvas.height = 600;
-    
-  // Create different colors for different maps
-  const mapColors = {
-    'riverside-keep': { start: '#6b7280', end: '#3b82f6' },
-    'sunken-crypts': { start: '#1f2937', end: '#6366f1' },
-    'whisperleaf-village': { start: '#059669', end: '#10b981' }
-  };
-    
-  const colors = mapColors[mapId] || { start: '#6b7280', end: '#3b82f6' };
-    
-  const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-  gradient.addColorStop(0, colors.start);
-  gradient.addColorStop(1, colors.end);
-    
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
-  // Add map name
-  ctx.fillStyle = 'white';
-  ctx.font = 'bold 32px Arial';
-  ctx.textAlign = 'center';
-  ctx.shadowColor = 'rgba(0,0,0,0.5)';
-  ctx.shadowBlur = 4;
-    
-  const mapNames = {
-    'riverside-keep': 'Riverside Keep',
-    'sunken-crypts': 'Sunken Crypts',
-    'whisperleaf-village': 'Whisperleaf Village'
-  };
-    
-  ctx.fillText(mapNames[mapId] || 'Sample Map', canvas.width / 2, canvas.height / 2);
-    
-  // Download the image
-  const link = document.createElement('a');
-  link.download = `${mapNames[mapId] || 'sample-map'}.png`;
-  link.href = canvas.toDataURL('image/png');
-    
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-    
-  showDownloadFeedback();
-}
 
 // Expose functions to global scope for inline onclick handlers
 window.generateRandomName = generateRandomName;
 window.generateDefaultDescription = generateDefaultDescription;
 window.getDefaultTerrain = getDefaultTerrain;
 window.downloadMap = downloadMap;
-window.downloadSampleMap = downloadSampleMap;
