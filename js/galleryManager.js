@@ -62,7 +62,13 @@ function addMapToGallery(mapData) {
   newCard.dataset.setting = mapData.setting || 'terrain';
   newCard.dataset.terrain = mapData.terrain;
   newCard.dataset.size = mapData.size || 'auto';
-  newCard.onclick = () => downloadMap(mapData.id);
+  newCard.onclick = (event) => {
+    // Don't trigger download if clicking on delete button or confirmation dialog
+    if (event.target.closest('.delete-btn') || event.target.closest('.delete-confirmation')) {
+      return;
+    }
+    downloadMap(mapData.id);
+  };
     
   // Handle null values for terrain-only maps
   const displayName = mapData.name || 'Unnamed Terrain';
