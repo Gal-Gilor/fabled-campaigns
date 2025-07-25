@@ -26,69 +26,69 @@ function buildPrompt({ terrain, setting, description }) {
 }
 
 async function generateWithGemini(params) {
-  try {
-    validateEnvironment();
+  validateEnvironment();
     
-    // Get decoded credentials in memory only
-    const credentials = getGoogleCredentials();
+  // Get decoded credentials in memory only
+  const credentials = getGoogleCredentials();
     
-    // Use in-memory authentication without writing credentials to disk
-    const client = new GoogleGenAI({
-      vertexai: true,
-      project: process.env.GOOGLE_CLOUD_PROJECT,
-      location: process.env.GOOGLE_CLOUD_LOCATION,
-      // Pass credentials directly to avoid file system usage
-      googleAuthOptions: {
-        credentials: credentials
-      }
-    });
-    
-    const model = getRecommendedModel('name-generation');
-    const prompt = buildPrompt(params);
-    
-    const response = await client.models.generateContent({
-      model: model,
-      contents: prompt,
-      config: {
-        temperature: 1.5,
-        maxOutputTokens: 100,
-        responseMimeType: 'application/json',
-        responseSchema: {
-          type: 'object',
-          properties: {
-            name: { type: 'string' }
-          },
-          propertyOrdering: ['name']
-        }
-      }
-    });
-    
-    if (!response?.text) {
-      throw new Error('No response from Gemini');
+  // Use in-memory authentication without writing credentials to disk
+  const client = new GoogleGenAI({
+    vertexai: true,
+    project: process.env.GOOGLE_CLOUD_PROJECT,
+    location: process.env.GOOGLE_CLOUD_LOCATION,
+    // Pass credentials directly to avoid file system usage
+    googleAuthOptions: {
+      credentials: credentials
     }
+  });
     
-    // Parse the JSON response
-    const parsedResponse = JSON.parse(response.text);
-    const name = parsedResponse.name;
+  const model = getRecommendedModel('name-generation');
+  const prompt = buildPrompt(params);
     
-    if (!name || typeof name !== 'string') {
-      throw new Error('Invalid name in response');
-    }
-    
-    return {
-      success: true,
-      name: name.trim(),
-      metadata: {
-        method: 'gemini',
-        prompt,
-        tokenUsage: response.metadata?.tokenUsage,
-        generatedAt: new Date().toISOString()
+  const response = await client.models.generateContent({
+    model: model,
+    contents: prompt,
+    config: {
+      temperature: 1.5,
+      maxOutputTokens: 100,
+      responseMimeType: 'application/json',
+      responseSchema: {
+        type: 'object',
+        properties: {
+          name: { type: 'string' }
+        },
+        propertyOrdering: ['name']
       }
-    };
+    }
+  });
     
-  } catch (error) {
-    throw error;
+  // Log Gemini I/O
+  console.log('=== GEMINI NAME GENERATION ===');
+  console.log('Model:', model);
+  console.log('Response:', JSON.stringify(response, null, 2));
+    
+  if (!response?.text) {
+    throw new Error('No response from Gemini');
   }
+    
+  // Parse the JSON response
+  const parsedResponse = JSON.parse(response.text);
+  const name = parsedResponse.name;
+    
+  if (!name || typeof name !== 'string') {
+    throw new Error('Invalid name in response');
+  }
+    
+  return {
+    success: true,
+    name: name.trim(),
+    metadata: {
+      method: 'gemini',
+      prompt,
+      tokenUsage: response.metadata?.tokenUsage,
+      generatedAt: new Date().toISOString()
+    }
+  };
 }
 
 function generateWithFallback(params) {

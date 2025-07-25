@@ -59,19 +59,28 @@ function addMapToGallery(mapData) {
   const mapsGrid = document.getElementById('mapsGrid');
   const newCard = document.createElement('div');
   newCard.className = 'map-card';
-  newCard.dataset.setting = mapData.setting;
+  newCard.dataset.setting = mapData.setting || 'terrain';
   newCard.dataset.terrain = mapData.terrain;
-  newCard.dataset.size = mapData.size;
+  newCard.dataset.size = mapData.size || 'auto';
+    
+  // Handle null values for terrain-only maps
+  const displayName = mapData.name || 'Unnamed Terrain';
+  const settingTag = mapData.setting 
+    ? `<span class="map-tag setting ${mapData.setting}">${mapData.setting.charAt(0).toUpperCase() + mapData.setting.slice(1)}</span>`
+    : '';
+  const sizeTag = mapData.size 
+    ? `<span class="map-tag size ${mapData.size}">${mapData.size.replace('size-', '')}</span>`
+    : '<span class="map-tag size auto">Auto Grid</span>';
     
   newCard.innerHTML = `
         <button class="delete-btn" onclick="showDeleteConfirmation(this, event)">×</button>
         <div class="map-thumbnail"></div>
         <div class="map-info">
-            <h3>${mapData.name}</h3>
+            <h3>${displayName}</h3>
             <div class="map-tags">
-                <span class="map-tag setting ${mapData.setting}">${mapData.setting.charAt(0).toUpperCase() + mapData.setting.slice(1)}</span>
+                ${settingTag}
                 <span class="map-tag terrain ${mapData.terrain}">${mapData.terrain.charAt(0).toUpperCase() + mapData.terrain.slice(1)}</span>
-                <span class="map-tag size ${mapData.size}">${mapData.size.replace('size-', '')}</span>
+                ${sizeTag}
             </div>
             <p class="map-description">${mapData.description.substring(0, 100)}...</p>
             <div class="map-meta">

@@ -48,7 +48,7 @@ function generateDefaultDescription(setting) {
     sewer: 'A foul-smelling network of tunnels beneath a city, dark and damp.',
         
     // Terrain descriptions (for terrain-only generation)
-    forest: 'Ancient woods where sunlight filters through a verdant canopy, perfect for exploration and adventure.',
+    forest: 'Ancient woods where sunlight filters through a verdant canopy.',
     grassland: 'Rolling fields of verdant grass with gentle hills and peaceful meadows.',
     hills: 'Undulating terrain with rolling slopes, scattered groves, and commanding overlooks.',
     mountain: 'Towering peaks and rocky terrain with strategic vantage points and hidden caves.',

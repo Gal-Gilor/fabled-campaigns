@@ -8,7 +8,6 @@
  */
 function initMapGeneration() {
   const generateBtn = document.getElementById('generate-btn');
-  const mapForm = document.getElementById('mapForm');
   const mapPreview = document.getElementById('mapPreview');
 
   if (!generateBtn) {
@@ -18,7 +17,7 @@ function initMapGeneration() {
 
   console.log('Map generation initialized, button found:', generateBtn);
 
-  generateBtn.addEventListener('click', async function(event) {
+  generateBtn.addEventListener('click', async function() {
     // Prevent any potential double-clicks or rapid clicking
     if (generateBtn.classList.contains('loading')) {
       console.log('Generation already in progress, ignoring click');
@@ -61,7 +60,7 @@ function initMapGeneration() {
       // Store the generated map data
       currentMapData = {
         id: result.mapId,
-        name: mapData.name,
+        name: mapData.name || null, // Explicitly null instead of undefined
         description: mapData.description,
         terrain: mapData.terrain,
         setting: mapData.setting,
@@ -100,19 +99,18 @@ function initMapGeneration() {
  * Process terrain tab form data
  */
 async function processTerrainTab(generateBtn) {
-  const mapName = generateRandomName();
   const terrainType = document.getElementById('terrainTypeSimple').value;
   const mapDescription = document.getElementById('terrainDescription').value || generateDefaultDescription(terrainType);
     
   // Update button to show map creation is starting
-  generateBtn.innerHTML = '<span>Creating Map...</span>';
+  generateBtn.innerHTML = '<span>Charting unknown lands...</span>';
     
+  // For terrain-only maps, don't generate names - these are unnamed wilderness encounters
   return {
-    name: mapName,
     description: mapDescription,
     terrain: terrainType,
-    setting: 'campsite',
-    size: 'size-30x30',
+    // No setting for pure terrain maps
+    // No size - let AI determine optimal grid size
     generationMode: 'quick'
   };
 }
@@ -128,7 +126,7 @@ async function processSettingTab(generateBtn) {
   // If name is empty, generate one using the API
   if (!mapName) {
     try {
-      generateBtn.innerHTML = '<span class="spinner"></span><span>Generating Name...</span>';
+      generateBtn.innerHTML = '<span class="spinner"></span><span>Legends whisper a name...</span>';
             
       const nameResult = await generateName({
         setting: locationType,
@@ -137,16 +135,16 @@ async function processSettingTab(generateBtn) {
             
       mapName = nameResult.name;
       document.getElementById('settingName').value = mapName;
-      generateBtn.innerHTML = '<span>Name Generated! Creating Map...</span>';
+      generateBtn.innerHTML = '<span>Scrolls unfurl... Your world awakens.</span>';
             
     } catch (error) {
       console.error('Name generation failed:', error);
       mapName = generateRandomName();
       document.getElementById('settingName').value = mapName;
-      generateBtn.innerHTML = '<span>Creating Map...</span>';
+      generateBtn.innerHTML = '<span>Charting unknown lands...</span>';
     }
   } else {
-    generateBtn.innerHTML = '<span>Creating Map...</span>';
+    generateBtn.innerHTML = '<span>Charting unknown lands...</span>';
   }
     
   return {
@@ -154,7 +152,7 @@ async function processSettingTab(generateBtn) {
     description: mapDescription,
     terrain: getDefaultTerrain(locationType),
     setting: locationType,
-    size: 'size-30x30',
+    // No size - let AI determine optimal grid size
     generationMode: 'quick'
   };
 }
@@ -177,8 +175,8 @@ async function processAdvancedTab(generateBtn) {
   // If name is empty, generate one using the API
   if (!mapName) {
     try {
-      generateBtn.innerHTML = '<span class="spinner"></span><span>Generating Name...</span>';
-            
+      generateBtn.innerHTML = '<span class="spinner"></span><span>Legends whisper a name...</span>';
+
       const nameResult = await generateName({
         terrain: terrainType,
         setting: locationType,
@@ -187,16 +185,16 @@ async function processAdvancedTab(generateBtn) {
             
       mapName = nameResult.name;
       document.getElementById('mapName').value = mapName;
-      generateBtn.innerHTML = '<span>Name Generated! Creating Map...</span>';
-            
+      generateBtn.innerHTML = '<span>Scrolls unfurl... Your world awakens.</span>';
+
     } catch (error) {
       console.error('Name generation failed:', error);
       mapName = generateRandomName();
       document.getElementById('mapName').value = mapName;
-      generateBtn.innerHTML = '<span>Creating Map...</span>';
+      generateBtn.innerHTML = '<span>Charting unknown lands...</span>';
     }
   } else {
-    generateBtn.innerHTML = '<span>Creating Map...</span>';
+    generateBtn.innerHTML = '<span>Charting unknown lands...</span>';
   }
 
   return {
@@ -213,17 +211,19 @@ async function processAdvancedTab(generateBtn) {
  * Displays the successfully generated map in the preview area
  */
 function showMapSuccess(mapData) {
-  const mapPreview = document.getElementById('mapPreview');
-  mapPreview.classList.add('has-map');
+  try {
+    console.log('Showing map success with data:', mapData);
+    const mapPreview = document.getElementById('mapPreview');
+    mapPreview.classList.add('has-map');
   mapPreview.innerHTML = `
         <div style="text-align: center; width: 100%;">
             <h3 style="color: var(--primary-blue); margin-bottom: 1rem; font-family: 'Cinzel', serif;">Map Created Successfully!</h3>
-            <p style="color: var(--neutral-600);">"${mapData.name}" is ready for your next session</p>
+            <p style="color: var(--neutral-600);">${mapData.name ? `"${mapData.name}" is ready for your next session` : 'Your terrain map is ready for your next session'}</p>
             
             <!-- Map preview image with hover download -->
             <div style="margin: 2rem 0;">
                 <div class="map-image-container" onclick="downloadMap('${mapData.id}')">
-                    <img src="${mapData.imageUrl}" alt="${mapData.name}" 
+                    <img src="${mapData.imageUrl}" alt="${mapData.name || 'Generated terrain map'}" 
                          style="width: 100%; height: auto; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); cursor: pointer;">
                 </div>
             </div>
@@ -248,8 +248,13 @@ function showMapSuccess(mapData) {
         </div>
     `;
     
-  // Add to gallery
-  addMapToGallery(mapData);
+    // Add to gallery
+    addMapToGallery(mapData);
+    console.log('Map success display completed');
+  } catch (error) {
+    console.error('Error in showMapSuccess:', error);
+    throw error; // Re-throw to trigger the catch block in the main generation function
+  }
 }
 
 /**
