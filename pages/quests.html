@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Define the Journey - Fabled Campaigns</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/maps.css">
+    <link rel="stylesheet" href="/css/quests.css">
+
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="/" class="logo">Fabled Campaigns</a>
+            <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-menu" id="navMenu">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/pages/quests.html" class="nav-link active">Define the Journey</a>
+                <a href="/pages/maps.html" class="nav-link">Chart Your Realm</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="page-header">
+            <div class="beta-badge">
+                <span>Early Access • Site Under Construction</span>
+            </div>
+            <h1>Define the Journey</h1>
+        </div>
+
+        <!-- Quest Creator -->
+        <section class="quest-creator">
+            <form id="questForm" class="quest-form">
+                <div class="form-group campaign-name-row">
+                    <label for="campaignName">Campaign Name</label>
+                    <div class="input-with-button">
+                        <input type="text" id="campaignName" placeholder="The Chronicles of Eldoria" required>
+                        <button type="button" id="rollForLuckBtn" class="roll-luck-btn">Roll for Luck</button>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="genreSelect">Genre</label>
+                        <select id="genreSelect" required>
+                            <!-- Options will be populated by script -->
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="campaignTypeSelect">Campaign Type</label>
+                        <select id="campaignTypeSelect" required>
+                            <!-- Options will be populated by script -->
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="questDescription">You step into...</label>
+                    <textarea id="questDescription" placeholder="A world where ancient magic meets political intrigue, where forgotten kingdoms rise from the ashes of war, and where heroes must navigate treacherous alliances to save the realm..."></textarea>
+                </div>
+            </form>
+            
+            <button type="button" id="rollToQuestBtn" class="action-btn generate-btn">
+                <span>Roll to Quest</span>
+            </button>
+            
+            <!-- Lore Section (initially hidden) -->
+            <div id="loreSection" class="lore-section">
+                <div class="form-group">
+                    <label for="loreTextarea">Campaign Lore</label>
+                    <textarea id="loreTextarea" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."></textarea>
+                    <!-- TODO: Replace placeholder with API-generated lore content -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- JavaScript modules -->
+    <script src="/js/constants.js"></script>
+    <script src="/js/questGenerator.js"></script>
+    
+    <script>
+        // Initialize app when DOM loads
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Initializing Quest Creator...');
+            try {
+                // Initialize quest page functionality
+                initQuestPage();
+                
+                console.log('Quest Creator initialized successfully');
+            } catch (error) {
+                console.error('Failed to initialize Quest Creator:', error);
+                alert('Application failed to load. Please refresh the page.');
+            }
+        });
+    </script>
+</body>
+</html>

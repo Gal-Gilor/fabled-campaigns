@@ -1,0 +1,274 @@
+/* Quest Creator Specific Styles */
+/* Inherits base styles from maps.css */
+
+/* Quest Creator Section */
+.quest-creator {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Main Roll to Quest Button - matching maps.css #generate-btn */
+#rollToQuestBtn {
+    margin: 2rem auto 3rem;
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    display: flex;
+}
+
+.quest-form {
+    margin-bottom: 2rem;
+}
+
+/* Campaign Name Row with Inline Button */
+.campaign-name-row {
+    margin-bottom: 1.5rem;
+}
+
+.input-with-button {
+    display: flex;
+    gap: 0.75rem;
+    align-items: stretch;
+}
+
+.input-with-button input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--neutral-200);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.input-with-button input:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.roll-luck-btn {
+    padding: 0.75rem 1.25rem;
+    background: var(--gradient-primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.roll-luck-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+}
+
+.roll-luck-btn:active {
+    transform: translateY(0);
+}
+
+/* Form Row for Side-by-Side Fields */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Form Groups */
+.quest-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.quest-form .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--neutral-700);
+}
+
+.quest-form .form-group input,
+.quest-form .form-group select,
+.quest-form .form-group textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--neutral-200);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+.quest-form .form-group input:focus,
+.quest-form .form-group select:focus,
+.quest-form .form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.quest-form .form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* Lore Section */
+.lore-section {
+    display: none;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid var(--neutral-200);
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.5s ease;
+}
+
+.lore-section.visible {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.lore-section .form-group textarea {
+    min-height: 200px;
+    background-color: var(--pale-blue);
+    border-color: var(--primary-blue);
+}
+
+.lore-section .form-group label {
+    color: var(--primary-blue);
+    font-weight: 600;
+}
+
+/* Hamburger Menu Styles */
+.hamburger-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+}
+
+.hamburger-btn span {
+    width: 100%;
+    height: 3px;
+    background-color: var(--neutral-700);
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+.hamburger-btn.active span:nth-child(1) {
+    transform: rotate(45deg) translate(7px, 7px);
+}
+
+.hamburger-btn.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-btn.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* Navigation Menu */
+.nav-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    min-width: 200px;
+    z-index: 1000;
+}
+
+.nav-menu.active {
+    display: block;
+}
+
+.nav-link {
+    display: block;
+    padding: 0.75rem 1rem;
+    color: var(--neutral-700);
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    margin-bottom: 0.25rem;
+}
+
+.nav-link:hover {
+    background-color: var(--neutral-100);
+    color: var(--primary-blue);
+}
+
+.nav-link.active {
+    background-color: var(--primary-blue);
+    color: white;
+}
+
+/* Navigation Container Updates */
+nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hamburger-btn {
+        display: flex;
+    }
+
+    .quest-creator {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .input-with-button {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .input-with-button input,
+    .roll-luck-btn {
+        width: 100%;
+    }
+
+    .nav-menu {
+        right: 1rem;
+        left: 1rem;
+        width: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .quest-creator {
+        margin: 0.5rem;
+        padding: 1rem;
+    }
+
+    .page-header h1 {
+        font-size: 2rem;
+    }
+
+    .quest-form .form-group input,
+    .quest-form .form-group select,
+    .quest-form .form-group textarea {
+        padding: 0.625rem 0.875rem;
+    }
+}

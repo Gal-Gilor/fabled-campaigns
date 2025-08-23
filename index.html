@@ -5,9 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fabled Campaigns - Where Every Tale Rolls a Natural 20</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/maps.css">
     <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
+    <nav>
+        <div class="container">
+            <a href="/" class="logo">Fabled Campaigns</a>
+            <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-menu" id="navMenu">
+                <a href="/" class="nav-link active">Home</a>
+                <a href="/pages/maps.html" class="nav-link">Chart Your Realm</a>
+                <a href="/pages/quests.html" class="nav-link">Define the Journey</a>
+            </div>
+        </div>
+    </nav>
 
     <section id="home" class="hero">
         <div class="hero-content">
@@ -25,9 +41,9 @@
             <h2 class="section-title">Craft Epic Campaigns</h2>
             <p class="section-subtitle">Focus on adventure, storytelling, and the moments that make your campaigns legendary.</p>
             <div class="features-grid">
-                <div class="feature-card journey-feature">
+                <a href="pages/quests.html" class="feature-card feature-card-link journey-feature">
                     <h3>Define the Journey</h3>
-                </div>
+                </a>
                 <a href="pages/maps.html" class="feature-card feature-card-link map-feature">
                     <h3>Chart Your Realm</h3>
                 </a>

@@ -46,6 +46,33 @@ const SETTING_OPTIONS = [
   { value: 'sewer', label: 'Sewer' }
 ];
 
+// Quest-specific constants for Define the Journey page
+const GENRE_OPTIONS = [
+  { value: 'fantasy', label: 'Fantasy', selected: true },
+  { value: 'sci-fi', label: 'Science Fiction' },
+  { value: 'horror', label: 'Horror' },
+  { value: 'mystery', label: 'Mystery' },
+  { value: 'urban-fantasy', label: 'Urban Fantasy' },
+  { value: 'steampunk', label: 'Steampunk' },
+  { value: 'western', label: 'Western' },
+  { value: 'post-apocalyptic', label: 'Post-Apocalyptic' },
+  { value: 'cyberpunk', label: 'Cyberpunk' },
+  { value: 'space-opera', label: 'Space Opera' }
+];
+
+const CAMPAIGN_TYPE_OPTIONS = [
+  { value: 'exploration', label: 'Exploration', selected: true },
+  { value: 'political-intrigue', label: 'Political Intrigue' },
+  { value: 'dungeon-crawl', label: 'Dungeon Crawl' },
+  { value: 'rescue-mission', label: 'Rescue Mission' },
+  { value: 'mystery-investigation', label: 'Mystery Investigation' },
+  { value: 'war-campaign', label: 'War Campaign' },
+  { value: 'heist', label: 'Heist' },
+  { value: 'survival', label: 'Survival' },
+  { value: 'tournament', label: 'Tournament' },
+  { value: 'diplomatic-mission', label: 'Diplomatic Mission' }
+];
+
 
 /**
  * Helper functions for managing map state (without visual indicators)
@@ -79,6 +106,8 @@ function getMapDataById(mapId) {
 
 // Expose to global scope for browser usage
 window.SETTING_OPTIONS = SETTING_OPTIONS;
+window.GENRE_OPTIONS = GENRE_OPTIONS;
+window.CAMPAIGN_TYPE_OPTIONS = CAMPAIGN_TYPE_OPTIONS;
 window.currentMapData = currentMapData;
 window.allMapsData = allMapsData;
 window.setCurrentMapData = setCurrentMapData;
@@ -90,6 +119,8 @@ window.getMapDataById = getMapDataById;
 // Export for module usage (if needed)
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
-    SETTING_OPTIONS
+    SETTING_OPTIONS,
+    GENRE_OPTIONS,
+    CAMPAIGN_TYPE_OPTIONS
   };
 }

@@ -15,6 +15,16 @@
     <nav>
         <div class="container">
             <a href="/" class="logo">Fabled Campaigns</a>
+            <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-menu" id="navMenu">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/pages/quests.html" class="nav-link">Define the Journey</a>
+                <a href="/pages/maps.html" class="nav-link active">Chart Your Realm</a>
+            </div>
         </div>
     </nav>
 
@@ -214,6 +224,7 @@
     <script src="/js/uiHandlers.js"></script>
     <script src="/js/mapGenerator.js"></script>
     <script src="/js/galleryManager.js"></script>
+    <script src="/js/questGenerator.js"></script>
     
     <script>
         // Initialize app when DOM loads
@@ -229,6 +240,9 @@
                 // Initialize core functionality
                 initMapGeneration();
                 initGalleryFiltering();
+                
+                // Initialize hamburger menu
+                initHamburgerMenu();
                 
                 console.log('Fabled Campaigns initialized successfully');
             } catch (error) {
