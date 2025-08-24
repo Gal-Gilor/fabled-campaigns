@@ -26,6 +26,16 @@
 /* Campaign Name Row with Inline Button */
 .campaign-name-row {
     margin-bottom: 1.5rem;
+    display: none;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.5s ease;
+}
+
+.campaign-name-row.visible {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .input-with-button {
@@ -113,6 +123,13 @@
 .quest-form .form-group textarea {
     min-height: 120px;
     resize: vertical;
+}
+
+/* Optional label styling - matching maps.css */
+.optional {
+    font-weight: 400;
+    color: var(--neutral-600);
+    font-size: 0.85rem;
 }
 
 /* Lore Section */

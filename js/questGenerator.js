@@ -138,8 +138,11 @@ function getQuestFormData() {
  */
 function validateQuestForm(formData) {
   const errors = [];
+  const campaignNameRow = document.querySelector('.campaign-name-row');
+  const isCampaignNameVisible = campaignNameRow && campaignNameRow.classList.contains('visible');
 
-  if (!formData.campaignName) {
+  // Only validate campaign name if the field is visible
+  if (isCampaignNameVisible && !formData.campaignName) {
     errors.push('Campaign name is required');
   }
 
@@ -176,16 +179,18 @@ function clearFormErrors() {
 }
 
 /**
- * Show lore section with smooth animation
+ * Show lore section and campaign name section with smooth animation
  */
 function showLoreSection() {
   const loreSection = document.getElementById('loreSection');
+  const campaignNameRow = document.querySelector('.campaign-name-row');
+  
   if (!loreSection) {
     console.error('Lore section element not found');
     return;
   }
 
-  // Show the section
+  // Show the lore section
   loreSection.style.display = 'block';
   
   // Force reflow to ensure the display change takes effect
@@ -194,11 +199,25 @@ function showLoreSection() {
   // Add visible class for animation
   loreSection.classList.add('visible');
   
+  // Show campaign name section if it exists
+  if (campaignNameRow) {
+    // Small delay to create a nice sequence
+    setTimeout(() => {
+      campaignNameRow.style.display = 'block';
+      // Force reflow
+      campaignNameRow.offsetHeight;
+      // Add visible class for animation
+      campaignNameRow.classList.add('visible');
+    }, 200);
+  }
+  
   // Scroll to lore section smoothly
-  loreSection.scrollIntoView({ 
-    behavior: 'smooth', 
-    block: 'center' 
-  });
+  setTimeout(() => {
+    loreSection.scrollIntoView({ 
+      behavior: 'smooth', 
+      block: 'center' 
+    });
+  }, 400);
 }
 
 /**
