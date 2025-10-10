@@ -1,23 +1,62 @@
-# Fabled Campaigns - AI-Powered Battle Map Generator
+# Fabled Campaigns
 
-A modern web application that generates fantasy battle maps using Google's Imagen AI for tabletop RPG sessions.
+[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?logo=vercel&logoColor=white)](https://www.fabledcampaigns.com)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen)](https://nodejs.org/)
+[![Powered by Google Cloud](https://img.shields.io/badge/Powered%20by-Google%20Cloud-4285F4?logo=google-cloud)](https://cloud.google.com/vertex-ai)
 
-## Features
+> **Where Every Tale Rolls a Natural 20**
 
-- **AI-Powered Map Generation**: Uses Google Imagen 3.0 for high-quality fantasy battle maps
-- **Customizable Parameters**: Choose terrain, setting, size, and add detailed descriptions
-- **Instant Download**: Download generated maps in PNG format
-- **Map Gallery**: Browse and filter previously generated maps
-- **Responsive Design**: Works on desktop and mobile devices
-- **Rate Limiting**: Built-in protection against API abuse
+A comprehensive tabletop RPG toolkit that helps Dungeon Masters bring their campaigns to life. Currently featuring Gemini-powered battle map generation, with campaign writing assistance in development.
 
-## Tech Stack
+**[Visit www.fabledcampaigns.com](https://www.fabledcampaigns.com)**
 
-- **Frontend**: HTML5, CSS3, JavaScript (Vanilla)
-- **Backend**: Node.js with Vercel Serverless Functions
-- **AI**: Google Imagen 3.0 via Vertex AI
-- **Deployment**: Vercel
-- **Security**: Environment-based credential management
+## Why This Project Matters
+
+Creating engaging content for tabletop RPG sessions is time-consuming and often requires skills most Dungeon Masters don't have or time to perfect. Fabled Campaigns solves this by leveraging Google's Gemini and Imagen models to help DMs prepare faster and run better games.
+
+**The Problem:**
+- Dungeon Masters spend hours creating maps and campaign content
+- Pre-made content rarely matches the specific needs of a campaign
+- Quality creation tools are expensive or have steep learning curves
+
+**The Solution:**
+- Generate custom battle maps in under 30 seconds
+- Campaign writing assistance (coming soon) powered by Gemini
+
+---
+
+## Current Features
+
+### Gemini-Powered Map Generation
+Leverages Google's Imagen 3.0 to create detailed fantasy battle maps optimized for tabletop RPG gameplay.
+
+### Smart Customization
+- **Terrain Types**: Forest, mountain, desert, swamp, underground, and more
+- **Settings**: Taverns, fortresses, temples, ruins, caves, villages
+- **Size Options**: 20x20, 30x30, or 40x40 grid squares
+- **Generation Modes**: Quick generation or detailed rendering
+
+### User-Friendly Experience
+- Clean, modern interface designed for simplicity
+- Responsive design works on desktop, tablet, and mobile
+- Instant download in PNG format
+- Browse and filter previously generated maps in the gallery
+
+## Coming Soon
+
+### Campaign Writing Assistant
+Gemini-powered tools to help Dungeon Masters craft compelling narratives:
+- Generate campaign hooks and story arcs
+- Create detailed NPC backgrounds and motivations
+- Develop session notes and adventure outlines
+- Build interconnected story elements
+
+### NPC Name and Personality Generator
+Generate unique NPCs with contextually appropriate names and rich personalities.
+
+### Magic Item and Treasure Generators
+Create custom magic items, treasure hoards, and loot tables for your campaigns.
 
 ## Setup Instructions
 
