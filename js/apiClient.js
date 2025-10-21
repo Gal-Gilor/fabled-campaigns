@@ -44,9 +44,6 @@ async function generateName(params) {
  */
 async function generateMap(params) {
   try {
-    console.log('=== FRONTEND API CALL ===');
-    console.log('Sending map generation request with params:', JSON.stringify(params, null, 2));
-
     const response = await fetch('/api/maps/generateMap', {
       method: 'POST',
       headers: {
@@ -56,12 +53,8 @@ async function generateMap(params) {
       body: JSON.stringify(params)
     });
 
-    console.log('Response status:', response.status);
-    console.log('Response ok:', response.ok);
-
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
-      console.log('Error response data:', JSON.stringify(errorData, null, 2));
 
       // Handle specific error types
       if (response.status === 429) {
@@ -76,16 +69,14 @@ async function generateMap(params) {
     }
 
     const result = await response.json();
-    console.log('Successful response data:', JSON.stringify(result, null, 2));
 
     if (!result.success) {
-      console.log('API returned success=false:', result.error);
       throw new Error(result.error || 'Map generation failed');
     }
 
     return result;
   } catch (error) {
-    console.error('Map generation API call failed:', error);
+    console.error('Map generation failed:', error.message);
     throw error;
   }
 }
