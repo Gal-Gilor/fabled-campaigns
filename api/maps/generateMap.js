@@ -19,7 +19,7 @@ const {
  * @param {Object} req - Request object
  * @param {Object} res - Response object
  */
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   try {
     console.log('=== MAP GENERATION REQUEST START ===');
     console.log('Request body:', JSON.stringify(req.body, null, 2));
@@ -140,4 +140,4 @@ export default async function handler(req, res) {
       message: 'Map generation failed. Please try again later.'
     });
   }
-}
+};
