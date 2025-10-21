@@ -57,7 +57,7 @@ function initMapGeneration() {
       // Call the real AI image generation API
       const result = await generateMap(mapData);
 
-      // Store the generated map data using the helper function
+      // Store the generated map data
       const newMapData = {
         id: result.mapId,
         name: mapData.name || null, // Explicitly null instead of undefined
@@ -71,9 +71,9 @@ function initMapGeneration() {
         fallback: result.fallback || false
       };
 
-      window.setCurrentMapData(newMapData);
-
-      showMapSuccess(currentMapData);
+      // CHANGE: Show modal instead of auto-saving
+      // User will choose to Save, Edit, or Reroll from the modal
+      window.showMapPreviewModal(newMapData, mapData);
     } catch (error) {
       console.error('Map generation failed:', error);
 
@@ -244,13 +244,13 @@ function showMapSuccess(mapData) {
             </div>
             
             <p style="color: var(--neutral-600); margin-top: 2rem; font-style: italic; font-size: 0.9rem;">
-                Model may output inaccurate or offensive content that doesn't represent Fabled Tale's views
+                Model may output inaccurate or offensive content that doesn't represent Fabled Campaigns's views
             </p>
         </div>
     `;
 
-    // Add to gallery
-    addMapToGallery(mapData);
+    // NOTE: Map is already added to gallery by modal's handleSave()
+    // Do NOT call addMapToGallery() here to avoid duplicate entries
     console.log('Map success display completed');
   } catch (error) {
     console.error('Error in showMapSuccess:', error);
@@ -277,16 +277,18 @@ async function createNewMap() {
 
     try {
       // Generate new map with same parameters
-      const result = await generateMap({
+      const params = {
         name: currentMapData.name,
         description: currentMapData.description,
         terrain: currentMapData.terrain,
         setting: currentMapData.setting,
         size: currentMapData.size,
         generationMode: currentMapData.generationMode || 'detailed'
-      });
+      };
 
-      // Update current map data with new result using helper function
+      const result = await generateMap(params);
+
+      // Update current map data with new result
       const updatedMapData = {
         ...currentMapData,
         id: result.mapId,
@@ -295,11 +297,8 @@ async function createNewMap() {
         fallback: result.fallback || false
       };
 
-      // Store in all maps collection for download access
-      window.setCurrentMapData(updatedMapData);
-
-      // Show the new map
-      showMapSuccess(currentMapData);
+      // CHANGE: Show modal instead of auto-saving
+      window.showMapPreviewModal(updatedMapData, params);
     } catch (error) {
       console.error('Reroll failed:', error);
 
@@ -366,3 +365,4 @@ function resetForm() {
 // Expose functions to global scope for inline onclick handlers and HTML initialization
 window.initMapGeneration = initMapGeneration;
 window.createNewMap = createNewMap;
+window.showMapSuccess = showMapSuccess;

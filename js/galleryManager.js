@@ -66,11 +66,16 @@ function addMapToGallery(mapData) {
 
 
   newCard.onclick = event => {
-    // Don't trigger download if clicking on delete button or confirmation dialog
+    // Don't trigger modal if clicking on delete button or confirmation dialog
     if (event.target.closest('.delete-btn') || event.target.closest('.delete-confirmation')) {
+      console.log('Delete button clicked, ignoring card click');
       return;
     }
-    downloadMap(mapData.id);
+
+    console.log('Gallery card clicked, showing modal for map:', mapData.id);
+
+    // Show modal instead of auto-downloading
+    window.showExistingMapModal(mapData.id);
   };
 
   // Handle null values for terrain-only maps
@@ -80,7 +85,7 @@ function addMapToGallery(mapData) {
     : '';
   const sizeTag = mapData.size
     ? `<span class="map-tag size ${mapData.size}">${mapData.size.replace('size-', '')}</span>`
-    : '<span class="map-tag size auto">Auto Grid</span>';
+    : ''; // Don't show tag if no size specified
 
 
   newCard.innerHTML = `
