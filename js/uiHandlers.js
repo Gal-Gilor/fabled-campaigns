@@ -214,7 +214,7 @@ function showMapPreview(mapData) {
       </div>
       
       <p style="color: var(--neutral-600); margin-top: 2rem; font-style: italic; font-size: 0.9rem;">
-        Model may output inaccurate or offensive content that doesn't represent Fabled Tale's views
+        Model may output inaccurate or offensive content that doesn't represent Fabled Campaigns's views
       </p>
     </div>
   `;
