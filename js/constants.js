@@ -3,7 +3,7 @@
  */
 
 // Global variable to store generated map data
-// eslint-disable-next-line prefer-const
+ 
 let currentMapData = null;
 
 /**
