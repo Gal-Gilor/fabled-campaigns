@@ -38,98 +38,30 @@ function generateRandomName() {
 }
 
 /**
- * Generates a default description based on the selected setting type
- * @param {string} setting - The location type (tavern, village, fortress, etc.)
- * @returns {string} A descriptive text appropriate for the setting
+ * Generates a default description based on the selected setting or terrain type
+ * Uses constants from js/constants.js for DRY principle
+ * @param {string} settingOrTerrain - The location type (tavern, village, forest, etc.)
+ * @returns {string} A descriptive text appropriate for the setting or terrain
  */
-function generateDefaultDescription(setting) {
-  const descriptions = {
-    // Setting descriptions
-    tavern: 'A cozy gathering place with warm lighting and the smell of hearty food.',
-    village: 'A peaceful settlement with winding paths and friendly faces.',
-    fortress: 'An imposing military stronghold with thick walls and strategic defenses.',
-    castle: 'A grand noble residence with high walls, towers, and impressive architecture.',
-    tower:
-      'A tall structure reaching toward the sky, offering commanding views of the surrounding lands.',
-    temple: 'A sacred space filled with divine energy and ancient wisdom.',
-    ruins: 'Crumbling remnants of a once-great structure, mysterious and weathered.',
-    cave: 'A natural shelter carved from stone, echoing with hidden secrets.',
-    mine: 'Deep excavated tunnels where precious metals and gems are extracted from the earth.',
-    campsite: 'A temporary refuge under the open sky, simple but secure.',
-    crossroads:
-      'A crucial intersection where multiple paths meet, often marked by signposts and travelers.',
-    bridge: 'A vital crossing over water or chasm, connecting distant shores or lands.',
-    'trading-post': 'A bustling hub of commerce where travelers gather to trade.',
-    docks: 'A busy waterfront where ships are loaded and unloaded, filled with maritime activity.',
-    dungeon: 'A dark and dangerous place with locked doors and hidden traps.',
-    market: 'A vibrant square filled with merchants, goods, and the sounds of haggling.',
-    arena: 'A circular battleground where warriors compete for glory and crowds cheer.',
-    academy: 'A place of learning and magical study, with laboratories and lecture halls.',
-    library: 'A quiet hall of knowledge, with towering shelves of ancient books and scrolls.',
-    workshop: 'A crafting space filled with tools, materials, and the sounds of creation.',
-    graveyard: 'A solemn resting place for the dead, with weathered headstones and ancient tombs.',
-    ship: 'The wooden deck of a vessel at sea, with rigging overhead and waves below.',
-    sewer: 'A foul-smelling network of tunnels beneath a city, dark and damp.',
+function generateDefaultDescription(settingOrTerrain) {
+  // Check if it's a terrain type - these have specific descriptions
+  if (window.TERRAIN_DESCRIPTIONS && window.TERRAIN_DESCRIPTIONS[settingOrTerrain]) {
+    return window.TERRAIN_DESCRIPTIONS[settingOrTerrain];
+  }
 
-    // Terrain descriptions (for terrain-only generation)
-    forest: 'Ancient woods where sunlight filters through a verdant canopy.',
-    grassland: 'Rolling fields of verdant grass with gentle hills and peaceful meadows.',
-    hills: 'Undulating terrain with rolling slopes, scattered groves, and commanding overlooks.',
-    mountain: 'Towering peaks and rocky terrain with strategic vantage points and hidden caves.',
-    desert: 'Vast stretches of golden sand and scorching heat, with oases and mysterious ruins.',
-    tundra: 'Frozen wilderness with howling winds, ice formations, and hardy wildlife.',
-    jungle: 'Dense tropical wilderness with tangled vines, exotic wildlife, and hidden temples.',
-    swamp: 'Murky wetlands with twisted trees, mysterious mists, and treacherous waters.',
-    ocean: 'Endless waters with crashing waves, coral reefs, and hidden depths.',
-    coastal: 'Rocky shores where land meets sea, with tide pools and weathered cliffs.',
-    underground: 'Deep caverns and tunnels with echoing chambers and hidden secrets.',
-    underdark:
-      'The vast underground realm filled with bioluminescent fungi, crystal formations, and strange creatures.',
-    badlands: 'Harsh wasteland of cracked earth and twisted rock formations.',
-    feywild:
-      'A magical realm where reality bends, colors are more vivid, and ancient fey magic permeates the air.',
-    shadowfell:
-      'A dark reflection of the world, where shadows linger and the air carries whispers of the dead.',
-    urban: 'Bustling cityscape with cobblestone streets, towering buildings, and busy markets.',
-    volcanic: 'Smoldering landscape with lava flows, steaming vents, and scorched terrain.',
-    industrial: 'Mechanized landscape with steam-powered machinery, forges, and workshops.',
-    indoor: 'Elegant interior spaces with comfortable furnishings and refined atmosphere.'
-  };
-  return descriptions[setting] || 'An interesting location waiting to be explored.';
-}
+  // Otherwise, it's a setting - use randomized template-based description
+  if (window.SETTING_DESCRIPTIONS && window.SETTING_DESCRIPTIONS.length > 0) {
+    // Randomly select a template for variety
+    const template = window.SETTING_DESCRIPTIONS[
+      Math.floor(Math.random() * window.SETTING_DESCRIPTIONS.length)
+    ];
 
-/**
- * Maps setting types to appropriate default terrain types
- * @param {string} setting - The location type
- * @returns {string} The most appropriate terrain type for this setting
- */
-function getDefaultTerrain(setting) {
-  const defaultTerrains = {
-    tavern: 'grassland',
-    village: 'grassland',
-    fortress: 'mountain',
-    castle: 'hills',
-    tower: 'hills',
-    temple: 'forest',
-    ruins: 'badlands',
-    cave: 'underground',
-    mine: 'mountain',
-    campsite: 'forest',
-    crossroads: 'grassland',
-    bridge: 'coastal',
-    'trading-post': 'grassland',
-    docks: 'coastal',
-    dungeon: 'underground',
-    market: 'urban',
-    arena: 'urban',
-    academy: 'urban',
-    library: 'indoor',
-    workshop: 'urban',
-    graveyard: 'hills',
-    ship: 'ocean',
-    sewer: 'underground'
-  };
-  return defaultTerrains[setting] || 'grassland';
+    // Replace {{ setting }} placeholder with actual setting value
+    return template.replace(/\{\{\s*setting\s*\}\}/g, settingOrTerrain);
+  }
+
+  // Fallback if constants aren't loaded (shouldn't happen in normal usage)
+  return 'An interesting location waiting to be explored.';
 }
 
 /**
@@ -175,5 +107,4 @@ function downloadMap(mapId) {
 // Expose functions to global scope for inline onclick handlers
 window.generateRandomName = generateRandomName;
 window.generateDefaultDescription = generateDefaultDescription;
-window.getDefaultTerrain = getDefaultTerrain;
 window.downloadMap = downloadMap;

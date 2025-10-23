@@ -12,12 +12,12 @@ describe('Validation Middleware', () => {
         description: 'A test map for validation',
         terrain: 'forest',
         setting: 'tavern',
-        size: 'size-30x30',
+        detailLevel: 'detail-high',
         generationMode: 'detailed'
       };
 
       const result = validateMapParams(params);
-      
+
       expect(result.valid).toBe(true);
       expect(result.errors).toHaveLength(0);
       expect(result.sanitized.name).toBe('Test Map');
@@ -30,20 +30,47 @@ describe('Validation Middleware', () => {
       };
 
       const result = validateMapParams(params);
-      
+
       expect(result.valid).toBe(false);
-      expect(result.errors).toContain('terrain must be one of: forest, grassland, mountain, desert, tundra, jungle, swamp, ocean, underground, volcanic, coastal, badlands');
+      expect(result.errors).toContain('terrain must be one of: forest, grassland, hills, mountain, desert, ocean, swamp, underground, tundra, jungle, volcanic, coastal, badlands, urban, industrial, indoor, underdark, feywild, shadowfell');
     });
 
-    test('should handle missing required terrain', () => {
+    test('should require at least one of terrain or setting', () => {
       const params = {
-        name: 'Test Map'
+        name: 'Test Map',
+        description: 'A test map'
       };
 
       const result = validateMapParams(params);
-      
+
       expect(result.valid).toBe(false);
-      expect(result.errors).toContain('terrain is required');
+      expect(result.errors).toContain('Either terrain or setting must be provided');
+    });
+
+    test('should accept terrain only (no setting)', () => {
+      const params = {
+        terrain: 'forest',
+        description: 'A forest map'
+      };
+
+      const result = validateMapParams(params);
+
+      expect(result.valid).toBe(true);
+      expect(result.sanitized.terrain).toBe('forest');
+      expect(result.sanitized.setting).toBe(null);
+    });
+
+    test('should accept setting only (no terrain)', () => {
+      const params = {
+        setting: 'tavern',
+        description: 'A tavern map'
+      };
+
+      const result = validateMapParams(params);
+
+      expect(result.valid).toBe(true);
+      expect(result.sanitized.terrain).toBe(null);
+      expect(result.sanitized.setting).toBe('tavern');
     });
 
     test('should apply default values', () => {
@@ -52,9 +79,9 @@ describe('Validation Middleware', () => {
       };
 
       const result = validateMapParams(params);
-      
+
       expect(result.valid).toBe(true);
-      expect(result.sanitized.size).toBe('size-20x20');
+      expect(result.sanitized.detailLevel).toBe(null); // No default for detailLevel - only set when explicitly provided
       expect(result.sanitized.generationMode).toBe('detailed');
     });
 

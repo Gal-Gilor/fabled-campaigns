@@ -69,7 +69,15 @@
                             <option value="urban">Urban</option>
                         </select>
                     </div>
-                    
+
+                    <div class="form-group">
+                        <label for="terrainDetailLevel">Detail Level</label>
+                        <select id="terrainDetailLevel">
+                            <option value="detail-high" selected>Close-Up View (Small Area)</option>
+                            <option value="detail-low">Wide View (Large Area)</option>
+                        </select>
+                    </div>
+
                     <div class="form-group">
                         <label for="terrainDescription">You step into... <span class="optional">(optional)</span></label>
                         <textarea id="terrainDescription" placeholder="A mystical forest clearing with ancient stone circles, winding paths, and hidden alcoves perfect for ambushes..."></textarea>
@@ -82,14 +90,22 @@
                         <label for="settingName">Name <span class="optional">(optional)</span></label>
                         <input type="text" id="settingName" placeholder="The Sunken Temple">
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="settingLocationType">Setting</label>
                         <select id="settingLocationType" required>
                             <!-- Options will be populated by script -->
                         </select>
                     </div>
-                    
+
+                    <div class="form-group">
+                        <label for="settingDetailLevel">Detail Level</label>
+                        <select id="settingDetailLevel">
+                            <option value="detail-high" selected>Close-Up View (Small Area)</option>
+                            <option value="detail-low">Wide View (Large Area)</option>
+                        </select>
+                    </div>
+
                     <div class="form-group">
                         <label for="settingDescription">You step into... <span class="optional">(optional)</span></label>
                         <textarea id="settingDescription" placeholder="An ancient, waterlogged temple with glowing runes and submerged corridors..."></textarea>
@@ -138,11 +154,10 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="mapSize">Size</label>
-                        <select id="mapSize">
-                            <option value="size-20x20">20×20</option>
-                            <option value="size-30x30" selected>30×30</option>
-                            <option value="size-40x40">40×40</option>
+                        <label for="detailLevel">Detail Level</label>
+                        <select id="detailLevel">
+                            <option value="detail-low" selected>Wide View (Large Area)</option>
+                            <option value="detail-high">Close-Up View (Small Area)</option>
                         </select>
                     </div>
                     
@@ -198,11 +213,10 @@
                             <option value="indoor">Indoor</option>
                         </select>
 
-                        <select class="filter-dropdown" data-type="size">
-                            <option value="all">All Sizes</option>
-                            <option value="size-20x20">20×20</option>
-                            <option value="size-30x30">30×30</option>
-                            <option value="size-40x40">40×40</option>
+                        <select class="filter-dropdown" data-type="detailLevel">
+                            <option value="all">All Detail Levels</option>
+                            <option value="detail-low">Bird's Eye View</option>
+                            <option value="detail-high">Highly Detailed</option>
                         </select>
                     </div>
                 </div>

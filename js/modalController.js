@@ -252,7 +252,7 @@ async function handleReroll() {
       description: generationParams.description,
       terrain: generationParams.terrain,
       setting: generationParams.setting,
-      size: generationParams.size,
+      detailLevel: generationParams.detailLevel,
       generationMode: generationParams.generationMode,
       imageUrl: result.imageUrl,
       createdAt: result.metadata?.generatedAt || new Date().toISOString(),
@@ -337,7 +337,7 @@ function showExistingMapModal(mapId) {
     description: mapData.description,
     terrain: mapData.terrain,
     setting: mapData.setting,
-    size: mapData.size,
+    detailLevel: mapData.detailLevel,
     generationMode: mapData.generationMode || 'detailed'
   };
 

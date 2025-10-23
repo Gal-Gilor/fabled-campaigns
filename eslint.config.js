@@ -51,8 +51,7 @@ module.exports = [
 
         // Utility functions
         generateRandomName: 'readonly',
-        generateDefaultDescription: 'readonly',
-        getDefaultTerrain: 'readonly'
+        generateDefaultDescription: 'readonly'
       }
     },
     rules: {

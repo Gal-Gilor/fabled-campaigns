@@ -52,7 +52,7 @@ module.exports = async function handler(req, res) {
       );
     }
 
-    const { name, description, terrain, setting, size, generationMode } = validation.sanitized;
+    const { name, description, terrain, setting, detailLevel, generationMode } = validation.sanitized;
 
     // Generate name if not provided (except for terrain-only requests)
     const finalName = name || (setting ? generateMapName({ terrain, setting }) : null);
@@ -63,7 +63,7 @@ module.exports = async function handler(req, res) {
     // Initialize Imagen service
     const imagenService = new ImagenService();
 
-    // Generate map (only pass size if it exists)
+    // Generate map (only pass detailLevel if it exists)
     const mapParams = {
       name: finalName,
       description: finalDescription,
@@ -72,17 +72,19 @@ module.exports = async function handler(req, res) {
       generationMode
     };
 
-    // Only include size if provided (Advanced tab)
-    if (size) {
-      mapParams.size = size;
+    // Only include detailLevel if provided (Advanced tab)
+    if (detailLevel) {
+      mapParams.detailLevel = detailLevel;
     }
 
     const result = await imagenService.generateMapImage(mapParams);
 
     // Handle response based on generation result
     if (!result.success) {
-      return res.status(500).json({
+      // Return graceful error response (200) instead of 500
+      return res.status(200).json({
         success: false,
+        fallback: true,
         error: result.error || 'Map generation failed',
         message: 'Failed to generate map image. Please try again.'
       });
@@ -100,7 +102,7 @@ module.exports = async function handler(req, res) {
         description: finalDescription,
         terrain,
         setting,
-        size: size || null,
+        detailLevel: detailLevel || null,
         isUnnamed: !finalName,
         generatedAt: new Date().toISOString(),
         model: result.metadata?.model || 'imagen-3.0-generate-002',
