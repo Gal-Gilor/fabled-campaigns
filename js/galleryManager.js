@@ -7,7 +7,7 @@
 const activeFilters = {
   setting: 'all',
   terrain: 'all',
-  size: 'all'
+  detailLevel: 'all'
 };
 
 /**
@@ -37,13 +37,13 @@ function filterMaps() {
   mapCards.forEach(card => {
     const cardSetting = card.dataset.setting;
     const cardTerrain = card.dataset.terrain;
-    const cardSize = card.dataset.size;
+    const cardDetailLevel = card.dataset.detailLevel;
 
     const matchesSetting = activeFilters.setting === 'all' || cardSetting === activeFilters.setting;
     const matchesTerrain = activeFilters.terrain === 'all' || cardTerrain === activeFilters.terrain;
-    const matchesSize = activeFilters.size === 'all' || cardSize === activeFilters.size;
+    const matchesDetailLevel = activeFilters.detailLevel === 'all' || cardDetailLevel === activeFilters.detailLevel;
 
-    if (matchesSetting && matchesTerrain && matchesSize) {
+    if (matchesSetting && matchesTerrain && matchesDetailLevel) {
       card.style.display = 'block';
     } else {
       card.style.display = 'none';
@@ -59,9 +59,9 @@ function addMapToGallery(mapData) {
   const mapsGrid = document.getElementById('mapsGrid');
   const newCard = document.createElement('div');
   newCard.className = 'map-card';
-  newCard.dataset.setting = mapData.setting || 'terrain';
-  newCard.dataset.terrain = mapData.terrain;
-  newCard.dataset.size = mapData.size || 'auto';
+  newCard.dataset.setting = mapData.setting || 'none';
+  newCard.dataset.terrain = mapData.terrain || 'none';
+  newCard.dataset.detailLevel = mapData.detailLevel || 'auto';
   newCard.dataset.mapId = mapData.id;
 
 
@@ -78,14 +78,17 @@ function addMapToGallery(mapData) {
     window.showExistingMapModal(mapData.id);
   };
 
-  // Handle null values for terrain-only maps
+  // Handle null values for maps without terrain or setting
   const displayName = mapData.name || 'Unnamed Terrain';
   const settingTag = mapData.setting
     ? `<span class="map-tag setting ${mapData.setting}">${mapData.setting.charAt(0).toUpperCase() + mapData.setting.slice(1)}</span>`
     : '';
-  const sizeTag = mapData.size
-    ? `<span class="map-tag size ${mapData.size}">${mapData.size.replace('size-', '')}</span>`
-    : ''; // Don't show tag if no size specified
+  const terrainTag = mapData.terrain
+    ? `<span class="map-tag terrain ${mapData.terrain}">${mapData.terrain.charAt(0).toUpperCase() + mapData.terrain.slice(1)}</span>`
+    : '';
+  const detailLevelTag = mapData.detailLevel
+    ? `<span class="map-tag detailLevel ${mapData.detailLevel}">${mapData.detailLevel === 'detail-low' ? 'Bird\'s Eye' : 'Detailed'}</span>`
+    : ''; // Don't show tag if no detailLevel specified
 
 
   newCard.innerHTML = `
@@ -97,8 +100,8 @@ function addMapToGallery(mapData) {
             <h3>${displayName}</h3>
             <div class="map-tags">
                 ${settingTag}
-                <span class="map-tag terrain ${mapData.terrain}">${mapData.terrain.charAt(0).toUpperCase() + mapData.terrain.slice(1)}</span>
-                ${sizeTag}
+                ${terrainTag}
+                ${detailLevelTag}
             </div>
             <p class="map-description">${mapData.description.substring(0, 100)}...</p>
             <div class="map-meta">

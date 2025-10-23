@@ -64,7 +64,7 @@ function initMapGeneration() {
         description: mapData.description,
         terrain: mapData.terrain,
         setting: mapData.setting,
-        size: mapData.size,
+        detailLevel: mapData.detailLevel,
         generationMode: mapData.generationMode,
         imageUrl: result.imageUrl,
         createdAt: result.metadata?.generatedAt || new Date().toISOString(),
@@ -101,6 +101,7 @@ function initMapGeneration() {
  */
 async function processTerrainTab(generateBtn) {
   const terrainType = document.getElementById('terrainTypeSimple').value;
+  const detailLevel = document.getElementById('terrainDetailLevel').value;
   const mapDescription =
     document.getElementById('terrainDescription').value || generateDefaultDescription(terrainType);
 
@@ -111,8 +112,8 @@ async function processTerrainTab(generateBtn) {
   return {
     description: mapDescription,
     terrain: terrainType,
+    detailLevel: detailLevel,
     // No setting for pure terrain maps
-    // No size - let AI determine optimal grid size
     generationMode: 'quick'
   };
 }
@@ -123,6 +124,7 @@ async function processTerrainTab(generateBtn) {
 async function processSettingTab(generateBtn) {
   let mapName = document.getElementById('settingName').value.trim();
   const locationType = document.getElementById('settingLocationType').value;
+  const detailLevel = document.getElementById('settingDetailLevel').value;
   const mapDescription =
     document.getElementById('settingDescription').value || generateDefaultDescription(locationType);
 
@@ -132,8 +134,7 @@ async function processSettingTab(generateBtn) {
       generateBtn.innerHTML = '<span class="spinner"></span><span>Legends whisper a name...</span>';
 
       const nameResult = await generateName({
-        setting: locationType,
-        terrain: getDefaultTerrain(locationType)
+        setting: locationType
       });
 
       mapName = nameResult.name;
@@ -152,9 +153,8 @@ async function processSettingTab(generateBtn) {
   return {
     name: mapName,
     description: mapDescription,
-    terrain: getDefaultTerrain(locationType),
     setting: locationType,
-    // No size - let AI determine optimal grid size
+    detailLevel: detailLevel,
     generationMode: 'quick'
   };
 }
@@ -167,7 +167,7 @@ async function processAdvancedTab(generateBtn) {
   const mapDescription = document.getElementById('mapDescription').value.trim();
   const terrainType = document.getElementById('terrainType').value;
   const locationType = document.getElementById('locationType').value;
-  const mapSize = document.getElementById('mapSize').value;
+  const detailLevel = document.getElementById('detailLevel').value;
 
   if (!mapDescription) {
     alert('Please fill in the description field');
@@ -203,7 +203,7 @@ async function processAdvancedTab(generateBtn) {
     description: mapDescription,
     terrain: terrainType,
     setting: locationType,
-    size: mapSize,
+    detailLevel: detailLevel,
     generationMode: 'detailed'
   };
 }
@@ -282,7 +282,7 @@ async function createNewMap() {
         description: currentMapData.description,
         terrain: currentMapData.terrain,
         setting: currentMapData.setting,
-        size: currentMapData.size,
+        detailLevel: currentMapData.detailLevel,
         generationMode: currentMapData.generationMode || 'detailed'
       };
 
@@ -324,16 +324,18 @@ async function createNewMap() {
 function resetForm() {
   // Reset all form tabs
   document.getElementById('terrainTypeSimple').selectedIndex = 0;
+  document.getElementById('terrainDetailLevel').selectedIndex = 0; // Default to Highly Detailed
   document.getElementById('terrainDescription').value = '';
 
   document.getElementById('settingName').value = '';
   document.getElementById('settingLocationType').selectedIndex = 3; // Default to Temple
+  document.getElementById('settingDetailLevel').selectedIndex = 0; // Default to Highly Detailed
   document.getElementById('settingDescription').value = '';
 
   document.getElementById('mapName').value = '';
   document.getElementById('terrainType').selectedIndex = 0;
   document.getElementById('locationType').selectedIndex = 0;
-  document.getElementById('mapSize').selectedIndex = 1; // Default to 30x30
+  document.getElementById('detailLevel').selectedIndex = 0; // Default to Bird's Eye View
   document.getElementById('mapDescription').value = '';
 
   // Reset preview

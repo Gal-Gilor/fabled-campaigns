@@ -20,15 +20,10 @@ let handler;
 
 beforeAll(() => {
   // Import the handler after mocks are set up
-  handler = require('../../api/maps/generateMap').default;
-  
-  // Set up the route
-  app.post('/api/maps/generateMap', (req, res) => {
-    handler(req, res);
-  });
-  
-  // Add OPTIONS route for CORS
-  app.options('/api/maps/generateMap', (req, res) => {
+  handler = require('../../api/maps/generateMap');
+
+  // Set up the route for ALL methods so the handler can validate them
+  app.all('/api/maps/generateMap', (req, res) => {
     handler(req, res);
   });
 });
@@ -73,17 +68,68 @@ describe('Generate Map API', () => {
     expect(response.body.error).toBe('RATE_LIMIT_ERROR');
   });
 
-  test('should validate required fields', async () => {
+  test('should require at least one of terrain or setting', async () => {
     const response = await request(app)
       .post('/api/maps/generateMap')
       .send({
-        // Missing required terrain field
-        setting: 'tavern'
+        // Missing both terrain and setting
+        name: 'Test Map',
+        description: 'A test map'
       });
-    
+
     expect(response.status).toBe(400);
     expect(response.body.error).toBe('VALIDATION_ERROR');
-    expect(response.body.message).toContain('terrain is required');
+    expect(response.body.message).toContain('Either terrain or setting must be provided');
+  });
+
+  test('should accept terrain only (without setting)', async () => {
+    // Mock ImagenService to return success
+    const mockImagenService = require('../../lib/imagenService');
+    mockImagenService.mockImplementation(() => ({
+      generateMapImage: jest.fn().mockResolvedValue({
+        success: true,
+        imageUrl: 'data:image/png;base64,test',
+        metadata: {
+          model: 'imagen-3.0-generate-002',
+          generatedAt: new Date().toISOString()
+        }
+      })
+    }));
+
+    const response = await request(app)
+      .post('/api/maps/generateMap')
+      .send({
+        terrain: 'forest',
+        description: 'A forest wilderness'
+      });
+
+    expect(response.status).toBe(200);
+    expect(response.body.success).toBe(true);
+  });
+
+  test('should accept setting only (without terrain)', async () => {
+    // Mock ImagenService to return success
+    const mockImagenService = require('../../lib/imagenService');
+    mockImagenService.mockImplementation(() => ({
+      generateMapImage: jest.fn().mockResolvedValue({
+        success: true,
+        imageUrl: 'data:image/png;base64,test',
+        metadata: {
+          model: 'imagen-3.0-generate-002',
+          generatedAt: new Date().toISOString()
+        }
+      })
+    }));
+
+    const response = await request(app)
+      .post('/api/maps/generateMap')
+      .send({
+        setting: 'tavern',
+        description: 'A cozy tavern'
+      });
+
+    expect(response.status).toBe(200);
+    expect(response.body.success).toBe(true);
   });
 
   test('should validate terrain values', async () => {
@@ -120,7 +166,7 @@ describe('Generate Map API', () => {
     
     expect(response.status).toBe(200);
     expect(response.body.success).toBe(true);
-    expect(response.body.metadata.size).toBe('size-20x20'); // Default size
+    expect(response.body.metadata.detailLevel).toBe(null); // No default detailLevel - only set when explicitly provided
     expect(response.body.generatedName).toBeDefined();
   });
 
