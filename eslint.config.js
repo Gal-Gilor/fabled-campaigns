@@ -50,7 +50,6 @@ module.exports = [
         downloadSampleMap: 'readonly',
 
         // Utility functions
-        generateRandomName: 'readonly',
         generateDefaultDescription: 'readonly'
       }
     },

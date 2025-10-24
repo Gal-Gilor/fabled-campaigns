@@ -20,7 +20,7 @@ function buildPrompt({ terrain, setting, description }) {
   if (setting) prompt += `Setting: ${setting}\n`;
   if (description) prompt += `Description: ${description}\n`;
 
-  prompt += '\nCreate an evocative name suitable for a tabletop RPG battle map.';
+  prompt += '\nWrite an evocative, memorable D&D related name for the location.';
   return prompt;
 }
 

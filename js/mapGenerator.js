@@ -4,6 +4,49 @@
  */
 
 /**
+ * Unified name generation helper
+ * Calls Gemini-powered API with loading state management
+ * Backend handles fallback via simpleNameService if API fails
+ * @param {Object} params - Name generation parameters
+ * @param {string} params.terrain - Terrain type (optional)
+ * @param {string} params.setting - Setting type (optional)
+ * @param {string} params.description - Description for context (optional)
+ * @param {HTMLElement} generateBtn - Button element to update with loading states
+ * @param {HTMLInputElement} inputElement - Input element to populate with generated name
+ * @returns {Promise<string>} The generated name, or empty string if generation fails
+ */
+async function generateNameIfEmpty(params, generateBtn, inputElement) {
+  const currentValue = inputElement.value.trim();
+
+  // If name already provided, return it
+  if (currentValue) {
+    return currentValue;
+  }
+
+  // Name is empty - generate one via API
+  try {
+    generateBtn.innerHTML = '<span class="spinner"></span><span>Legends whisper a name...</span>';
+
+    const nameResult = await generateName(params);
+    const generatedName = nameResult.name;
+
+    inputElement.value = generatedName;
+    generateBtn.innerHTML = '<span>Scrolls unfurl... Your world awakens.</span>';
+
+    console.log('Name generated via', nameResult.metadata?.method, ':', generatedName);
+    return generatedName;
+
+  } catch (error) {
+    console.error('Name generation failed:', error);
+
+    // Don't use frontend fallback - let the map proceed without a name
+    // The backend will handle this gracefully
+    generateBtn.innerHTML = '<span>Charting unknown lands...</span>';
+    return '';
+  }
+}
+
+/**
  * Initialize map generation functionality
  */
 function initMapGeneration() {
@@ -61,7 +104,7 @@ function initMapGeneration() {
       const newMapData = {
         id: result.mapId,
         name: mapData.name || null, // Explicitly null instead of undefined
-        description: mapData.description,
+        description: result.metadata?.description || mapData.description, // Use enhanced prompt from API
         terrain: mapData.terrain,
         setting: mapData.setting,
         detailLevel: mapData.detailLevel,
@@ -122,31 +165,20 @@ async function processTerrainTab(generateBtn) {
  * Process setting tab form data
  */
 async function processSettingTab(generateBtn) {
-  let mapName = document.getElementById('settingName').value.trim();
   const locationType = document.getElementById('settingLocationType').value;
   const detailLevel = document.getElementById('settingDetailLevel').value;
   const mapDescription =
     document.getElementById('settingDescription').value || generateDefaultDescription(locationType);
 
-  // If name is empty, generate one using the API
-  if (!mapName) {
-    try {
-      generateBtn.innerHTML = '<span class="spinner"></span><span>Legends whisper a name...</span>';
+  // Generate name if empty using unified helper
+  const mapName = await generateNameIfEmpty(
+    { setting: locationType },
+    generateBtn,
+    document.getElementById('settingName')
+  );
 
-      const nameResult = await generateName({
-        setting: locationType
-      });
-
-      mapName = nameResult.name;
-      document.getElementById('settingName').value = mapName;
-      generateBtn.innerHTML = '<span>Scrolls unfurl... Your world awakens.</span>';
-    } catch (error) {
-      console.error('Name generation failed:', error);
-      mapName = generateRandomName();
-      document.getElementById('settingName').value = mapName;
-      generateBtn.innerHTML = '<span>Charting unknown lands...</span>';
-    }
-  } else {
+  // Update button for map generation phase
+  if (mapName) {
     generateBtn.innerHTML = '<span>Charting unknown lands...</span>';
   }
 
@@ -163,7 +195,6 @@ async function processSettingTab(generateBtn) {
  * Process advanced tab form data
  */
 async function processAdvancedTab(generateBtn) {
-  let mapName = document.getElementById('mapName').value.trim();
   const mapDescription = document.getElementById('mapDescription').value.trim();
   const terrainType = document.getElementById('terrainType').value;
   const locationType = document.getElementById('locationType').value;
@@ -174,27 +205,19 @@ async function processAdvancedTab(generateBtn) {
     return null;
   }
 
-  // If name is empty, generate one using the API
-  if (!mapName) {
-    try {
-      generateBtn.innerHTML = '<span class="spinner"></span><span>Legends whisper a name...</span>';
+  // Generate name if empty using unified helper
+  const mapName = await generateNameIfEmpty(
+    {
+      terrain: terrainType,
+      setting: locationType,
+      description: mapDescription
+    },
+    generateBtn,
+    document.getElementById('mapName')
+  );
 
-      const nameResult = await generateName({
-        terrain: terrainType,
-        setting: locationType,
-        description: mapDescription
-      });
-
-      mapName = nameResult.name;
-      document.getElementById('mapName').value = mapName;
-      generateBtn.innerHTML = '<span>Scrolls unfurl... Your world awakens.</span>';
-    } catch (error) {
-      console.error('Name generation failed:', error);
-      mapName = generateRandomName();
-      document.getElementById('mapName').value = mapName;
-      generateBtn.innerHTML = '<span>Charting unknown lands...</span>';
-    }
-  } else {
+  // Update button for map generation phase
+  if (mapName) {
     generateBtn.innerHTML = '<span>Charting unknown lands...</span>';
   }
 

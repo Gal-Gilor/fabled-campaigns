@@ -249,7 +249,7 @@ async function handleReroll() {
     const newMapData = {
       id: result.mapId,
       name: generationParams.name || null,
-      description: generationParams.description,
+      description: result.metadata?.description || generationParams.description, // Use enhanced prompt from API
       terrain: generationParams.terrain,
       setting: generationParams.setting,
       detailLevel: generationParams.detailLevel,
