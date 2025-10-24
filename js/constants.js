@@ -97,34 +97,742 @@ const SETTING_DESCRIPTIONS = [
   'A legendary {{ setting }} spoken of in prophecies and songs, where heroes are tested and fate is decided.'
 ];
 
-// Terrain descriptions for default fallback descriptions
-const TERRAIN_DESCRIPTIONS = {
-  forest: 'Ancient woods where sunlight filters through a verdant canopy.',
-  grassland: 'Rolling fields of verdant grass with gentle hills and peaceful meadows.',
-  hills: 'Undulating terrain with rolling slopes, scattered groves, and commanding overlooks.',
-  mountain: 'Towering peaks and rocky terrain with strategic vantage points and hidden caves.',
-  desert: 'Vast stretches of golden sand and scorching heat, with oases and mysterious ruins.',
-  tundra: 'Frozen wilderness with howling winds, ice formations, and hardy wildlife.',
-  jungle: 'Dense tropical wilderness with tangled vines, exotic wildlife, and hidden temples.',
-  swamp: 'Murky wetlands with twisted trees, mysterious mists, and treacherous waters.',
-  ocean: 'Endless waters with crashing waves, coral reefs, and hidden depths.',
-  coastal: 'Rocky shores where land meets sea, with tide pools and weathered cliffs.',
-  underground: 'Deep caverns and tunnels with echoing chambers and hidden secrets.',
-  underdark: 'The vast underground realm filled with bioluminescent fungi, crystal formations, and strange creatures.',
-  badlands: 'Harsh wasteland of cracked earth and twisted rock formations.',
-  feywild: 'A magical realm where reality bends, colors are more vivid, and ancient fey magic permeates the air.',
-  shadowfell: 'A dark reflection of the world, where shadows linger and the air carries whispers of the dead.',
-  urban: 'Bustling cityscape with cobblestone streets, towering buildings, and busy markets.',
-  volcanic: 'Smoldering landscape with lava flows, steaming vents, and scorched terrain.',
-  industrial: 'Mechanized landscape with steam-powered machinery, forges, and workshops.',
-  indoor: 'Elegant interior spaces with comfortable furnishings and refined atmosphere.'
+// Terrain elements for dynamic description generation
+// Each terrain has adjectives, nouns, and modifiers for variety
+const TERRAIN_ELEMENTS = {
+  forest: {
+    adjectives: [
+      'Whispering',
+      'Ancient',
+      'Deep',
+      'Wild',
+      'Emerald',
+      'Shadowed',
+      'Thornwood',
+      'Silverleaf',
+      'Moss-covered',
+      'Elven'
+    ],
+    nouns: [
+      'Grove',
+      'Thicket',
+      'Glade',
+      'Clearing',
+      'Canopy',
+      'Hollow',
+      'Wood',
+      'Dell',
+      'Glen',
+      'Bower'
+    ],
+    modifiers: [
+      'pines',
+      'oaks',
+      'willows',
+      'birches',
+      'cedars',
+      'maples',
+      'aspens',
+      'elms',
+      'firs',
+      'spruces'
+    ]
+  },
+  grassland: {
+    adjectives: [
+      'Rolling',
+      'Verdant',
+      'Endless',
+      'Golden',
+      'Windswept',
+      'Peaceful',
+      'Fertile',
+      'Sun-kissed',
+      'Wild',
+      'Pastoral'
+    ],
+    nouns: [
+      'Plains',
+      'Fields',
+      'Meadows',
+      'Prairies',
+      'Steppes',
+      'Pastures',
+      'Ranges',
+      'Lands',
+      'Reaches',
+      'Expanse'
+    ],
+    modifiers: [
+      'grass',
+      'flowers',
+      'herbs',
+      'seeds',
+      'winds',
+      'paths',
+      'streams',
+      'wildlife',
+      'skies'
+    ]
+  },
+  hills: {
+    adjectives: [
+      'Rolling',
+      'Gentle',
+      'Green',
+      'Pastoral',
+      'Terraced',
+      'Grassy',
+      'Windswept',
+      'Ancient',
+      'Sacred',
+      'Peaceful'
+    ],
+    nouns: [
+      'Hills',
+      'Highlands',
+      'Downs',
+      'Moors',
+      'Slopes',
+      'Ridges',
+      'Knolls',
+      'Rise',
+      'Elevation',
+      'Heights'
+    ],
+    modifiers: [
+      'slopes',
+      'paths',
+      'streams',
+      'stones',
+      'wildflowers',
+      'ancient_markers',
+      'shepherds',
+      'winds',
+      'views'
+    ]
+  },
+  mountain: {
+    adjectives: [
+      'Towering',
+      'Snow-capped',
+      'Jagged',
+      'Windswept',
+      'Granite',
+      'Crystal',
+      'Storm-touched',
+      'Iron',
+      'Eagle\'s',
+      'Cloudbreak'
+    ],
+    nouns: [
+      'Peak',
+      'Ridge',
+      'Summit',
+      'Crag',
+      'Spire',
+      'Precipice',
+      'Outcrop',
+      'Bluff',
+      'Tor',
+      'Pinnacle'
+    ],
+    modifiers: [
+      'heights',
+      'slopes',
+      'passes',
+      'cliffs',
+      'crags',
+      'stones',
+      'rocks',
+      'boulders',
+      'ledges'
+    ]
+  },
+  desert: {
+    adjectives: [
+      'Burning',
+      'Endless',
+      'Shifting',
+      'Golden',
+      'Scorching',
+      'Mirage',
+      'Sandswept',
+      'Sun-baked',
+      'Nomad\'s',
+      'Oasis'
+    ],
+    nouns: [
+      'Dunes',
+      'Wastes',
+      'Expanse',
+      'Reach',
+      'Sands',
+      'Basin',
+      'Flats',
+      'Mesa',
+      'Plateau',
+      'Valley'
+    ],
+    modifiers: [
+      'sands',
+      'stones',
+      'winds',
+      'mirages',
+      'cacti',
+      'bones',
+      'ruins',
+      'wells',
+      'springs',
+      'tracks'
+    ]
+  },
+  ocean: {
+    adjectives: [
+      'Tidal',
+      'Coral',
+      'Storm-tossed',
+      'Pearl',
+      'Sapphire',
+      'Misty',
+      'Siren\'s',
+      'Deep',
+      'Salt-spray',
+      'Windward'
+    ],
+    nouns: ['Bay', 'Cove', 'Harbor', 'Port', 'Inlet', 'Strait', 'Sound', 'Reef', 'Atoll', 'Lagoon'],
+    modifiers: [
+      'waves',
+      'tides',
+      'shores',
+      'reefs',
+      'pearls',
+      'shells',
+      'currents',
+      'depths',
+      'sailors',
+      'storms'
+    ]
+  },
+  swamp: {
+    adjectives: [
+      'Murky',
+      'Mist-shrouded',
+      'Rotting',
+      'Fetid',
+      'Boggy',
+      'Willow',
+      'Crocodile',
+      'Stagnant',
+      'Poisonous',
+      'Witch\'s'
+    ],
+    nouns: [
+      'Marsh',
+      'Bog',
+      'Fen',
+      'Mire',
+      'Bayou',
+      'Wetlands',
+      'Morass',
+      'Quagmire',
+      'Slough',
+      'Backwater'
+    ],
+    modifiers: [
+      'reeds',
+      'moss',
+      'mist',
+      'pools',
+      'gases',
+      'vines',
+      'roots',
+      'mud',
+      'lilies',
+      'frogs'
+    ]
+  },
+  underground: {
+    adjectives: [
+      'Deep',
+      'Echoing',
+      'Crystal',
+      'Shadowed',
+      'Forgotten',
+      'Dwarf-carved',
+      'Glowing',
+      'Limestone',
+      'Stalactite',
+      'Hidden'
+    ],
+    nouns: [
+      'Caverns',
+      'Tunnels',
+      'Chambers',
+      'Depths',
+      'Halls',
+      'Passages',
+      'Grottos',
+      'Vaults',
+      'Warrens',
+      'Sanctum'
+    ],
+    modifiers: [
+      'crystals',
+      'echoes',
+      'shadows',
+      'stones',
+      'pools',
+      'formations',
+      'minerals',
+      'veins',
+      'darkness',
+      'silence'
+    ]
+  },
+  tundra: {
+    adjectives: [
+      'Frozen',
+      'Windswept',
+      'Barren',
+      'Ice-bound',
+      'Permafrost',
+      'Aurora',
+      'Polar',
+      'Blizzard',
+      'Glacier',
+      'Nordic',
+      'Glacial',
+      'Icy',
+      'Bitter',
+      'Howling',
+      'Endless',
+      'White',
+      'Crystalline',
+      'Frigid'
+    ],
+    nouns: [
+      'Plains',
+      'Wastes',
+      'Steppes',
+      'Expanse',
+      'Fields',
+      'Reaches',
+      'Grounds',
+      'Lands',
+      'Territory',
+      'Domain',
+      'Glacier',
+      'Icefield',
+      'Shelf',
+      'Berg',
+      'Floe',
+      'Pack',
+      'Sheet',
+      'Tundra'
+    ],
+    modifiers: [
+      'ice',
+      'snow',
+      'winds',
+      'cold',
+      'frost',
+      'storms',
+      'lights',
+      'silence',
+      'tracks',
+      'crystals',
+      'chill',
+      'freeze'
+    ]
+  },
+  jungle: {
+    adjectives: [
+      'Dense',
+      'Steaming',
+      'Verdant',
+      'Primal',
+      'Untamed',
+      'Lush',
+      'Tropical',
+      'Humid',
+      'Ancient',
+      'Overgrown'
+    ],
+    nouns: [
+      'Jungle',
+      'Rainforest',
+      'Canopy',
+      'Undergrowth',
+      'Thicket',
+      'Tangle',
+      'Wilderness',
+      'Grove',
+      'Basin',
+      'Expanse'
+    ],
+    modifiers: [
+      'vines',
+      'leaves',
+      'humidity',
+      'sounds',
+      'calls',
+      'mist',
+      'trees',
+      'branches',
+      'roots',
+      'shadows'
+    ]
+  },
+  volcanic: {
+    adjectives: [
+      'Smoldering',
+      'Molten',
+      'Fiery',
+      'Ash-covered',
+      'Steaming',
+      'Lava-touched',
+      'Scorched',
+      'Blazing',
+      'Sulfurous',
+      'Burning'
+    ],
+    nouns: [
+      'Crater',
+      'Caldera',
+      'Slope',
+      'Peak',
+      'Flow',
+      'Field',
+      'Ridge',
+      'Vent',
+      'Formation',
+      'Range'
+    ],
+    modifiers: [
+      'lava',
+      'ash',
+      'smoke',
+      'flames',
+      'heat',
+      'sulfur',
+      'steam',
+      'embers',
+      'magma',
+      'rock'
+    ]
+  },
+  coastal: {
+    adjectives: [
+      'Windswept',
+      'Salty',
+      'Rocky',
+      'Misty',
+      'Tide-swept',
+      'Jagged',
+      'Weathered',
+      'Storm-battered',
+      'Peaceful',
+      'Secluded'
+    ],
+    nouns: [
+      'Coast',
+      'Shore',
+      'Beach',
+      'Cliff',
+      'Cove',
+      'Bay',
+      'Inlet',
+      'Point',
+      'Headland',
+      'Strand'
+    ],
+    modifiers: [
+      'waves',
+      'salt',
+      'spray',
+      'tides',
+      'shells',
+      'rocks',
+      'sand',
+      'gulls',
+      'wind',
+      'foam'
+    ]
+  },
+  badlands: {
+    adjectives: [
+      'Cracked',
+      'Barren',
+      'Desolate',
+      'Broken',
+      'Eroded',
+      'Harsh',
+      'Unforgiving',
+      'Scarred',
+      'Twisted',
+      'Forsaken'
+    ],
+    nouns: [
+      'Badlands',
+      'Wastes',
+      'Flats',
+      'Mesa',
+      'Butte',
+      'Gorge',
+      'Canyon',
+      'Ravine',
+      'Plateau',
+      'Outcrop'
+    ],
+    modifiers: [
+      'dust',
+      'rocks',
+      'cracks',
+      'erosion',
+      'bones',
+      'heat',
+      'stone',
+      'clay',
+      'sediment',
+      'wind'
+    ]
+  },
+  urban: {
+    adjectives: [
+      'Bustling',
+      'Crowded',
+      'Sprawling',
+      'Ancient',
+      'Industrial',
+      'Noble',
+      'Merchant',
+      'Cobblestone',
+      'Walled',
+      'Metropolitan'
+    ],
+    nouns: [
+      'District',
+      'Quarter',
+      'Ward',
+      'Square',
+      'Street',
+      'Plaza',
+      'Market',
+      'Alley',
+      'Boulevard',
+      'Avenue'
+    ],
+    modifiers: [
+      'buildings',
+      'streets',
+      'crowds',
+      'merchants',
+      'guards',
+      'nobles',
+      'commoners',
+      'shops',
+      'inns',
+      'guilds'
+    ]
+  },
+  industrial: {
+    adjectives: [
+      'Smoke-filled',
+      'Mechanized',
+      'Steam-powered',
+      'Clanking',
+      'Grimy',
+      'Forge-lit',
+      'Working',
+      'Bustling',
+      'Noisy',
+      'Production'
+    ],
+    nouns: [
+      'Factory',
+      'Workshop',
+      'Foundry',
+      'Mill',
+      'Forge',
+      'Facility',
+      'Plant',
+      'Works',
+      'Complex',
+      'District'
+    ],
+    modifiers: [
+      'machinery',
+      'steam',
+      'smoke',
+      'workers',
+      'gears',
+      'pipes',
+      'furnaces',
+      'tools',
+      'noise',
+      'production'
+    ]
+  },
+  indoor: {
+    adjectives: [
+      'Enclosed',
+      'Candlelit',
+      'Furnished',
+      'Comfortable',
+      'Sheltered',
+      'Private',
+      'Decorated',
+      'Warm',
+      'Spacious',
+      'Intimate'
+    ],
+    nouns: [
+      'Hall',
+      'Chamber',
+      'Room',
+      'Study',
+      'Parlor',
+      'Gallery',
+      'Suite',
+      'Salon',
+      'Library',
+      'Quarters'
+    ],
+    modifiers: [
+      'furniture',
+      'tapestries',
+      'candles',
+      'fireplaces',
+      'books',
+      'art',
+      'comfort',
+      'privacy',
+      'warmth',
+      'luxury'
+    ]
+  },
+  underdark: {
+    adjectives: [
+      'Abyssal',
+      'Twilight',
+      'Fungal',
+      'Echoing',
+      'Alien',
+      'Phosphorescent',
+      'Eerie',
+      'Forgotten',
+      'Primordial',
+      'Nightmare'
+    ],
+    nouns: [
+      'Depths',
+      'Abyss',
+      'Realm',
+      'Expanse',
+      'Caverns',
+      'Tunnels',
+      'Passages',
+      'Galleries',
+      'Chambers',
+      'Hollows'
+    ],
+    modifiers: [
+      'fungi',
+      'luminescence',
+      'whispers',
+      'shadows',
+      'creatures',
+      'spores',
+      'darkness',
+      'silence',
+      'mysteries',
+      'terrors'
+    ]
+  },
+  feywild: {
+    adjectives: [
+      'Enchanted',
+      'Whimsical',
+      'Dreamlike',
+      'Mystical',
+      'Vibrant',
+      'Ethereal',
+      'Fey-touched',
+      'Magical',
+      'Otherworldly',
+      'Shimmering'
+    ],
+    nouns: [
+      'Grove',
+      'Glade',
+      'Realm',
+      'Court',
+      'Garden',
+      'Clearing',
+      'Dell',
+      'Sanctuary',
+      'Haven',
+      'Domain'
+    ],
+    modifiers: [
+      'magic',
+      'colors',
+      'sprites',
+      'illusions',
+      'wonder',
+      'dreams',
+      'music',
+      'laughter',
+      'flowers',
+      'butterflies'
+    ]
+  },
+  shadowfell: {
+    adjectives: [
+      'Shadow',
+      'Grim',
+      'Sorrowful',
+      'Dark',
+      'Melancholy',
+      'Cursed',
+      'Bleak',
+      'Desolate',
+      'Haunted',
+      'Mournful'
+    ],
+    nouns: [
+      'Gloom',
+      'Shadow',
+      'Realm',
+      'Expanse',
+      'Wastes',
+      'Reaches',
+      'Domain',
+      'Plane',
+      'Territory',
+      'Region'
+    ],
+    modifiers: [
+      'shadows',
+      'despair',
+      'sorrow',
+      'gloom',
+      'spirits',
+      'echoes',
+      'memories',
+      'regret',
+      'loss',
+      'mourning'
+    ]
+  }
 };
 
 // Detail level instructions for map generation prompt enhancement
 const DETAIL_LEVEL_INSTRUCTIONS = {
   'detail-high': `**Level of detail:** DETAILED
 
-This map requires a **DETAILED**, diorama view of a small area or a building interior. The user wants to see:
+This map requires a **DETAILED**, view of a small area or a building interior diorama. The user wants to see:
 - Individual natural and/or structural features that occupy 1-2 grid squares from a top-down perspective.
 - Each grid square represents approximately 5 feet and should be seen from above.`,
 
@@ -245,7 +953,7 @@ if (typeof window !== 'undefined') {
   window.GENRE_OPTIONS = GENRE_OPTIONS;
   window.CAMPAIGN_TYPE_OPTIONS = CAMPAIGN_TYPE_OPTIONS;
   window.SETTING_DESCRIPTIONS = SETTING_DESCRIPTIONS;
-  window.TERRAIN_DESCRIPTIONS = TERRAIN_DESCRIPTIONS;
+  window.TERRAIN_ELEMENTS = TERRAIN_ELEMENTS;
   window.DETAIL_LEVEL_INSTRUCTIONS = DETAIL_LEVEL_INSTRUCTIONS;
   window.ENHANCEMENT_PROMPT_TEMPLATE = ENHANCEMENT_PROMPT_TEMPLATE;
   window.currentMapData = currentMapData;
@@ -264,7 +972,7 @@ if (typeof module !== 'undefined' && module.exports) {
     GENRE_OPTIONS,
     CAMPAIGN_TYPE_OPTIONS,
     SETTING_DESCRIPTIONS,
-    TERRAIN_DESCRIPTIONS,
+    TERRAIN_ELEMENTS,
     DETAIL_LEVEL_INSTRUCTIONS,
     ENHANCEMENT_PROMPT_TEMPLATE
   };

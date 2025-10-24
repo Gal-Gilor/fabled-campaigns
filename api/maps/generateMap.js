@@ -57,8 +57,8 @@ module.exports = async function handler(req, res) {
     // Generate name if not provided (except for terrain-only requests)
     const finalName = name || (setting ? generateMapName({ terrain, setting }) : null);
 
-    // Generate description if not provided
-    const finalDescription = description || generateMapDescription({ terrain, setting });
+    // Generate description if not provided (will be replaced with enhanced prompt after generation)
+    const initialDescription = description || generateMapDescription({ terrain, setting });
 
     // Initialize Imagen service
     const imagenService = new ImagenService();
@@ -66,7 +66,7 @@ module.exports = async function handler(req, res) {
     // Generate map (only pass detailLevel if it exists)
     const mapParams = {
       name: finalName,
-      description: finalDescription,
+      description: initialDescription,
       terrain,
       setting,
       generationMode
@@ -78,6 +78,9 @@ module.exports = async function handler(req, res) {
     }
 
     const result = await imagenService.generateMapImage(mapParams);
+
+    // Use enhanced prompt as the final description, fallback to initial description
+    const finalDescription = result.metadata?.enhancedPromptDescription || initialDescription;
 
     // Handle response based on generation result
     if (!result.success) {

@@ -4,37 +4,38 @@
  */
 
 /**
- * Generates a random fantasy location name
- * @returns {string} A randomly generated name like "The Golden Haven"
+ * Get random element from array
+ * @param {Array} array - Array to select from
+ * @returns {any} Random element
  */
-function generateRandomName() {
-  const adjectives = [
-    'Golden',
-    'Silver',
-    'Ancient',
-    'Mystic',
-    'Royal',
-    'Hidden',
-    'Sacred',
-    'Lost',
-    'Enchanted',
-    'Forgotten'
-  ];
-  const nouns = [
-    'Haven',
-    'Lodge',
-    'Keep',
-    'Hall',
-    'Inn',
-    'Sanctuary',
-    'Chamber',
-    'Grove',
-    'Rest',
-    'Refuge'
-  ];
-  const adjective = adjectives[Math.floor(Math.random() * adjectives.length)];
-  const noun = nouns[Math.floor(Math.random() * nouns.length)];
-  return `The ${adjective} ${noun}`;
+function getRandomElement(array) {
+  return array[Math.floor(Math.random() * array.length)];
+}
+
+/**
+ * Generate dynamic terrain description using TERRAIN_ELEMENTS
+ * Mirrors server-side logic from lib/services/mapGenerationService.js:71-88
+ * @param {string} terrain - Terrain type
+ * @returns {string} Generated description
+ */
+function generateTerrainDescription(terrain) {
+  const terrainData = window.TERRAIN_ELEMENTS[terrain];
+
+  if (terrainData && terrainData.adjectives && terrainData.modifiers) {
+    const adjective = getRandomElement(terrainData.adjectives);
+    const modifier1 = getRandomElement(terrainData.modifiers);
+    const modifier2 = getRandomElement(terrainData.modifiers);
+
+    // Ensure modifiers are different
+    const finalModifier2 =
+      modifier2 === modifier1
+        ? getRandomElement(terrainData.modifiers.filter(m => m !== modifier1)) || modifier2
+        : modifier2;
+
+    return `${adjective} ${terrain} terrain with ${modifier1} and ${finalModifier2}, and visible gridlines.`;
+  } else {
+    return `A ${terrain} terrain map with visible gridlines.`;
+  }
 }
 
 /**
@@ -44,9 +45,9 @@ function generateRandomName() {
  * @returns {string} A descriptive text appropriate for the setting or terrain
  */
 function generateDefaultDescription(settingOrTerrain) {
-  // Check if it's a terrain type - these have specific descriptions
-  if (window.TERRAIN_DESCRIPTIONS && window.TERRAIN_DESCRIPTIONS[settingOrTerrain]) {
-    return window.TERRAIN_DESCRIPTIONS[settingOrTerrain];
+  // Check if it's a terrain type - generate dynamic description using TERRAIN_ELEMENTS
+  if (window.TERRAIN_ELEMENTS && window.TERRAIN_ELEMENTS[settingOrTerrain]) {
+    return generateTerrainDescription(settingOrTerrain);
   }
 
   // Otherwise, it's a setting - use randomized template-based description
@@ -105,6 +106,7 @@ function downloadMap(mapId) {
 }
 
 // Expose functions to global scope for inline onclick handlers
-window.generateRandomName = generateRandomName;
 window.generateDefaultDescription = generateDefaultDescription;
+window.generateTerrainDescription = generateTerrainDescription;
+window.getRandomElement = getRandomElement;
 window.downloadMap = downloadMap;
