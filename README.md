@@ -1,7 +1,7 @@
 # Fabled Campaigns
 
 [![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?logo=vercel&logoColor=white)](https://www.fabledcampaigns.com)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![License: All Rights Reserved](https://img.shields.io/badge/License-All%20Rights%20Reserved-red.svg)](LICENSE)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen)](https://nodejs.org/)
 [![Powered by Google Cloud](https://img.shields.io/badge/Powered%20by-Google%20Cloud-4285F4?logo=google-cloud)](https://cloud.google.com/vertex-ai)
 
@@ -257,7 +257,9 @@ For technical issues:
 
 ## License
 
-MIT License - see LICENSE file for details.
+Copyright © 2025 Fabled Campaigns. All Rights Reserved.
+
+This website, its code, content, and associated materials are proprietary and confidential. Unauthorized copying, distribution, modification, public display, or public performance via any medium is strictly prohibited.
 
 ## Acknowledgments
 

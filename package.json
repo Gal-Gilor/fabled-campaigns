@@ -34,5 +34,6 @@
     "d&d"
   ],
   "author": "Fabled Campaigns",
-  "license": "MIT"
+  "license": "UNLICENSED",
+  "private": true
 }
