@@ -34,7 +34,7 @@ Leverages Google's Imagen 3.0 to create detailed fantasy battle maps optimized f
 ### Smart Customization
 - **Terrain Types**: Forest, mountain, desert, swamp, underground, and more
 - **Settings**: Taverns, fortresses, temples, ruins, caves, villages
-- **Size Options**: 20x20, 30x30, or 40x40 grid squares
+- **Detail Levels**: Close-up detailed view or wide-area bird's eye view
 - **Generation Modes**: Quick generation or detailed rendering
 
 ### User-Friendly Experience
@@ -134,7 +134,9 @@ Create custom magic items, treasure hoards, and loot tables for your campaigns.
 
 3. **Start Development Server**
    ```bash
-   npm run dev
+   npm start
+   # or
+   npm run serve
    ```
 
 ### 4. Vercel Deployment
@@ -173,7 +175,8 @@ Generate a new fantasy battle map.
   "description": "A mystical forest clearing with ancient stone circles",
   "terrain": "forest",
   "setting": "tavern",
-  "size": "size-30x30"
+  "detailLevel": "detail-low",
+  "generationMode": "detailed"
 }
 ```
 
@@ -188,7 +191,8 @@ Generate a new fantasy battle map.
     "description": "A mystical forest clearing with ancient stone circles",
     "terrain": "forest",
     "setting": "tavern",
-    "size": "size-30x30",
+    "detailLevel": "detail-low",
+    "generationMode": "detailed",
     "generatedAt": "2025-01-10T12:00:00.000Z",
     "model": "imagen-3.0-generate-002"
   }
@@ -211,7 +215,7 @@ Generate a new fantasy battle map.
    - Fill in the map name and description
    - Select terrain type (forest, mountain, desert, etc.)
    - Choose setting (tavern, village, fortress, etc.)
-   - Select map size (20x20, 30x30, 40x40)
+   - Select detail level (close-up detailed or wide-area view)
    - Click "Roll to Quest"
 
 3. **Download Maps**: Click the download button to save maps as PNG files
