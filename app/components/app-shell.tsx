@@ -1,5 +1,5 @@
 'use client';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Session } from '../lib/db';
 import { SessionContext, SessionHandlers } from './session-context';
@@ -11,6 +11,10 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
   const [handlers, setHandlers] = useState<SessionHandlers | null>(null);
   const router = useRouter();
+
+  useEffect(() => {
+    if (window.innerWidth < 768) setSidebarOpen(false);
+  }, []);
 
   const fallbackNewSession = useCallback(async () => {
     const session = await fetch('/api/sessions', { method: 'POST' })
@@ -26,7 +30,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <SessionContext.Provider
-      value={{ sessions, setSessions, activeSessionId, setActiveSessionId, handlers, setHandlers }}
+      value={{ sessions, setSessions, activeSessionId, setActiveSessionId, handlers, setHandlers, openSidebar: () => setSidebarOpen(true) }}
     >
       <div className="flex h-screen overflow-hidden" style={{ background: 'var(--neutral-100)' }}>
         <Sidebar

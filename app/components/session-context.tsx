@@ -17,6 +17,7 @@ export interface SessionContextValue {
   setActiveSessionId: (id: string | null) => void;
   handlers: SessionHandlers | null;
   setHandlers: (h: SessionHandlers | null) => void;
+  openSidebar?: () => void;
 }
 
 export const SessionContext = createContext<SessionContextValue | null>(null);

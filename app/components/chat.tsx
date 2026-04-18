@@ -107,7 +107,7 @@ export default function Chat({ initialSessionId }: ChatProps) {
   const messagesRef = useRef<UIMessage[]>([]);
   const pendingMessageRef = useRef<string | null>(null);
 
-  const { sessions, setSessions, activeSessionId, setActiveSessionId, setHandlers } = useSessionContext();
+  const { sessions, setSessions, activeSessionId, setActiveSessionId, setHandlers, openSidebar } = useSessionContext();
 
   const { messages, sendMessage, status, setMessages, stop } = useChat({
     transport: new DefaultChatTransport({ api: CHAT_API_PATH }),
@@ -333,6 +333,18 @@ export default function Chat({ initialSessionId }: ChatProps) {
             backgroundPosition: 'center',
           }}
         >
+          {/* Mobile-only: left hamburger to open sessions sidebar */}
+          <button
+            className="md:hidden flex flex-col justify-center gap-1 p-1.5 rounded-lg transition-all"
+            style={{ color: 'var(--neutral-600)' }}
+            onClick={() => openSidebar?.()}
+            title="Open sessions"
+          >
+            <span className="block w-5 h-0.5 rounded" style={{ background: 'currentColor' }} />
+            <span className="block w-5 h-0.5 rounded" style={{ background: 'currentColor' }} />
+            <span className="block w-5 h-0.5 rounded" style={{ background: 'currentColor' }} />
+          </button>
+
           <div className="ml-auto flex items-center gap-3">
             <span
               className="w-2 h-2 rounded-full"
@@ -347,16 +359,19 @@ export default function Chat({ initialSessionId }: ChatProps) {
             <span className="text-sm capitalize" style={{ color: 'var(--neutral-600)' }}>
               {status}
             </span>
-            {/* Hamburger */}
+            {/* Collections grid icon */}
             <button
               onClick={() => setRightSidebarOpen((o) => !o)}
-              className="flex flex-col justify-center gap-1 p-1.5 rounded-lg transition-all"
+              className="flex items-center justify-center p-1.5 rounded-lg transition-all"
               style={{ color: 'var(--neutral-600)' }}
               title="Toggle collections"
             >
-              <span className="block w-5 h-0.5 rounded" style={{ background: 'currentColor' }} />
-              <span className="block w-5 h-0.5 rounded" style={{ background: 'currentColor' }} />
-              <span className="block w-5 h-0.5 rounded" style={{ background: 'currentColor' }} />
+              <svg width="18" height="18" viewBox="0 0 16 16" fill="none">
+                <rect x="1" y="1" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.5"/>
+                <rect x="9" y="1" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.5"/>
+                <rect x="1" y="9" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.5"/>
+                <rect x="9" y="9" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.5"/>
+              </svg>
             </button>
           </div>
         </header>
@@ -389,7 +404,7 @@ export default function Chat({ initialSessionId }: ChatProps) {
           {messages.map((message: ReturnType<typeof useChat>['messages'][number]) => (
             <div
               key={message.id}
-              className={`flex w-[800px] mx-auto ${message.role === 'user' ? 'justify-end pl-[50px]' : 'justify-start pr-[50px]'}`}
+              className={`flex w-full max-w-[800px] mx-auto ${message.role === 'user' ? 'justify-end md:pl-[50px]' : 'justify-start md:pr-[50px]'}`}
             >
               <div
                 className="max-w-full rounded-xl px-4 py-3 text-base leading-relaxed"
@@ -488,7 +503,7 @@ export default function Chat({ initialSessionId }: ChatProps) {
           <ChatInputForm
             input={input}
             status={status}
-            formClassName="flex gap-3 w-[800px] mx-auto"
+            formClassName="flex gap-3 w-full max-w-[800px] mx-auto"
             onSubmit={handleSubmit}
             onChange={setInput}
           />
@@ -499,11 +514,28 @@ export default function Chat({ initialSessionId }: ChatProps) {
       {/* Right sidebar */}
       {rightSidebarOpen && (
         <div
-          className="flex-shrink-0 flex flex-col border-l transition-all"
-          style={{ width: '35rem', borderColor: 'var(--neutral-200)', background: 'var(--neutral-100)' }}
+          className="fixed inset-0 z-50 flex flex-col md:relative md:inset-auto md:z-auto md:flex-shrink-0 md:w-[35rem] md:border-l md:transition-all"
+          style={{ background: 'var(--neutral-100)', borderColor: 'var(--neutral-200)' }}
         >
+          {/* Mobile topbar */}
           <div
-            className="flex items-center justify-between px-4 py-3 border-b"
+            className="flex md:hidden items-center justify-between px-4 py-3 border-b"
+            style={{ background: 'var(--primary-blue)', borderColor: 'var(--pale-blue)' }}
+          >
+            <button
+              onClick={() => setRightSidebarOpen(false)}
+              className="flex items-center gap-2 text-sm font-medium text-white"
+            >
+              ← Back to Chat
+            </button>
+            <span style={{ fontFamily: 'var(--font-cinzel), serif', color: '#fff', fontSize: '0.9rem', fontWeight: 600 }}>
+              Collections
+            </span>
+          </div>
+
+          {/* Desktop header */}
+          <div
+            className="hidden md:flex items-center justify-between px-4 py-3 border-b"
             style={{ borderColor: 'var(--neutral-200)' }}
           >
             <span
