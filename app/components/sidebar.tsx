@@ -291,16 +291,24 @@ export default function Sidebar({
 
   return (
     <aside
-      className="flex-shrink-0 flex flex-col border-r overflow-x-hidden transition-all duration-200"
-      style={{
-        width: isOpen ? '22rem' : '2.5rem',
-        minWidth: isOpen ? '22rem' : '2.5rem',
-        borderColor: 'var(--neutral-200)',
-        background: 'var(--neutral-100)',
-      }}
+      className={
+        isOpen
+          ? 'fixed inset-0 z-50 flex flex-col md:relative md:inset-auto md:z-auto md:flex-shrink-0 md:w-[22rem] md:min-w-[22rem] md:border-r md:overflow-x-hidden md:transition-all md:duration-200'
+          : 'flex-shrink-0 flex flex-col border-r overflow-x-hidden transition-all duration-200'
+      }
+      style={
+        isOpen
+          ? { background: 'var(--neutral-100)', borderColor: 'var(--neutral-200)' }
+          : {
+              width: '2.5rem',
+              minWidth: '2.5rem',
+              borderColor: 'var(--neutral-200)',
+              background: 'var(--neutral-100)',
+            }
+      }
     >
       {!isOpen ? (
-        <div className="flex flex-col items-center justify-start pt-3 gap-1">
+        <div className="hidden md:flex flex-col items-center justify-start pt-3 gap-1">
           {/* Star branding */}
           <div className="p-2">
             <StarIcon filled={false} size={19} />
@@ -349,10 +357,26 @@ export default function Sidebar({
           </Link>
         </div>
       ) : (
-        <div className="flex flex-col h-full" style={{ width: '22rem' }}>
-          {/* Header */}
+        <div className="flex flex-col h-full md:w-[22rem]">
+          {/* Mobile topbar — back button, hidden on desktop */}
           <div
-            className="flex items-center justify-between px-4 py-5 border-b"
+            className="flex md:hidden items-center justify-between px-4 py-3 border-b"
+            style={{ background: 'var(--primary-blue)', borderColor: 'var(--pale-blue)' }}
+          >
+            <button
+              onClick={onClose}
+              className="flex items-center gap-2 text-sm font-medium text-white"
+            >
+              ← Back to Chat
+            </button>
+            <span style={{ fontFamily: 'var(--font-cinzel), serif', color: '#fff', fontSize: '0.9rem', fontWeight: 600 }}>
+              Fabled Campaigns
+            </span>
+          </div>
+
+          {/* Desktop header — hidden on mobile */}
+          <div
+            className="hidden md:flex items-center justify-between px-4 py-5 border-b"
             style={{ borderColor: 'var(--neutral-200)' }}
           >
             <div className="flex items-center gap-2">
