@@ -7,6 +7,19 @@ import { CHAT_API_PATH } from '../lib/config';
 import { Session } from '../lib/db';
 import { useSessionContext } from './session-context';
 
+function extractSubAgentImage(output: unknown): { type: string; src: string; label: string } | null {
+  if (typeof output !== 'object' || output === null || !('parts' in output)) return null;
+  const msg = output as UIMessage;
+  for (const p of (msg.parts ?? [])) {
+    if (!isToolUIPart(p) || p.state !== 'output-available') continue;
+    try {
+      const o = JSON.parse(String(p.output));
+      if (o?.type === 'image') return o as { type: string; src: string; label: string };
+    } catch { /* not JSON */ }
+  }
+  return null;
+}
+
 // Prepare messages loaded from DB: strip empty assistant messages (aborted streams)
 // and detect if the last user message needs a response.
 function prepareSessionMessages(msgs: UIMessage[]): { messages: UIMessage[]; regenerateText: string | null } {
@@ -289,10 +302,11 @@ export default function Chat({ initialSessionId }: ChatProps) {
       .filter(isToolUIPart)
       .filter((p) => p.state === 'output-available')
       .flatMap((p) => {
-        try {
-          const o = JSON.parse(String(p.output));
-          return o?.type === 'image' ? [o as { type: string; src: string; label: string }] : [];
-        } catch { return []; }
+        let parsed: Record<string, unknown> | null = null;
+        try { parsed = JSON.parse(String(p.output)); } catch { /* not JSON */ }
+        if (parsed?.type === 'image') return [parsed as { type: string; src: string; label: string }];
+        const img = extractSubAgentImage(p.output);
+        return img ? [img] : [];
       })
   );
 
@@ -404,10 +418,12 @@ export default function Chat({ initialSessionId }: ChatProps) {
                   }
                   if (isToolUIPart(part)) {
                     const name = getToolName(part);
-                    const output = part.state === 'output-available' ? String(part.output) : null;
+                    const rawOutput = part.state === 'output-available' ? part.output : null;
+
+                    // Direct image output (string JSON with {type:'image'})
                     let imgData: { type: string; src: string; label: string } | null = null;
-                    if (output) {
-                      try { imgData = JSON.parse(output); } catch { /* not JSON */ }
+                    if (rawOutput !== null) {
+                      try { imgData = JSON.parse(String(rawOutput)); } catch { /* not JSON string */ }
                     }
                     if (imgData?.type === 'image') {
                       return (
@@ -421,6 +437,23 @@ export default function Chat({ initialSessionId }: ChatProps) {
                         </div>
                       );
                     }
+
+                    // Sub-agent UIMessage output (mapAgent wraps a ToolLoopAgent)
+                    const subAgentImg = rawOutput !== null ? extractSubAgentImage(rawOutput) : null;
+                    if (subAgentImg) {
+                      return (
+                        <div key={i} className="mt-2 rounded-lg overflow-hidden"
+                          style={{ border: '1px solid var(--neutral-200)' }}>
+                          <img src={subAgentImg.src} alt={subAgentImg.label} className="w-full rounded-t-lg" />
+                          <p className="text-xs px-2 py-1"
+                            style={{ color: 'var(--neutral-600)', fontFamily: 'var(--font-cinzel), serif' }}>
+                            {subAgentImg.label}
+                          </p>
+                        </div>
+                      );
+                    }
+
+                    const outputStr = rawOutput !== null ? String(rawOutput) : null;
                     return (
                       <div
                         key={i}
@@ -434,7 +467,7 @@ export default function Chat({ initialSessionId }: ChatProps) {
                         <span className="font-semibold" style={{ color: 'var(--primary-blue)' }}>
                           [{name}]
                         </span>{' '}
-                        {output ?? 'Working...'}
+                        {outputStr ?? 'Working...'}
                       </div>
                     );
                   }
