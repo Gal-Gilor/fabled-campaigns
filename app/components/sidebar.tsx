@@ -294,7 +294,7 @@ export default function Sidebar({
       className={
         isOpen
           ? 'fixed inset-0 z-50 flex flex-col md:relative md:inset-auto md:z-auto md:flex-shrink-0 md:w-[22rem] md:min-w-[22rem] md:border-r md:overflow-x-hidden md:transition-all md:duration-200'
-          : 'flex-shrink-0 flex flex-col border-r overflow-x-hidden transition-all duration-200'
+          : 'hidden md:flex md:flex-shrink-0 md:flex-col md:border-r md:overflow-x-hidden md:transition-all md:duration-200'
       }
       style={
         isOpen
@@ -308,7 +308,7 @@ export default function Sidebar({
       }
     >
       {!isOpen ? (
-        <div className="hidden md:flex flex-col items-center justify-start pt-3 gap-1">
+        <div className="flex flex-col items-center justify-start pt-3 gap-1">
           {/* Star branding */}
           <div className="p-2">
             <StarIcon filled={false} size={19} />
