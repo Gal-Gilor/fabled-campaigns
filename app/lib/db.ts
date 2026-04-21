@@ -12,6 +12,7 @@ export interface Session {
   created_at: number;
   updated_at: number;
   messages: string; // JSON-serialized UIMessage[]
+  summary: string | null;
 }
 
 let _db: Database.Database | null = null;
@@ -30,6 +31,11 @@ function getDb(): Database.Database {
     `);
     try {
       _db.exec(`ALTER TABLE sessions ADD COLUMN starred INTEGER NOT NULL DEFAULT 0`);
+    } catch {
+      // Column already exists — safe to ignore
+    }
+    try {
+      _db.exec(`ALTER TABLE sessions ADD COLUMN summary TEXT DEFAULT NULL`);
     } catch {
       // Column already exists — safe to ignore
     }
@@ -91,6 +97,12 @@ export function updateSession(
   values.push(id);
   db.prepare(`UPDATE sessions SET ${fields.join(', ')} WHERE id = ?`).run(...values);
   return db.prepare('SELECT * FROM sessions WHERE id = ?').get(id) as Session;
+}
+
+export function updateSessionSummary(id: string, summary: string): void {
+  getDb()
+    .prepare('UPDATE sessions SET summary = ?, updated_at = ? WHERE id = ?')
+    .run(summary, Date.now(), id);
 }
 
 export function deleteSession(id: string): void {
