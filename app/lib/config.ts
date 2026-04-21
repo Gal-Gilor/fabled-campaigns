@@ -7,3 +7,12 @@ export const DEFAULT_GCP_LOCATION = 'us-central1';
 
 export const NEGATIVE_PROMPT =
   'names, text, labels, legends, creatures, characters, people, miniatures, minis, figures, figurines, frontal view, front view, side view, bottom-up, close-up, soft focus, extreme close-up, zoomed-in, zoom in, low quality, low resolution, bad quality, bad resolution';
+
+// Token-based context window — 200k practical cap, evict at 90%
+export const TOKEN_LIMIT = 200_000;
+export const TOKEN_EVICTION_THRESHOLD = 180_000; // 90% of TOKEN_LIMIT
+
+// Characters reserved for system prompt (~1,600 chars), tool schemas (~2,000 chars),
+// rendered summary block (~2,000 chars max), and expected response headroom.
+// Set generously — over-reserving costs a few fewer messages in the window.
+export const TOKEN_OVERHEAD_RESERVE = 15_000; // characters, not tokens

@@ -2,10 +2,29 @@
 
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport, isToolUIPart, getToolName, UIMessage } from 'ai';
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import { CHAT_API_PATH } from '../lib/config';
 import { Session } from '../lib/db';
 import { useSessionContext } from './session-context';
+
+const STARTER_PROMPTS = [
+  {
+    label: 'Map',
+    prompt: 'A flooded underground temple — mossy stone, ankle-deep black water, torchlight reflecting off carved serpent murals',
+  },
+  {
+    label: 'Encounter',
+    prompt: 'A goblin ambush in a narrow mountain pass at dusk — thick mist, jagged rocks, no clear escape route',
+  },
+  {
+    label: 'Character',
+    prompt: 'I want to create a half-elf ranger who grew up in the sewers of a corrupt city',
+  },
+  {
+    label: 'Rules',
+    prompt: 'What are the rules for grappling in D&D 5e?',
+  },
+];
 
 function extractSubAgentImage(output: unknown): { type: string; src: string; label: string } | null {
   if (typeof output !== 'object' || output === null || !('parts' in output)) return null;
@@ -109,9 +128,15 @@ export default function Chat({ initialSessionId }: ChatProps) {
 
   const { sessions, setSessions, activeSessionId, setActiveSessionId, setHandlers, openSidebar } = useSessionContext();
 
-  const { messages, sendMessage, status, setMessages, stop } = useChat({
-    transport: new DefaultChatTransport({ api: CHAT_API_PATH }),
-  });
+  const transport = useMemo(
+    () => new DefaultChatTransport({
+      api: CHAT_API_PATH,
+      body: () => ({ sessionId: activeSessionIdRef.current }),
+    }),
+    []
+  );
+
+  const { messages, sendMessage, status, setMessages, stop } = useChat({ transport });
 
   // Keep refs in sync so async callbacks always have current values
   useEffect(() => {
@@ -379,22 +404,51 @@ export default function Chat({ initialSessionId }: ChatProps) {
         {/* Messages */}
         <div className="flex-1 overflow-y-auto px-4 py-6 space-y-4">
           {messages.length === 0 && (
-            <div
-              className="flex flex-col items-center justify-center h-full text-center gap-4 rounded-xl mx-auto max-w-lg py-24 px-8"
-            >
+            <div className="flex flex-col items-center justify-center h-full text-center gap-6 mx-auto max-w-2xl py-16 px-8">
               <h2
                 className="text-2xl font-semibold"
                 style={{ fontFamily: 'var(--font-cinzel), serif', color: 'var(--neutral-900)' }}
               >
                 Ready to Roll?
               </h2>
-              <p className="text-base" style={{ color: 'var(--neutral-600)', maxWidth: '28rem' }}>
-                Describe your character, set the scene, or ask about D&D 5e rules. Your next adventure starts here.
+              <p className="text-base" style={{ color: 'var(--neutral-600)' }}>
+                The more detail you provide, the better the result. Try one of these to get started:
               </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full text-left">
+                {STARTER_PROMPTS.map(({ label, prompt }) => (
+                  <button
+                    key={label}
+                    onClick={() => setInput(prompt)}
+                    className="rounded-xl px-4 py-3 text-sm text-left transition-all hover:scale-[1.01] active:scale-[0.99]"
+                    style={{
+                      background: '#ffffff',
+                      border: '1px solid var(--neutral-200)',
+                      color: 'var(--neutral-700)',
+                      boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = 'var(--light-gold)';
+                      e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = 'var(--neutral-200)';
+                      e.currentTarget.style.boxShadow = '0 1px 4px rgba(0,0,0,0.04)';
+                    }}
+                  >
+                    <span
+                      className="text-xs font-semibold uppercase tracking-wide block mb-1"
+                      style={{ color: 'var(--accent-gold)' }}
+                    >
+                      {label}
+                    </span>
+                    {prompt}
+                  </button>
+                ))}
+              </div>
               <ChatInputForm
                 input={input}
                 status={status}
-                formClassName="flex gap-3 w-full mt-2"
+                formClassName="flex gap-3 w-full"
                 onSubmit={handleSubmit}
                 onChange={setInput}
               />
