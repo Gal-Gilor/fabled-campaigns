@@ -17,7 +17,7 @@ export async function POST(req: Request) {
   );
 
   if (summaryUpdated && sessionId && newSummary) {
-    setImmediate(() => {
+    Promise.resolve().then(() => {
       try {
         updateSessionSummary(sessionId, newSummary);
       } catch (err) {

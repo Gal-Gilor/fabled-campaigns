@@ -5,6 +5,7 @@ import { DefaultChatTransport, isToolUIPart, getToolName, UIMessage } from 'ai';
 import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import { CHAT_API_PATH } from '../lib/config';
 import { Session } from '../lib/db';
+import { safeJsonParse, isImageOutput, ImageOutput } from '../lib/messageUtils';
 import { useSessionContext } from './session-context';
 
 const STARTER_PROMPTS = [
@@ -26,15 +27,13 @@ const STARTER_PROMPTS = [
   },
 ];
 
-function extractSubAgentImage(output: unknown): { type: string; src: string; label: string } | null {
+function extractSubAgentImage(output: unknown): ImageOutput | null {
   if (typeof output !== 'object' || output === null || !('parts' in output)) return null;
   const msg = output as UIMessage;
   for (const p of (msg.parts ?? [])) {
     if (!isToolUIPart(p) || p.state !== 'output-available') continue;
-    try {
-      const o = JSON.parse(String(p.output));
-      if (o?.type === 'image') return o as { type: string; src: string; label: string };
-    } catch { /* not JSON */ }
+    const o = safeJsonParse(p.output);
+    if (isImageOutput(o)) return o;
   }
   return null;
 }
@@ -327,9 +326,8 @@ export default function Chat({ initialSessionId }: ChatProps) {
       .filter(isToolUIPart)
       .filter((p) => p.state === 'output-available')
       .flatMap((p) => {
-        let parsed: Record<string, unknown> | null = null;
-        try { parsed = JSON.parse(String(p.output)); } catch { /* not JSON */ }
-        if (parsed?.type === 'image') return [parsed as { type: string; src: string; label: string }];
+        const parsed = safeJsonParse(p.output);
+        if (isImageOutput(parsed)) return [parsed];
         const img = extractSubAgentImage(p.output);
         return img ? [img] : [];
       })
@@ -490,11 +488,8 @@ export default function Chat({ initialSessionId }: ChatProps) {
                     const rawOutput = part.state === 'output-available' ? part.output : null;
 
                     // Direct image output (string JSON with {type:'image'})
-                    let imgData: { type: string; src: string; label: string } | null = null;
-                    if (rawOutput !== null) {
-                      try { imgData = JSON.parse(String(rawOutput)); } catch { /* not JSON string */ }
-                    }
-                    if (imgData?.type === 'image') {
+                    const imgData = rawOutput !== null ? safeJsonParse(rawOutput) : null;
+                    if (isImageOutput(imgData)) {
                       return (
                         <div key={i} className="mt-2 rounded-lg overflow-hidden"
                           style={{ border: '1px solid var(--neutral-200)' }}>

@@ -1,6 +1,6 @@
 import { convertToModelMessages, generateObject, isToolUIPart, UIMessage } from 'ai';
 import { z } from 'zod';
-import { TOKEN_EVICTION_THRESHOLD, TOKEN_OVERHEAD_RESERVE, GEMINI_MODEL } from './config';
+import { TOKEN_EVICTION_THRESHOLD, TOKEN_OVERHEAD_RESERVE_CHARS, GEMINI_MODEL } from './config';
 import { vertex } from './vertexClient';
 
 type ModelMessages = Awaited<ReturnType<typeof convertToModelMessages>>;
@@ -60,15 +60,7 @@ function pruneImageSrc(output: unknown): unknown {
           (p as Record<string, unknown>).state === 'output-available'
         ) {
           const part = p as Record<string, unknown>;
-          let parsed: unknown = part.output;
-          if (typeof part.output === 'string') {
-            try { parsed = JSON.parse(part.output); } catch { /* not JSON */ }
-          }
-          const pruned = pruneImageSrc(parsed);
-          return {
-            ...part,
-            output: typeof part.output === 'string' ? JSON.stringify(pruned) : pruned,
-          };
+          return { ...part, output: pruneOutput(part.output) };
         }
         return p;
       }),
@@ -78,22 +70,22 @@ function pruneImageSrc(output: unknown): unknown {
   return output;
 }
 
+// Parse JSON if string, prune, re-serialize to the same form.
+function pruneOutput(output: unknown): unknown {
+  if (typeof output !== 'string') return pruneImageSrc(output);
+  try {
+    return JSON.stringify(pruneImageSrc(JSON.parse(output)));
+  } catch {
+    return output;
+  }
+}
+
 export function pruneToolOutputs(messages: UIMessage[]): UIMessage[] {
   return messages.map((msg) => ({
     ...msg,
     parts: msg.parts.map((part) => {
       if (!isToolUIPart(part) || part.state !== 'output-available') return part;
-
-      let parsed: unknown = part.output;
-      if (typeof part.output === 'string') {
-        try { parsed = JSON.parse(part.output); } catch { /* not JSON */ }
-      }
-
-      const pruned = pruneImageSrc(parsed);
-      return {
-        ...part,
-        output: typeof part.output === 'string' ? JSON.stringify(pruned) : pruned,
-      };
+      return { ...part, output: pruneOutput(part.output) };
     }),
   }));
 }
@@ -103,7 +95,6 @@ export function pruneToolOutputs(messages: UIMessage[]): UIMessage[] {
 // ---------------------------------------------------------------------------
 
 const CHARS_PER_TOKEN = 4;           // Gemini English prose baseline
-const IMAGE_COST_CHARS = 1_000;      // fixed proxy per image part (avoids counting raw base64)
 const TOOL_OUTPUT_CAP_CHARS = 2_000; // max chars counted from any single tool output
 
 function estimateMessageChars(message: UIMessage): number {
@@ -111,9 +102,6 @@ function estimateMessageChars(message: UIMessage): number {
   for (const part of message.parts) {
     if (part.type === 'text') {
       chars += (part as { type: 'text'; text: string }).text.length;
-    } else if (part.type === 'image') {
-      // Don't count actual base64 data; use a fixed representative cost
-      chars += IMAGE_COST_CHARS;
     } else if (isToolUIPart(part)) {
       const p = part as { toolName: string; args?: unknown; output?: unknown; state: string };
       chars += p.toolName.length;
@@ -138,7 +126,7 @@ export function estimateMessageTokens(message: UIMessage): number {
 export function applyTokenWindow(
   messages: UIMessage[]
 ): { recent: UIMessage[]; evicted: UIMessage[] } {
-  const budgetChars = TOKEN_EVICTION_THRESHOLD * CHARS_PER_TOKEN - TOKEN_OVERHEAD_RESERVE;
+  const budgetChars = TOKEN_EVICTION_THRESHOLD * CHARS_PER_TOKEN - TOKEN_OVERHEAD_RESERVE_CHARS;
 
   let accumulated = 0;
   let splitIndex = messages.length;
@@ -169,13 +157,18 @@ export function applyTokenWindow(
 function serializeForSummary(messages: UIMessage[]): string {
   return messages
     .map((m) => {
-      const texts = m.parts
-        .filter((p) => p.type === 'text')
-        .map((p) => (p as { type: 'text'; text: string }).text)
-        .join(' ');
-      return `${m.role}: ${texts}`;
+      const parts: string[] = [];
+      for (const p of m.parts) {
+        if (p.type === 'text') {
+          parts.push((p as { type: 'text'; text: string }).text);
+        } else if (isToolUIPart(p)) {
+          parts.push(`[tool: ${(p as { toolName: string }).toolName}]`);
+        }
+      }
+      const content = parts.join(' ').trim();
+      return content ? `${m.role}: ${content}` : '';
     })
-    .filter((line) => line.trim().length > 0)
+    .filter(Boolean)
     .join('\n');
 }
 
@@ -183,8 +176,10 @@ function tryParseMemory(raw: string): SessionMemory | null {
   try {
     const parsed = JSON.parse(raw);
     return SessionMemorySchema.parse(parsed);
-  } catch {
-    // Old plain-text summary — wrap as a note for the next structured pass
+  } catch (err) {
+    if (raw.trimStart().startsWith('{')) {
+      console.warn('[contextManager] tryParseMemory: failed to parse structured summary, falling back to notes:', err);
+    }
     return { npcs: [], locations: [], quests: [], key_decisions: [], notes: raw };
   }
 }

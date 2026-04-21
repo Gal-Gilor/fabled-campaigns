@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { tool, generateText, Output } from 'ai';
 import { GEMINI_MODEL, GEMINI_IMAGE_MODEL } from './config';
+import { safeJsonParse, isImageOutput } from './messageUtils';
 import {
   VALID_TERRAINS,
   VALID_SETTINGS,
@@ -88,10 +89,8 @@ export const generateEncounterMap = tool({
     name: z.string().optional().describe('The location name from generateMapName'),
   }),
   toModelOutput: ({ output }: { output: unknown }) => {
-    try {
-      const o = JSON.parse(String(output));
-      if (o?.type === 'image') return { type: 'text' as const, value: `Map generated: ${o.label}` };
-    } catch { /* not JSON */ }
+    const o = safeJsonParse(output);
+    if (isImageOutput(o)) return { type: 'text' as const, value: `Map generated: ${o.label}` };
     return { type: 'text' as const, value: String(output) };
   },
   execute: async ({ enhancedPrompt, name }) => {
