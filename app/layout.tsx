@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Cinzel, Roboto } from "next/font/google";
+import { SessionProvider } from "next-auth/react";
 import "./globals.css";
 
 const cinzel = Cinzel({
@@ -27,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${cinzel.variable} ${roboto.variable} antialiased`}>
-        {children}
+        <SessionProvider>{children}</SessionProvider>
       </body>
     </html>
   );

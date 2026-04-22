@@ -1,6 +1,6 @@
 'use client';
 import { createContext, useContext } from 'react';
-import { Session } from '../lib/db';
+import { ChatSession as Session } from '@/db';
 
 export interface SessionHandlers {
   onNewSession: () => void;

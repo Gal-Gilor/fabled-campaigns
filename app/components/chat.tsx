@@ -4,7 +4,7 @@ import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport, isToolUIPart, getToolName, UIMessage } from 'ai';
 import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import { CHAT_API_PATH } from '../lib/config';
-import { Session } from '../lib/db';
+import { ChatSession as Session } from '@/db';
 import { safeJsonParse, isImageOutput, ImageOutput } from '../lib/messageUtils';
 import { useSessionContext } from './session-context';
 
