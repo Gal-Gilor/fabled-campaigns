@@ -71,6 +71,9 @@ yarn-error.log*
 # Claude
 CLAUDE.md
 
+# Worktrees
+.worktrees/
+
 # OS
 .DS_Store
 Thumbs.db
