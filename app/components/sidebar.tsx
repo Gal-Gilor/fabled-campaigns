@@ -378,7 +378,7 @@ export default function Sidebar({
           <button
             onClick={onNewSession}
             className="flex items-center justify-center rounded-lg p-2 transition-all"
-            style={{ color: 'var(--neutral-600)' }}
+            style={{ color: 'var(--neutral-600)', cursor: 'pointer' }}
             title="New session"
             onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-100)')}
             onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
@@ -449,7 +449,7 @@ export default function Sidebar({
             <button
               onClick={onNewSession}
               className="flex items-center gap-2.5 w-full px-3 py-2 rounded-lg transition-all text-left"
-              style={{ color: 'var(--neutral-700)' }}
+              style={{ color: 'var(--neutral-700)', cursor: 'pointer' }}
               onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-100)')}
               onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
             >
