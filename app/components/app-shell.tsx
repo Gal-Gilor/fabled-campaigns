@@ -1,20 +1,26 @@
 'use client';
 import { useState, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import { ChatSession as Session } from '@/db';
 import { SessionContext, SessionHandlers } from './session-context';
 import Sidebar from './sidebar';
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const { status: authStatus } = useSession();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sessions, setSessions] = useState<Session[]>([]);
   const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
   const [handlers, setHandlers] = useState<SessionHandlers | null>(null);
   const router = useRouter();
 
   useEffect(() => {
-    if (window.innerWidth < 768) setSidebarOpen(false);
-  }, []);
+    // Authenticated users get the sidebar open on desktop, closed on mobile.
+    // Guests always start with it closed.
+    if (authStatus === 'authenticated') {
+      setSidebarOpen(window.innerWidth >= 768);
+    }
+  }, [authStatus]);
 
   const fallbackNewSession = useCallback(async () => {
     const session = await fetch('/api/sessions', { method: 'POST' })

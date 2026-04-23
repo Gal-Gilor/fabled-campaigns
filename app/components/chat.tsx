@@ -7,25 +7,7 @@ import { CHAT_API_PATH } from '../lib/config';
 import { ChatSession as Session } from '@/db';
 import { safeJsonParse, isImageOutput, ImageOutput } from '../lib/messageUtils';
 import { useSessionContext } from './session-context';
-
-const STARTER_PROMPTS = [
-  {
-    label: 'Map',
-    prompt: 'A flooded underground temple — mossy stone, ankle-deep black water, torchlight reflecting off carved serpent murals',
-  },
-  {
-    label: 'Encounter',
-    prompt: 'A goblin ambush in a narrow mountain pass at dusk — thick mist, jagged rocks, no clear escape route',
-  },
-  {
-    label: 'Character',
-    prompt: 'I want to create a half-elf ranger who grew up in the sewers of a corrupt city',
-  },
-  {
-    label: 'Rules',
-    prompt: 'What are the rules for grappling in D&D 5e?',
-  },
-];
+import { useSession } from 'next-auth/react';
 
 function extractSubAgentImage(output: unknown): ImageOutput | null {
   if (typeof output !== 'object' || output === null || !('parts' in output)) return null;
@@ -67,6 +49,47 @@ function prepareSessionMessages(msgs: UIMessage[]): { messages: UIMessage[]; reg
   }
 
   return { messages: cleaned, regenerateText: null };
+}
+
+function GuestBanner() {
+  const [dismissed, setDismissed] = useState(false);
+  if (dismissed) return null;
+  return (
+    <div
+      style={{
+        background: '#fef9c3',
+        borderBottom: '1px solid #fde68a',
+        padding: '6px 16px',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexShrink: 0,
+      }}
+    >
+      <span style={{ fontSize: '0.875rem', color: '#92400e' }}>
+        You&apos;re chatting as a guest.{' '}
+        <a href="/auth/sign-in" style={{ fontWeight: 600, color: '#92400e', textDecoration: 'underline' }}>
+          Sign in
+        </a>{' '}
+        to save your conversations and access history.
+      </span>
+      <button
+        onClick={() => setDismissed(true)}
+        style={{
+          color: '#b45309',
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          fontSize: '1.1rem',
+          lineHeight: 1,
+          marginLeft: '12px',
+        }}
+        aria-label="Dismiss"
+      >
+        ✕
+      </button>
+    </div>
+  );
 }
 
 interface ChatInputFormProps {
@@ -126,6 +149,7 @@ export default function Chat({ initialSessionId }: ChatProps) {
   const pendingMessageRef = useRef<string | null>(null);
 
   const { sessions, setSessions, activeSessionId, setActiveSessionId, setHandlers, openSidebar } = useSessionContext();
+  const { status: authStatus } = useSession();
 
   const transport = useMemo(
     () => new DefaultChatTransport({
@@ -158,7 +182,9 @@ export default function Chat({ initialSessionId }: ChatProps) {
   // On mount: load or create initial session
   useEffect(() => {
     async function init() {
-      let list: Session[] = await fetch('/api/sessions')
+      if (authStatus !== 'authenticated') return;
+
+      const list: Session[] = await fetch('/api/sessions')
         .then((r) => r.json())
         .then((d) => d.sessions ?? []);
 
@@ -166,7 +192,11 @@ export default function Chat({ initialSessionId }: ChatProps) {
         const created = await fetch('/api/sessions', { method: 'POST' })
           .then((r) => r.json())
           .then((d) => d.session as Session);
-        list = [created];
+        if (created) {
+          setSessions([created]);
+          setActiveSessionId(created.id);
+        }
+        return;
       }
 
       setSessions(list);
@@ -183,8 +213,8 @@ export default function Chat({ initialSessionId }: ChatProps) {
         setMessages([]);
       }
     }
-    init();
-  }, [setMessages]);
+    if (authStatus !== 'loading') init();
+  }, [authStatus, initialSessionId, setMessages, setSessions, setActiveSessionId]);
 
   // Persist messages when a response completes
   useEffect(() => {
@@ -249,14 +279,21 @@ export default function Chat({ initialSessionId }: ChatProps) {
 
   const handleNewSession = useCallback(async () => {
     stop();
+
+    if (authStatus !== 'authenticated') {
+      setMessages([]);
+      return;
+    }
+
     await saveCurrentSession();
     const session = await fetch('/api/sessions', { method: 'POST' })
       .then((r) => r.json())
       .then((d) => d.session as Session);
+    if (!session) return;
     setSessions((prev) => [session, ...prev]);
     setActiveSessionId(session.id);
     setMessages([]);
-  }, [saveCurrentSession, setMessages, stop]);
+  }, [authStatus, saveCurrentSession, setMessages, stop]);
 
   const handleDeleteSession = useCallback(
     async (id: string) => {
@@ -274,7 +311,11 @@ export default function Chat({ initialSessionId }: ChatProps) {
             setMessages([]);
           }
         } else {
-          // Create a fresh session when all are deleted
+          // Create a fresh session when all are deleted (authenticated users only)
+          if (authStatus !== 'authenticated') {
+            setMessages([]);
+            return;
+          }
           const session = await fetch('/api/sessions', { method: 'POST' })
             .then((r) => r.json())
             .then((d) => d.session as Session);
@@ -286,7 +327,7 @@ export default function Chat({ initialSessionId }: ChatProps) {
         setSessions(next);
       }
     },
-    [sessions, setMessages]
+    [authStatus, sessions, setMessages]
   );
 
   const handleRenameSession = useCallback(async (id: string, name: string) => {
@@ -399,60 +440,10 @@ export default function Chat({ initialSessionId }: ChatProps) {
           </div>
         </header>
 
+        {authStatus === 'unauthenticated' && <GuestBanner />}
+
         {/* Messages */}
         <div className="flex-1 overflow-y-auto px-4 py-6 space-y-4">
-          {messages.length === 0 && (
-            <div className="flex flex-col items-center justify-center h-full text-center gap-6 mx-auto max-w-2xl py-16 px-8">
-              <h2
-                className="text-2xl font-semibold"
-                style={{ fontFamily: 'var(--font-cinzel), serif', color: 'var(--neutral-900)' }}
-              >
-                Ready to Roll?
-              </h2>
-              <p className="text-base" style={{ color: 'var(--neutral-600)' }}>
-                The more detail you provide, the better the result. Try one of these to get started:
-              </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full text-left">
-                {STARTER_PROMPTS.map(({ label, prompt }) => (
-                  <button
-                    key={label}
-                    onClick={() => setInput(prompt)}
-                    className="rounded-xl px-4 py-3 text-sm text-left transition-all hover:scale-[1.01] active:scale-[0.99]"
-                    style={{
-                      background: '#ffffff',
-                      border: '1px solid var(--neutral-200)',
-                      color: 'var(--neutral-700)',
-                      boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = 'var(--light-gold)';
-                      e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.borderColor = 'var(--neutral-200)';
-                      e.currentTarget.style.boxShadow = '0 1px 4px rgba(0,0,0,0.04)';
-                    }}
-                  >
-                    <span
-                      className="text-xs font-semibold uppercase tracking-wide block mb-1"
-                      style={{ color: 'var(--accent-gold)' }}
-                    >
-                      {label}
-                    </span>
-                    {prompt}
-                  </button>
-                ))}
-              </div>
-              <ChatInputForm
-                input={input}
-                status={status}
-                formClassName="flex gap-3 w-full"
-                onSubmit={handleSubmit}
-                onChange={setInput}
-              />
-            </div>
-          )}
-
           {messages.map((message: ReturnType<typeof useChat>['messages'][number]) => (
             <div
               key={message.id}
@@ -544,7 +535,6 @@ export default function Chat({ initialSessionId }: ChatProps) {
         </div>
 
         {/* Input */}
-        {messages.length > 0 && (
         <div
           className="px-4 py-4"
           style={{ background: 'var(--neutral-100)' }}
@@ -557,7 +547,6 @@ export default function Chat({ initialSessionId }: ChatProps) {
             onChange={setInput}
           />
         </div>
-        )}
       </div>
 
       {/* Right sidebar */}

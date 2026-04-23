@@ -3,20 +3,16 @@ import { rootAgent } from '../../lib/agents';
 import { prepareContext } from '../../lib/contextManager';
 import { getSession, updateSessionSummary } from '@/db';
 import { auth } from '@/auth';
-import { NextResponse } from 'next/server';
 
 export const maxDuration = 60;
 
 export async function POST(req: Request) {
   const authSession = await auth();
-  if (!authSession?.user?.id) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-  const userId = authSession.user.id;
+  const userId = authSession?.user?.id ?? null;
 
   const { messages, sessionId }: { messages: UIMessage[]; sessionId?: string } = await req.json();
 
-  const session = sessionId ? await getSession(sessionId, userId) : undefined;
+  const session = userId && sessionId ? await getSession(sessionId, userId) : undefined;
   const existingSummary = session?.summary ?? null;
 
   const { modelMessages, summaryUpdated, newSummary } = await prepareContext(
@@ -24,7 +20,7 @@ export async function POST(req: Request) {
     existingSummary
   );
 
-  if (summaryUpdated && sessionId && newSummary) {
+  if (summaryUpdated && sessionId && newSummary && userId) {
     Promise.resolve().then(async () => {
       try {
         await updateSessionSummary(sessionId, userId, newSummary);

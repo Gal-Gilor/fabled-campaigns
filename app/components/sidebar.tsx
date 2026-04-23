@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
 import { ChatSession as Session } from '@/db';
 
@@ -288,6 +289,8 @@ export default function Sidebar({
   const [editingName, setEditingName] = useState('');
   const [openMenuId, setOpenMenuId] = useState<string | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
+  const { status: authStatus } = useSession();
+  const router = useRouter();
 
   // Close menu on outside click
   useEffect(() => {
@@ -356,7 +359,7 @@ export default function Sidebar({
       }
     >
       {!isOpen ? (
-        <div className="flex flex-col items-center justify-start pt-3 gap-1">
+        <div className="flex flex-col items-center justify-start pt-3 gap-1 h-full">
           {/* Star branding */}
           <div className="p-2">
             <StarIcon filled={false} size={19} />
@@ -389,20 +392,41 @@ export default function Sidebar({
             </svg>
           </button>
 
-          {/* Sessions link */}
-          <Link
-            href="/sessions"
-            className="flex items-center justify-center rounded-lg p-2 transition-all"
-            style={{ color: 'var(--neutral-600)' }}
-            title="Sessions"
-            onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-100)')}
-            onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
-          >
-            <svg width="17" height="17" viewBox="0 0 16 16" fill="none">
-              <path d="M2 3C2 2.44772 2.44772 2 3 2H9C9.55228 2 10 2.44772 10 3V9C10 9.55228 9.55228 10 9 10H3C2.44772 10 2 9.55228 2 9V3Z" stroke="currentColor" strokeWidth="1.25"/>
-              <path d="M6 6C6 5.44772 6.44772 5 7 5H13C13.5523 5 14 5.44772 14 6V12C14 12.5523 13.5523 13 13 13H7C6.44772 13 6 12.5523 6 12V6Z" stroke="currentColor" strokeWidth="1.25"/>
-            </svg>
-          </Link>
+          {/* Sessions link — authenticated only */}
+          {authStatus === 'authenticated' && (
+            <Link
+              href="/sessions"
+              className="flex items-center justify-center rounded-lg p-2 transition-all"
+              style={{ color: 'var(--neutral-600)' }}
+              title="Sessions"
+              onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-100)')}
+              onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+            >
+              <svg width="17" height="17" viewBox="0 0 16 16" fill="none">
+                <path d="M2 3C2 2.44772 2.44772 2 3 2H9C9.55228 2 10 2.44772 10 3V9C10 9.55228 9.55228 10 9 10H3C2.44772 10 2 9.55228 2 9V3Z" stroke="currentColor" strokeWidth="1.25"/>
+                <path d="M6 6C6 5.44772 6.44772 5 7 5H13C13.5523 5 14 5.44772 14 6V12C14 12.5523 13.5523 13 13 13H7C6.44772 13 6 12.5523 6 12V6Z" stroke="currentColor" strokeWidth="1.25"/>
+              </svg>
+            </Link>
+          )}
+
+          <div style={{ flex: 1 }} />
+
+          {/* Sign-in button — guests only */}
+          {authStatus === 'unauthenticated' && (
+            <button
+              onClick={() => router.push('/auth/sign-in')}
+              className="flex items-center justify-center rounded-lg p-2 transition-all"
+              style={{ color: 'var(--neutral-600)', marginBottom: '8px' }}
+              title="Sign in"
+              onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-100)')}
+              onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+            >
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="1.5"/>
+                <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              </svg>
+            </button>
+          )}
         </div>
       ) : (
         <div className="flex flex-col h-full md:w-[22rem]">
@@ -460,20 +484,22 @@ export default function Sidebar({
               <span style={{ fontSize: '0.94rem' }}>New session</span>
             </button>
 
-            {/* Sessions link */}
-            <Link
-              href="/sessions"
-              className="flex items-center gap-2.5 w-full px-3 py-2 rounded-lg transition-all"
-              style={{ color: 'var(--neutral-700)' }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-100)')}
-              onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
-            >
-              <svg width="17" height="17" viewBox="0 0 16 16" fill="none">
-                <path d="M2 3C2 2.44772 2.44772 2 3 2H9C9.55228 2 10 2.44772 10 3V9C10 9.55228 9.55228 10 9 10H3C2.44772 10 2 9.55228 2 9V3Z" stroke="currentColor" strokeWidth="1.25"/>
-                <path d="M6 6C6 5.44772 6.44772 5 7 5H13C13.5523 5 14 5.44772 14 6V12C14 12.5523 13.5523 13 13 13H7C6.44772 13 6 12.5523 6 12V6Z" stroke="currentColor" strokeWidth="1.25"/>
-              </svg>
-              <span style={{ fontSize: '0.94rem' }}>Sessions</span>
-            </Link>
+            {/* Sessions link — authenticated only */}
+            {authStatus === 'authenticated' && (
+              <Link
+                href="/sessions"
+                className="flex items-center gap-2.5 w-full px-3 py-2 rounded-lg transition-all"
+                style={{ color: 'var(--neutral-700)' }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-100)')}
+                onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+              >
+                <svg width="17" height="17" viewBox="0 0 16 16" fill="none">
+                  <path d="M2 3C2 2.44772 2.44772 2 3 2H9C9.55228 2 10 2.44772 10 3V9C10 9.55228 9.55228 10 9 10H3C2.44772 10 2 9.55228 2 9V3Z" stroke="currentColor" strokeWidth="1.25"/>
+                  <path d="M6 6C6 5.44772 6.44772 5 7 5H13C13.5523 5 14 5.44772 14 6V12C14 12.5523 13.5523 13 13 13H7C6.44772 13 6 12.5523 6 12V6Z" stroke="currentColor" strokeWidth="1.25"/>
+                </svg>
+                <span style={{ fontSize: '0.94rem' }}>Sessions</span>
+              </Link>
+            )}
           </div>
 
           <div className="flex-1" />
