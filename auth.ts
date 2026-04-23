@@ -12,6 +12,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [Google],
   pages: { signIn: '/auth/sign-in' },
   callbacks: {
+    authorized({ auth }) {
+      return !!auth;
+    },
     session({ session, user }) {
       session.user.id = user.id;
       return session;
