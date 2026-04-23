@@ -2,7 +2,8 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { Session } from '../lib/db';
+import { useSession, signOut } from 'next-auth/react';
+import { ChatSession as Session } from '@/db';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -221,6 +222,53 @@ function SessionRow({
         </div>
       )}
     </div>
+  );
+}
+
+function UserFooter() {
+  const { data: session, status } = useSession();
+
+  if (status !== 'authenticated' || !session?.user) return null;
+
+  const { name, image } = session.user;
+  const initial = name ? name[0].toUpperCase() : '?';
+
+  return (
+    <>
+      <hr style={{ borderColor: 'var(--neutral-200)' }} />
+      <div className="flex items-center gap-2.5 px-3 py-3">
+        {image ? (
+          <img
+            src={image}
+            alt={name ?? 'User avatar'}
+            width={28}
+            height={28}
+            className="rounded-full flex-shrink-0"
+            style={{ width: '1.75rem', height: '1.75rem' }}
+          />
+        ) : (
+          <div
+            className="rounded-full flex-shrink-0 flex items-center justify-center text-xs font-semibold text-white"
+            style={{ width: '1.75rem', height: '1.75rem', background: 'var(--primary-blue)' }}
+          >
+            {initial}
+          </div>
+        )}
+        <span className="flex-1 text-sm truncate min-w-0" style={{ color: 'var(--neutral-700)' }}>
+          {name}
+        </span>
+        <button
+          onClick={() => signOut()}
+          className="flex-shrink-0 text-xs px-2 py-1 rounded transition-all"
+          style={{ color: 'var(--neutral-600)' }}
+          onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-200)')}
+          onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+          title="Sign out"
+        >
+          Sign out
+        </button>
+      </div>
+    </>
   );
 }
 
@@ -460,6 +508,7 @@ export default function Sidebar({
             </div>
           </div>
           <div className="flex-1" />
+          <UserFooter />
         </div>
       )}
     </aside>

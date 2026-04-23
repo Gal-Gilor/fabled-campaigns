@@ -1,7 +1,7 @@
 'use client';
 import { useState, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { Session } from '../lib/db';
+import { ChatSession as Session } from '@/db';
 import { SessionContext, SessionHandlers } from './session-context';
 import Sidebar from './sidebar';
 

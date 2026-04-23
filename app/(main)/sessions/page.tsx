@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Session } from '../../lib/db';
+import { ChatSession as Session } from '@/db';
 import { useSessionContext } from '../../components/session-context';
 
 function formatDate(ts: number): string {
