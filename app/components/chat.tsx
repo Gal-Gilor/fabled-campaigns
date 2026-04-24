@@ -57,32 +57,34 @@ function GuestBanner() {
   return (
     <div
       style={{
-        background: '#fef9c3',
-        borderBottom: '1px solid #fde68a',
+        position: 'relative',
+        background: '#fef3c7',
+        borderBottom: '1px solid #f59e0b',
         padding: '6px 16px',
         display: 'flex',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         alignItems: 'center',
         flexShrink: 0,
       }}
     >
-      <span style={{ fontSize: '0.875rem', color: '#92400e' }}>
+      <span style={{ fontSize: '0.875rem', color: '#0f172a', textAlign: 'center' }}>
         You&apos;re chatting as a guest.{' '}
-        <a href="/auth/sign-in" style={{ fontWeight: 600, color: '#92400e', textDecoration: 'underline' }}>
+        <a href="/auth/sign-in" style={{ fontWeight: 600, color: '#2563eb', textDecoration: 'underline' }}>
           Sign in
         </a>{' '}
-        to save your conversations and access history.
+        to save your conversations, access past campaigns, and download homebrew content.
       </span>
       <button
         onClick={() => setDismissed(true)}
         style={{
-          color: '#b45309',
+          position: 'absolute',
+          right: '16px',
+          color: '#334155',
           background: 'none',
           border: 'none',
           cursor: 'pointer',
           fontSize: '1.1rem',
           lineHeight: 1,
-          marginLeft: '12px',
         }}
         aria-label="Dismiss"
       >

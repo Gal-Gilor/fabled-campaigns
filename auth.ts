@@ -13,7 +13,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   pages: { signIn: '/auth/sign-in' },
   callbacks: {
     authorized({ auth }) {
-      return !!auth;
+      return true;
     },
     session({ session, user }) {
       session.user.id = user.id;

@@ -17,7 +17,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     // Authenticated users get the sidebar open on desktop, closed on mobile.
     // Guests always start with it closed.
-    if (authStatus === 'authenticated') {
+    if (authStatus !== 'loading') {
       setSidebarOpen(window.innerWidth >= 768);
     }
   }, [authStatus]);
