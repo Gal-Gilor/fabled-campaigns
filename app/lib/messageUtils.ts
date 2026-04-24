@@ -6,6 +6,7 @@ export interface ImageOutput {
   type: 'image';
   src: string;
   label: string;
+  collectionId?: string;
 }
 
 export function isImageOutput(o: unknown): o is ImageOutput {
