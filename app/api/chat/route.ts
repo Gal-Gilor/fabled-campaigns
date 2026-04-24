@@ -1,8 +1,9 @@
 import { UIMessage } from 'ai';
-import { rootAgent } from '../../lib/agents';
+import { createRootAgent } from '../../lib/agents';
 import { prepareContext } from '../../lib/contextManager';
 import { getSession, updateSessionSummary } from '@/db';
 import { auth } from '@/auth';
+import type { Collection } from '../../lib/collections';
 
 export const maxDuration = 60;
 
@@ -10,7 +11,11 @@ export async function POST(req: Request) {
   const authSession = await auth();
   const userId = authSession?.user?.id ?? null;
 
-  const { messages, sessionId }: { messages: UIMessage[]; sessionId?: string } = await req.json();
+  const {
+    messages,
+    sessionId,
+    activeCollection,
+  }: { messages: UIMessage[]; sessionId?: string; activeCollection?: Collection } = await req.json();
 
   const session = userId && sessionId ? await getSession(sessionId, userId) : undefined;
   const existingSummary = session?.summary ?? null;
@@ -30,6 +35,7 @@ export async function POST(req: Request) {
     });
   }
 
+  const rootAgent = createRootAgent(activeCollection);
   const result = await rootAgent.stream({ messages: modelMessages });
   return result.toUIMessageStreamResponse();
 }

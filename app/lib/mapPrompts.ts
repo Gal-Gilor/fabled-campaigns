@@ -1,3 +1,6 @@
+import { getAmbiancePromptLanguage } from './collections';
+import type { Collection } from './collections';
+
 export const VALID_TERRAINS = [
   'forest', 'grassland', 'mountain', 'desert', 'tundra', 'jungle', 'swamp',
   'ocean', 'underground', 'urban', 'volcanic', 'industrial', 'indoor',
@@ -151,8 +154,8 @@ function mapDetailLevel(dl?: 'close-up' | 'wide'): string {
   return '';
 }
 
-export function buildEnhancementInput(params: MapPromptParams): string {
-  const { terrain, setting, name, userRequest, ambiance, perspective, detailLevel } = params;
+export function buildEnhancementInput(params: MapPromptParams & { collection?: Collection }): string {
+  const { terrain, setting, name, userRequest, ambiance, perspective, detailLevel, collection } = params;
 
   let baseDescription = '';
 
@@ -179,7 +182,12 @@ export function buildEnhancementInput(params: MapPromptParams): string {
 
   const mapped = mapDetailLevel(detailLevel);
   const detailInstructions = mapped ? (DETAIL_LEVEL_INSTRUCTIONS[mapped] ?? '') : '';
-  return buildEnhancementMetaPrompt(baseDescription, detailInstructions);
+
+  const consistencyBlock = collection && (collection.ambiance || collection.visualDetails)
+    ? `\n\n### Visual Consistency Requirement\nThis map belongs to the "${collection.name}" collection. Maintain these visual properties across all maps in this collection:\n${collection.ambiance ? `- Lighting/Atmosphere: ${getAmbiancePromptLanguage(collection.ambiance)}\n` : ''}${collection.visualDetails ? `- Visual details: ${collection.visualDetails}\n` : ''}`
+    : '';
+
+  return buildEnhancementMetaPrompt(baseDescription, detailInstructions) + consistencyBlock;
 }
 
 export function buildFallbackEnhancedPrompt(params: MapPromptParams): string {
@@ -248,4 +256,36 @@ You are an expert AI Prompt Engineer specializing in creating image generation p
 
 **Input:** ${baseDescription}
 **Level of Detail:** ${detailLevelInstructions}`;
+}
+
+export interface NarrativePromptParams {
+  userRequest?: string;
+  terrain?: string;
+  setting?: string;
+  ambiance?: string;
+  visualDetails?: string;
+}
+
+export function buildNarrativePrompt(params: NarrativePromptParams): string {
+  const { userRequest, terrain, setting, ambiance, visualDetails } = params;
+  const ambianceDesc = ambiance ? getAmbiancePromptLanguage(ambiance) : '';
+
+  const locationParts: string[] = [];
+  if (terrain && setting) locationParts.push(`a ${setting} in a ${terrain} environment`);
+  else if (setting) locationParts.push(`a ${setting}`);
+  else if (terrain) locationParts.push(`a ${terrain} area`);
+  else locationParts.push('a fantasy location');
+
+  const lines: string[] = [
+    `Write a vivid, atmospheric 2–3 sentence description of ${locationParts[0]} that a player is entering.`,
+    'Write in second person ("You step into..."). Be immersive and sensory — mention light, texture, and atmosphere.',
+    'Do NOT mention grid lines, game mechanics, or meta-language. Output only the description itself.',
+    '',
+    `Location: ${locationParts[0]}`,
+  ];
+  if (ambianceDesc) lines.push(`Lighting and atmosphere: ${ambianceDesc}`);
+  if (visualDetails) lines.push(`Visual details: ${visualDetails}`);
+  if (userRequest) lines.push(`Specific features requested: ${userRequest}`);
+
+  return lines.join('\n');
 }
