@@ -185,6 +185,14 @@ export async function getCollectionsForUser(userId: string, excludeSessionId: st
   return (rows as RawCollection[]).map(serializeCollection);
 }
 
+export async function getCollectionById(userId: string, id: string): Promise<DbCollection | null> {
+  const rows = await sql`
+    SELECT * FROM collections WHERE id = ${id} AND user_id = ${userId}
+  `;
+  if (!(rows as RawCollection[]).length) return null;
+  return serializeCollection((rows as RawCollection[])[0]);
+}
+
 export async function createCollection(
   userId: string,
   data: { name: string; terrain?: string; setting?: string; ambiance?: string; visualDetails?: string }
