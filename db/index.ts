@@ -112,3 +112,334 @@ export async function deleteSession(id: string, userId: string): Promise<void> {
     WHERE id = ${id} AND user_id = ${userId}
   `;
 }
+
+// ---------------------------------------------------------------------------
+// Collections
+// ---------------------------------------------------------------------------
+
+export interface DbCollection {
+  id: string;
+  userId: string;
+  name: string;
+  terrain: string | null;
+  setting: string | null;
+  ambiance: string | null;
+  visualDetails: string | null;
+  createdAt: number;
+  updatedAt: number;
+}
+
+type RawCollection = {
+  id: string;
+  user_id: string;
+  name: string;
+  terrain: string | null;
+  setting: string | null;
+  ambiance: string | null;
+  visual_details: string | null;
+  created_at: number;
+  updated_at: number;
+};
+
+function serializeCollection(row: RawCollection): DbCollection {
+  return {
+    id: row.id,
+    userId: row.user_id,
+    name: row.name,
+    terrain: row.terrain,
+    setting: row.setting,
+    ambiance: row.ambiance,
+    visualDetails: row.visual_details,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+  };
+}
+
+export async function listCollections(userId: string): Promise<DbCollection[]> {
+  const rows = await sql`
+    SELECT * FROM collections WHERE user_id = ${userId} ORDER BY updated_at DESC
+  `;
+  return (rows as RawCollection[]).map(serializeCollection);
+}
+
+export async function listCollectionsBySession(userId: string, sessionId: string): Promise<DbCollection[]> {
+  const rows = await sql`
+    SELECT c.* FROM collections c
+    JOIN collection_sessions cs ON cs.collection_id = c.id
+    WHERE c.user_id = ${userId} AND cs.session_id = ${sessionId}
+    ORDER BY c.updated_at DESC
+  `;
+  return (rows as RawCollection[]).map(serializeCollection);
+}
+
+export async function getCollectionsForUser(userId: string, excludeSessionId: string): Promise<DbCollection[]> {
+  const rows = await sql`
+    SELECT c.* FROM collections c
+    WHERE c.user_id = ${userId}
+      AND NOT EXISTS (
+        SELECT 1 FROM collection_sessions cs
+        WHERE cs.collection_id = c.id AND cs.session_id = ${excludeSessionId}
+      )
+    ORDER BY c.updated_at DESC
+  `;
+  return (rows as RawCollection[]).map(serializeCollection);
+}
+
+export async function createCollection(
+  userId: string,
+  data: { name: string; terrain?: string; setting?: string; ambiance?: string; visualDetails?: string }
+): Promise<DbCollection> {
+  const id = crypto.randomUUID();
+  const now = Date.now();
+  const rows = await sql`
+    INSERT INTO collections (id, user_id, name, terrain, setting, ambiance, visual_details, created_at, updated_at)
+    VALUES (
+      ${id},
+      ${userId},
+      ${data.name},
+      ${data.terrain ?? null},
+      ${data.setting ?? null},
+      ${data.ambiance ?? null},
+      ${data.visualDetails ?? null},
+      ${now},
+      ${now}
+    )
+    RETURNING *
+  `;
+  return serializeCollection((rows as RawCollection[])[0]);
+}
+
+export async function updateCollection(
+  id: string,
+  userId: string,
+  patch: { name?: string; terrain?: string; setting?: string; ambiance?: string; visualDetails?: string }
+): Promise<DbCollection> {
+  const now = Date.now();
+  const setClauses: string[] = [];
+  const values: unknown[] = [];
+
+  values.push(now);
+  setClauses.push(`updated_at = $${values.length}`);
+
+  if (patch.name !== undefined) {
+    values.push(patch.name);
+    setClauses.push(`name = $${values.length}`);
+  }
+  if (patch.terrain !== undefined) {
+    values.push(patch.terrain);
+    setClauses.push(`terrain = $${values.length}`);
+  }
+  if (patch.setting !== undefined) {
+    values.push(patch.setting);
+    setClauses.push(`setting = $${values.length}`);
+  }
+  if (patch.ambiance !== undefined) {
+    values.push(patch.ambiance);
+    setClauses.push(`ambiance = $${values.length}`);
+  }
+  if (patch.visualDetails !== undefined) {
+    values.push(patch.visualDetails);
+    setClauses.push(`visual_details = $${values.length}`);
+  }
+
+  values.push(id);
+  const idParam = `$${values.length}`;
+  values.push(userId);
+  const userParam = `$${values.length}`;
+
+  const query = `UPDATE collections SET ${setClauses.join(', ')} WHERE id = ${idParam} AND user_id = ${userParam} RETURNING *`;
+  const rows = await sql.query(query, values);
+  const row = (rows as unknown as { rows: unknown[] }).rows?.[0] ?? rows[0];
+  if (!row) throw new Error('Collection not found');
+  return serializeCollection(row as RawCollection);
+}
+
+export async function deleteCollection(id: string, userId: string): Promise<void> {
+  await sql`
+    DELETE FROM collections WHERE id = ${id} AND user_id = ${userId}
+  `;
+}
+
+export async function linkCollectionToSession(collectionId: string, sessionId: string): Promise<void> {
+  const id = crypto.randomUUID();
+  const now = Date.now();
+  await sql`
+    INSERT INTO collection_sessions (id, collection_id, session_id, created_at)
+    VALUES (${id}, ${collectionId}, ${sessionId}, ${now})
+    ON CONFLICT DO NOTHING
+  `;
+}
+
+export async function deleteCollectionSessionLink(collectionId: string, sessionId: string): Promise<void> {
+  await sql`
+    DELETE FROM collection_sessions
+    WHERE collection_id = ${collectionId} AND session_id = ${sessionId}
+  `;
+}
+
+export async function getSessionIdsForCollection(collectionId: string): Promise<string[]> {
+  const rows = await sql`
+    SELECT session_id FROM collection_sessions
+    WHERE collection_id = ${collectionId} AND session_id IS NOT NULL
+  `;
+  return (rows as { session_id: string }[]).map((r) => r.session_id);
+}
+
+export async function countOtherSessionsForCollection(
+  collectionId: string,
+  currentSessionId: string
+): Promise<number> {
+  const rows = await sql`
+    SELECT COUNT(*)::int AS count
+    FROM collection_sessions
+    WHERE collection_id = ${collectionId}
+      AND session_id IS NOT NULL
+      AND session_id != ${currentSessionId}
+  `;
+  return (rows as { count: number }[])[0]?.count ?? 0;
+}
+
+// ---------------------------------------------------------------------------
+// Locations
+// ---------------------------------------------------------------------------
+
+export interface DbLocation {
+  id: string;
+  collectionId: string;
+  sessionId: string | null;
+  name: string;
+  createdAt: number;
+  updatedAt: number;
+}
+
+type RawLocation = {
+  id: string;
+  collection_id: string;
+  session_id: string | null;
+  name: string;
+  created_at: number;
+  updated_at: number;
+};
+
+function serializeLocation(row: RawLocation): DbLocation {
+  return {
+    id: row.id,
+    collectionId: row.collection_id,
+    sessionId: row.session_id,
+    name: row.name,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+  };
+}
+
+export async function listLocations(collectionId: string, sessionId?: string): Promise<DbLocation[]> {
+  if (sessionId) {
+    const rows = await sql`
+      SELECT * FROM locations
+      WHERE collection_id = ${collectionId} AND session_id = ${sessionId}
+      ORDER BY created_at DESC
+    `;
+    return (rows as RawLocation[]).map(serializeLocation);
+  }
+  const rows = await sql`
+    SELECT * FROM locations WHERE collection_id = ${collectionId} ORDER BY created_at DESC
+  `;
+  return (rows as RawLocation[]).map(serializeLocation);
+}
+
+export async function createLocation(data: {
+  id: string; collectionId: string; sessionId: string | null; name: string;
+}): Promise<DbLocation> {
+  const now = Date.now();
+  const rows = await sql`
+    INSERT INTO locations (id, collection_id, session_id, name, created_at, updated_at)
+    VALUES (${data.id}, ${data.collectionId}, ${data.sessionId}, ${data.name}, ${now}, ${now})
+    RETURNING *
+  `;
+  return serializeLocation((rows as RawLocation[])[0]);
+}
+
+export async function updateLocation(id: string, name: string): Promise<DbLocation | null> {
+  const rows = await sql`
+    UPDATE locations SET name = ${name}, updated_at = ${Date.now()}
+    WHERE id = ${id} RETURNING *
+  `;
+  if (!(rows as RawLocation[]).length) return null;
+  return serializeLocation((rows as RawLocation[])[0]);
+}
+
+export async function deleteLocation(id: string): Promise<void> {
+  await sql`DELETE FROM locations WHERE id = ${id}`;
+}
+
+export async function deleteLocationsByCollectionAndSession(
+  collectionId: string,
+  sessionId: string
+): Promise<string[]> {
+  // First collect blob_urls to delete from storage
+  const artifacts = await sql`
+    SELECT a.blob_url FROM artifacts a
+    JOIN locations l ON l.id = a.location_id
+    WHERE l.collection_id = ${collectionId} AND l.session_id = ${sessionId}
+  `;
+  const blobUrls = (artifacts as { blob_url: string }[]).map((a) => a.blob_url);
+
+  // Delete locations (artifacts cascade)
+  await sql`
+    DELETE FROM locations
+    WHERE collection_id = ${collectionId} AND session_id = ${sessionId}
+  `;
+
+  return blobUrls;
+}
+
+// ---------------------------------------------------------------------------
+// Artifacts
+// ---------------------------------------------------------------------------
+
+export interface DbArtifact {
+  id: string;
+  locationId: string;
+  blobUrl: string;
+  prompt: string | null;
+  mediaType: string | null;
+  createdAt: number;
+}
+
+type RawArtifact = {
+  id: string;
+  location_id: string;
+  blob_url: string;
+  prompt: string | null;
+  media_type: string | null;
+  created_at: number;
+};
+
+function serializeArtifact(row: RawArtifact): DbArtifact {
+  return {
+    id: row.id,
+    locationId: row.location_id,
+    blobUrl: row.blob_url,
+    prompt: row.prompt,
+    mediaType: row.media_type,
+    createdAt: row.created_at,
+  };
+}
+
+export async function createArtifact(
+  locationId: string,
+  data: { blobUrl: string; prompt?: string; mediaType?: string }
+): Promise<DbArtifact> {
+  const id = crypto.randomUUID();
+  const now = Date.now();
+  const rows = await sql`
+    INSERT INTO artifacts (id, location_id, blob_url, prompt, media_type, created_at)
+    VALUES (${id}, ${locationId}, ${data.blobUrl}, ${data.prompt ?? null}, ${data.mediaType ?? null}, ${now})
+    RETURNING *
+  `;
+  return serializeArtifact((rows as RawArtifact[])[0]);
+}
+
+export async function deleteArtifact(id: string): Promise<void> {
+  await sql`DELETE FROM artifacts WHERE id = ${id}`;
+}
