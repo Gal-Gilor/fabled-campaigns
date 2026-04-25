@@ -1,46 +1,100 @@
-import { ToolLoopAgent, tool, readUIMessageStream, InferAgentUIMessage } from 'ai';
-import type { UIMessage } from 'ai';
+import { ToolLoopAgent, tool, InferAgentUIMessage } from 'ai';
 import { z } from 'zod';
 import { GEMINI_MODEL } from './config';
 import { GM_SYSTEM_PROMPT } from './prompts';
 import { gmStubTools } from './tools';
-import { enhanceMapPrompt, generateMapName, generateEncounterMap } from './mapTools';
+import {
+  generateEncounterMap,
+  createGenerateCollectionMap,
+  createGenerateNarrativeDescription,
+  createEnhanceMapPrompt,
+} from './mapTools';
+import { VALID_TERRAINS, VALID_SETTINGS } from './mapPrompts';
+import type { Collection } from './collections';
+import { getAmbiancePromptLanguage } from './collections';
 import { vertex } from './vertexClient';
+import { safeJsonParse, isImageOutput } from './messageUtils';
 
-const mapSubAgent = new ToolLoopAgent({
-  model: vertex(GEMINI_MODEL),
-  instructions: `You are a map generation specialist for D&D 5e.
-When given a map request:
-1. Call generateMapName with the request details to create a location name.
-2. Call enhanceMapPrompt with ALL available parameters — userRequest, ambiance, terrain (if identifiable from the request), setting (if a specific building type), perspective (indoor/outdoor), and detailLevel (close-up for rooms/single areas, wide for regions/districts).
-3. Call generateEncounterMap with the enhanced prompt and the name.
-4. Summarize: state the map name and briefly describe what was generated.`,
-  tools: { enhanceMapPrompt, generateMapName, generateEncounterMap },
-});
+export function createRootAgent(activeCollection?: Collection, collectionReferenceUrl?: string) {
+  const collectionContext = activeCollection
+    ? (() => {
+        const parts: string[] = [
+          `The user has activated the "${activeCollection.name}" collection.`,
+          'All maps generated in this session must visually match this collection:',
+        ];
+        if (activeCollection.terrain) parts.push(`- Terrain: ${activeCollection.terrain}`);
+        if (activeCollection.setting) parts.push(`- Setting: ${activeCollection.setting}`);
+        if (activeCollection.ambiance)
+          parts.push(`- Lighting/Atmosphere: ${getAmbiancePromptLanguage(activeCollection.ambiance)}`);
+        if (activeCollection.visualDetails) parts.push(`- Visual details: ${activeCollection.visualDetails}`);
+        parts.push(
+          `When calling mapAgent, include collectionId: "${activeCollection.id}" and incorporate the above visual properties into enhancedPrompt.`
+        );
+        parts.push(
+          'IMPORTANT: This collection already provides the atmosphere and terrain context. ' +
+          'Any location type the user mentions is immediately "rich enough" — call mapAgent without asking for more details.'
+        );
+        return '\n\n## Active Collection\n' + parts.join('\n');
+      })()
+    : '';
 
-const mapAgentTool = tool({
-  description: 'Generate a D&D tactical encounter map image',
-  inputSchema: z.object({
-    description: z.string().describe('Full description of the map — terrain, setting, key features'),
-    vibe: z.string().optional().describe('Mood or atmosphere the map should convey'),
-  }),
-  execute: async function* ({ description, vibe }, { abortSignal }) {
-    const prompt = vibe ? `${description}\nVibe: ${vibe}` : description;
-    const result = await mapSubAgent.stream({ prompt, abortSignal });
-    for await (const msg of readUIMessageStream({ stream: result.toUIMessageStream() })) {
-      yield msg;
-    }
-  },
-  toModelOutput: ({ output: message }) => {
-    const lastText = message?.parts?.findLast((p: { type: string }) => p.type === 'text');
-    return { type: 'text' as const, value: (lastText as { text?: string })?.text ?? 'Map generated.' };
-  },
-});
+  const generateNarrative = createGenerateNarrativeDescription(activeCollection);
+  const enhanceMapPrompt = createEnhanceMapPrompt(activeCollection);
+  const generateCollectionMap = collectionReferenceUrl ? createGenerateCollectionMap() : null;
 
-export const rootAgent = new ToolLoopAgent({
-  model: vertex(GEMINI_MODEL),
-  instructions: GM_SYSTEM_PROMPT,
-  tools: { ...gmStubTools, mapAgent: mapAgentTool },
-});
+  const mapAgentTool = tool({
+    description: 'Generate a D&D tactical encounter map image. Describe the scene in natural language — the tool handles image prompt engineering internally.',
+    inputSchema: z.object({
+      name: z.string().describe('An evocative D&D location name (e.g. "The Sunken Ossuary", "Thornwatch Pass")'),
+      userRequest: z.string().describe('Natural language description of the map scene, features, and mood'),
+      terrain: z.enum(VALID_TERRAINS).optional().describe('Terrain type if identifiable'),
+      setting: z.enum(VALID_SETTINGS).optional().describe('Specific building or location type if applicable'),
+      perspective: z.enum(['indoor', 'outdoor']).describe('Whether this is an indoor or outdoor map'),
+      detailLevel: z.enum(['close-up', 'wide']).describe(
+        'close-up: room/small-area scale (~5ft per grid square); wide: regional or multi-room scale'
+      ),
+      collectionId: z.string().optional().describe('Active collection ID to tag this map'),
+    }),
+    execute: async ({ name, userRequest, terrain, setting, perspective, detailLevel, collectionId }) => {
+      const narrative = await generateNarrative({ userRequest, terrain, setting });
+      const enhancedRaw = await enhanceMapPrompt.execute!(
+        {
+          userRequest: narrative,
+          ambiance: activeCollection?.ambiance ?? '',
+          terrain,
+          setting,
+          perspective,
+          detailLevel,
+        },
+        { toolCallId: '', messages: [] }
+      );
+      const enhanced = typeof enhancedRaw === 'string' ? enhancedRaw : narrative;
 
-export type RootAgentMessage = InferAgentUIMessage<typeof rootAgent>;
+      if (generateCollectionMap && collectionReferenceUrl) {
+        return generateCollectionMap.execute!(
+          { enhancedPrompt: enhanced, name, collectionId, referenceImageUrl: collectionReferenceUrl },
+          { toolCallId: '', messages: [] }
+        );
+      }
+
+      return generateEncounterMap.execute!(
+        { enhancedPrompt: enhanced, name, collectionId },
+        { toolCallId: '', messages: [] }
+      );
+    },
+    toModelOutput: ({ output }: { output: unknown }) => {
+      const o = safeJsonParse(output);
+      if (isImageOutput(o)) return { type: 'text' as const, value: `Map generated: ${o.label}` };
+      return { type: 'text' as const, value: String(output) };
+    },
+  });
+
+  return new ToolLoopAgent({
+    model: vertex(GEMINI_MODEL),
+    instructions: GM_SYSTEM_PROMPT + collectionContext,
+    tools: { ...gmStubTools, mapAgent: mapAgentTool },
+  });
+}
+
+// Keep type export for consumers
+export type RootAgentMessage = InferAgentUIMessage<ReturnType<typeof createRootAgent>>;

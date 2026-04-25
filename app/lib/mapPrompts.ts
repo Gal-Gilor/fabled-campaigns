@@ -1,3 +1,6 @@
+import { getAmbiancePromptLanguage } from './collections';
+import type { Collection } from './collections';
+
 export const VALID_TERRAINS = [
   'forest', 'grassland', 'mountain', 'desert', 'tundra', 'jungle', 'swamp',
   'ocean', 'underground', 'urban', 'volcanic', 'industrial', 'indoor',
@@ -151,8 +154,8 @@ function mapDetailLevel(dl?: 'close-up' | 'wide'): string {
   return '';
 }
 
-export function buildEnhancementInput(params: MapPromptParams): string {
-  const { terrain, setting, name, userRequest, ambiance, perspective, detailLevel } = params;
+export function buildEnhancementInput(params: MapPromptParams & { collection?: Collection }): string {
+  const { terrain, setting, name, userRequest, ambiance, perspective, detailLevel, collection } = params;
 
   let baseDescription = '';
 
@@ -179,7 +182,12 @@ export function buildEnhancementInput(params: MapPromptParams): string {
 
   const mapped = mapDetailLevel(detailLevel);
   const detailInstructions = mapped ? (DETAIL_LEVEL_INSTRUCTIONS[mapped] ?? '') : '';
-  return buildEnhancementMetaPrompt(baseDescription, detailInstructions);
+
+  const consistencyBlock = collection && (collection.ambiance || collection.visualDetails)
+    ? `\n\n### Visual Consistency Requirement\nThis map belongs to the "${collection.name}" collection. Maintain these visual properties across all maps in this collection:\n${collection.ambiance ? `- Lighting/Atmosphere: ${getAmbiancePromptLanguage(collection.ambiance)}\n` : ''}${collection.visualDetails ? `- Visual details: ${collection.visualDetails}\n` : ''}`
+    : '';
+
+  return buildEnhancementMetaPrompt(baseDescription, detailInstructions) + consistencyBlock;
 }
 
 export function buildFallbackEnhancedPrompt(params: MapPromptParams): string {
@@ -210,6 +218,38 @@ export function buildFallbackEnhancedPrompt(params: MapPromptParams): string {
   return `An orthographic top-down view, ${zoomDescription}of a fantasy ${mapType} battle map${nameContext}. ${baseDescription} ${scaleDescription}. The map features multiple elevations connected by natural pathways, stairs, or bridges to ensure full navigability. Rendered in a detailed, painterly style with dramatic overhead lighting creating strong shadows. The entire map is overlaid with a bold and clear 5-foot grid that conforms to all elevations.`;
 }
 
+export interface NarrativePromptParams {
+  userRequest?: string;
+  terrain?: string;
+  setting?: string;
+  ambiance?: string;
+  visualDetails?: string;
+}
+
+export function buildNarrativePrompt(params: NarrativePromptParams): string {
+  const { userRequest, terrain, setting, ambiance, visualDetails } = params;
+  const ambianceDesc = ambiance ? getAmbiancePromptLanguage(ambiance) : '';
+
+  const locationParts: string[] = [];
+  if (terrain && setting) locationParts.push(`a ${setting} in a ${terrain} environment`);
+  else if (setting) locationParts.push(`a ${setting}`);
+  else if (terrain) locationParts.push(`a ${terrain} area`);
+  else locationParts.push('a fantasy location');
+
+  const lines: string[] = [
+    `Write a vivid, atmospheric 2–3 sentence description of ${locationParts[0]} that a player is entering.`,
+    'Write in second person ("You step into..."). Be immersive and sensory — mention light, texture, and atmosphere.',
+    'Do NOT mention grid lines, game mechanics, or meta-language. Output only the description itself.',
+    '',
+    `Location: ${locationParts[0]}`,
+  ];
+  if (ambianceDesc) lines.push(`Lighting and atmosphere: ${ambianceDesc}`);
+  if (visualDetails) lines.push(`Visual details: ${visualDetails}`);
+  if (userRequest) lines.push(`Specific features requested: ${userRequest}`);
+
+  return lines.join('\n');
+}
+
 function buildEnhancementMetaPrompt(baseDescription: string, detailLevelInstructions: string): string {
   return `### Goal:
 
@@ -218,6 +258,12 @@ Your goal is to expand upon the user's request, treating it as the absolute foun
 ### Role:
 
 You are an expert AI Prompt Engineer specializing in creating image generation prompts for Google's Gemini that produce clear, functional, and **visually engaging, high-fidelity** Dungeons & Dragons battle maps.
+
+### Your Process:
+
+**Step 1 — Visualise the scene (internal reasoning only):** Imagine the location vividly in second-person immersive prose ("You step into..."). Consider the lighting, textures, smells, sounds, and the key features a player would notice first. Do NOT include this narrative in your output.
+
+**Step 2 — Translate to image prompt:** Convert that mental image into a precise, detailed image generation prompt following the rules below.
 
 ### Guiding Principles:
 
@@ -241,11 +287,26 @@ You are an expert AI Prompt Engineer specializing in creating image generation p
 
 ### Constraints:
 
-*   **Output Format:** Your output **must only** be the generated prompt text itself. No preamble, no explanation.
+*   **Output Format:** Your output **must only** be the generated prompt text itself (Step 2). No preamble, no explanation, no narrative prose.
 *   **No Characters/NPCs:** Avoid words like 'bustling', 'crowded', or 'occupied'.
+
+### Examples:
+
+**Input:** A map of a Tavern
+**Level of Detail:** DETAILED
+**Output:** An orthographic top-down view, zoomed out, of a fantasy tavern battle map, presented as a detailed miniature diorama. The map shows a detailed cutaway of the ground floor, featuring a common room with worn wooden tables and a large stone fireplace. A sunken fighting pit sits 5 feet below the main level, connected by two sets of stairs. A wooden balcony, accessible by another staircase, overlooks the common room. Rendered in a high-fidelity Unreal Engine tactical view with vibrant, rich colors and dynamic volumetric lighting, captured with an ultra-wide-angle lens to emphasize depth. A fine, crisp 1-inch tactical grid composed of thin, contrasting white lines is laid over the entire playable area, including the pit and balcony.
+
+**Input:** a forest clearing map
+**Level of Detail:** WIDE VIEW
+**Output:** A flat-lay perspective, zoomed out, of a forest clearing battle map, presented as a highly detailed game board. The map is centered on a clearing containing ancient, moss-covered standing stones, with a deep, sunken ravine cutting across one side. A massive, mossy fallen log acts as a natural bridge across the ravine, ensuring connectivity. A wider view shows major landmarks like rock formations or large trees occupy several grid squares. The style is a high-fidelity Unreal Engine tactical view with vibrant, rich colors and clear ambient occlusion, captured with an ultra-wide-angle lens to define edges. The entire map is overlaid with a uniform tactical grid of thin, dark green lines that conform to the different elevations.
+
+**Input:** a dungeon maze
+**Level of Detail:** WIDE VIEW
+**Output:** An orthographic top-down view, zoomed out, of a dungeon maze battle map, presented as a highly detailed game board. The map shows an expansive, claustrophobic network of twisting, damp limestone caverns and passages defined by extreme changes in elevation. A massive chasm dominates the center, but it is safely spanned by a single, rickety rope bridge to ensure full connectivity. The zoomed-out schematic view focuses on the labyrinthine layout of paths and structures, with the grid emphasizing flow and distance. Rendered in a high-fidelity Unreal Engine tactical view with vibrant, rich colors and dynamic volumetric lighting, captured with an ultra-wide-angle lens to enhance the gloom and depth. A bold, clear grid composed of glowing white lines is overlaid on the entire playable area, conforming to all elevations.
 
 ### User Request:
 
 **Input:** ${baseDescription}
 **Level of Detail:** ${detailLevelInstructions}`;
 }
+

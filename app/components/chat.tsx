@@ -3,11 +3,14 @@
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport, isToolUIPart, getToolName, UIMessage } from 'ai';
 import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
+import { createPortal } from 'react-dom';
 import { CHAT_API_PATH } from '../lib/config';
 import { ChatSession as Session } from '@/db';
 import { safeJsonParse, isImageOutput, ImageOutput } from '../lib/messageUtils';
+import type { Collection } from '../lib/collections';
 import { useSessionContext } from './session-context';
 import { useSession } from 'next-auth/react';
+import { VALID_TERRAINS, VALID_SETTINGS } from '../lib/mapPrompts';
 
 function extractSubAgentImage(output: unknown): ImageOutput | null {
   if (typeof output !== 'object' || output === null || !('parts' in output)) return null;
@@ -142,21 +145,349 @@ interface ChatProps {
   initialSessionId?: string;
 }
 
+function downloadImage(img: ImageOutput) {
+  const a = document.createElement('a');
+  a.href = img.src;
+  a.download = `${img.label.replace(/[^a-z0-9]/gi, '-')}.png`;
+  a.click();
+}
+
+function ImageThumbnail({
+  img,
+  onSelect,
+  onDelete,
+  onDownload,
+}: {
+  img: ImageOutput;
+  onSelect: () => void;
+  onDelete: () => void;
+  onDownload: () => void;
+}) {
+  return (
+    <div
+      className="relative group rounded-lg overflow-hidden cursor-pointer"
+      style={{ border: '1px solid var(--neutral-200)' }}
+      onClick={onSelect}
+    >
+      <img src={img.src} alt={img.label} className="w-full aspect-square object-cover" />
+      <p className="text-xs px-1.5 py-1 truncate" style={{ color: 'var(--neutral-600)' }}>
+        {img.label}
+      </p>
+      <div className="absolute top-1 right-1 hidden group-hover:flex gap-1">
+        <button
+          onClick={(e) => { e.stopPropagation(); onDownload(); }}
+          className="w-5 h-5 rounded text-xs flex items-center justify-center"
+          style={{ background: 'rgba(255,255,255,0.9)', color: 'var(--neutral-600)' }}
+          title="Download"
+        >↓</button>
+        <button
+          onClick={(e) => { e.stopPropagation(); onDelete(); }}
+          className="w-5 h-5 rounded text-xs flex items-center justify-center"
+          style={{ background: 'rgba(255,255,255,0.9)', color: '#dc2626' }}
+          title="Delete"
+        >✕</button>
+      </div>
+    </div>
+  );
+}
+
+function ImageModal({
+  img,
+  onClose,
+  onDelete,
+  onDownload,
+}: {
+  img: ImageOutput;
+  onClose: () => void;
+  onDelete: () => void;
+  onDownload: () => void;
+}) {
+  return (
+    <div
+      className="fixed inset-0 z-[100] flex items-center justify-center"
+      style={{ background: 'rgba(0,0,0,0.7)' }}
+      onClick={onClose}
+    >
+      <div
+        className="relative bg-white rounded-xl overflow-hidden max-w-2xl w-full mx-4 max-h-[90vh] flex flex-col"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <img src={img.src} alt={img.label} className="w-full object-contain max-h-[60vh]" />
+        <div className="px-4 py-3 flex flex-col gap-2">
+          <p className="text-sm font-semibold" style={{ color: 'var(--neutral-900)', fontFamily: 'var(--font-cinzel), serif' }}>
+            {img.label}
+          </p>
+          {img.prompt && (
+            <details className="text-sm" style={{ color: 'var(--neutral-700)' }}>
+              <summary
+                className="cursor-pointer text-xs uppercase tracking-wider mb-1"
+                style={{ color: 'var(--neutral-600)' }}
+              >
+                Generation prompt
+              </summary>
+              <p className="whitespace-pre-wrap leading-relaxed mt-1">{img.prompt}</p>
+            </details>
+          )}
+          <div className="flex gap-2 pt-1">
+            <button
+              onClick={onDownload}
+              className="flex-1 text-sm rounded py-1.5 font-semibold"
+              style={{ background: 'var(--primary-blue)', color: '#fff' }}
+            >
+              Download
+            </button>
+            <button
+              onClick={() => { onDelete(); onClose(); }}
+              className="text-sm rounded py-1.5 px-3"
+              style={{ background: 'transparent', color: '#dc2626', border: '1px solid #dc2626' }}
+            >
+              Delete
+            </button>
+            <button
+              onClick={onClose}
+              className="text-sm rounded py-1.5 px-3"
+              style={{ background: 'transparent', color: 'var(--neutral-600)', border: '1px solid var(--neutral-200)' }}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CollectionFolder({
+  collection,
+  isActive,
+  images,
+  pills,
+  onActivate,
+  onDelete,
+  onUpdate,
+  onSelectImage,
+  onDeleteImage,
+}: {
+  collection: Collection;
+  isActive: boolean;
+  images: import('../lib/messageUtils').ImageOutput[];
+  pills: string[];
+  onActivate: () => void;
+  onDelete: () => void;
+  onUpdate: (updated: Collection) => void;
+  onSelectImage: (img: ImageOutput) => void;
+  onDeleteImage: (src: string) => void;
+}) {
+  const [open, setOpen] = useState(images.length > 0);
+  const [editing, setEditing] = useState(collection.name === 'New Collection');
+
+  useEffect(() => {
+    if (images.length > 0) setOpen(true);
+  }, [images.length]);
+  const [draft, setDraft] = useState<Collection>({ ...collection });
+  const AMBIANCE_LABELS = ['Golden twilight', 'Cold moonlight', 'Torchlit', 'Harsh midday', 'Misty dawn', 'Eerie glow', 'Deep night', 'Stormy overcast'];
+
+  function handleSave() {
+    let saved = { ...draft };
+    if (!saved.name.trim() || saved.name === 'New Collection') {
+      const base = draft.setting ?? draft.terrain ?? 'Location';
+      saved.name = `The ${base.charAt(0).toUpperCase()}${base.slice(1)}`;
+    }
+    onUpdate(saved);
+    setEditing(false);
+  }
+
+  return (
+    <div
+      className="rounded-lg overflow-hidden transition-all"
+      style={{
+        border: isActive ? '1.5px solid var(--primary-blue)' : '1px solid var(--neutral-200)',
+        background: isActive ? 'var(--pale-blue)' : '#fff',
+      }}
+    >
+      {/* Row header */}
+      <div className="flex items-center gap-2 px-2.5 py-2 cursor-pointer" onClick={onActivate}>
+        <span
+          className="flex-shrink-0 rounded-full"
+          style={{
+            width: 8, height: 8,
+            background: isActive ? 'var(--primary-blue)' : 'var(--neutral-200)',
+            boxShadow: isActive ? '0 0 0 2px rgba(37,99,235,0.2)' : 'none',
+          }}
+        />
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-semibold truncate" style={{ color: isActive ? 'var(--primary-blue)' : 'var(--neutral-900)', fontFamily: 'var(--font-cinzel), serif' }}>
+            {collection.name}
+          </p>
+          {pills.length > 0 ? (
+            <div className="flex flex-wrap gap-1 mt-0.5">
+              {pills.map((pill) => (
+                <span key={pill} className="text-xs rounded px-1.5 py-px" style={{ background: 'var(--neutral-100)', color: 'var(--neutral-600)', border: '1px solid var(--neutral-200)' }}>
+                  {pill}
+                </span>
+              ))}
+            </div>
+          ) : (
+            <p className="text-xs mt-0.5" style={{ color: 'var(--neutral-600)' }}>No location context</p>
+          )}
+        </div>
+        <div className="flex items-center gap-1 flex-shrink-0" onClick={(e) => e.stopPropagation()}>
+          <span className="text-xs" style={{ color: 'var(--neutral-600)' }}>{images.length}</span>
+          <button className="text-xs rounded px-1" style={{ color: 'var(--neutral-600)' }}
+            onClick={(e) => { e.stopPropagation(); setEditing((v) => !v); }} title="Edit">✎</button>
+          <button className="text-xs rounded px-1" style={{ color: 'var(--neutral-600)' }}
+            onClick={(e) => { e.stopPropagation(); setOpen((o) => !o); }} title="Toggle">{open ? '▼' : '▶'}</button>
+          <button className="text-xs rounded px-1" style={{ color: '#dc2626' }}
+            onClick={(e) => { e.stopPropagation(); onDelete(); }} title="Delete">✕</button>
+        </div>
+      </div>
+
+      {/* Inline edit form */}
+      {editing && (
+        <div className="px-3 pb-3 pt-2" style={{ borderTop: '1px solid var(--neutral-200)' }} onClick={(e) => e.stopPropagation()}>
+          {/* Name */}
+          <div className="mb-3">
+            <label className="block text-sm uppercase tracking-wider mb-1" style={{ color: 'var(--neutral-600)' }}>
+              Name <span style={{ color: 'var(--neutral-600)', opacity: 0.6 }}>(optional — auto-generated)</span>
+            </label>
+            <input
+              className="w-full text-base rounded px-3 py-2 outline-none"
+              style={{ border: '1px solid var(--neutral-200)', background: 'var(--neutral-100)', color: 'var(--neutral-900)' }}
+              value={draft.name === 'New Collection' ? '' : draft.name}
+              placeholder="e.g. Gilded Hollow"
+              onChange={(e) => setDraft((d) => ({ ...d, name: e.target.value || 'New Collection' }))}
+            />
+          </div>
+
+          {/* Terrain + Setting */}
+          <div className="grid grid-cols-2 gap-2 mb-3">
+            <div>
+              <label className="block text-sm uppercase tracking-wider mb-1" style={{ color: 'var(--neutral-600)' }}>Terrain</label>
+              <select
+                className="w-full text-base rounded px-2 py-2 outline-none"
+                style={{ border: '1px solid var(--neutral-200)', background: 'var(--neutral-100)', color: 'var(--neutral-900)' }}
+                value={draft.terrain ?? ''}
+                onChange={(e) => setDraft((d) => ({ ...d, terrain: (e.target.value as typeof d.terrain) || undefined }))}
+              >
+                <option value="">Any</option>
+                {VALID_TERRAINS.map((t) => <option key={t} value={t}>{t.charAt(0).toUpperCase() + t.slice(1)}</option>)}
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm uppercase tracking-wider mb-1" style={{ color: 'var(--neutral-600)' }}>Setting</label>
+              <select
+                className="w-full text-base rounded px-2 py-2 outline-none"
+                style={{ border: '1px solid var(--neutral-200)', background: 'var(--neutral-100)', color: 'var(--neutral-900)' }}
+                value={draft.setting ?? ''}
+                onChange={(e) => setDraft((d) => ({ ...d, setting: (e.target.value as typeof d.setting) || undefined }))}
+              >
+                <option value="">None</option>
+                {VALID_SETTINGS.map((s) => <option key={s} value={s}>{s.charAt(0).toUpperCase() + s.slice(1)}</option>)}
+              </select>
+            </div>
+          </div>
+
+          {/* Ambiance pills */}
+          <div className="mb-3">
+            <label className="block text-sm uppercase tracking-wider mb-1.5" style={{ color: 'var(--neutral-600)' }}>Ambiance</label>
+            <div className="flex flex-wrap gap-1.5">
+              {AMBIANCE_LABELS.map((label) => (
+                <button
+                  key={label}
+                  className="text-sm rounded-full px-3 py-1 transition-all"
+                  style={{
+                    border: `1px solid ${draft.ambiance === label ? 'var(--primary-blue)' : 'var(--neutral-200)'}`,
+                    background: draft.ambiance === label ? 'var(--pale-blue)' : 'var(--neutral-100)',
+                    color: draft.ambiance === label ? 'var(--primary-blue)' : 'var(--neutral-600)',
+                  }}
+                  onClick={() => setDraft((d) => ({ ...d, ambiance: d.ambiance === label ? undefined : label }))}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Visual details */}
+          <div className="mb-3">
+            <label className="block text-sm uppercase tracking-wider mb-1" style={{ color: 'var(--neutral-600)' }}>
+              Visual details <span style={{ opacity: 0.6 }}>(optional)</span>
+            </label>
+            <textarea
+              className="w-full text-base rounded px-3 py-2 outline-none resize-none"
+              style={{ border: '1px solid var(--neutral-200)', background: 'var(--neutral-100)', color: 'var(--neutral-900)', height: 64 }}
+              placeholder="e.g. pearl-dust walls, glowing fungi, raised cypress walkways..."
+              value={draft.visualDetails ?? ''}
+              onChange={(e) => setDraft((d) => ({ ...d, visualDetails: e.target.value || undefined }))}
+            />
+          </div>
+
+          {/* Actions */}
+          <div className="flex gap-2">
+            <button
+              className="flex-1 text-base rounded py-2 font-semibold transition-all"
+              style={{ background: 'var(--primary-blue)', color: '#fff', border: 'none' }}
+              onClick={handleSave}
+            >
+              Save
+            </button>
+            <button
+              className="flex-1 text-base rounded py-2 transition-all"
+              style={{ background: 'transparent', color: 'var(--neutral-600)', border: '1px solid var(--neutral-200)' }}
+              onClick={() => { setDraft({ ...collection }); setEditing(false); }}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Images */}
+      {open && images.length > 0 && (
+        <div className="grid grid-cols-2 gap-1.5 p-2" style={{ borderTop: '1px solid var(--neutral-200)' }}>
+          {images.map((img, i) => (
+            <ImageThumbnail
+              key={i}
+              img={img}
+              onSelect={() => onSelectImage(img)}
+              onDelete={() => onDeleteImage(img.src)}
+              onDownload={() => downloadImage(img)}
+            />
+          ))}
+        </div>
+      )}
+      {open && images.length === 0 && (
+        <p className="text-xs px-3 pb-2" style={{ color: 'var(--neutral-600)' }}>No maps yet</p>
+      )}
+    </div>
+  );
+}
+
 export default function Chat({ initialSessionId }: ChatProps) {
   const [input, setInput] = useState('');
   const [rightSidebarOpen, setRightSidebarOpen] = useState(false);
+  const [collections, setCollections] = useState<Collection[]>([]);
+  const [activeCollectionId, setActiveCollectionId] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<ImageOutput | null>(null);
+  const [deletedSrcs, setDeletedSrcs] = useState<Set<string>>(new Set());
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const activeSessionIdRef = useRef<string | null>(null);
   const messagesRef = useRef<UIMessage[]>([]);
   const pendingMessageRef = useRef<string | null>(null);
+  const activeCollectionRef = useRef<Collection | undefined>(undefined);
 
   const { sessions, setSessions, activeSessionId, setActiveSessionId, setHandlers, openSidebar } = useSessionContext();
   const { status: authStatus } = useSession();
 
+  const activeCollection = collections.find((c) => c.id === activeCollectionId) ?? undefined;
+
   const transport = useMemo(
     () => new DefaultChatTransport({
       api: CHAT_API_PATH,
-      body: () => ({ sessionId: activeSessionIdRef.current }),
+      body: () => ({
+        sessionId: activeSessionIdRef.current,
+        activeCollection: activeCollectionRef.current,
+      }),
     }),
     []
   );
@@ -167,6 +498,10 @@ export default function Chat({ initialSessionId }: ChatProps) {
   useEffect(() => {
     activeSessionIdRef.current = activeSessionId;
   }, [activeSessionId]);
+
+  useEffect(() => {
+    activeCollectionRef.current = activeCollection;
+  }, [activeCollection]);
 
   useEffect(() => {
     messagesRef.current = messages;
@@ -374,7 +709,12 @@ export default function Chat({ initialSessionId }: ChatProps) {
         const img = extractSubAgentImage(p.output);
         return img ? [img] : [];
       })
-  );
+  ).filter((img) => !deletedSrcs.has(img.src));
+
+  function handleDeleteImage(src: string) {
+    setDeletedSrcs((prev) => new Set(prev).add(src));
+    setSelectedImage((cur) => (cur?.src === src ? null : cur));
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -482,10 +822,11 @@ export default function Chat({ initialSessionId }: ChatProps) {
 
                     // Direct image output (string JSON with {type:'image'})
                     const imgData = rawOutput !== null ? safeJsonParse(rawOutput) : null;
-                    if (isImageOutput(imgData)) {
+                    if (isImageOutput(imgData) && !deletedSrcs.has(imgData.src)) {
                       return (
-                        <div key={i} className="mt-2 rounded-lg overflow-hidden"
-                          style={{ border: '1px solid var(--neutral-200)' }}>
+                        <div key={i} className="mt-2 rounded-lg overflow-hidden cursor-pointer"
+                          style={{ border: '1px solid var(--neutral-200)' }}
+                          onClick={() => setSelectedImage(imgData)}>
                           <img src={imgData.src} alt={imgData.label} className="w-full rounded-t-lg" />
                           <p className="text-xs px-2 py-1"
                             style={{ color: 'var(--neutral-600)', fontFamily: 'var(--font-cinzel), serif' }}>
@@ -497,10 +838,11 @@ export default function Chat({ initialSessionId }: ChatProps) {
 
                     // Sub-agent UIMessage output (mapAgent wraps a ToolLoopAgent)
                     const subAgentImg = rawOutput !== null ? extractSubAgentImage(rawOutput) : null;
-                    if (subAgentImg) {
+                    if (subAgentImg && !deletedSrcs.has(subAgentImg.src)) {
                       return (
-                        <div key={i} className="mt-2 rounded-lg overflow-hidden"
-                          style={{ border: '1px solid var(--neutral-200)' }}>
+                        <div key={i} className="mt-2 rounded-lg overflow-hidden cursor-pointer"
+                          style={{ border: '1px solid var(--neutral-200)' }}
+                          onClick={() => setSelectedImage(subAgentImg)}>
                           <img src={subAgentImg.src} alt={subAgentImg.label} className="w-full rounded-t-lg" />
                           <p className="text-xs px-2 py-1"
                             style={{ color: 'var(--neutral-600)', fontFamily: 'var(--font-cinzel), serif' }}>
@@ -587,35 +929,104 @@ export default function Chat({ initialSessionId }: ChatProps) {
             <button
               onClick={() => setRightSidebarOpen(false)}
               className="text-xs rounded px-1.5 py-0.5 transition-all"
-              style={{ color: 'var(--neutral-500)' }}
+              style={{ color: 'var(--neutral-600)' }}
               title="Close"
             >
               ✕
             </button>
           </div>
-          <div className="flex-1 overflow-y-auto p-3">
-            {collectionImages.length === 0 ? (
-              <p className="text-xs text-center mt-8" style={{ color: 'var(--neutral-400)' }}>
-                No maps generated yet
+          <div className="flex-1 overflow-y-auto">
+            {/* Collections header */}
+            <div
+              className="flex items-center justify-between px-3 py-2 border-b"
+              style={{ borderColor: 'var(--neutral-200)' }}
+            >
+              <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--neutral-600)' }}>
+                Collections
+              </span>
+              <button
+                onClick={() => {
+                  const id = crypto.randomUUID();
+                  setCollections((prev) => [...prev, { id, name: 'New Collection' }]);
+                  setActiveCollectionId(id);
+                }}
+                className="flex items-center justify-center w-5 h-5 rounded transition-all"
+                style={{ background: 'var(--neutral-200)', color: 'var(--neutral-600)' }}
+                title="Add collection"
+              >
+                +
+              </button>
+            </div>
+
+            {/* Collection folders */}
+            {collections.length === 0 ? (
+              <p className="text-xs text-center mt-6 px-4" style={{ color: 'var(--neutral-600)' }}>
+                No collections yet — add one to keep your maps visually consistent
               </p>
             ) : (
-              <div className="grid grid-cols-2 gap-2">
-                {collectionImages.map((img, i) => (
-                  <div key={i} className="rounded-lg overflow-hidden cursor-pointer"
-                    style={{ border: '1px solid var(--neutral-200)' }}
-                    onClick={() => window.open(img.src, '_blank')}>
-                    <img src={img.src} alt={img.label}
-                      className="w-full aspect-square object-cover" />
-                    <p className="text-[10px] px-1.5 py-1 truncate"
-                      style={{ color: 'var(--neutral-600)' }}>
-                      {img.label}
-                    </p>
-                  </div>
-                ))}
+              <div className="flex flex-col gap-1 p-2">
+                {collections.map((col) => {
+                  const isActive = col.id === activeCollectionId;
+                  const folderImages = collectionImages.filter((img) => img.collectionId === col.id);
+                  const pills = [col.terrain, col.setting, col.ambiance].filter(Boolean) as string[];
+                  return (
+                    <CollectionFolder
+                      key={col.id}
+                      collection={col}
+                      isActive={isActive}
+                      images={folderImages}
+                      pills={pills}
+                      onActivate={() => setActiveCollectionId(isActive ? null : col.id)}
+                      onDelete={() => {
+                        setCollections((prev) => prev.filter((c) => c.id !== col.id));
+                        if (activeCollectionId === col.id) setActiveCollectionId(null);
+                      }}
+                      onUpdate={(updated) =>
+                        setCollections((prev) => prev.map((c) => (c.id === updated.id ? updated : c)))
+                      }
+                      onSelectImage={setSelectedImage}
+                      onDeleteImage={handleDeleteImage}
+                    />
+                  );
+                })}
               </div>
             )}
+
+            {/* Uncategorized */}
+            {(() => {
+              const uncategorized = collectionImages.filter((img) => !img.collectionId);
+              if (uncategorized.length === 0) return null;
+              return (
+                <div className="p-2">
+                  <p className="text-xs uppercase tracking-wider px-1 mb-2" style={{ color: 'var(--neutral-600)' }}>
+                    Uncategorized
+                  </p>
+                  <div className="grid grid-cols-2 gap-2">
+                    {uncategorized.map((img, i) => (
+                      <ImageThumbnail
+                        key={i}
+                        img={img}
+                        onSelect={() => setSelectedImage(img)}
+                        onDelete={() => handleDeleteImage(img.src)}
+                        onDownload={() => downloadImage(img)}
+                      />
+                    ))}
+                  </div>
+                </div>
+              );
+            })()}
           </div>
         </div>
+      )}
+
+      {selectedImage && createPortal(
+        <ImageModal
+          img={selectedImage}
+          onClose={() => setSelectedImage(null)}
+          onDelete={() => handleDeleteImage(selectedImage.src)}
+          onDownload={() => downloadImage(selectedImage)}
+        />,
+        document.body
       )}
     </div>
   );

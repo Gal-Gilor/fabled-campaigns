@@ -1,19 +1,41 @@
-import { UIMessage } from 'ai';
-import { rootAgent } from '../../lib/agents';
+import { UIMessage, isToolUIPart } from 'ai';
+import { createRootAgent } from '../../lib/agents';
 import { prepareContext } from '../../lib/contextManager';
 import { getSession, updateSessionSummary } from '@/db';
 import { auth } from '@/auth';
+import type { Collection } from '../../lib/collections';
+import { safeJsonParse, isImageOutput } from '../../lib/messageUtils';
 
 export const maxDuration = 60;
+
+function findCollectionReference(messages: UIMessage[], collectionId?: string): string | undefined {
+  if (!collectionId) return undefined;
+  for (const msg of messages) {
+    for (const part of msg.parts) {
+      if (!isToolUIPart(part) || part.state !== 'output-available') continue;
+      const output = safeJsonParse(part.output as string);
+      if (isImageOutput(output) && output.collectionId === collectionId) {
+        return output.src;
+      }
+    }
+  }
+  return undefined;
+}
 
 export async function POST(req: Request) {
   const authSession = await auth();
   const userId = authSession?.user?.id ?? null;
 
-  const { messages, sessionId }: { messages: UIMessage[]; sessionId?: string } = await req.json();
+  const {
+    messages,
+    sessionId,
+    activeCollection,
+  }: { messages: UIMessage[]; sessionId?: string; activeCollection?: Collection } = await req.json();
 
   const session = userId && sessionId ? await getSession(sessionId, userId) : undefined;
   const existingSummary = session?.summary ?? null;
+
+  const collectionReferenceUrl = findCollectionReference(messages, activeCollection?.id);
 
   const { modelMessages, summaryUpdated, newSummary } = await prepareContext(
     messages,
@@ -30,6 +52,7 @@ export async function POST(req: Request) {
     });
   }
 
+  const rootAgent = createRootAgent(activeCollection, collectionReferenceUrl);
   const result = await rootAgent.stream({ messages: modelMessages });
   return result.toUIMessageStreamResponse();
 }
