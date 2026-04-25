@@ -1,4 +1,4 @@
-import { convertToModelMessages, generateObject, isToolUIPart, UIMessage } from 'ai';
+import { convertToModelMessages, generateObject, getToolName, isToolUIPart, UIMessage } from 'ai';
 import { z } from 'zod';
 import { TOKEN_EVICTION_THRESHOLD, TOKEN_OVERHEAD_RESERVE_CHARS, GEMINI_MODEL } from './config';
 import { vertex } from './vertexClient';
@@ -103,9 +103,9 @@ function estimateMessageChars(message: UIMessage): number {
     if (part.type === 'text') {
       chars += (part as { type: 'text'; text: string }).text.length;
     } else if (isToolUIPart(part)) {
-      const p = part as { toolName: string; args?: unknown; output?: unknown; state: string };
-      chars += p.toolName.length;
-      if (p.args !== undefined) chars += JSON.stringify(p.args).length;
+      chars += getToolName(part).length;
+      const p = part as { input?: unknown; output?: unknown; state: string };
+      if (p.input !== undefined) chars += JSON.stringify(p.input).length;
       if (p.state === 'output-available' && p.output !== undefined) {
         const out = typeof p.output === 'string' ? p.output : JSON.stringify(p.output);
         chars += Math.min(out.length, TOOL_OUTPUT_CAP_CHARS);

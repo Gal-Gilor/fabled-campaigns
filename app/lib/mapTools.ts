@@ -1,6 +1,7 @@
 import { z } from 'zod';
-import { tool, generateText, Output } from 'ai';
-import { GEMINI_MODEL, GEMINI_IMAGE_MODEL } from './config';
+import { tool, generateText, generateImage, Output } from 'ai';
+import { put } from '@vercel/blob';
+import { GEMINI_MODEL, GEMINI_IMAGE_MODEL, IMAGEN_MODEL, NEGATIVE_PROMPT } from './config';
 import { safeJsonParse, isImageOutput } from './messageUtils';
 import {
   VALID_TERRAINS,
@@ -12,54 +13,56 @@ import {
 import { vertex } from './vertexClient';
 import type { Collection } from './collections';
 
+async function uploadImageToBlob(base64: string, mediaType: string, label?: string): Promise<string> {
+  const buffer = Buffer.from(base64, 'base64');
+  const ext = mediaType.split('/')[1] ?? 'png';
+  const filename = `maps/${Date.now()}-${(label ?? 'map').replace(/[^a-z0-9]/gi, '-').toLowerCase()}.${ext}`;
+  const { url } = await put(filename, buffer, { access: 'public', contentType: mediaType });
+  return url;
+}
+
 export function createGenerateNarrativeDescription(collection?: Collection) {
-  return tool({
-    description:
-      'Generate a vivid "You step into..." narrative description of the map location. ' +
-      'Call this before enhanceMapPrompt to produce richer image generation input.',
-    inputSchema: z.object({
-      userRequest: z.string().describe("The user's map request"),
-      terrain: z.string().optional().describe('Terrain type if identifiable'),
-      setting: z.string().optional().describe('Setting type if identifiable'),
-      ambiance: z.string().optional().describe('Mood or atmosphere'),
-    }),
-    execute: async ({ userRequest, terrain, setting, ambiance }) => {
-      const params = {
-        userRequest,
-        terrain: terrain ?? collection?.terrain,
-        setting: setting ?? collection?.setting,
-        ambiance: ambiance ?? collection?.ambiance,
-        visualDetails: collection?.visualDetails,
-      };
-      try {
-        const prompt = buildNarrativePrompt(params);
-        const result = await generateText({
-          model: vertex(GEMINI_MODEL),
-          prompt,
-          maxOutputTokens: 300,
-        });
-        const narrative = result.text.trim();
-        if (narrative.length >= 30) return narrative;
-        throw new Error('Narrative too short');
-      } catch {
-        return buildFallbackEnhancedPrompt({
-          userRequest: params.userRequest,
-          terrain: params.terrain,
-          setting: params.setting,
-          ambiance: params.ambiance,
-        });
-      }
-    },
-  });
+  return async function (params: {
+    userRequest: string;
+    terrain?: string;
+    setting?: string;
+    ambiance?: string;
+  }): Promise<string> {
+    const mergedParams = {
+      userRequest: params.userRequest,
+      terrain: params.terrain ?? collection?.terrain,
+      setting: params.setting ?? collection?.setting,
+      ambiance: params.ambiance ?? collection?.ambiance,
+      visualDetails: collection?.visualDetails,
+    };
+    try {
+      const prompt = buildNarrativePrompt(mergedParams);
+      const result = await generateText({
+        model: vertex(GEMINI_MODEL),
+        prompt,
+        maxOutputTokens: 300,
+      });
+      const narrative = result.text.trim();
+      if (narrative.length >= 30) return narrative;
+      throw new Error('Narrative too short');
+    } catch {
+      return buildFallbackEnhancedPrompt({
+        userRequest: mergedParams.userRequest,
+        terrain: mergedParams.terrain,
+        setting: mergedParams.setting,
+        ambiance: mergedParams.ambiance,
+      });
+    }
+  };
 }
 
 export function createEnhanceMapPrompt(collection?: Collection) {
   return tool({
     description:
-      'Expand the map narrative into a rich, detailed image generation prompt using AI prompt engineering. ' +
-      'Pass the narrative from generateNarrativeDescription as userRequest.',
+      'Expand the user\'s map request into a rich, detailed image generation prompt using AI prompt engineering. ' +
+      'Extracts terrain, setting, perspective, and detail level to produce an optimised Gemini image prompt.',
     inputSchema: z.object({
-      userRequest: z.string().describe('Narrative description from generateNarrativeDescription'),
+      userRequest: z.string().describe("The user's map request"),
       ambiance: z.string().describe('Mood or atmosphere (e.g. "dark and cursed", "peaceful and serene")'),
       terrain: z.enum(VALID_TERRAINS).optional().describe(
         `Terrain type if identifiable. Options: ${VALID_TERRAINS.join(', ')}`
@@ -141,24 +144,80 @@ export const generateEncounterMap = tool({
   },
   execute: async ({ enhancedPrompt, name, collectionId }) => {
     try {
-      const result = await generateText({
-        model: vertex(GEMINI_IMAGE_MODEL),
+      const result = await generateImage({
+        model: vertex.image(IMAGEN_MODEL),
         prompt: enhancedPrompt,
+        aspectRatio: '4:3',
         providerOptions: {
-          vertex: { responseModalities: ['TEXT', 'IMAGE'] },
+          vertex: {
+            negativePrompt: NEGATIVE_PROMPT,
+            personGeneration: 'dont_allow',
+          },
         },
       });
 
-      const imgFile = result.files?.find((f) => f.mediaType.startsWith('image/'));
-      if (!imgFile) return '[Encounter map] Image generation returned no image.';
+      const image = result.image;
+      const src = await uploadImageToBlob(image.base64, image.mediaType, name);
 
-      const src = imgFile.base64.startsWith('data:')
-        ? imgFile.base64
-        : `data:${imgFile.mediaType};base64,${imgFile.base64}`;
-
-      return JSON.stringify({ type: 'image', src, label: name ?? 'Encounter Map', collectionId });
+      return JSON.stringify({ type: 'image', src, label: name ?? 'Encounter Map', collectionId, prompt: enhancedPrompt });
     } catch (err) {
       return `[Encounter map error] ${err instanceof Error ? err.message : String(err)}`;
     }
   },
 });
+
+export function createGenerateCollectionMap() {
+  return tool({
+    description:
+      'Generate a D&D tactical map that visually matches existing maps in the collection. ' +
+      'Uses a reference image from the collection to maintain consistent style, lighting, and color palette.',
+    inputSchema: z.object({
+      enhancedPrompt: z.string().describe('The enhanced image generation prompt'),
+      name: z.string().optional().describe('The location name'),
+      collectionId: z.string().optional().describe('The active collection ID'),
+      referenceImageUrl: z.string().describe('URL of a prior map in this collection to match visually'),
+    }),
+    toModelOutput: ({ output }: { output: unknown }) => {
+      const o = safeJsonParse(output);
+      if (isImageOutput(o)) return { type: 'text' as const, value: `Map generated: ${o.label}` };
+      return { type: 'text' as const, value: String(output) };
+    },
+    execute: async ({ enhancedPrompt, name, collectionId, referenceImageUrl }) => {
+      try {
+        const refRes = await fetch(referenceImageUrl);
+        const refBytes = new Uint8Array(await refRes.arrayBuffer());
+        const mimeType = refRes.headers.get('content-type') ?? 'image/png';
+
+        const result = await generateText({
+          model: vertex(GEMINI_IMAGE_MODEL),
+          messages: [
+            {
+              role: 'user',
+              content: [
+                { type: 'image', image: refBytes, mediaType: mimeType },
+                {
+                  type: 'text',
+                  text:
+                    'Generate a new D&D battle map that matches the visual style, lighting, color palette, ' +
+                    'and art direction of the reference image above. Maintain this visual identity.\n\n' +
+                    enhancedPrompt,
+                },
+              ],
+            },
+          ],
+          providerOptions: {
+            vertex: { responseModalities: ['TEXT', 'IMAGE'] },
+          },
+        });
+
+        const imgFile = result.files?.find((f) => f.mediaType.startsWith('image/'));
+        if (!imgFile) return '[Collection map] Image generation returned no image.';
+
+        const src = await uploadImageToBlob(imgFile.base64, imgFile.mediaType, name);
+        return JSON.stringify({ type: 'image', src, label: name ?? 'Encounter Map', collectionId, prompt: enhancedPrompt });
+      } catch (err) {
+        return `[Collection map error] ${err instanceof Error ? err.message : String(err)}`;
+      }
+    },
+  });
+}

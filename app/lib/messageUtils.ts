@@ -7,6 +7,7 @@ export interface ImageOutput {
   src: string;
   label: string;
   collectionId?: string;
+  prompt?: string;
 }
 
 export function isImageOutput(o: unknown): o is ImageOutput {

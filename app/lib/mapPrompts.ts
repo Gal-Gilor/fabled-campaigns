@@ -218,46 +218,6 @@ export function buildFallbackEnhancedPrompt(params: MapPromptParams): string {
   return `An orthographic top-down view, ${zoomDescription}of a fantasy ${mapType} battle map${nameContext}. ${baseDescription} ${scaleDescription}. The map features multiple elevations connected by natural pathways, stairs, or bridges to ensure full navigability. Rendered in a detailed, painterly style with dramatic overhead lighting creating strong shadows. The entire map is overlaid with a bold and clear 5-foot grid that conforms to all elevations.`;
 }
 
-function buildEnhancementMetaPrompt(baseDescription: string, detailLevelInstructions: string): string {
-  return `### Goal:
-
-Your goal is to expand upon the user's request, treating it as the absolute foundation for the prompt. You must add rich, creative details that are relevant to the original concept, but never discard or replace the subject itself.
-
-### Role:
-
-You are an expert AI Prompt Engineer specializing in creating image generation prompts for Google's Gemini that produce clear, functional, and **visually engaging, high-fidelity** Dungeons & Dragons battle maps.
-
-### Guiding Principles:
-
-1.  **Function Over Form:** The primary goal is a clear, playable D&D battle map. Use terms like **'dynamic volumetric lighting'** to emphasize elevation, paths, and playable areas, ensuring depth and navigability are unambiguous.
-2.  **Forceful Specificity:** Use direct, unambiguous language. Combine multiple reinforcing terms to prevent the AI from defaulting to an unwanted cinematic style.
-
-### Tasks:
-
-1.  **Enforce a Top-Down View, Zoom & Scale (CRITICAL):**
-    *   Combine multiple, forceful terms to guarantee a true top-down perspective. The prompt must start with a phrase like: 'An orthographic top-down view...', 'A flat-lay perspective of...', or 'A precise top-down view of...'. It must also include **'zoomed out'** to reinforce the distance.
-    *   The prompt must explicitly describe the map as a **miniature-scale model or diorama**.
-
-2.  **Integrate a Functional Grid:**
-    *   Use phrases like: 'overlaid with a fine, crisp 1-inch tactical grid', 'a dense and uniform grid of thin, contrasting lines'.
-    *   Connect the grid size to the level of detail.
-
-3.  **Design for Navigability and Depth:** Incorporate vertical elements like cliffs, ravines, multiple floors, etc., but always connect these with logical pathways such as stairs, ramps, or bridges.
-
-4.  **Structure the Final Prompt:** '[View & Scale] + [Core Subject] + [Key Details, Depth & Functionality] + [Art Style & Rendering] + [Grid Overlay]'.
-    *   **Style & Rendering:** Use keywords: **'high-fidelity Unreal Engine tactical view'**, **'vibrant, rich colors'**, **'dynamic volumetric lighting'**, **'clear ambient occlusion'**, **'ultra-wide-angle lens'**, **'detailed miniature diorama'**.
-
-### Constraints:
-
-*   **Output Format:** Your output **must only** be the generated prompt text itself. No preamble, no explanation.
-*   **No Characters/NPCs:** Avoid words like 'bustling', 'crowded', or 'occupied'.
-
-### User Request:
-
-**Input:** ${baseDescription}
-**Level of Detail:** ${detailLevelInstructions}`;
-}
-
 export interface NarrativePromptParams {
   userRequest?: string;
   terrain?: string;
@@ -289,3 +249,64 @@ export function buildNarrativePrompt(params: NarrativePromptParams): string {
 
   return lines.join('\n');
 }
+
+function buildEnhancementMetaPrompt(baseDescription: string, detailLevelInstructions: string): string {
+  return `### Goal:
+
+Your goal is to expand upon the user's request, treating it as the absolute foundation for the prompt. You must add rich, creative details that are relevant to the original concept, but never discard or replace the subject itself.
+
+### Role:
+
+You are an expert AI Prompt Engineer specializing in creating image generation prompts for Google's Gemini that produce clear, functional, and **visually engaging, high-fidelity** Dungeons & Dragons battle maps.
+
+### Your Process:
+
+**Step 1 — Visualise the scene (internal reasoning only):** Imagine the location vividly in second-person immersive prose ("You step into..."). Consider the lighting, textures, smells, sounds, and the key features a player would notice first. Do NOT include this narrative in your output.
+
+**Step 2 — Translate to image prompt:** Convert that mental image into a precise, detailed image generation prompt following the rules below.
+
+### Guiding Principles:
+
+1.  **Function Over Form:** The primary goal is a clear, playable D&D battle map. Use terms like **'dynamic volumetric lighting'** to emphasize elevation, paths, and playable areas, ensuring depth and navigability are unambiguous.
+2.  **Forceful Specificity:** Use direct, unambiguous language. Combine multiple reinforcing terms to prevent the AI from defaulting to an unwanted cinematic style.
+
+### Tasks:
+
+1.  **Enforce a Top-Down View, Zoom & Scale (CRITICAL):**
+    *   Combine multiple, forceful terms to guarantee a true top-down perspective. The prompt must start with a phrase like: 'An orthographic top-down view...', 'A flat-lay perspective of...', or 'A precise top-down view of...'. It must also include **'zoomed out'** to reinforce the distance.
+    *   The prompt must explicitly describe the map as a **miniature-scale model or diorama**.
+
+2.  **Integrate a Functional Grid:**
+    *   Use phrases like: 'overlaid with a fine, crisp 1-inch tactical grid', 'a dense and uniform grid of thin, contrasting lines'.
+    *   Connect the grid size to the level of detail.
+
+3.  **Design for Navigability and Depth:** Incorporate vertical elements like cliffs, ravines, multiple floors, etc., but always connect these with logical pathways such as stairs, ramps, or bridges.
+
+4.  **Structure the Final Prompt:** '[View & Scale] + [Core Subject] + [Key Details, Depth & Functionality] + [Art Style & Rendering] + [Grid Overlay]'.
+    *   **Style & Rendering:** Use keywords: **'high-fidelity Unreal Engine tactical view'**, **'vibrant, rich colors'**, **'dynamic volumetric lighting'**, **'clear ambient occlusion'**, **'ultra-wide-angle lens'**, **'detailed miniature diorama'**.
+
+### Constraints:
+
+*   **Output Format:** Your output **must only** be the generated prompt text itself (Step 2). No preamble, no explanation, no narrative prose.
+*   **No Characters/NPCs:** Avoid words like 'bustling', 'crowded', or 'occupied'.
+
+### Examples:
+
+**Input:** A map of a Tavern
+**Level of Detail:** DETAILED
+**Output:** An orthographic top-down view, zoomed out, of a fantasy tavern battle map, presented as a detailed miniature diorama. The map shows a detailed cutaway of the ground floor, featuring a common room with worn wooden tables and a large stone fireplace. A sunken fighting pit sits 5 feet below the main level, connected by two sets of stairs. A wooden balcony, accessible by another staircase, overlooks the common room. Rendered in a high-fidelity Unreal Engine tactical view with vibrant, rich colors and dynamic volumetric lighting, captured with an ultra-wide-angle lens to emphasize depth. A fine, crisp 1-inch tactical grid composed of thin, contrasting white lines is laid over the entire playable area, including the pit and balcony.
+
+**Input:** a forest clearing map
+**Level of Detail:** WIDE VIEW
+**Output:** A flat-lay perspective, zoomed out, of a forest clearing battle map, presented as a highly detailed game board. The map is centered on a clearing containing ancient, moss-covered standing stones, with a deep, sunken ravine cutting across one side. A massive, mossy fallen log acts as a natural bridge across the ravine, ensuring connectivity. A wider view shows major landmarks like rock formations or large trees occupy several grid squares. The style is a high-fidelity Unreal Engine tactical view with vibrant, rich colors and clear ambient occlusion, captured with an ultra-wide-angle lens to define edges. The entire map is overlaid with a uniform tactical grid of thin, dark green lines that conform to the different elevations.
+
+**Input:** a dungeon maze
+**Level of Detail:** WIDE VIEW
+**Output:** An orthographic top-down view, zoomed out, of a dungeon maze battle map, presented as a highly detailed game board. The map shows an expansive, claustrophobic network of twisting, damp limestone caverns and passages defined by extreme changes in elevation. A massive chasm dominates the center, but it is safely spanned by a single, rickety rope bridge to ensure full connectivity. The zoomed-out schematic view focuses on the labyrinthine layout of paths and structures, with the grid emphasizing flow and distance. Rendered in a high-fidelity Unreal Engine tactical view with vibrant, rich colors and dynamic volumetric lighting, captured with an ultra-wide-angle lens to enhance the gloom and depth. A bold, clear grid composed of glowing white lines is overlaid on the entire playable area, conforming to all elevations.
+
+### User Request:
+
+**Input:** ${baseDescription}
+**Level of Detail:** ${detailLevelInstructions}`;
+}
+
