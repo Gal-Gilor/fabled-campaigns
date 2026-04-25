@@ -15,7 +15,7 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
   if (!session?.user?.id) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   const { id } = await params;
   const data = await req.json();
-  const updated = await updateCollection(session.user.id, id, data);
+  const updated = await updateCollection(id, session.user.id, data);
   if (!updated) return NextResponse.json({ error: 'Not found' }, { status: 404 });
   return NextResponse.json(updated);
 }
@@ -51,6 +51,6 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ id: s
     allBlobUrls.push(...urls);
   }
   await Promise.all(allBlobUrls.map((url) => del(url)));
-  await deleteCollection(session.user.id, id);
+  await deleteCollection(id, session.user.id);
   return NextResponse.json({ deleted: true });
 }

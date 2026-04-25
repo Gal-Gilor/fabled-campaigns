@@ -18,7 +18,10 @@ async function dropCollectionTables() {
 async function migrate() {
   const pool = new Pool({ connectionString: process.env.DATABASE_URL_UNPOOLED });
   try {
-    await dropCollectionTables();
+    if (process.argv.includes('--reset')) {
+      console.log('Resetting collection tables...');
+      await dropCollectionTables();
+    }
     await pool.query(authSchema);
     await pool.query(chatSessionsSchema);
     await pool.query(collectionsSchema);

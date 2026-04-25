@@ -22,7 +22,7 @@ export async function POST(req: Request) {
     try {
       await linkCollectionToSession(collection.id, sessionId);
     } catch (err) {
-      await deleteCollection(session.user.id, collection.id);
+      await deleteCollection(collection.id, session.user.id);
       throw err;
     }
   }

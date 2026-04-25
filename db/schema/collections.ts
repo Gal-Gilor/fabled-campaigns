@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS collections (
   updated_at     BIGINT  NOT NULL
 );
 CREATE INDEX IF NOT EXISTS collections_user_id_idx ON collections(user_id);
+ALTER TABLE collections DROP COLUMN IF EXISTS session_id;
 
 CREATE TABLE IF NOT EXISTS locations (
   id            TEXT    PRIMARY KEY,

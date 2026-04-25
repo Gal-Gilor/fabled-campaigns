@@ -275,6 +275,7 @@ const CollectionFolder = memo(function CollectionFolder({
   images,
   pills,
   locations,
+  autoEdit,
   onActivate,
   onDelete,
   onUpdate,
@@ -287,6 +288,7 @@ const CollectionFolder = memo(function CollectionFolder({
   images: import('../lib/messageUtils').ImageOutput[];
   pills: string[];
   locations?: DbLocation[];
+  autoEdit?: boolean;
   onActivate: (id: string, isActive: boolean) => void;
   onDelete: (id: string) => void;
   onUpdate: (updated: Collection) => void;
@@ -295,7 +297,7 @@ const CollectionFolder = memo(function CollectionFolder({
   onExpand?: (id: string) => void;
 }) {
   const [open, setOpen] = useState(images.length > 0);
-  const [editing, setEditing] = useState(collection.name === 'New Collection');
+  const [editing, setEditing] = useState(autoEdit ?? false);
 
   useEffect(() => {
     if (images.length > 0) setOpen(true);
@@ -514,6 +516,7 @@ export default function Chat({ initialSessionId }: ChatProps) {
   const pendingMessageRef = useRef<string | null>(null);
   const activeCollectionRef = useRef<Collection | undefined>(undefined);
   const loadingLocationsRef = useRef<Set<string>>(new Set());
+  const [newlyAddedId, setNewlyAddedId] = useState<string | null>(null);
   const [showAddMenu, setShowAddMenu] = useState(false);
   const addMenuRef = useRef<HTMLDivElement>(null);
   const [showExistingPicker, setShowExistingPicker] = useState(false);
@@ -601,17 +604,21 @@ export default function Chat({ initialSessionId }: ChatProps) {
 
   useEffect(() => {
     if (authStatus !== 'authenticated') return;
+    setNewlyAddedId(null);
+    setActiveCollectionId(null);
     if (!activeSessionId) {
       setCollections([]);
       setLocationsByCollection({});
       return;
     }
+    let cancelled = false;
     fetch(`/api/collections?sessionId=${activeSessionId}`)
       .then((r) => r.json())
       .then((data: DbCollection[]) => {
-        if (Array.isArray(data)) setCollections(data.map(toCollection));
+        if (!cancelled && Array.isArray(data)) setCollections(data.map(toCollection));
       })
       .catch(() => {});
+    return () => { cancelled = true; };
   }, [authStatus, activeSessionId]);
 
   // Persist messages when a response completes
@@ -661,6 +668,7 @@ export default function Chat({ initialSessionId }: ChatProps) {
 
   const handleAddCollection = useCallback(async () => {
     if (authStatus === 'authenticated') {
+      if (!activeSessionId) return;
       const col: DbCollection = await fetch('/api/collections', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -669,21 +677,24 @@ export default function Chat({ initialSessionId }: ChatProps) {
       if (col?.id) {
         setCollections((prev) => [...prev, toCollection(col)]);
         setActiveCollectionId(col.id);
+        setNewlyAddedId(col.id);
       }
     } else {
       const id = crypto.randomUUID();
       setCollections((prev) => [...prev, { id, name: 'New Collection' }]);
       setActiveCollectionId(id);
+      setNewlyAddedId(id);
     }
   }, [authStatus, activeSessionId]);
 
   const handleOpenPicker = useCallback(async () => {
+    if (!activeSessionId) return;
     setShowAddMenu(false);
     setPickerSearch('');
     setLoadingPicker(true);
     setShowExistingPicker(true);
     try {
-      const res = await fetch(`/api/collections/all?excludeSessionId=${activeSessionIdRef.current ?? ''}`);
+      const res = await fetch(`/api/collections/all?excludeSessionId=${activeSessionId}`);
       const data: DbCollection[] = await res.json();
       setAllCollections(Array.isArray(data) ? data.map(toCollection) : []);
     } catch {
@@ -691,16 +702,16 @@ export default function Chat({ initialSessionId }: ChatProps) {
     } finally {
       setLoadingPicker(false);
     }
-  }, []);
+  }, [activeSessionId]);
 
   const handleLinkCollection = useCallback(async (collectionId: string) => {
-    if (!activeSessionIdRef.current) return;
+    if (!activeSessionId) return;
     setShowExistingPicker(false);
     try {
       const res = await fetch(`/api/collections/${collectionId}/sessions`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ sessionId: activeSessionIdRef.current }),
+        body: JSON.stringify({ sessionId: activeSessionId }),
       });
       if (!res.ok) throw new Error(`Failed to link collection: ${res.status}`);
       const linked: DbCollection = await res.json();
@@ -711,7 +722,7 @@ export default function Chat({ initialSessionId }: ChatProps) {
     } catch (err) {
       console.error('Failed to add collection to session:', err);
     }
-  }, []);
+  }, [activeSessionId]);
 
   const handleUpdateCollection = useCallback(async (updated: Collection) => {
     setCollections((prev) => prev.map((c) => (c.id === updated.id ? updated : c)));
@@ -1298,6 +1309,7 @@ export default function Chat({ initialSessionId }: ChatProps) {
                       images={folderImages}
                       pills={pills}
                       locations={locationsByCollection[col.id]}
+                      autoEdit={col.id === newlyAddedId}
                       onActivate={handleActivateCollection}
                       onDelete={handleDeleteCollection}
                       onUpdate={handleUpdateCollection}

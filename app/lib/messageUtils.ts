@@ -7,6 +7,8 @@ export interface ImageOutput {
   src: string;
   label: string;
   collectionId?: string;
+  locationId?: string;
+  artifactId?: string;
   prompt?: string;
 }
 

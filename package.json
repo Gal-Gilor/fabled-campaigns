@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "tsx db/migrate.ts && next build",
     "start": "next start",
-    "db:migrate": "tsx db/migrate.ts"
+    "db:migrate": "tsx --env-file=.env.local db/migrate.ts",
+    "db:reset": "tsx --env-file=.env.local db/migrate.ts --reset"
   },
   "dependencies": {
     "@ai-sdk/google": "^3.0.43",
