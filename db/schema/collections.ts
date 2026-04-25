@@ -41,4 +41,5 @@ CREATE TABLE IF NOT EXISTS collection_sessions (
 );
 CREATE INDEX IF NOT EXISTS collection_sessions_collection_id_idx ON collection_sessions(collection_id);
 CREATE INDEX IF NOT EXISTS collection_sessions_session_id_idx ON collection_sessions(session_id);
+CREATE UNIQUE INDEX IF NOT EXISTS collection_sessions_unique_idx ON collection_sessions(collection_id, session_id);
 `;

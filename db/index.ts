@@ -266,7 +266,7 @@ export async function linkCollectionToSession(collectionId: string, sessionId: s
   await sql`
     INSERT INTO collection_sessions (id, collection_id, session_id, created_at)
     VALUES (${id}, ${collectionId}, ${sessionId}, ${now})
-    ON CONFLICT DO NOTHING
+    ON CONFLICT (collection_id, session_id) DO NOTHING
   `;
 }
 
