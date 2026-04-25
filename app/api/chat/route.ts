@@ -52,7 +52,7 @@ export async function POST(req: Request) {
     });
   }
 
-  const rootAgent = createRootAgent(activeCollection, collectionReferenceUrl);
+  const rootAgent = createRootAgent(activeCollection, collectionReferenceUrl, sessionId ?? undefined);
   const result = await rootAgent.stream({ messages: modelMessages });
   return result.toUIMessageStreamResponse();
 }

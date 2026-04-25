@@ -1,6 +1,8 @@
 import { z } from 'zod';
 import { tool, generateText, generateImage, Output } from 'ai';
 import { put } from '@vercel/blob';
+import { randomUUID } from 'crypto';
+import { createLocation, createArtifact } from '@/db';
 import { GEMINI_MODEL, GEMINI_IMAGE_MODEL, IMAGEN_MODEL, NEGATIVE_PROMPT } from './config';
 import { safeJsonParse, isImageOutput } from './messageUtils';
 import {
@@ -13,12 +15,39 @@ import {
 import { vertex } from './vertexClient';
 import type { Collection } from './collections';
 
-async function uploadImageToBlob(base64: string, mediaType: string, label?: string): Promise<string> {
+async function uploadImageToBlob(
+  base64: string,
+  mediaType: string,
+  label?: string,
+  collectionId?: string,
+  locationId?: string,
+): Promise<string> {
   const buffer = Buffer.from(base64, 'base64');
   const ext = mediaType.split('/')[1] ?? 'png';
-  const filename = `maps/${Date.now()}-${(label ?? 'map').replace(/[^a-z0-9]/gi, '-').toLowerCase()}.${ext}`;
+  const sanitized = (label ?? 'map').replace(/[^a-z0-9]/gi, '-').toLowerCase();
+  const filename = collectionId && locationId
+    ? `maps/${collectionId}/${locationId}/${Date.now()}-${sanitized}.${ext}`
+    : `maps/${Date.now()}-${sanitized}.${ext}`;
   const { url } = await put(filename, buffer, { access: 'public', contentType: mediaType });
   return url;
+}
+
+async function saveMapArtifact(
+  base64: string,
+  mediaType: string,
+  name: string | undefined,
+  collectionId: string | undefined,
+  sessionId: string | undefined,
+  prompt: string,
+): Promise<{ src: string; locationId?: string; artifactId?: string }> {
+  const locationId = collectionId && sessionId ? randomUUID() : undefined;
+  const src = await uploadImageToBlob(base64, mediaType, name, collectionId, locationId);
+  if (collectionId && sessionId && locationId) {
+    await createLocation({ id: locationId, collectionId, sessionId, name: name ?? 'Encounter Map' });
+    const artifact = await createArtifact(locationId, { blobUrl: src, prompt, mediaType });
+    return { src, locationId, artifactId: artifact.id };
+  }
+  return { src };
 }
 
 export function createGenerateNarrativeDescription(collection?: Collection) {
@@ -130,43 +159,46 @@ export const generateMapName = tool({
   },
 });
 
-export const generateEncounterMap = tool({
-  description: 'Generate a tactical D&D encounter map image from an enhanced prompt',
-  inputSchema: z.object({
-    enhancedPrompt: z.string().describe('The enhanced image generation prompt from createEnhanceMapPrompt'),
-    name: z.string().optional().describe('The location name from generateMapName'),
-    collectionId: z.string().optional().describe('The active collection ID to tag this image'),
-  }),
-  toModelOutput: ({ output }: { output: unknown }) => {
-    const o = safeJsonParse(output);
-    if (isImageOutput(o)) return { type: 'text' as const, value: `Map generated: ${o.label}` };
-    return { type: 'text' as const, value: String(output) };
-  },
-  execute: async ({ enhancedPrompt, name, collectionId }) => {
-    try {
-      const result = await generateImage({
-        model: vertex.image(IMAGEN_MODEL),
-        prompt: enhancedPrompt,
-        aspectRatio: '4:3',
-        providerOptions: {
-          vertex: {
-            negativePrompt: NEGATIVE_PROMPT,
-            personGeneration: 'dont_allow',
+export function createGenerateEncounterMap(sessionId?: string) {
+  return tool({
+    description: 'Generate a tactical D&D encounter map image from an enhanced prompt',
+    inputSchema: z.object({
+      enhancedPrompt: z.string().describe('The enhanced image generation prompt from createEnhanceMapPrompt'),
+      name: z.string().optional().describe('The location name from generateMapName'),
+      collectionId: z.string().optional().describe('The active collection ID to tag this image'),
+    }),
+    toModelOutput: ({ output }: { output: unknown }) => {
+      const o = safeJsonParse(output);
+      if (isImageOutput(o)) return { type: 'text' as const, value: `Map generated: ${o.label}` };
+      return { type: 'text' as const, value: String(output) };
+    },
+    execute: async ({ enhancedPrompt, name, collectionId }) => {
+      try {
+        const result = await generateImage({
+          model: vertex.image(IMAGEN_MODEL),
+          prompt: enhancedPrompt,
+          aspectRatio: '4:3',
+          providerOptions: {
+            vertex: {
+              negativePrompt: NEGATIVE_PROMPT,
+              personGeneration: 'dont_allow',
+            },
           },
-        },
-      });
+        });
 
-      const image = result.image;
-      const src = await uploadImageToBlob(image.base64, image.mediaType, name);
+        const image = result.image;
+        const { src, locationId, artifactId } = await saveMapArtifact(
+          image.base64, image.mediaType, name, collectionId, sessionId, enhancedPrompt,
+        );
+        return JSON.stringify({ type: 'image', src, label: name ?? 'Encounter Map', collectionId, locationId, artifactId, prompt: enhancedPrompt });
+      } catch (err) {
+        return `[Encounter map error] ${err instanceof Error ? err.message : String(err)}`;
+      }
+    },
+  });
+}
 
-      return JSON.stringify({ type: 'image', src, label: name ?? 'Encounter Map', collectionId, prompt: enhancedPrompt });
-    } catch (err) {
-      return `[Encounter map error] ${err instanceof Error ? err.message : String(err)}`;
-    }
-  },
-});
-
-export function createGenerateCollectionMap() {
+export function createGenerateCollectionMap(sessionId?: string) {
   return tool({
     description:
       'Generate a D&D tactical map that visually matches existing maps in the collection. ' +
@@ -213,8 +245,10 @@ export function createGenerateCollectionMap() {
         const imgFile = result.files?.find((f) => f.mediaType.startsWith('image/'));
         if (!imgFile) return '[Collection map] Image generation returned no image.';
 
-        const src = await uploadImageToBlob(imgFile.base64, imgFile.mediaType, name);
-        return JSON.stringify({ type: 'image', src, label: name ?? 'Encounter Map', collectionId, prompt: enhancedPrompt });
+        const { src, locationId, artifactId } = await saveMapArtifact(
+          imgFile.base64, imgFile.mediaType, name, collectionId, sessionId, enhancedPrompt,
+        );
+        return JSON.stringify({ type: 'image', src, label: name ?? 'Encounter Map', collectionId, locationId, artifactId, prompt: enhancedPrompt });
       } catch (err) {
         return `[Collection map error] ${err instanceof Error ? err.message : String(err)}`;
       }
