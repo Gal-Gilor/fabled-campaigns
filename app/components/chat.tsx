@@ -2,15 +2,27 @@
 
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport, isToolUIPart, getToolName, UIMessage } from 'ai';
-import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
+import { useState, useRef, useEffect, useCallback, useMemo, memo, useLayoutEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { CHAT_API_PATH } from '../lib/config';
 import { ChatSession as Session } from '@/db';
+import type { DbCollection, DbLocation } from '@/db';
 import { safeJsonParse, isImageOutput, ImageOutput } from '../lib/messageUtils';
 import type { Collection } from '../lib/collections';
 import { useSessionContext } from './session-context';
 import { useSession } from 'next-auth/react';
-import { VALID_TERRAINS, VALID_SETTINGS } from '../lib/mapPrompts';
+import { VALID_TERRAINS, VALID_SETTINGS, type Terrain, type Setting } from '../lib/mapPrompts';
+
+function toCollection(db: DbCollection): Collection {
+  return {
+    id: db.id,
+    name: db.name,
+    terrain: (db.terrain as Terrain | undefined) ?? undefined,
+    setting: (db.setting as Setting | undefined) ?? undefined,
+    ambiance: db.ambiance ?? undefined,
+    visualDetails: db.visualDetails ?? undefined,
+  };
+}
 
 function extractSubAgentImage(output: unknown): ImageOutput | null {
   if (typeof output !== 'object' || output === null || !('parts' in output)) return null;
@@ -257,26 +269,30 @@ function ImageModal({
   );
 }
 
-function CollectionFolder({
+const CollectionFolder = memo(function CollectionFolder({
   collection,
   isActive,
   images,
   pills,
+  locations,
   onActivate,
   onDelete,
   onUpdate,
   onSelectImage,
   onDeleteImage,
+  onExpand,
 }: {
   collection: Collection;
   isActive: boolean;
   images: import('../lib/messageUtils').ImageOutput[];
   pills: string[];
-  onActivate: () => void;
-  onDelete: () => void;
+  locations?: DbLocation[];
+  onActivate: (id: string, isActive: boolean) => void;
+  onDelete: (id: string) => void;
   onUpdate: (updated: Collection) => void;
   onSelectImage: (img: ImageOutput) => void;
   onDeleteImage: (src: string) => void;
+  onExpand?: (id: string) => void;
 }) {
   const [open, setOpen] = useState(images.length > 0);
   const [editing, setEditing] = useState(collection.name === 'New Collection');
@@ -284,6 +300,12 @@ function CollectionFolder({
   useEffect(() => {
     if (images.length > 0) setOpen(true);
   }, [images.length]);
+
+  const onExpandRef = useRef(onExpand);
+  useLayoutEffect(() => { onExpandRef.current = onExpand; });
+  useEffect(() => {
+    if (open) onExpandRef.current?.(collection.id);
+  }, [open, collection.id]);
   const [draft, setDraft] = useState<Collection>({ ...collection });
   const AMBIANCE_LABELS = ['Golden twilight', 'Cold moonlight', 'Torchlit', 'Harsh midday', 'Misty dawn', 'Eerie glow', 'Deep night', 'Stormy overcast'];
 
@@ -306,7 +328,7 @@ function CollectionFolder({
       }}
     >
       {/* Row header */}
-      <div className="flex items-center gap-2 px-2.5 py-2 cursor-pointer" onClick={onActivate}>
+      <div className="flex items-center gap-2 px-2.5 py-2 cursor-pointer" onClick={() => onActivate(collection.id, isActive)}>
         <span
           className="flex-shrink-0 rounded-full"
           style={{
@@ -338,7 +360,7 @@ function CollectionFolder({
           <button className="text-xs rounded px-1" style={{ color: 'var(--neutral-600)' }}
             onClick={(e) => { e.stopPropagation(); setOpen((o) => !o); }} title="Toggle">{open ? '▼' : '▶'}</button>
           <button className="text-xs rounded px-1" style={{ color: '#dc2626' }}
-            onClick={(e) => { e.stopPropagation(); onDelete(); }} title="Delete">✕</button>
+            onClick={(e) => { e.stopPropagation(); onDelete(collection.id); }} title="Delete">✕</button>
         </div>
       </div>
 
@@ -456,18 +478,34 @@ function CollectionFolder({
           ))}
         </div>
       )}
-      {open && images.length === 0 && (
+      {open && images.length === 0 && (!locations || locations.length === 0) && (
         <p className="text-xs px-3 pb-2" style={{ color: 'var(--neutral-600)' }}>No maps yet</p>
+      )}
+      {open && locations && locations.length > 0 && (
+        <div className="px-3 pb-2 pt-1" style={{ borderTop: '1px solid var(--neutral-200)' }}>
+          <p className="text-xs uppercase tracking-wider mb-1" style={{ color: 'var(--neutral-600)' }}>
+            Saved maps
+          </p>
+          {locations.slice(0, 5).map((loc) => (
+            <p key={loc.id} className="text-xs truncate py-0.5" style={{ color: 'var(--neutral-700)' }}>
+              {loc.name}
+            </p>
+          ))}
+          {locations.length > 5 && (
+            <p className="text-xs" style={{ color: 'var(--neutral-600)' }}>+{locations.length - 5} more</p>
+          )}
+        </div>
       )}
     </div>
   );
-}
+});
 
 export default function Chat({ initialSessionId }: ChatProps) {
   const [input, setInput] = useState('');
   const [rightSidebarOpen, setRightSidebarOpen] = useState(false);
   const [collections, setCollections] = useState<Collection[]>([]);
   const [activeCollectionId, setActiveCollectionId] = useState<string | null>(null);
+  const [locationsByCollection, setLocationsByCollection] = useState<Record<string, DbLocation[]>>({});
   const [selectedImage, setSelectedImage] = useState<ImageOutput | null>(null);
   const [deletedSrcs, setDeletedSrcs] = useState<Set<string>>(new Set());
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -475,6 +513,14 @@ export default function Chat({ initialSessionId }: ChatProps) {
   const messagesRef = useRef<UIMessage[]>([]);
   const pendingMessageRef = useRef<string | null>(null);
   const activeCollectionRef = useRef<Collection | undefined>(undefined);
+  const loadingLocationsRef = useRef<Set<string>>(new Set());
+  const [showAddMenu, setShowAddMenu] = useState(false);
+  const addMenuRef = useRef<HTMLDivElement>(null);
+  const [showExistingPicker, setShowExistingPicker] = useState(false);
+  const [allCollections, setAllCollections] = useState<Collection[]>([]);
+  const [pickerSearch, setPickerSearch] = useState('');
+  const [loadingPicker, setLoadingPicker] = useState(false);
+  const pickerRef = useRef<HTMLDivElement>(null);
 
   const { sessions, setSessions, activeSessionId, setActiveSessionId, setHandlers, openSidebar } = useSessionContext();
   const { status: authStatus } = useSession();
@@ -553,6 +599,21 @@ export default function Chat({ initialSessionId }: ChatProps) {
     if (authStatus !== 'loading') init();
   }, [authStatus, initialSessionId, setMessages, setSessions, setActiveSessionId]);
 
+  useEffect(() => {
+    if (authStatus !== 'authenticated') return;
+    if (!activeSessionId) {
+      setCollections([]);
+      setLocationsByCollection({});
+      return;
+    }
+    fetch(`/api/collections?sessionId=${activeSessionId}`)
+      .then((r) => r.json())
+      .then((data: DbCollection[]) => {
+        if (Array.isArray(data)) setCollections(data.map(toCollection));
+      })
+      .catch(() => {});
+  }, [authStatus, activeSessionId]);
+
   // Persist messages when a response completes
   useEffect(() => {
     const id = activeSessionIdRef.current;
@@ -585,6 +646,127 @@ export default function Chat({ initialSessionId }: ChatProps) {
     if (!id || current.length === 0) return;
     await persistMessages(id, current);
   }, [persistMessages]);
+
+  const fetchLocations = useCallback(async (collectionId: string) => {
+    if (loadingLocationsRef.current.has(collectionId)) return;
+    loadingLocationsRef.current.add(collectionId);
+    try {
+      const res = await fetch(`/api/collections/${collectionId}/locations?sessionId=${activeSessionIdRef.current ?? ''}`);
+      const locs: DbLocation[] = await res.json();
+      setLocationsByCollection((prev) => ({ ...prev, [collectionId]: Array.isArray(locs) ? locs : [] }));
+    } catch {
+      loadingLocationsRef.current.delete(collectionId);
+    }
+  }, []);
+
+  const handleAddCollection = useCallback(async () => {
+    if (authStatus === 'authenticated') {
+      const col: DbCollection = await fetch('/api/collections', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: 'New Collection', sessionId: activeSessionId }),
+      }).then((r) => r.json());
+      if (col?.id) {
+        setCollections((prev) => [...prev, toCollection(col)]);
+        setActiveCollectionId(col.id);
+      }
+    } else {
+      const id = crypto.randomUUID();
+      setCollections((prev) => [...prev, { id, name: 'New Collection' }]);
+      setActiveCollectionId(id);
+    }
+  }, [authStatus, activeSessionId]);
+
+  const handleOpenPicker = useCallback(async () => {
+    setShowAddMenu(false);
+    setPickerSearch('');
+    setLoadingPicker(true);
+    setShowExistingPicker(true);
+    try {
+      const res = await fetch(`/api/collections/all?excludeSessionId=${activeSessionIdRef.current ?? ''}`);
+      const data: DbCollection[] = await res.json();
+      setAllCollections(Array.isArray(data) ? data.map(toCollection) : []);
+    } catch {
+      setAllCollections([]);
+    } finally {
+      setLoadingPicker(false);
+    }
+  }, []);
+
+  const handleLinkCollection = useCallback(async (collectionId: string) => {
+    if (!activeSessionIdRef.current) return;
+    setShowExistingPicker(false);
+    try {
+      const res = await fetch(`/api/collections/${collectionId}/sessions`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sessionId: activeSessionIdRef.current }),
+      });
+      if (!res.ok) throw new Error(`Failed to link collection: ${res.status}`);
+      const linked: DbCollection = await res.json();
+      if (linked?.id) {
+        setCollections((prev) => [...prev, toCollection(linked)]);
+        setActiveCollectionId(linked.id);
+      }
+    } catch (err) {
+      console.error('Failed to add collection to session:', err);
+    }
+  }, []);
+
+  const handleUpdateCollection = useCallback(async (updated: Collection) => {
+    setCollections((prev) => prev.map((c) => (c.id === updated.id ? updated : c)));
+    if (authStatus === 'authenticated') {
+      await fetch(`/api/collections/${updated.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: updated.name,
+          terrain: updated.terrain ?? null,
+          setting: updated.setting ?? null,
+          ambiance: updated.ambiance ?? null,
+          visualDetails: updated.visualDetails ?? null,
+        }),
+      });
+    }
+  }, [authStatus]);
+
+  const handleDeleteCollection = useCallback(async (id: string) => {
+    if (authStatus !== 'authenticated') {
+      setCollections((prev) => prev.filter((c) => c.id !== id));
+      if (activeCollectionId === id) setActiveCollectionId(null);
+      return;
+    }
+
+    const res = await fetch(`/api/collections/${id}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ sessionId: activeSessionId, confirmed: false }),
+    });
+    const data = await res.json() as { deleted: boolean; reason?: string };
+
+    if (data.reason === 'removed_from_session') {
+      setCollections((prev) => prev.filter((c) => c.id !== id));
+      if (activeCollectionId === id) setActiveCollectionId(null);
+      return;
+    }
+
+    if (data.reason === 'requires_confirmation') {
+      if (!window.confirm('Delete this collection and all its saved maps permanently?')) return;
+      await fetch(`/api/collections/${id}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sessionId: activeSessionId, confirmed: true }),
+      });
+      setCollections((prev) => prev.filter((c) => c.id !== id));
+      if (activeCollectionId === id) setActiveCollectionId(null);
+      return;
+    }
+
+    if (data.deleted) {
+      setCollections((prev) => prev.filter((c) => c.id !== id));
+      if (activeCollectionId === id) setActiveCollectionId(null);
+    }
+  }, [authStatus, activeCollectionId, activeSessionId]);
 
   const handleSelectSession = useCallback(
     async (id: string) => {
@@ -699,22 +881,54 @@ export default function Chat({ initialSessionId }: ChatProps) {
     return () => setHandlers(null);
   }, [handleNewSession, handleSelectSession, handleDeleteSession, handleRenameSession, handleStarSession, setHandlers]);
 
-  const collectionImages = messages.flatMap((msg) =>
-    msg.parts
-      .filter(isToolUIPart)
-      .filter((p) => p.state === 'output-available')
-      .flatMap((p) => {
-        const parsed = safeJsonParse(p.output);
-        if (isImageOutput(parsed)) return [parsed];
-        const img = extractSubAgentImage(p.output);
-        return img ? [img] : [];
-      })
-  ).filter((img) => !deletedSrcs.has(img.src));
+  useEffect(() => {
+    if (!showAddMenu && !showExistingPicker) return;
+    function handleClickOutside(e: MouseEvent) {
+      if (addMenuRef.current && !addMenuRef.current.contains(e.target as Node)) {
+        setShowAddMenu(false);
+      }
+      if (pickerRef.current && !pickerRef.current.contains(e.target as Node)) {
+        setShowExistingPicker(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [showAddMenu, showExistingPicker]);
 
-  function handleDeleteImage(src: string) {
+  const collectionImages = useMemo(() =>
+    messages.flatMap((msg) =>
+      msg.parts
+        .filter(isToolUIPart)
+        .filter((p) => p.state === 'output-available')
+        .flatMap((p) => {
+          const parsed = safeJsonParse(p.output);
+          if (isImageOutput(parsed)) return [parsed];
+          const img = extractSubAgentImage(p.output);
+          return img ? [img] : [];
+        })
+    ).filter((img) => !deletedSrcs.has(img.src)),
+    [messages, deletedSrcs]
+  );
+
+  const handleDeleteImage = useCallback((src: string) => {
     setDeletedSrcs((prev) => new Set(prev).add(src));
     setSelectedImage((cur) => (cur?.src === src ? null : cur));
-  }
+  }, []);
+
+  const collectionDataMap = useMemo(() => {
+    const map = new Map<string, { folderImages: ImageOutput[]; pills: string[] }>();
+    for (const col of collections) {
+      map.set(col.id, {
+        folderImages: collectionImages.filter((img) => img.collectionId === col.id),
+        pills: [col.terrain, col.setting, col.ambiance].filter(Boolean) as string[],
+      });
+    }
+    return map;
+  }, [collections, collectionImages]);
+
+  const handleActivateCollection = useCallback((id: string, currentlyActive: boolean) => {
+    setActiveCollectionId(currentlyActive ? null : id);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -944,18 +1158,126 @@ export default function Chat({ initialSessionId }: ChatProps) {
               <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--neutral-600)' }}>
                 Collections
               </span>
-              <button
-                onClick={() => {
-                  const id = crypto.randomUUID();
-                  setCollections((prev) => [...prev, { id, name: 'New Collection' }]);
-                  setActiveCollectionId(id);
-                }}
-                className="flex items-center justify-center w-5 h-5 rounded transition-all"
-                style={{ background: 'var(--neutral-200)', color: 'var(--neutral-600)' }}
-                title="Add collection"
-              >
-                +
-              </button>
+              <div ref={addMenuRef} className="relative">
+                <button
+                  onClick={() => setShowAddMenu((v) => !v)}
+                  className="flex items-center justify-center w-5 h-5 rounded transition-all"
+                  style={{ background: 'var(--neutral-200)', color: 'var(--neutral-600)' }}
+                  title="Add collection"
+                >
+                  +
+                </button>
+                {showAddMenu && (
+                  <div
+                    className="absolute right-0 mt-1 rounded shadow-lg z-50 min-w-max"
+                    style={{
+                      background: 'var(--surface)',
+                      border: '1px solid var(--neutral-200)',
+                      top: '100%',
+                    }}
+                  >
+                    <button
+                      onClick={() => {
+                        setShowAddMenu(false);
+                        handleAddCollection();
+                      }}
+                      className="block w-full text-left px-3 py-2 text-xs whitespace-nowrap transition-colors"
+                      style={{ color: 'var(--neutral-800)' }}
+                      onMouseEnter={(e) =>
+                        (e.currentTarget.style.background = 'var(--neutral-100)')
+                      }
+                      onMouseLeave={(e) =>
+                        (e.currentTarget.style.background = 'transparent')
+                      }
+                    >
+                      New Collection
+                    </button>
+                    {authStatus === 'authenticated' && (
+                      <button
+                        onClick={handleOpenPicker}
+                        className="block w-full text-left px-3 py-2 text-xs whitespace-nowrap transition-colors"
+                        style={{ color: 'var(--neutral-800)' }}
+                        onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-100)')}
+                        onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+                      >
+                        Add Existing…
+                      </button>
+                    )}
+                  </div>
+                )}
+                {showExistingPicker && (
+                  <div
+                    ref={pickerRef}
+                    className="absolute right-0 mt-1 rounded shadow-lg z-50"
+                    style={{
+                      background: 'var(--surface)',
+                      border: '1px solid var(--neutral-200)',
+                      top: '100%',
+                      width: '220px',
+                    }}
+                  >
+                    <div className="px-3 pt-2 pb-1">
+                      <p className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: 'var(--neutral-600)' }}>
+                        Add Existing Collection
+                      </p>
+                      <input
+                        autoFocus
+                        type="text"
+                        value={pickerSearch}
+                        onChange={(e) => setPickerSearch(e.target.value)}
+                        placeholder="Search…"
+                        className="w-full text-xs rounded px-2 py-1.5 outline-none"
+                        style={{
+                          background: 'var(--neutral-100)',
+                          border: '1px solid var(--neutral-200)',
+                          color: 'var(--neutral-800)',
+                        }}
+                      />
+                    </div>
+                    <div className="overflow-y-auto max-h-48 pb-1">
+                      {loadingPicker ? (
+                        <p className="text-xs px-3 py-2" style={{ color: 'var(--neutral-500)' }}>Loading…</p>
+                      ) : allCollections.filter((c) =>
+                          c.name.toLowerCase().includes(pickerSearch.toLowerCase())
+                        ).length === 0 ? (
+                        <p className="text-xs px-3 py-2" style={{ color: 'var(--neutral-500)' }}>
+                          {pickerSearch ? 'No matches' : 'No other collections'}
+                        </p>
+                      ) : (
+                        allCollections
+                          .filter((c) => c.name.toLowerCase().includes(pickerSearch.toLowerCase()))
+                          .map((c) => (
+                            <button
+                              key={c.id}
+                              onClick={() => handleLinkCollection(c.id)}
+                              className="block w-full text-left px-3 py-2 transition-colors"
+                              onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-100)')}
+                              onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+                            >
+                              <p className="text-xs font-semibold truncate" style={{ color: 'var(--neutral-900)', fontFamily: 'var(--font-cinzel), serif' }}>
+                                {c.name}
+                              </p>
+                              {(c.terrain || c.setting) && (
+                                <div className="flex gap-1 mt-0.5 flex-wrap">
+                                  {c.terrain && (
+                                    <span className="text-xs rounded px-1.5 py-px" style={{ background: 'var(--neutral-100)', color: 'var(--neutral-600)', border: '1px solid var(--neutral-200)' }}>
+                                      {c.terrain}
+                                    </span>
+                                  )}
+                                  {c.setting && (
+                                    <span className="text-xs rounded px-1.5 py-px" style={{ background: 'var(--neutral-100)', color: 'var(--neutral-600)', border: '1px solid var(--neutral-200)' }}>
+                                      {c.setting}
+                                    </span>
+                                  )}
+                                </div>
+                              )}
+                            </button>
+                          ))
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Collection folders */}
@@ -967,8 +1289,7 @@ export default function Chat({ initialSessionId }: ChatProps) {
               <div className="flex flex-col gap-1 p-2">
                 {collections.map((col) => {
                   const isActive = col.id === activeCollectionId;
-                  const folderImages = collectionImages.filter((img) => img.collectionId === col.id);
-                  const pills = [col.terrain, col.setting, col.ambiance].filter(Boolean) as string[];
+                  const { folderImages = [], pills = [] } = collectionDataMap.get(col.id) ?? {};
                   return (
                     <CollectionFolder
                       key={col.id}
@@ -976,16 +1297,13 @@ export default function Chat({ initialSessionId }: ChatProps) {
                       isActive={isActive}
                       images={folderImages}
                       pills={pills}
-                      onActivate={() => setActiveCollectionId(isActive ? null : col.id)}
-                      onDelete={() => {
-                        setCollections((prev) => prev.filter((c) => c.id !== col.id));
-                        if (activeCollectionId === col.id) setActiveCollectionId(null);
-                      }}
-                      onUpdate={(updated) =>
-                        setCollections((prev) => prev.map((c) => (c.id === updated.id ? updated : c)))
-                      }
+                      locations={locationsByCollection[col.id]}
+                      onActivate={handleActivateCollection}
+                      onDelete={handleDeleteCollection}
+                      onUpdate={handleUpdateCollection}
                       onSelectImage={setSelectedImage}
                       onDeleteImage={handleDeleteImage}
+                      onExpand={fetchLocations}
                     />
                   );
                 })}
