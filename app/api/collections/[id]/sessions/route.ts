@@ -9,10 +9,9 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
   const { sessionId } = await req.json() as { sessionId?: string };
   if (!sessionId?.trim()) return NextResponse.json({ error: 'sessionId is required' }, { status: 400 });
 
-  await linkCollectionToSession(id, sessionId);
-
   const collection = await getCollectionById(session.user.id, id);
   if (!collection) return NextResponse.json({ error: 'Not found' }, { status: 404 });
 
+  await linkCollectionToSession(id, sessionId);
   return NextResponse.json(collection);
 }
