@@ -71,6 +71,7 @@ function GuestBanner() {
   if (dismissed) return null;
   return (
     <div
+      data-nosnippet
       style={{
         position: 'relative',
         background: '#fef3c7',
