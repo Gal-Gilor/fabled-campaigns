@@ -27,7 +27,7 @@ const QuestSchema = z.object({
   status: z.enum(['active', 'resolved', 'abandoned']).default('active'),
 });
 
-export const SessionMemorySchema = z.object({
+const SessionMemorySchema = z.object({
   npcs: z.array(NpcSchema).default([]),
   locations: z.array(LocationSchema).default([]),
   quests: z.array(QuestSchema).default([]),
@@ -35,7 +35,7 @@ export const SessionMemorySchema = z.object({
   notes: z.string().optional(),
 });
 
-export type SessionMemory = z.infer<typeof SessionMemorySchema>;
+type SessionMemory = z.infer<typeof SessionMemorySchema>;
 
 // ---------------------------------------------------------------------------
 // Image pruning helpers
@@ -113,10 +113,6 @@ function estimateMessageChars(message: UIMessage): number {
     }
   }
   return chars;
-}
-
-export function estimateMessageTokens(message: UIMessage): number {
-  return Math.ceil(estimateMessageChars(message) / CHARS_PER_TOKEN);
 }
 
 // ---------------------------------------------------------------------------
@@ -264,10 +260,9 @@ export async function summarize(
 // Context preparation
 // ---------------------------------------------------------------------------
 
-export interface PreparedContext {
+interface PreparedContext {
   modelMessages: ModelMessages;
   newSummary: string | null;
-  summaryUpdated: boolean;
 }
 
 export async function prepareContext(
@@ -292,7 +287,6 @@ export async function prepareContext(
     convertToModelMessages(recent),
   ]);
 
-  const summaryUpdated = newSummaryObj !== null;
   const newSummary = newSummaryObj ? JSON.stringify(newSummaryObj) : null;
   const effectiveSummary = newSummaryObj ?? parsedSummary;
 
@@ -301,8 +295,8 @@ export async function prepareContext(
       role: 'user' as const,
       content: renderMemory(effectiveSummary),
     };
-    return { modelMessages: [summaryMessage, ...modelMessages], newSummary, summaryUpdated };
+    return { modelMessages: [summaryMessage, ...modelMessages], newSummary };
   }
 
-  return { modelMessages, newSummary, summaryUpdated };
+  return { modelMessages, newSummary };
 }
