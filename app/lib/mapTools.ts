@@ -3,7 +3,7 @@ import { tool, generateText, generateImage, Output } from 'ai';
 import { put } from '@vercel/blob';
 import { randomUUID } from 'crypto';
 import { createLocation, createArtifact } from '@/db';
-import { GEMINI_MODEL, GEMINI_IMAGE_MODEL, IMAGEN_MODEL, NEGATIVE_PROMPT } from './config';
+import { GEMINI_MODEL, IMAGEN_MODEL, NEGATIVE_PROMPT } from './config';
 import { safeJsonParse, isImageOutput } from './messageUtils';
 import {
   VALID_TERRAINS,
@@ -193,64 +193,6 @@ export function createGenerateEncounterMap(sessionId?: string) {
         return JSON.stringify({ type: 'image', src, label: name ?? 'Encounter Map', collectionId, locationId, artifactId, prompt: enhancedPrompt });
       } catch (err) {
         return `[Encounter map error] ${err instanceof Error ? err.message : String(err)}`;
-      }
-    },
-  });
-}
-
-export function createGenerateCollectionMap(sessionId?: string) {
-  return tool({
-    description:
-      'Generate a D&D tactical map that visually matches existing maps in the collection. ' +
-      'Uses a reference image from the collection to maintain consistent style, lighting, and color palette.',
-    inputSchema: z.object({
-      enhancedPrompt: z.string().describe('The enhanced image generation prompt'),
-      name: z.string().optional().describe('The location name'),
-      collectionId: z.string().optional().describe('The active collection ID'),
-      referenceImageUrl: z.string().describe('URL of a prior map in this collection to match visually'),
-    }),
-    toModelOutput: ({ output }: { output: unknown }) => {
-      const o = safeJsonParse(output);
-      if (isImageOutput(o)) return { type: 'text' as const, value: `Map generated: ${o.label}` };
-      return { type: 'text' as const, value: String(output) };
-    },
-    execute: async ({ enhancedPrompt, name, collectionId, referenceImageUrl }) => {
-      try {
-        const refRes = await fetch(referenceImageUrl);
-        const refBytes = new Uint8Array(await refRes.arrayBuffer());
-        const mimeType = refRes.headers.get('content-type') ?? 'image/png';
-
-        const result = await generateText({
-          model: vertex(GEMINI_IMAGE_MODEL),
-          messages: [
-            {
-              role: 'user',
-              content: [
-                { type: 'image', image: refBytes, mediaType: mimeType },
-                {
-                  type: 'text',
-                  text:
-                    'Generate a new D&D battle map that matches the visual style, lighting, color palette, ' +
-                    'and art direction of the reference image above. Maintain this visual identity.\n\n' +
-                    enhancedPrompt,
-                },
-              ],
-            },
-          ],
-          providerOptions: {
-            vertex: { responseModalities: ['TEXT', 'IMAGE'] },
-          },
-        });
-
-        const imgFile = result.files?.find((f) => f.mediaType.startsWith('image/'));
-        if (!imgFile) return '[Collection map] Image generation returned no image.';
-
-        const { src, locationId, artifactId } = await saveMapArtifact(
-          imgFile.base64, imgFile.mediaType, name, collectionId, sessionId, enhancedPrompt,
-        );
-        return JSON.stringify({ type: 'image', src, label: name ?? 'Encounter Map', collectionId, locationId, artifactId, prompt: enhancedPrompt });
-      } catch (err) {
-        return `[Collection map error] ${err instanceof Error ? err.message : String(err)}`;
       }
     },
   });

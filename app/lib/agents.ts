@@ -5,7 +5,6 @@ import { GM_SYSTEM_PROMPT } from './prompts';
 import { gmStubTools } from './tools';
 import {
   createGenerateEncounterMap,
-  createGenerateCollectionMap,
   createGenerateNarrativeDescription,
   createEnhanceMapPrompt,
 } from './mapTools';
@@ -15,7 +14,7 @@ import { getAmbiancePromptLanguage } from './collections';
 import { vertex } from './vertexClient';
 import { safeJsonParse, isImageOutput } from './messageUtils';
 
-export function createRootAgent(activeCollection?: Collection, collectionReferenceUrl?: string, sessionId?: string) {
+export function createRootAgent(activeCollection?: Collection, sessionId?: string) {
   const collectionContext = activeCollection
     ? (() => {
         const parts: string[] = [
@@ -41,7 +40,6 @@ export function createRootAgent(activeCollection?: Collection, collectionReferen
   const generateNarrative = createGenerateNarrativeDescription(activeCollection);
   const enhanceMapPrompt = createEnhanceMapPrompt(activeCollection);
   const generateEncounterMap = createGenerateEncounterMap(sessionId);
-  const generateCollectionMap = collectionReferenceUrl ? createGenerateCollectionMap(sessionId) : null;
 
   const mapAgentTool = tool({
     description: 'Generate a D&D tactical encounter map image. Describe the scene in natural language — the tool handles image prompt engineering internally.',
@@ -70,13 +68,6 @@ export function createRootAgent(activeCollection?: Collection, collectionReferen
         { toolCallId: '', messages: [] }
       );
       const enhanced = typeof enhancedRaw === 'string' ? enhancedRaw : narrative;
-
-      if (generateCollectionMap && collectionReferenceUrl) {
-        return generateCollectionMap.execute!(
-          { enhancedPrompt: enhanced, name, collectionId, referenceImageUrl: collectionReferenceUrl },
-          { toolCallId: '', messages: [] }
-        );
-      }
 
       return generateEncounterMap.execute!(
         { enhancedPrompt: enhanced, name, collectionId },
