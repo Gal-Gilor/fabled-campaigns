@@ -37,12 +37,12 @@ export async function POST(req: Request) {
 
   const collectionReferenceUrl = findCollectionReference(messages, activeCollection?.id);
 
-  const { modelMessages, summaryUpdated, newSummary } = await prepareContext(
+  const { modelMessages, newSummary } = await prepareContext(
     messages,
     existingSummary
   );
 
-  if (summaryUpdated && sessionId && newSummary && userId) {
+  if (newSummary && sessionId && userId) {
     Promise.resolve().then(async () => {
       try {
         await updateSessionSummary(sessionId, userId, newSummary);

@@ -9,6 +9,7 @@ import { ChatSession as Session } from '@/db';
 import type { DbCollection, DbLocation } from '@/db';
 import { safeJsonParse, isImageOutput, ImageOutput } from '../lib/messageUtils';
 import type { Collection } from '../lib/collections';
+import { AMBIANCE_OPTIONS } from '../lib/collections';
 import { useSessionContext } from './session-context';
 import { useSession } from 'next-auth/react';
 import { VALID_TERRAINS, VALID_SETTINGS, type Terrain, type Setting } from '../lib/mapPrompts';
@@ -310,7 +311,6 @@ const CollectionFolder = memo(function CollectionFolder({
     if (open) onExpandRef.current?.(collection.id);
   }, [open, collection.id]);
   const [draft, setDraft] = useState<Collection>({ ...collection });
-  const AMBIANCE_LABELS = ['Golden twilight', 'Cold moonlight', 'Torchlit', 'Harsh midday', 'Misty dawn', 'Eerie glow', 'Deep night', 'Stormy overcast'];
 
   function handleSave() {
     let saved = { ...draft };
@@ -416,7 +416,7 @@ const CollectionFolder = memo(function CollectionFolder({
           <div className="mb-3">
             <label className="block text-sm uppercase tracking-wider mb-1.5" style={{ color: 'var(--neutral-600)' }}>Ambiance</label>
             <div className="flex flex-wrap gap-1.5">
-              {AMBIANCE_LABELS.map((label) => (
+              {AMBIANCE_OPTIONS.map(({ label }) => (
                 <button
                   key={label}
                   className="text-sm rounded-full px-3 py-1 transition-all"

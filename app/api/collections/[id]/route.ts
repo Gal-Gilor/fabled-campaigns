@@ -32,11 +32,9 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ id: s
     const otherCount = sessionId ? await countOtherSessionsForCollection(id, sessionId) : 0;
     if (otherCount > 0) {
       // Other sessions still use it — clean up THIS session's data only
-      if (sessionId) {
-        const blobUrls = await deleteLocationsByCollectionAndSession(id, sessionId);
-        await Promise.all(blobUrls.map((url) => del(url)));
-        await deleteCollectionSessionLink(id, sessionId);
-      }
+      const blobUrls = await deleteLocationsByCollectionAndSession(id, sessionId);
+      await Promise.all(blobUrls.map((url) => del(url)));
+      await deleteCollectionSessionLink(id, sessionId);
       return NextResponse.json({ deleted: true, reason: 'removed_from_session' });
     }
     // Only this session uses it — require confirmation before full delete
@@ -45,11 +43,9 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ id: s
 
   // confirmed: true — full delete: collect all blob URLs from artifacts table across all sessions
   const sessionIds = await getSessionIdsForCollection(id);
-  const allBlobUrls: string[] = [];
-  for (const sid of sessionIds) {
-    const urls = await deleteLocationsByCollectionAndSession(id, sid);
-    allBlobUrls.push(...urls);
-  }
+  const allBlobUrls = (
+    await Promise.all(sessionIds.map((sid) => deleteLocationsByCollectionAndSession(id, sid)))
+  ).flat();
   await Promise.all(allBlobUrls.map((url) => del(url)));
   await deleteCollection(id, session.user.id);
   return NextResponse.json({ deleted: true });
