@@ -1,5 +1,4 @@
 export const GEMINI_MODEL = 'gemini-2.5-flash';
-// Reserved for the upcoming image-editing tool.
 export const GEMINI_IMAGE_MODEL = 'gemini-2.5-flash-image';
 export const IMAGEN_MODEL = 'imagen-3.0-generate-002';
 export const CHAT_API_PATH = '/api/chat';

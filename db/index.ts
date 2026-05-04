@@ -411,6 +411,7 @@ export interface DbArtifact {
   blobUrl: string;
   prompt: string | null;
   mediaType: string | null;
+  parentArtifactId: string | null;
   createdAt: number;
 }
 
@@ -420,6 +421,7 @@ type RawArtifact = {
   blob_url: string;
   prompt: string | null;
   media_type: string | null;
+  parent_artifact_id: string | null;
   created_at: number;
 };
 
@@ -430,19 +432,20 @@ function serializeArtifact(row: RawArtifact): DbArtifact {
     blobUrl: row.blob_url,
     prompt: row.prompt,
     mediaType: row.media_type,
+    parentArtifactId: row.parent_artifact_id,
     createdAt: row.created_at,
   };
 }
 
 export async function createArtifact(
   locationId: string,
-  data: { blobUrl: string; prompt?: string; mediaType?: string }
+  data: { blobUrl: string; prompt?: string; mediaType?: string; parentArtifactId?: string }
 ): Promise<DbArtifact> {
   const id = crypto.randomUUID();
   const now = Date.now();
   const rows = await sql`
-    INSERT INTO artifacts (id, location_id, blob_url, prompt, media_type, created_at)
-    VALUES (${id}, ${locationId}, ${data.blobUrl}, ${data.prompt ?? null}, ${data.mediaType ?? null}, ${now})
+    INSERT INTO artifacts (id, location_id, blob_url, prompt, media_type, parent_artifact_id, created_at)
+    VALUES (${id}, ${locationId}, ${data.blobUrl}, ${data.prompt ?? null}, ${data.mediaType ?? null}, ${data.parentArtifactId ?? null}, ${now})
     RETURNING *
   `;
   return serializeArtifact((rows as RawArtifact[])[0]);
@@ -450,4 +453,76 @@ export async function createArtifact(
 
 export async function deleteArtifact(id: string): Promise<void> {
   await sql`DELETE FROM artifacts WHERE id = ${id}`;
+}
+
+export interface ArtifactWithContext {
+  artifact: DbArtifact;
+  location: DbLocation;
+  collection: DbCollection;
+}
+
+export async function getArtifactWithContext(artifactId: string): Promise<ArtifactWithContext | null> {
+  const rows = await sql`
+    SELECT
+      a.id              AS a_id,
+      a.location_id     AS a_location_id,
+      a.blob_url        AS a_blob_url,
+      a.prompt          AS a_prompt,
+      a.media_type      AS a_media_type,
+      a.parent_artifact_id AS a_parent_artifact_id,
+      a.created_at      AS a_created_at,
+      l.id              AS l_id,
+      l.collection_id   AS l_collection_id,
+      l.session_id      AS l_session_id,
+      l.name            AS l_name,
+      l.created_at      AS l_created_at,
+      l.updated_at      AS l_updated_at,
+      c.id              AS c_id,
+      c.user_id         AS c_user_id,
+      c.name            AS c_name,
+      c.terrain         AS c_terrain,
+      c.setting         AS c_setting,
+      c.ambiance        AS c_ambiance,
+      c.visual_details  AS c_visual_details,
+      c.created_at      AS c_created_at,
+      c.updated_at      AS c_updated_at
+    FROM artifacts a
+    JOIN locations  l ON l.id = a.location_id
+    JOIN collections c ON c.id = l.collection_id
+    WHERE a.id = ${artifactId}
+    LIMIT 1
+  `;
+  const list = rows as Record<string, unknown>[];
+  if (!list.length) return null;
+  const r = list[0];
+  return {
+    artifact: serializeArtifact({
+      id: r.a_id as string,
+      location_id: r.a_location_id as string,
+      blob_url: r.a_blob_url as string,
+      prompt: (r.a_prompt as string | null) ?? null,
+      media_type: (r.a_media_type as string | null) ?? null,
+      parent_artifact_id: (r.a_parent_artifact_id as string | null) ?? null,
+      created_at: r.a_created_at as number,
+    }),
+    location: serializeLocation({
+      id: r.l_id as string,
+      collection_id: r.l_collection_id as string,
+      session_id: (r.l_session_id as string | null) ?? null,
+      name: r.l_name as string,
+      created_at: r.l_created_at as number,
+      updated_at: r.l_updated_at as number,
+    }),
+    collection: serializeCollection({
+      id: r.c_id as string,
+      user_id: r.c_user_id as string,
+      name: r.c_name as string,
+      terrain: (r.c_terrain as string | null) ?? null,
+      setting: (r.c_setting as string | null) ?? null,
+      ambiance: (r.c_ambiance as string | null) ?? null,
+      visual_details: (r.c_visual_details as string | null) ?? null,
+      created_at: r.c_created_at as number,
+      updated_at: r.c_updated_at as number,
+    }),
+  };
 }
