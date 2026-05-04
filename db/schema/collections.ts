@@ -33,6 +33,8 @@ CREATE TABLE IF NOT EXISTS artifacts (
   created_at  BIGINT  NOT NULL
 );
 CREATE INDEX IF NOT EXISTS artifacts_location_id_idx ON artifacts(location_id);
+ALTER TABLE artifacts ADD COLUMN IF NOT EXISTS parent_artifact_id TEXT REFERENCES artifacts(id) ON DELETE SET NULL;
+CREATE INDEX IF NOT EXISTS artifacts_parent_artifact_id_idx ON artifacts(parent_artifact_id);
 
 CREATE TABLE IF NOT EXISTS collection_sessions (
   id            TEXT    PRIMARY KEY,

@@ -17,20 +17,20 @@ module.exports = {
     'no-console': 'off', // Allow console for debugging
     'prefer-const': 'error',
     'no-var': 'error',
-    
+
     // Code Style
     'indent': ['error', 2],
     'quotes': ['error', 'single'],
     'semi': ['error', 'always'],
     'comma-dangle': ['error', 'never'],
-    
+
     // Best Practices
     'eqeqeq': 'error',
     'no-eval': 'error',
     'no-implied-eval': 'error',
     'no-new-func': 'error',
     'no-script-url': 'error',
-    
+
     // Security
     'no-unsafe-finally': 'error',
     'no-unsafe-negation': 'error'
@@ -40,11 +40,11 @@ module.exports = {
     'currentMapData': 'writable',
     'SETTING_OPTIONS': 'readonly',
     'SETTING_ICONS': 'readonly',
-    
+
     // API functions
     'generateName': 'readonly',
     'generateMap': 'readonly',
-    
+
     // UI functions
     'populateSettingDropdowns': 'readonly',
     'initMapGeneration': 'readonly',
@@ -57,7 +57,7 @@ module.exports = {
     'confirmDelete': 'readonly',
     'cancelDelete': 'readonly',
     'downloadSampleMap': 'readonly',
-    
+
     // Utility functions
     'generateDefaultDescription': 'readonly'
   }

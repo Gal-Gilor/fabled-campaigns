@@ -8,6 +8,7 @@ import {
   createGenerateNarrativeDescription,
   createEnhanceMapPrompt,
 } from './mapTools';
+import { createEditEncounterMap } from './imageEditTools';
 import { VALID_TERRAINS, VALID_SETTINGS } from './mapPrompts';
 import type { Collection } from './collections';
 import { getAmbiancePromptLanguage } from './collections';
@@ -42,7 +43,7 @@ export function createRootAgent(activeCollection?: Collection, sessionId?: strin
   const generateEncounterMap = createGenerateEncounterMap(sessionId);
 
   const mapAgentTool = tool({
-    description: 'Generate a D&D tactical encounter map image. Describe the scene in natural language — the tool handles image prompt engineering internally.',
+    description: 'Generate a NEW D&D tactical encounter map image from scratch. Describe the scene in natural language — the tool handles image prompt engineering internally. Do NOT use this tool to modify an existing map; use editEncounterMap instead.',
     inputSchema: z.object({
       name: z.string().describe('An evocative D&D location name (e.g. "The Sunken Ossuary", "Thornwatch Pass")'),
       userRequest: z.string().describe('Natural language description of the map scene, features, and mood'),
@@ -84,7 +85,11 @@ export function createRootAgent(activeCollection?: Collection, sessionId?: strin
   return new ToolLoopAgent({
     model: vertex(GEMINI_MODEL),
     instructions: GM_SYSTEM_PROMPT + collectionContext,
-    tools: { ...gmStubTools, mapAgent: mapAgentTool },
+    tools: {
+      ...gmStubTools,
+      mapAgent: mapAgentTool,
+      editEncounterMap: createEditEncounterMap(),
+    },
   });
 }
 
