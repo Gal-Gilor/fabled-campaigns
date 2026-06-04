@@ -395,7 +395,7 @@ export default function Sidebar({
           {/* Sessions link — authenticated only */}
           {authStatus === 'authenticated' && (
             <Link
-              href="/sessions"
+              href="/chat/sessions"
               className="flex items-center justify-center rounded-lg p-2 transition-all"
               style={{ color: 'var(--neutral-600)' }}
               title="Sessions"
@@ -441,9 +441,9 @@ export default function Sidebar({
             >
               ← Back to Chat
             </button>
-            <span style={{ fontFamily: 'var(--font-cinzel), serif', color: '#fff', fontSize: '0.9rem', fontWeight: 600 }}>
+            <Link href="/" style={{ fontFamily: 'var(--font-cinzel), serif', color: '#fff', fontSize: '0.9rem', fontWeight: 600 }}>
               Fabled Campaigns
-            </span>
+            </Link>
           </div>
 
           {/* Desktop header — hidden on mobile */}
@@ -453,9 +453,9 @@ export default function Sidebar({
           >
             <div className="flex items-center gap-2">
               <StarIcon filled={false} size={20} />
-              <span style={{ fontFamily: 'var(--font-cinzel), serif', color: 'var(--neutral-700)', fontSize: '1.5rem', fontWeight: 600 }}>
+              <Link href="/" style={{ fontFamily: 'var(--font-cinzel), serif', color: 'var(--neutral-700)', fontSize: '1.5rem', fontWeight: 600 }}>
                 Fabled Campaigns
-              </span>
+              </Link>
             </div>
             <button
               onClick={onClose}
@@ -487,7 +487,7 @@ export default function Sidebar({
             {/* Sessions link — authenticated only */}
             {authStatus === 'authenticated' && (
               <Link
-                href="/sessions"
+                href="/chat/sessions"
                 className="flex items-center gap-2.5 w-full px-3 py-2 rounded-lg transition-all"
                 style={{ color: 'var(--neutral-700)' }}
                 onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-100)')}

@@ -38,7 +38,6 @@ export default function SessionsPage() {
       .then((d) => setSessions(d.sessions ?? []));
   }, []);
 
-  // Close menu on outside click
   useEffect(() => {
     if (!openMenuId) return;
     function onMouseDown(e: MouseEvent) {
@@ -108,14 +107,12 @@ export default function SessionsPage() {
             className="group relative flex items-center border-b"
             style={{ borderColor: 'var(--neutral-200)' }}
           >
-            {/* Star indicator */}
             {session.starred ? (
               <span className="mr-2 flex-shrink-0" style={{ color: 'var(--accent-gold)' }}>
                 <StarIcon filled />
               </span>
             ) : null}
 
-            {/* Name / inline rename */}
             {renamingId === session.id ? (
               <div className="flex-1 py-5">
                 <input
@@ -138,7 +135,7 @@ export default function SessionsPage() {
               </div>
             ) : (
               <a
-                href={`/?session=${session.id}`}
+                href={`/chat?session=${session.id}`}
                 className="flex-1 py-5 flex flex-col gap-1 transition-all"
                 style={{ color: 'inherit', textDecoration: 'none' }}
               >
@@ -154,7 +151,6 @@ export default function SessionsPage() {
               </a>
             )}
 
-            {/* Ellipsis button + dropdown */}
             <div className="relative flex-shrink-0" ref={openMenuId === session.id ? menuRef : undefined}>
               <button
                 className="opacity-0 group-hover:opacity-100 w-8 h-8 flex items-center justify-center rounded-lg transition-all text-lg"
@@ -180,7 +176,6 @@ export default function SessionsPage() {
                     border: '1px solid var(--neutral-200)',
                   }}
                 >
-                  {/* Rename */}
                   <button
                     className="flex items-center gap-2 w-full px-3 py-2 text-sm text-left transition-all"
                     style={{ color: 'var(--neutral-700)' }}
@@ -199,7 +194,6 @@ export default function SessionsPage() {
                     Rename
                   </button>
 
-                  {/* Star / Unstar */}
                   <button
                     className="flex items-center gap-2 w-full px-3 py-2 text-sm text-left transition-all"
                     style={{ color: 'var(--neutral-700)' }}
@@ -216,7 +210,6 @@ export default function SessionsPage() {
                     {session.starred ? 'Unstar' : 'Star'}
                   </button>
 
-                  {/* Delete */}
                   <button
                     className="flex items-center gap-2 w-full px-3 py-2 text-sm text-left transition-all"
                     style={{ color: '#dc2626' }}
@@ -242,7 +235,6 @@ export default function SessionsPage() {
         ))}
       </div>
 
-      {/* Confirmation dialog */}
       {confirmDeleteId && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center"
@@ -259,7 +251,6 @@ export default function SessionsPage() {
               <button
                 className="px-4 py-2 rounded-lg text-sm font-medium transition-all"
                 style={{ background: 'var(--neutral-200)', color: 'var(--neutral-700)' }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-200)')}
                 onClick={() => setConfirmDeleteId(null)}
               >
                 Cancel
