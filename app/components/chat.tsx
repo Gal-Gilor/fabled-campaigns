@@ -960,7 +960,7 @@ export default function Chat({ initialSessionId }: ChatProps) {
           style={{
             borderColor: 'var(--neutral-200)',
             backgroundImage:
-              'linear-gradient(135deg, rgba(219,234,254,0.70) 0%, rgba(248,250,252,0.65) 100%), url(/images/hero/hero-bg.webp)',
+              'linear-gradient(135deg, rgba(219,234,254,0.70) 0%, rgba(248,250,252,0.65) 100%), url(/images/features/chart-realm.webp)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}

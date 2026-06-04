@@ -27,11 +27,11 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       .then((r) => r.json())
       .then((d) => d.session);
     setSessions((prev) => [session, ...prev]);
-    router.push(`/?session=${session.id}`);
+    router.push(`/chat?session=${session.id}`);
   }, [router]);
 
   const fallbackSelectSession = useCallback((id: string) => {
-    router.push(`/?session=${id}`);
+    router.push(`/chat?session=${id}`);
   }, [router]);
 
   return (

@@ -43,21 +43,13 @@ export const metadata: Metadata = {
     siteName: "Fabled Campaigns",
     url: "https://fabled-campaigns.vercel.app",
     type: "website",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Fabled Campaigns — AI Dungeon Master guide for tabletop RPGs",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Fabled Campaigns",
     description:
       "Your AI Dungeon Master guide. Manage sessions, homebrew campaigns, encounters, characters, and roll to quest.",
-    images: ["/og-image.png"],
+    images: ['/opengraph-image'],
   },
 };
 

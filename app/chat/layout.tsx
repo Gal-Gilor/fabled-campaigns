@@ -1,5 +1,5 @@
 import AppShell from '../components/app-shell';
 
-export default function MainLayout({ children }: { children: React.ReactNode }) {
+export default function ChatLayout({ children }: { children: React.ReactNode }) {
   return <AppShell>{children}</AppShell>;
 }
