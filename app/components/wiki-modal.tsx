@@ -39,6 +39,9 @@ export default function WikiModal({ isOpen, onClose }: WikiModalProps) {
       onClick={onClose}
     >
       <div
+        role="dialog"
+        aria-modal="true"
+        aria-label="Wiki"
         style={{
           background: '#fff',
           borderRadius: '0.75rem',
