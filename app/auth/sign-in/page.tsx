@@ -1,4 +1,10 @@
+import type { Metadata } from 'next';
 import { signIn } from '@/auth';
+
+// Utility page — no search value; keep it unindexed.
+export const metadata: Metadata = {
+  robots: { index: false, follow: true },
+};
 
 export default function SignInPage() {
   return (
