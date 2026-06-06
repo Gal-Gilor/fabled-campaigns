@@ -207,18 +207,6 @@ export default async function LandingPage() {
               </p>
             </div>
           </div>
-          <div
-            className="mt-10 pt-6 text-center"
-            style={{ borderTop: '1px solid var(--neutral-200)' }}
-          >
-            <Link
-              href="/wiki"
-              className="text-sm transition-opacity hover:opacity-75"
-              style={{ color: 'var(--primary-blue)' }}
-            >
-              Browse the wiki →
-            </Link>
-          </div>
         </section>
 
         {/* FAQ */}
@@ -244,6 +232,18 @@ export default async function LandingPage() {
                 <p style={{ color: 'var(--neutral-700)' }}>{a}</p>
               </div>
             ))}
+          </div>
+          <div
+            className="mt-8 pt-6 text-center"
+            style={{ borderTop: '1px solid var(--neutral-200)' }}
+          >
+            <Link
+              href="/wiki"
+              className="text-sm transition-opacity hover:opacity-75"
+              style={{ color: 'var(--primary-blue)' }}
+            >
+              Wiki
+            </Link>
           </div>
         </section>
 
