@@ -65,6 +65,7 @@ export function WikiBrowser<T extends { slug: string }>({
                 placeholder={`Search by ${filter.label.toLowerCase()}...`}
                 value={value}
                 onChange={(e) => updateParam(filter.key, e.target.value)}
+                aria-label={`Search by ${filter.label.toLowerCase()}`}
                 style={{
                   padding: '0.5rem 0.75rem',
                   border: '1px solid var(--neutral-200)',
@@ -72,7 +73,6 @@ export function WikiBrowser<T extends { slug: string }>({
                   fontSize: '0.875rem',
                   color: 'var(--neutral-700)',
                   minWidth: '200px',
-                  outline: 'none',
                 }}
               />
             );
@@ -91,8 +91,8 @@ export function WikiBrowser<T extends { slug: string }>({
                 background: '#fff',
               }}
             >
-              <option value="">All {filter.label}s</option>
-              {filter.options?.map((opt) => (
+              <option value="">All {filter.pluralLabel ?? `${filter.label}s`}</option>
+              {filter.options.map((opt) => (
                 <option key={opt} value={opt}>
                   {opt}
                 </option>

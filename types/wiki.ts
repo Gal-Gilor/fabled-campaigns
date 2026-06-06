@@ -35,10 +35,19 @@ export type Monster = {
   body: string;
 };
 
-export type FilterConfig<T> = {
-  key: string;
-  label: string;
-  type: 'search' | 'select';
-  getValue: (item: T) => string;
-  options?: string[];
-};
+export type FilterConfig<T> =
+  | {
+      key: string;
+      label: string;
+      pluralLabel?: string;
+      type: 'search';
+      getValue: (item: T) => string;
+    }
+  | {
+      key: string;
+      label: string;
+      pluralLabel?: string;
+      type: 'select';
+      getValue: (item: T) => string;
+      options: string[];
+    };
