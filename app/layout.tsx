@@ -20,9 +20,6 @@ export const metadata: Metadata = {
   title: "Fabled Campaigns",
   description:
     "Your AI Dungeon Master guide. Manage sessions, homebrew campaigns, encounters, characters, and roll to quest.",
-  alternates: {
-    canonical: "/",
-  },
   manifest: "/favicon/site.webmanifest",
   icons: {
     icon: [
