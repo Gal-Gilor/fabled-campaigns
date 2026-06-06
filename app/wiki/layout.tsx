@@ -6,7 +6,11 @@ export default function WikiLayout({ children }: { children: React.ReactNode }) 
   const [isEmbedded, setIsEmbedded] = useState(true);
 
   useEffect(() => {
-    setIsEmbedded(window.self !== window.top);
+    try {
+      setIsEmbedded(window.self !== window.top);
+    } catch {
+      setIsEmbedded(true);
+    }
   }, []);
 
   return (
