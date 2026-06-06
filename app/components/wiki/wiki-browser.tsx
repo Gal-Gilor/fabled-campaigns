@@ -82,6 +82,7 @@ export function WikiBrowser<T extends { slug: string }>({
               key={filter.key}
               value={value}
               onChange={(e) => updateParam(filter.key, e.target.value)}
+              aria-label={`Filter by ${filter.label.toLowerCase()}`}
               style={{
                 padding: '0.5rem 0.75rem',
                 border: '1px solid var(--neutral-200)',
