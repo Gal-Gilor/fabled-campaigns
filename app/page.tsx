@@ -96,12 +96,13 @@ export default async function LandingPage() {
         className="flex items-center justify-between px-6 py-4"
         style={{ borderBottom: '1px solid var(--neutral-200)' }}
       >
-        <span
-          className="text-sm font-semibold"
+        <Link
+          href="/"
+          className="text-sm font-semibold transition-opacity hover:opacity-75"
           style={{ fontFamily: 'var(--font-cinzel), serif', color: 'var(--neutral-900)' }}
         >
           Fabled Campaigns
-        </span>
+        </Link>
         <Link
           href="/wiki"
           className="text-sm transition-opacity hover:opacity-75"
