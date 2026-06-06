@@ -17,6 +17,7 @@ interface SidebarProps {
   onDeleteSession: (id: string) => void;
   onRenameSession: (id: string, name: string) => void;
   onStarSession: (id: string, starred: boolean) => void;
+  onWikiOpen?: () => void;
 }
 
 function formatDate(ts: number): string {
@@ -284,6 +285,7 @@ export default function Sidebar({
   onDeleteSession,
   onRenameSession,
   onStarSession,
+  onWikiOpen,
 }: SidebarProps) {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editingName, setEditingName] = useState('');
@@ -409,21 +411,39 @@ export default function Sidebar({
             </Link>
           )}
 
-          <Link
-            href="/wiki"
-            className="flex items-center justify-center rounded-lg p-2 transition-all"
-            style={{ color: 'var(--neutral-600)' }}
-            title="Wiki"
-            onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-100)')}
-            onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
-          >
-            <svg width="17" height="17" viewBox="0 0 16 16" fill="none">
-              <rect x="2" y="2" width="12" height="12" rx="1" stroke="currentColor" strokeWidth="1.25"/>
-              <line x1="5" y1="5.5" x2="11" y2="5.5" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round"/>
-              <line x1="5" y1="8" x2="11" y2="8" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round"/>
-              <line x1="5" y1="10.5" x2="9" y2="10.5" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round"/>
-            </svg>
-          </Link>
+          {authStatus === 'authenticated' && onWikiOpen ? (
+            <button
+              onClick={onWikiOpen}
+              className="flex items-center justify-center rounded-lg p-2 transition-all"
+              style={{ color: 'var(--neutral-600)' }}
+              title="Wiki"
+              onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-100)')}
+              onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+            >
+              <svg width="17" height="17" viewBox="0 0 16 16" fill="none">
+                <rect x="2" y="2" width="12" height="12" rx="1" stroke="currentColor" strokeWidth="1.25"/>
+                <line x1="5" y1="5.5" x2="11" y2="5.5" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round"/>
+                <line x1="5" y1="8" x2="11" y2="8" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round"/>
+                <line x1="5" y1="10.5" x2="9" y2="10.5" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round"/>
+              </svg>
+            </button>
+          ) : (
+            <Link
+              href="/wiki"
+              className="flex items-center justify-center rounded-lg p-2 transition-all"
+              style={{ color: 'var(--neutral-600)' }}
+              title="Wiki"
+              onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-100)')}
+              onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+            >
+              <svg width="17" height="17" viewBox="0 0 16 16" fill="none">
+                <rect x="2" y="2" width="12" height="12" rx="1" stroke="currentColor" strokeWidth="1.25"/>
+                <line x1="5" y1="5.5" x2="11" y2="5.5" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round"/>
+                <line x1="5" y1="8" x2="11" y2="8" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round"/>
+                <line x1="5" y1="10.5" x2="9" y2="10.5" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round"/>
+              </svg>
+            </Link>
+          )}
 
           <div style={{ flex: 1 }} />
 
@@ -517,21 +537,39 @@ export default function Sidebar({
               </Link>
             )}
 
-            <Link
-              href="/wiki"
-              className="flex items-center gap-2.5 w-full px-3 py-2 rounded-lg transition-all"
-              style={{ color: 'var(--neutral-700)' }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-100)')}
-              onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
-            >
-              <svg width="17" height="17" viewBox="0 0 16 16" fill="none">
-                <rect x="2" y="2" width="12" height="12" rx="1" stroke="currentColor" strokeWidth="1.25"/>
-                <line x1="5" y1="5.5" x2="11" y2="5.5" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round"/>
-                <line x1="5" y1="8" x2="11" y2="8" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round"/>
-                <line x1="5" y1="10.5" x2="9" y2="10.5" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round"/>
-              </svg>
-              <span style={{ fontSize: '0.94rem' }}>Wiki</span>
-            </Link>
+            {authStatus === 'authenticated' && onWikiOpen ? (
+              <button
+                onClick={onWikiOpen}
+                className="flex items-center gap-2.5 w-full px-3 py-2 rounded-lg transition-all text-left"
+                style={{ color: 'var(--neutral-700)' }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-100)')}
+                onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+              >
+                <svg width="17" height="17" viewBox="0 0 16 16" fill="none">
+                  <rect x="2" y="2" width="12" height="12" rx="1" stroke="currentColor" strokeWidth="1.25"/>
+                  <line x1="5" y1="5.5" x2="11" y2="5.5" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round"/>
+                  <line x1="5" y1="8" x2="11" y2="8" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round"/>
+                  <line x1="5" y1="10.5" x2="9" y2="10.5" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round"/>
+                </svg>
+                <span style={{ fontSize: '0.94rem' }}>Wiki</span>
+              </button>
+            ) : (
+              <Link
+                href="/wiki"
+                className="flex items-center gap-2.5 w-full px-3 py-2 rounded-lg transition-all"
+                style={{ color: 'var(--neutral-700)' }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-100)')}
+                onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+              >
+                <svg width="17" height="17" viewBox="0 0 16 16" fill="none">
+                  <rect x="2" y="2" width="12" height="12" rx="1" stroke="currentColor" strokeWidth="1.25"/>
+                  <line x1="5" y1="5.5" x2="11" y2="5.5" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round"/>
+                  <line x1="5" y1="8" x2="11" y2="8" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round"/>
+                  <line x1="5" y1="10.5" x2="9" y2="10.5" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round"/>
+                </svg>
+                <span style={{ fontSize: '0.94rem' }}>Wiki</span>
+              </Link>
+            )}
           </div>
 
           <div className="flex-1" />
