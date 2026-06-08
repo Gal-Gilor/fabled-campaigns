@@ -84,7 +84,7 @@ export function WikiBrowser<T extends { slug: string }>({
               onChange={(e) => updateParam(filter.key, e.target.value)}
               aria-label={`Filter by ${filter.label.toLowerCase()}`}
               style={{
-                flex: '1 1 auto',
+                flex: '0 0 9rem',
                 padding: '0.5rem 0.75rem',
                 border: '1px solid var(--neutral-200)',
                 borderRadius: '0.5rem',
@@ -93,7 +93,7 @@ export function WikiBrowser<T extends { slug: string }>({
                 background: '#fff',
               }}
             >
-              <option value="">All {filter.pluralLabel ?? `${filter.label}s`}</option>
+              <option value="">{filter.label}</option>
               {filter.options.map((opt) => (
                 <option key={opt} value={opt}>
                   {opt}
