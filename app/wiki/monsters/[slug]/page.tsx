@@ -6,7 +6,7 @@ import { getAllMonsters, getMonsterBySlug } from '@/app/lib/wiki';
 import { StatBlock } from '@/app/components/wiki/stat-block';
 import { MarkdownBody } from '@/app/components/wiki/markdown-body';
 
-type Props = { params: Promise<{ slug: string }> };
+type Props = { params: Promise<{ slug: string }>; searchParams: Promise<{ from?: string; q?: string }> };
 
 const BASE_URL = 'https://fabled-campaigns.vercel.app';
 
@@ -26,8 +26,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function MonsterPage({ params }: Props) {
+export default async function MonsterPage({ params, searchParams }: Props) {
   const { slug } = await params;
+  const { from, q } = await searchParams;
+  const backHref =
+    from === 'search' ? `/wiki${q ? `?search=${encodeURIComponent(q)}` : ''}` : '/wiki/monsters';
   const monster = getMonsterBySlug(slug);
   if (!monster) notFound();
 
@@ -66,6 +69,22 @@ export default async function MonsterPage({ params }: Props) {
 
         <StatBlock monster={monster} />
         <MarkdownBody content={monster.body} />
+        <nav style={{ borderTop: '1px solid var(--neutral-200)', marginTop: '2rem', paddingTop: '1.5rem', textAlign: 'center' }}>
+          <Link
+            href={backHref}
+            className="inline-block border border-neutral-200 hover:border-primary hover:shadow-md bg-white transition-all duration-150"
+            style={{
+              padding: '0.625rem 2rem',
+              borderRadius: '0.5rem',
+              color: 'var(--neutral-700)',
+              fontSize: '0.9375rem',
+              fontWeight: 500,
+              textDecoration: 'none',
+            }}
+          >
+            Back
+          </Link>
+        </nav>
       </main>
     </>
   );

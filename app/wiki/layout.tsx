@@ -16,13 +16,16 @@ export default function WikiLayout({ children }: { children: React.ReactNode }) 
   return (
     <>
       {!isEmbedded && (
-        <header style={{ borderBottom: '1px solid var(--neutral-200)', padding: '0.75rem 1.5rem' }}>
+        <header
+          className="flex items-center justify-between px-6 py-4"
+          style={{ borderBottom: '1px solid var(--neutral-200)' }}
+        >
           <Link
             href="/"
-            className="text-sm transition-opacity hover:opacity-75"
-            style={{ color: 'var(--primary-blue)' }}
+            className="font-semibold transition-opacity hover:opacity-75"
+            style={{ fontFamily: 'var(--font-cinzel), serif', color: 'var(--neutral-700)', fontSize: '1.5rem' }}
           >
-            ← Fabled Campaigns
+            Fabled Campaigns
           </Link>
         </header>
       )}

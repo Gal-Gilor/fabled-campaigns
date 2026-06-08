@@ -67,12 +67,12 @@ export function WikiBrowser<T extends { slug: string }>({
                 onChange={(e) => updateParam(filter.key, e.target.value)}
                 aria-label={`Search by ${filter.label.toLowerCase()}`}
                 style={{
+                  flex: '1 1 100%',
                   padding: '0.5rem 0.75rem',
                   border: '1px solid var(--neutral-200)',
                   borderRadius: '0.5rem',
                   fontSize: '0.875rem',
                   color: 'var(--neutral-700)',
-                  minWidth: '200px',
                 }}
               />
             );
@@ -84,6 +84,7 @@ export function WikiBrowser<T extends { slug: string }>({
               onChange={(e) => updateParam(filter.key, e.target.value)}
               aria-label={`Filter by ${filter.label.toLowerCase()}`}
               style={{
+                flex: '1 1 auto',
                 padding: '0.5rem 0.75rem',
                 border: '1px solid var(--neutral-200)',
                 borderRadius: '0.5rem',
@@ -118,11 +119,12 @@ export function WikiBrowser<T extends { slug: string }>({
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+            gridAutoRows: 'minmax(88px, auto)',
             gap: '1rem',
           }}
         >
           {filtered.map((item) => (
-            <div key={item.slug}>{renderCard(item)}</div>
+            <div key={item.slug} style={{ height: '100%' }}>{renderCard(item)}</div>
           ))}
         </div>
       )}

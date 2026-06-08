@@ -30,14 +30,11 @@ export default function MonstersPage() {
         style={{
           fontFamily: 'var(--font-cinzel), serif',
           color: 'var(--neutral-900)',
-          marginBottom: '0.25rem',
+          marginBottom: '2rem',
         }}
       >
         Monsters
       </h1>
-      <p style={{ color: 'var(--neutral-600)', marginBottom: '2rem' }}>
-        {monsters.length} creatures from the D&D 5e System Reference Document.
-      </p>
 
       <Suspense fallback={<p style={{ color: 'var(--neutral-600)' }}>Loading...</p>}>
         <MonstersBrowser monsters={monsters} types={types} crs={crs} />

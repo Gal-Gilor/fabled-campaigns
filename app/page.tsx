@@ -98,8 +98,8 @@ export default async function LandingPage() {
       >
         <Link
           href="/"
-          className="text-sm font-semibold transition-opacity hover:opacity-75"
-          style={{ fontFamily: 'var(--font-cinzel), serif', color: 'var(--neutral-900)' }}
+          className="font-semibold transition-opacity hover:opacity-75"
+          style={{ fontFamily: 'var(--font-cinzel), serif', color: 'var(--neutral-700)', fontSize: '1.5rem' }}
         >
           Fabled Campaigns
         </Link>
@@ -149,7 +149,7 @@ export default async function LandingPage() {
               className="px-6 py-3 rounded-lg text-sm font-medium transition-opacity hover:opacity-90"
               style={{ background: 'var(--primary-blue)', color: '#fff' }}
             >
-              Continue playing
+              Roll to Play
             </Link>
           ) : (
             <Link
@@ -258,7 +258,7 @@ export default async function LandingPage() {
               className="px-6 py-3 rounded-lg text-sm font-medium transition-opacity hover:opacity-90"
               style={{ background: 'var(--primary-blue)', color: '#fff' }}
             >
-              Continue playing
+              Roll to Play
             </Link>
           ) : (
             <Link
