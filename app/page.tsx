@@ -92,6 +92,25 @@ export default async function LandingPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }}
       />
+      <header
+        className="flex items-center justify-between px-6 py-4"
+        style={{ borderBottom: '1px solid var(--neutral-200)' }}
+      >
+        <Link
+          href="/"
+          className="font-semibold transition-opacity hover:opacity-75"
+          style={{ fontFamily: 'var(--font-cinzel), serif', color: 'var(--neutral-700)', fontSize: '1.5rem' }}
+        >
+          Fabled Campaigns
+        </Link>
+        <Link
+          href="/wiki"
+          className="text-sm transition-opacity hover:opacity-75"
+          style={{ color: 'var(--primary-blue)' }}
+        >
+          Wiki
+        </Link>
+      </header>
       <main>
         {/* Hero */}
         <section
@@ -130,7 +149,7 @@ export default async function LandingPage() {
               className="px-6 py-3 rounded-lg text-sm font-medium transition-opacity hover:opacity-90"
               style={{ background: 'var(--primary-blue)', color: '#fff' }}
             >
-              Continue playing
+              Roll to Play
             </Link>
           ) : (
             <Link
@@ -214,6 +233,18 @@ export default async function LandingPage() {
               </div>
             ))}
           </div>
+          <div
+            className="mt-8 pt-6 text-center"
+            style={{ borderTop: '1px solid var(--neutral-200)' }}
+          >
+            <Link
+              href="/wiki"
+              className="text-sm transition-opacity hover:opacity-75"
+              style={{ color: 'var(--primary-blue)' }}
+            >
+              Wiki
+            </Link>
+          </div>
         </section>
 
         {/* Bottom CTA */}
@@ -227,7 +258,7 @@ export default async function LandingPage() {
               className="px-6 py-3 rounded-lg text-sm font-medium transition-opacity hover:opacity-90"
               style={{ background: 'var(--primary-blue)', color: '#fff' }}
             >
-              Continue playing
+              Roll to Play
             </Link>
           ) : (
             <Link

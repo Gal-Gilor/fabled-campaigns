@@ -17,6 +17,7 @@ interface SidebarProps {
   onDeleteSession: (id: string) => void;
   onRenameSession: (id: string, name: string) => void;
   onStarSession: (id: string, starred: boolean) => void;
+  onWikiOpen?: () => void;
 }
 
 function formatDate(ts: number): string {
@@ -45,6 +46,17 @@ function ChevronIcon({ direction }: { direction: 'left' | 'right' }) {
     <svg width="16" height="12" viewBox="0 0 20 14" fill="none">
       <path d={d} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
       <line x1={lineX1} y1="7" x2={lineX2} y2="7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function WikiIcon() {
+  return (
+    <svg width="17" height="17" viewBox="0 0 16 16" fill="none">
+      <rect x="2" y="2" width="12" height="12" rx="1" stroke="currentColor" strokeWidth="1.25"/>
+      <line x1="5" y1="5.5" x2="11" y2="5.5" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round"/>
+      <line x1="5" y1="8" x2="11" y2="8" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round"/>
+      <line x1="5" y1="10.5" x2="9" y2="10.5" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round"/>
     </svg>
   );
 }
@@ -284,6 +296,7 @@ export default function Sidebar({
   onDeleteSession,
   onRenameSession,
   onStarSession,
+  onWikiOpen,
 }: SidebarProps) {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editingName, setEditingName] = useState('');
@@ -409,6 +422,30 @@ export default function Sidebar({
             </Link>
           )}
 
+          {authStatus === 'authenticated' && onWikiOpen ? (
+            <button
+              onClick={onWikiOpen}
+              className="flex items-center justify-center rounded-lg p-2 transition-all"
+              style={{ color: 'var(--neutral-600)' }}
+              title="Wiki"
+              onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-100)')}
+              onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+            >
+              <WikiIcon />
+            </button>
+          ) : (
+            <Link
+              href="/wiki"
+              className="flex items-center justify-center rounded-lg p-2 transition-all"
+              style={{ color: 'var(--neutral-600)' }}
+              title="Wiki"
+              onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-100)')}
+              onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+            >
+              <WikiIcon />
+            </Link>
+          )}
+
           <div style={{ flex: 1 }} />
 
           {/* Sign-in button — guests only */}
@@ -498,6 +535,30 @@ export default function Sidebar({
                   <path d="M6 6C6 5.44772 6.44772 5 7 5H13C13.5523 5 14 5.44772 14 6V12C14 12.5523 13.5523 13 13 13H7C6.44772 13 6 12.5523 6 12V6Z" stroke="currentColor" strokeWidth="1.25"/>
                 </svg>
                 <span style={{ fontSize: '0.94rem' }}>Sessions</span>
+              </Link>
+            )}
+
+            {authStatus === 'authenticated' && onWikiOpen ? (
+              <button
+                onClick={onWikiOpen}
+                className="flex items-center gap-2.5 w-full px-3 py-2 rounded-lg transition-all text-left"
+                style={{ color: 'var(--neutral-700)' }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-100)')}
+                onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+              >
+                <WikiIcon />
+                <span style={{ fontSize: '0.94rem' }}>Wiki</span>
+              </button>
+            ) : (
+              <Link
+                href="/wiki"
+                className="flex items-center gap-2.5 w-full px-3 py-2 rounded-lg transition-all"
+                style={{ color: 'var(--neutral-700)' }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-100)')}
+                onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+              >
+                <WikiIcon />
+                <span style={{ fontSize: '0.94rem' }}>Wiki</span>
               </Link>
             )}
           </div>

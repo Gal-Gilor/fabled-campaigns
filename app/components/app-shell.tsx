@@ -5,10 +5,12 @@ import { useSession } from 'next-auth/react';
 import { ChatSession as Session } from '@/db';
 import { SessionContext, SessionHandlers } from './session-context';
 import Sidebar from './sidebar';
+import WikiModal from './wiki-modal';
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const { status: authStatus } = useSession();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [wikiOpen, setWikiOpen] = useState(false);
   const [sessions, setSessions] = useState<Session[]>([]);
   const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
   const [handlers, setHandlers] = useState<SessionHandlers | null>(null);
@@ -50,10 +52,12 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           onDeleteSession={handlers?.onDeleteSession ?? (() => {})}
           onRenameSession={handlers?.onRenameSession ?? (() => {})}
           onStarSession={handlers?.onStarSession ?? (() => {})}
+          onWikiOpen={() => setWikiOpen(true)}
         />
         <div className="flex-1 min-w-0 flex flex-col overflow-hidden">
           {children}
         </div>
+        <WikiModal isOpen={wikiOpen} onClose={() => setWikiOpen(false)} />
       </div>
     </SessionContext.Provider>
   );

@@ -1,0 +1,19 @@
+[
+  {
+    "slug": "staff-of-the-magi",
+    "name": "Staff of the Magi",
+    "itemType": "Staff",
+    "rarity": "Legendary",
+    "requiresAttunement": true,
+    "attunementBy": "a Sorcerer, Warlock, or Wizard",
+    "body": "This staff has 50 charges and can be wielded as a magic Quarterstaff that grants a +2 bonus to attack rolls and damage rolls made with it. While you hold it, you gain a +2 bonus to spell attack rolls.\n\n**Spell Absorption.** While holding the staff, you have Advantage on saving throws against spells.\n\n**Regaining Charges.** The staff regains 4d6 + 2 expended charges daily at dawn."
+  },
+  {
+    "slug": "staff-of-the-python",
+    "name": "Staff of the Python",
+    "itemType": "Staff",
+    "rarity": "Uncommon",
+    "requiresAttunement": true,
+    "body": "As a Magic action, you can throw this staff so that it lands in an unoccupied space within 10 feet of you, causing the staff to become a Giant Constrictor Snake in that space."
+  }
+]
