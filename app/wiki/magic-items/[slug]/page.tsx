@@ -106,7 +106,7 @@ export default async function MagicItemPage({ params, searchParams }: Props) {
         </p>
 
         <MarkdownBody content={item.body} />
-        <nav style={{ borderTop: '1px solid var(--neutral-200)', marginTop: '2rem', paddingTop: '1.5rem', textAlign: 'center' }}>
+        <nav style={{ borderTop: '1px solid var(--neutral-200)', marginTop: '2rem', paddingTop: '1.5rem' }}>
           <Link
             href={backHref}
             className="inline-block border border-neutral-200 hover:border-primary hover:shadow-md bg-white transition-all duration-150"

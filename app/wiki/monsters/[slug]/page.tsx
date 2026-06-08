@@ -69,7 +69,7 @@ export default async function MonsterPage({ params, searchParams }: Props) {
 
         <StatBlock monster={monster} />
         <MarkdownBody content={monster.body} />
-        <nav style={{ borderTop: '1px solid var(--neutral-200)', marginTop: '2rem', paddingTop: '1.5rem', textAlign: 'center' }}>
+        <nav style={{ borderTop: '1px solid var(--neutral-200)', marginTop: '2rem', paddingTop: '1.5rem' }}>
           <Link
             href={backHref}
             className="inline-block border border-neutral-200 hover:border-primary hover:shadow-md bg-white transition-all duration-150"
