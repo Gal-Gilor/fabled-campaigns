@@ -41,7 +41,10 @@ const RARITY_ORDER: MagicItemRarity[] = [
   'Artifact',
 ];
 
-export function sortedRarities(items: MagicItem[]): MagicItemRarity[] {
+export function sortedRarities(items: MagicItem[]): string[] {
   const present = new Set(items.map((i) => i.rarity));
-  return RARITY_ORDER.filter((r) => present.has(r));
+  const known = RARITY_ORDER.filter((r) => present.has(r));
+  // Keep non-standard rarities (bonus-scaling, "Rarity Varies") in the filter too.
+  const extras = [...present].filter((r) => !RARITY_ORDER.includes(r as MagicItemRarity)).sort();
+  return [...known, ...extras];
 }

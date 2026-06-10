@@ -11,8 +11,11 @@ const RARITY_COLORS: Record<MagicItemRarity, { bg: string; color: string }> = {
   Artifact: { bg: '#fee2e2', color: '#dc2626' },
 };
 
+// Bonus-scaling and "Rarity Varies" items fall back to a neutral badge.
+const FALLBACK_RARITY_COLOR = { bg: 'var(--neutral-200)', color: 'var(--neutral-600)' };
+
 export function MagicItemCard({ item }: { item: MagicItem }) {
-  const colors = RARITY_COLORS[item.rarity];
+  const colors = RARITY_COLORS[item.rarity as MagicItemRarity] ?? FALLBACK_RARITY_COLOR;
   return (
     <Link
       href={`/wiki/magic-items/${item.slug}`}

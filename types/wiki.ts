@@ -1,3 +1,6 @@
+// Known single-tier rarities used for badge colors and filter ordering. The
+// `rarity` field below is a free string, because the SRD also has bonus-scaling
+// items ("Uncommon (+1), Rare (+2), or Very Rare (+3)") and "Rarity Varies" items.
 export type MagicItemRarity =
   | 'Common'
   | 'Uncommon'
@@ -10,7 +13,7 @@ export type MagicItem = {
   slug: string;
   name: string;
   itemType: string;
-  rarity: MagicItemRarity;
+  rarity: string;
   requiresAttunement: boolean;
   attunementBy?: string;
   body: string;
