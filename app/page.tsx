@@ -114,7 +114,7 @@ export default async function LandingPage() {
       <main>
         {/* Hero */}
         <section
-          className="relative flex flex-col items-center justify-center text-center px-6 py-28"
+          className="relative flex flex-col items-center justify-center text-center px-6 py-16 md:py-28"
           style={{ minHeight: '60vh' }}
         >
           <div
@@ -129,7 +129,7 @@ export default async function LandingPage() {
             aria-label="Fantasy tabletop RPG map background"
           />
           <h1
-            className="text-5xl font-semibold mb-3"
+            className="text-4xl md:text-5xl font-semibold mb-3"
             style={{ fontFamily: 'var(--font-cinzel), serif', color: 'var(--neutral-900)' }}
           >
             Fabled Campaigns
@@ -163,7 +163,7 @@ export default async function LandingPage() {
         </section>
 
         {/* Features */}
-        <section className="px-6 py-20 max-w-3xl mx-auto">
+        <section className="px-6 py-14 md:py-20 max-w-3xl mx-auto">
           <h2
             className="text-2xl font-semibold mb-10 text-center"
             style={{ fontFamily: 'var(--font-cinzel), serif', color: 'var(--neutral-900)' }}
@@ -211,7 +211,7 @@ export default async function LandingPage() {
 
         {/* FAQ */}
         <section
-          className="px-6 py-16 max-w-3xl mx-auto border-t"
+          className="px-6 py-12 md:py-16 max-w-3xl mx-auto border-t"
           style={{ borderColor: 'var(--neutral-200)' }}
         >
           <h2
@@ -249,7 +249,7 @@ export default async function LandingPage() {
 
         {/* Bottom CTA */}
         <section
-          className="text-center py-16 px-6 border-t"
+          className="text-center py-12 md:py-16 px-6 border-t"
           style={{ borderColor: 'var(--neutral-200)', background: 'var(--pale-blue)' }}
         >
           {session?.user ? (

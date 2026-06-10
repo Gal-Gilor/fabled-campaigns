@@ -48,26 +48,22 @@ export function WikiBrowser<T extends { slug: string }>({
 
   return (
     <div>
-      <div
-        style={{
-          display: 'flex',
-          gap: '0.75rem',
-          flexWrap: 'wrap',
-          marginBottom: '1.5rem',
-        }}
-      >
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
         {filters.map((filter) => {
           const value = searchParams.get(filter.key) ?? '';
           if (filter.type === 'search') {
             return (
               <input
                 key={filter.key}
+                className="sm:col-span-2"
                 placeholder={`Search by ${filter.label.toLowerCase()}...`}
                 value={value}
                 onChange={(e) => updateParam(filter.key, e.target.value)}
                 aria-label={`Search by ${filter.label.toLowerCase()}`}
                 style={{
-                  flex: '1 1 100%',
+                  width: '100%',
+                  minWidth: 0,
+                  boxSizing: 'border-box',
                   padding: '0.5rem 0.75rem',
                   border: '1px solid var(--neutral-200)',
                   borderRadius: '0.5rem',
@@ -84,7 +80,9 @@ export function WikiBrowser<T extends { slug: string }>({
               onChange={(e) => updateParam(filter.key, e.target.value)}
               aria-label={`Filter by ${filter.label.toLowerCase()}`}
               style={{
-                flex: '0 0 9rem',
+                width: '100%',
+                minWidth: 0,
+                boxSizing: 'border-box',
                 padding: '0.5rem 0.75rem',
                 border: '1px solid var(--neutral-200)',
                 borderRadius: '0.5rem',

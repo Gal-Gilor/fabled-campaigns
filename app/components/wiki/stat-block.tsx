@@ -72,9 +72,8 @@ export function StatBlock({ monster }: { monster: Monster }) {
       <hr style={{ borderColor: 'var(--accent-gold)', margin: '0.75rem 0' }} />
 
       <div
+        className="grid grid-cols-3 sm:grid-cols-6"
         style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(6, 1fr)',
           textAlign: 'center',
           fontSize: '0.875rem',
           marginBottom: '0.75rem',

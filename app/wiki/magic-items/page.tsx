@@ -30,6 +30,7 @@ export default function MagicItemsPage() {
         style={{
           fontFamily: 'var(--font-cinzel), serif',
           color: 'var(--neutral-900)',
+          fontSize: 'clamp(1.5rem, 5vw, 2rem)',
           marginBottom: '2rem',
         }}
       >
