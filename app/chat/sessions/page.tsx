@@ -85,7 +85,7 @@ export default function SessionsPage() {
 
   return (
     <div className="overflow-y-auto flex-1" style={{ background: 'var(--neutral-100)' }}>
-      <div className="py-16 pl-[180px] pr-8" style={{ maxWidth: '1080px' }}>
+      <div className="py-8 md:py-16 px-4 md:pl-[180px] md:pr-8" style={{ maxWidth: '1080px' }}>
         <h1
           className="font-semibold tracking-wide mb-6"
           style={{ fontSize: '1.4rem', fontFamily: 'var(--font-cinzel), serif', color: 'var(--neutral-900)' }}
@@ -153,7 +153,7 @@ export default function SessionsPage() {
 
             <div className="relative flex-shrink-0" ref={openMenuId === session.id ? menuRef : undefined}>
               <button
-                className="opacity-0 group-hover:opacity-100 w-8 h-8 flex items-center justify-center rounded-lg transition-all text-lg"
+                className="opacity-100 md:opacity-0 md:group-hover:opacity-100 w-8 h-8 flex items-center justify-center rounded-lg transition-all text-lg"
                 style={{ color: 'var(--neutral-400)' }}
                 onClick={(e) => {
                   e.preventDefault();

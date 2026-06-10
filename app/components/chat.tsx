@@ -187,7 +187,7 @@ function ImageThumbnail({
       <p className="text-xs px-1.5 py-1 truncate" style={{ color: 'var(--neutral-600)' }}>
         {img.label}
       </p>
-      <div className="absolute top-1 right-1 hidden group-hover:flex gap-1">
+      <div className="absolute top-1 right-1 flex md:hidden md:group-hover:flex gap-1">
         <button
           onClick={(e) => { e.stopPropagation(); onDownload(); }}
           className="w-5 h-5 rounded text-xs flex items-center justify-center"
@@ -956,7 +956,7 @@ export default function Chat({ initialSessionId }: ChatProps) {
 
         {/* Header */}
         <header
-          className="relative flex items-center gap-4 px-6 py-14 border-b"
+          className="relative flex items-center gap-4 px-4 md:px-6 py-5 md:py-14 border-b"
           style={{
             borderColor: 'var(--neutral-200)',
             backgroundImage:
@@ -1107,7 +1107,7 @@ export default function Chat({ initialSessionId }: ChatProps) {
         {/* Input */}
         <div
           className="px-4 py-4"
-          style={{ background: 'var(--neutral-100)' }}
+          style={{ background: 'var(--neutral-100)', paddingBottom: 'calc(1rem + env(safe-area-inset-bottom))' }}
         >
           <ChatInputForm
             input={input}

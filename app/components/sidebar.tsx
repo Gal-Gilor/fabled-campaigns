@@ -156,7 +156,7 @@ function SessionRow({
           onClick={(e) => e.stopPropagation()}
         >
           <button
-            className="opacity-0 group-hover:opacity-100 flex-shrink-0 text-xs w-5 h-5 flex items-center justify-center rounded transition-all mt-0.5 leading-none"
+            className="opacity-100 md:opacity-0 md:group-hover:opacity-100 flex-shrink-0 text-xs w-5 h-5 flex items-center justify-center rounded transition-all mt-0.5 leading-none"
             style={{ color: 'var(--neutral-400)', fontSize: '1rem', letterSpacing: '0.05em' }}
             onClick={() => onToggleMenu(session.id)}
             title="Session actions"
