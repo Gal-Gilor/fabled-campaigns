@@ -41,7 +41,7 @@ export function WikiBrowser<T extends { slug: string }>({
         if (filter.type === 'search') {
           return value.toLowerCase().includes(param.toLowerCase());
         }
-        return value === param;
+        return value === param || (filter.alwaysInclude?.(item) ?? false);
       })
     );
   }, [items, filters, searchParams]);

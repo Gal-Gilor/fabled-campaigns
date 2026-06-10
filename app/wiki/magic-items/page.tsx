@@ -2,7 +2,7 @@
 import { Suspense } from 'react';
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { getAllMagicItems, sortedRarities } from '@/app/lib/wiki';
+import { getMagicItemSummaries, sortedRarities } from '@/app/lib/wiki';
 import { MagicItemsBrowser } from './magic-items-browser';
 
 export const metadata: Metadata = {
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default function MagicItemsPage() {
-  const items = getAllMagicItems();
+  const items = getMagicItemSummaries();
   const rarities = sortedRarities(items);
   const types = [...new Set(items.map((i) => i.itemType))].sort();
 
