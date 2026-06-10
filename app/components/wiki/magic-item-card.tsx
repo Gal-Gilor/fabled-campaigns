@@ -1,6 +1,6 @@
 // app/components/wiki/magic-item-card.tsx
 import Link from 'next/link';
-import type { MagicItem, MagicItemRarity } from '@/types/wiki';
+import type { MagicItemSummary, MagicItemRarity } from '@/types/wiki';
 
 const RARITY_COLORS: Record<MagicItemRarity, { bg: string; color: string }> = {
   Common: { bg: 'var(--neutral-200)', color: 'var(--neutral-600)' },
@@ -12,7 +12,7 @@ const RARITY_COLORS: Record<MagicItemRarity, { bg: string; color: string }> = {
   Varies: { bg: 'var(--neutral-200)', color: 'var(--neutral-600)' },
 };
 
-export function MagicItemCard({ item }: { item: MagicItem }) {
+export function MagicItemCard({ item }: { item: MagicItemSummary }) {
   const colors = RARITY_COLORS[item.rarity];
   return (
     <Link

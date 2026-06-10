@@ -21,6 +21,10 @@ export type MagicItem = {
   body: string;
 };
 
+// Browse/listing views render cards that never read `body` (the bulk of each
+// record). Pass this lighter shape to the client to keep the payload small.
+export type MagicItemSummary = Omit<MagicItem, 'body'>;
+
 export type Monster = {
   slug: string;
   name: string;
