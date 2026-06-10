@@ -1,19 +1,21 @@
-// Known single-tier rarities used for badge colors and filter ordering. The
-// `rarity` field below is a free string, because the SRD also has bonus-scaling
-// items ("Uncommon (+1), Rare (+2), or Very Rare (+3)") and "Rarity Varies" items.
+// A magic item's single rarity. 'Varies' covers catalog entries with many
+// sub-items of differing rarity (Ioun Stone, Spell Scroll, ...); items at a
+// fixed bonus or variant are split into separate entries upstream, so each one
+// carries a concrete tier.
 export type MagicItemRarity =
   | 'Common'
   | 'Uncommon'
   | 'Rare'
   | 'Very Rare'
   | 'Legendary'
-  | 'Artifact';
+  | 'Artifact'
+  | 'Varies';
 
 export type MagicItem = {
   slug: string;
   name: string;
   itemType: string;
-  rarity: string;
+  rarity: MagicItemRarity;
   requiresAttunement: boolean;
   attunementBy?: string;
   body: string;
@@ -51,4 +53,7 @@ export type FilterConfig<T> =
       type: 'select';
       getValue: (item: T) => string;
       options: string[];
+      // When provided, an item that satisfies this predicate matches the filter
+      // regardless of the selected option (e.g. 'Varies' rarity items always show).
+      alwaysInclude?: (item: T) => boolean;
     };
