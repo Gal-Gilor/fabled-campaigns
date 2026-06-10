@@ -44,6 +44,10 @@ export type Monster = {
   body: string;
 };
 
+// Browse/listing views render cards that never read `body` (the stat block).
+// Pass this lighter shape to the client to keep the payload small.
+export type MonsterSummary = Omit<Monster, 'body'>;
+
 export type FilterConfig<T> =
   | {
       key: string;

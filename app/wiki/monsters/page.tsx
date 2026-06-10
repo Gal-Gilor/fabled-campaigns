@@ -2,7 +2,7 @@
 import { Suspense } from 'react';
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { getAllMonsters, sortedCRs } from '@/app/lib/wiki';
+import { getMonsterSummaries, sortedCRs } from '@/app/lib/wiki';
 import { MonstersBrowser } from './monsters-browser';
 
 export const metadata: Metadata = {
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default function MonstersPage() {
-  const monsters = getAllMonsters();
+  const monsters = getMonsterSummaries();
   const types = [...new Set(monsters.map((m) => m.type))].sort();
   const crs = sortedCRs(monsters);
 

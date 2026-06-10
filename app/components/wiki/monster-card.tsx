@@ -1,8 +1,8 @@
 // app/components/wiki/monster-card.tsx
 import Link from 'next/link';
-import type { Monster } from '@/types/wiki';
+import type { MonsterSummary } from '@/types/wiki';
 
-export function MonsterCard({ monster }: { monster: Monster }) {
+export function MonsterCard({ monster }: { monster: MonsterSummary }) {
   return (
     <Link
       href={`/wiki/monsters/${monster.slug}`}
