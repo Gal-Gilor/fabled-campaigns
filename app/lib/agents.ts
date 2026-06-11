@@ -15,7 +15,31 @@ import { getAmbiancePromptLanguage } from './collections';
 import { vertex } from './vertexClient';
 import { safeJsonParse, isImageOutput } from './messageUtils';
 
-export function createRootAgent(activeCollection?: Collection, sessionId?: string) {
+export interface CampaignContext {
+  name: string;
+  lore: string;
+}
+
+// Composable "Campaign Context" section — phase 2 appends the campaign
+// chronicle here. Kept ahead of the collection block so the static-per-campaign
+// prefix stays byte-identical across requests (Gemini implicit caching).
+function buildCampaignContext(campaign?: CampaignContext): string {
+  const lore = campaign?.lore.trim();
+  if (!lore) return '';
+  return (
+    '\n\n## Campaign Lore\n' +
+    `This session is part of the campaign "${campaign!.name}". The following lore is canon. ` +
+    'Keep all narration, NPCs, and plot developments consistent with it:\n\n' +
+    lore
+  );
+}
+
+export function createRootAgent(
+  activeCollection?: Collection,
+  sessionId?: string,
+  campaign?: CampaignContext
+) {
+  const campaignContext = buildCampaignContext(campaign);
   const collectionContext = activeCollection
     ? (() => {
         const parts: string[] = [
@@ -84,7 +108,7 @@ export function createRootAgent(activeCollection?: Collection, sessionId?: strin
 
   return new ToolLoopAgent({
     model: vertex(GEMINI_MODEL),
-    instructions: GM_SYSTEM_PROMPT + collectionContext,
+    instructions: GM_SYSTEM_PROMPT + campaignContext + collectionContext,
     tools: {
       ...gmStubTools,
       mapAgent: mapAgentTool,

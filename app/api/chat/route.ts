@@ -20,9 +20,16 @@ export async function POST(req: Request) {
   const session = userId && sessionId ? await getSession(sessionId, userId) : undefined;
   const existingSummary = session?.summary ?? null;
 
+  // Campaign lore arrives via the same getSession query (LEFT JOIN) — the DB is
+  // authoritative, so joining/leaving a campaign takes effect on the next message
+  const campaign = session?.campaign_lore
+    ? { name: session.campaign_name ?? 'Untitled campaign', lore: session.campaign_lore }
+    : undefined;
+
   const { modelMessages, newSummary } = await prepareContext(
     messages,
-    existingSummary
+    existingSummary,
+    campaign?.lore.length ?? 0
   );
 
   if (newSummary && sessionId && userId) {
@@ -35,7 +42,7 @@ export async function POST(req: Request) {
     });
   }
 
-  const rootAgent = createRootAgent(activeCollection, sessionId ?? undefined);
+  const rootAgent = createRootAgent(activeCollection, sessionId ?? undefined, campaign);
   const result = await rootAgent.stream({ messages: modelMessages });
   return result.toUIMessageStreamResponse();
 }

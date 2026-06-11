@@ -9,6 +9,11 @@ export interface ChatSession {
   messages: string; // stored as JSONB, returned as string via JSON.stringify for compatibility
   summary: string | null;
   starred: number;
+  campaign_id: string | null;
+  first_message_at: number | null;
+  // Joined campaign fields — only populated by getSession
+  campaign_name?: string | null;
+  campaign_lore?: string | null;
 }
 
 type RawChatSession = Omit<ChatSession, 'messages' | 'summary'> & {
@@ -47,9 +52,12 @@ export async function createSession(userId: string, name?: string): Promise<Chat
 }
 
 export async function getSession(id: string, userId: string): Promise<ChatSession | null> {
+  // Joins campaign lore so the chat route gets it in its single pre-stream query
   const rows = await sql`
-    SELECT * FROM chat_sessions
-    WHERE id = ${id} AND user_id = ${userId}
+    SELECT s.*, c.name AS campaign_name, c.lore AS campaign_lore
+    FROM chat_sessions s
+    LEFT JOIN campaigns c ON c.id = s.campaign_id
+    WHERE s.id = ${id} AND s.user_id = ${userId}
   `;
   if ((rows as RawChatSession[]).length === 0) return null;
   return serializeRow((rows as RawChatSession[])[0]);
@@ -58,7 +66,7 @@ export async function getSession(id: string, userId: string): Promise<ChatSessio
 export async function updateSession(
   id: string,
   userId: string,
-  patch: { name?: string; messages?: string; starred?: number }
+  patch: { name?: string; messages?: string; starred?: number; campaign_id?: string | null }
 ): Promise<ChatSession> {
   const now = Date.now();
   const setClauses: string[] = [];
@@ -75,10 +83,19 @@ export async function updateSession(
   if (patch.messages !== undefined) {
     values.push(patch.messages);
     setClauses.push(`messages = $${values.length}`);
+    if (patch.messages !== '[]') {
+      // Capture the moment the session first gains messages — campaigns sort by it
+      values.push(now);
+      setClauses.push(`first_message_at = COALESCE(first_message_at, $${values.length})`);
+    }
   }
   if (patch.starred !== undefined) {
     values.push(patch.starred);
     setClauses.push(`starred = $${values.length}`);
+  }
+  if (patch.campaign_id !== undefined) {
+    values.push(patch.campaign_id);
+    setClauses.push(`campaign_id = $${values.length}`);
   }
 
   values.push(id);
@@ -110,6 +127,130 @@ export async function deleteSession(id: string, userId: string): Promise<void> {
   await sql`
     DELETE FROM chat_sessions
     WHERE id = ${id} AND user_id = ${userId}
+  `;
+}
+
+// ---------------------------------------------------------------------------
+// Campaigns
+// ---------------------------------------------------------------------------
+
+export interface DbCampaign {
+  id: string;
+  userId: string;
+  name: string;
+  lore: string | null;
+  sessionIds: string[]; // derived from chat_sessions.campaign_id, chronological play order
+  createdAt: number;
+  updatedAt: number;
+}
+
+type RawCampaign = {
+  id: string;
+  user_id: string;
+  name: string;
+  lore: string | null;
+  created_at: number;
+  updated_at: number;
+  session_ids?: unknown;
+};
+
+function serializeCampaign(row: RawCampaign): DbCampaign {
+  return {
+    id: row.id,
+    userId: row.user_id,
+    name: row.name,
+    lore: row.lore,
+    sessionIds: Array.isArray(row.session_ids) ? (row.session_ids as string[]) : [],
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+  };
+}
+
+const CAMPAIGN_SESSION_IDS_AGG = `
+  COALESCE(
+    json_agg(s.id ORDER BY COALESCE(s.first_message_at, s.created_at))
+      FILTER (WHERE s.id IS NOT NULL),
+    '[]'::json
+  ) AS session_ids
+`;
+
+export async function listCampaigns(userId: string): Promise<DbCampaign[]> {
+  const rows = await sql.query(
+    `SELECT c.*, ${CAMPAIGN_SESSION_IDS_AGG}
+     FROM campaigns c
+     LEFT JOIN chat_sessions s ON s.campaign_id = c.id
+     WHERE c.user_id = $1
+     GROUP BY c.id
+     ORDER BY c.updated_at DESC`,
+    [userId]
+  );
+  return (rows as RawCampaign[]).map(serializeCampaign);
+}
+
+export async function getCampaignById(userId: string, id: string): Promise<DbCampaign | null> {
+  const rows = await sql.query(
+    `SELECT c.*, ${CAMPAIGN_SESSION_IDS_AGG}
+     FROM campaigns c
+     LEFT JOIN chat_sessions s ON s.campaign_id = c.id
+     WHERE c.id = $1 AND c.user_id = $2
+     GROUP BY c.id`,
+    [id, userId]
+  );
+  if (!(rows as RawCampaign[]).length) return null;
+  return serializeCampaign((rows as RawCampaign[])[0]);
+}
+
+export async function createCampaign(
+  userId: string,
+  data: { name: string; lore?: string | null }
+): Promise<DbCampaign> {
+  const id = crypto.randomUUID();
+  const now = Date.now();
+  const rows = await sql`
+    INSERT INTO campaigns (id, user_id, name, lore, created_at, updated_at)
+    VALUES (${id}, ${userId}, ${data.name}, ${data.lore ?? null}, ${now}, ${now})
+    RETURNING *
+  `;
+  return serializeCampaign((rows as RawCampaign[])[0]);
+}
+
+export async function updateCampaign(
+  id: string,
+  userId: string,
+  patch: { name?: string; lore?: string | null }
+): Promise<DbCampaign> {
+  const now = Date.now();
+  const setClauses: string[] = [];
+  const values: unknown[] = [];
+
+  values.push(now);
+  setClauses.push(`updated_at = $${values.length}`);
+
+  if (patch.name !== undefined) {
+    values.push(patch.name);
+    setClauses.push(`name = $${values.length}`);
+  }
+  if (patch.lore !== undefined) {
+    values.push(patch.lore);
+    setClauses.push(`lore = $${values.length}`);
+  }
+
+  values.push(id);
+  const idParam = `$${values.length}`;
+  values.push(userId);
+  const userParam = `$${values.length}`;
+
+  const query = `UPDATE campaigns SET ${setClauses.join(', ')} WHERE id = ${idParam} AND user_id = ${userParam} RETURNING *`;
+  const rows = await sql.query(query, values);
+  const row = (rows as unknown as { rows: unknown[] }).rows?.[0] ?? rows[0];
+  if (!row) throw new Error('Campaign not found');
+  return serializeCampaign(row as RawCampaign);
+}
+
+export async function deleteCampaign(id: string, userId: string): Promise<void> {
+  // Sessions revert to ungrouped via ON DELETE SET NULL on chat_sessions.campaign_id
+  await sql`
+    DELETE FROM campaigns WHERE id = ${id} AND user_id = ${userId}
   `;
 }
 
