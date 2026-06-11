@@ -8,6 +8,17 @@ This plan is grounded in the current codebase (Next.js 16 / React 19, Neon Postg
 `@neondatabase/serverless`, Gemini 2.5 Flash through `@ai-sdk/google-vertex`, idempotent
 migrations run on every build via `tsx db/migrate.ts`).
 
+**Product decisions settled during planning:**
+
+1. **Continuity:** lore-only context in v1; a campaign-level **Chronicle** (shared memory of
+   NPCs/events across sessions) ships as phase 2, with its architecture fixed now (§3) so v1
+   requires no rework.
+2. **Lore authorship:** strictly manual in v1; AI-assisted lore brainstorming is a future
+   feature.
+3. **Collections:** fully independent of campaigns — no interaction in v1.
+4. **Sidebar:** campaign sessions appear both inside their (collapsed-by-default) campaign
+   group *and* in the top-5 "Recent sessions" list, with a campaign badge (rationale in §4).
+
 ---
 
 ## 1. Data Model
@@ -170,6 +181,40 @@ pass `loreChars` into `prepareContext` and reserve `TOKEN_OVERHEAD_RESERVE_CHARS
 loreChars`. This keeps long-lore campaigns from blowing past the eviction threshold. The API
 enforces the 20k cap on write; the campaign editor shows a character counter.
 
+### Phase 2 — Campaign Chronicle (designed now, ships after v1)
+
+Decision: lore-only context ships first, but v1 is shaped so campaign-level memory —
+"session 3 remembers the NPCs and decisions of session 1" — slots in without rework.
+
+- **Storage:** a nullable `chronicle JSONB` column on `campaigns` (purely additive ALTER,
+  lands with phase 2). It reuses the existing `SessionMemorySchema` shape (NPCs, locations,
+  quests, key decisions, notes) — the chronicle is simply a merged, campaign-level memory.
+- **Update path mirrors session summaries:** after a stream completes and a session's
+  summary is updated, a fire-and-forget task merges that session's memory into the campaign
+  chronicle (same `generateObject` merge technique `summarize()` already uses). Never blocks
+  streaming; a failed merge retries naturally on a later turn.
+- **Injection costs nothing extra:** the `getSession` join (§3) already selects from
+  `campaigns`; phase 2 adds one column to the SELECT and renders a `## Campaign Chronicle`
+  block (via the existing `renderMemory`-style formatter) after the lore block. Still zero
+  added round trips. A stored, merged chronicle stays bounded in size, unlike injecting
+  every sibling session's raw summary, which would grow linearly with campaign length.
+- **Removal semantics match lore:** a session that leaves the campaign stops *receiving*
+  the chronicle on its next message. Note the chronicle does not auto-shrink when a session
+  is removed — merged summaries aren't subtractive. That reads as correct behavior ("the
+  chronicle records what happened in the campaign"), but the campaign editor should expose
+  the chronicle for manual pruning.
+- **v1 readiness requirement:** build the lore injection in `agents.ts` as a composable
+  "Campaign Context" section (lore now, chronicle appended later) rather than a one-off
+  string concat.
+
+### Lore authorship
+
+Lore is **manually authored in v1**: the user writes and edits it in the campaign modal;
+the model only reads it. The unimplemented `createCampaign` stub in `app/lib/tools.ts`
+stays a stub — the LLM does not create or manage campaigns via tool calls. An AI-assisted
+mode (the model brainstorms or drafts lore with the user, who reviews before saving) is an
+attractive follow-up once the chronicle exists to draft *from*.
+
 ---
 
 ## 4. Frontend
@@ -198,6 +243,12 @@ from `wiki-modal.tsx`, Tailwind v4 + CSS-variable palette.
 - "Recent sessions" continues to show *all* sessions by recency (a session inside a campaign
   is still recent); sessions with a campaign get a small badge. Session context menu gains
   "Move to campaign…" / "Remove from campaign".
+- *Why both places isn't redundant:* Recent is capped at the top 5 and acts as the "jump
+  back in" shortcut — for an active player those are usually campaign sessions, and hiding
+  them inside collapsed groups would cost a click on every visit. The flat list is also the
+  natural drag *source* for moving sessions into campaigns. Campaign groups are collapsed by
+  default, so the visual overlap is minimal. Grouping is purely client-side, so this is
+  cheap to revisit if it feels noisy.
 
 ### Drag and drop
 
@@ -242,10 +293,15 @@ context assembly — no cache to bust in v1).
 
 ## 6. Out of scope for v1 (deliberately)
 
+- Campaign Chronicle ships as **phase 2** — architecture already fixed in §3 so v1 needs no
+  rework, but no chronicle code lands in v1.
+- AI-assisted lore authoring (model brainstorms/drafts lore with the user) — future feature;
+  v1 lore is strictly manual.
+- LLM-driven campaign management — the `createCampaign` stub tool stays unwired.
+- Campaign ↔ Collection interaction — confirmed independent; collections stay per-session
+  exactly as today.
 - Explicit `cachedContent` pipeline (revisit with telemetry; seam already isolated).
 - Structured lore fields, lore versioning, per-session lore overrides.
-- Campaign-level memory (merging session summaries across a campaign) — natural follow-up:
-  the `SessionMemory` blocks of sibling sessions could seed a campaign chronicle.
 - Reordering sessions manually within a campaign (chronological order is the spec).
 
 ## 7. Deployment considerations (Vercel + Neon + Vercel Blob)
