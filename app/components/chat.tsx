@@ -11,6 +11,8 @@ import { safeJsonParse, isImageOutput, ImageOutput } from '../lib/messageUtils';
 import type { Collection } from '../lib/collections';
 import { AMBIANCE_OPTIONS } from '../lib/collections';
 import { useSessionContext } from './session-context';
+import type { Campaign } from './session-context';
+import { CampaignPromptModal } from './campaign-modal';
 import { useSession } from 'next-auth/react';
 import { VALID_TERRAINS, VALID_SETTINGS, type Terrain, type Setting } from '../lib/mapPrompts';
 
@@ -526,8 +528,10 @@ export default function Chat({ initialSessionId }: ChatProps) {
   const [loadingPicker, setLoadingPicker] = useState(false);
   const pickerRef = useRef<HTMLDivElement>(null);
 
-  const { sessions, setSessions, activeSessionId, setActiveSessionId, setHandlers, openSidebar } = useSessionContext();
+  const { sessions, setSessions, activeSessionId, setActiveSessionId, setHandlers, campaigns, campaignActions, openSidebar } = useSessionContext();
   const { status: authStatus } = useSession();
+  const [campaignPromptSessionId, setCampaignPromptSessionId] = useState<string | null>(null);
+  const campaignsRef = useRef<Campaign[]>(campaigns);
 
   const activeCollection = collections.find((c) => c.id === activeCollectionId) ?? undefined;
 
@@ -556,6 +560,10 @@ export default function Chat({ initialSessionId }: ChatProps) {
   useEffect(() => {
     messagesRef.current = messages;
   }, [messages]);
+
+  useEffect(() => {
+    campaignsRef.current = campaigns;
+  }, [campaigns]);
 
   const persistMessages = useCallback(async (id: string, msgs: UIMessage[]) => {
     const r = await fetch(`/api/sessions/${id}`, {
@@ -824,6 +832,11 @@ export default function Chat({ initialSessionId }: ChatProps) {
     setSessions((prev) => [session, ...prev]);
     setActiveSessionId(session.id);
     setMessages([]);
+    // Session is created and active immediately; the campaign prompt floats on
+    // top and assignment happens in the background — creation latency unchanged
+    if (campaignsRef.current.length > 0) {
+      setCampaignPromptSessionId(session.id);
+    }
   }, [authStatus, saveCurrentSession, setMessages, stop]);
 
   const handleDeleteSession = useCallback(
@@ -1356,6 +1369,20 @@ export default function Chat({ initialSessionId }: ChatProps) {
           onClose={() => setSelectedImage(null)}
           onDelete={() => handleDeleteImage(selectedImage.src)}
           onDownload={() => downloadImage(selectedImage)}
+        />,
+        document.body
+      )}
+
+      {campaignPromptSessionId && campaigns.length > 0 && createPortal(
+        <CampaignPromptModal
+          campaigns={campaigns}
+          onChoose={(campaignId) => {
+            if (campaignId) {
+              campaignActions.assignSessionToCampaign(campaignPromptSessionId, campaignId);
+            }
+            setCampaignPromptSessionId(null);
+          }}
+          onClose={() => setCampaignPromptSessionId(null)}
         />,
         document.body
       )}

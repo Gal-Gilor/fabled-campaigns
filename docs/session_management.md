@@ -1,5 +1,10 @@
 # Session Management
 
+> **Note:** parts of this document predate the move from SQLite (`app/lib/db.ts`) to Neon
+> Postgres (`db/index.ts`, `db/schema/`). The pipeline description below is still accurate;
+> consult `db/schema/chat_sessions.ts` for the current schema, which also includes
+> `campaign_id` and `first_message_at` (see `campaigns.md`).
+
 Sessions store the full conversation history in SQLite. On every chat request, the server preprocesses messages before passing them to Gemini — trimming what the model sees without changing what is stored in the database or displayed in the UI.
 
 ---
