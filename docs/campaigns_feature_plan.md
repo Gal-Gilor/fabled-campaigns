@@ -234,9 +234,40 @@ from `wiki-modal.tsx`, Tailwind v4 + CSS-variable palette.
 
 ### Sidebar (`sidebar.tsx`)
 
+Target layout (expanded sidebar; the collapsed desktop rail is unchanged in v1):
+
+```
++ New session
+
+CAMPAIGNS                 [+]
+▾ Dragon Heist             3
+   1 · The Yawning Portal
+   2 · Trollskull Alley   ●      ← chronological play order; ● = active
+   3 · Gralhund Villa
+▸ Curse of Strahd         12     ← collapsed by default
+
+RECENT SESSIONS
+★ Trollskull Alley  ⌂DH   ●      ← top 5 as today; ⌂ badge = in a campaign
+  One-shot: Mimic Inn
+  Gralhund Villa    ⌂DH
+```
+
 - New **Campaigns** section above "Recent sessions": collapsible row per campaign
-  (name, session count, chevron). Expanding lists its sessions ordered by
-  `COALESCE(first_message_at, created_at)` ascending — chronological play order.
+  (chevron, name, session count), sorted by most recently played. Expanding lists its
+  sessions ordered by `COALESCE(first_message_at, created_at)` ascending and **numbered**
+  in play order ("session 3 of Dragon Heist" — the payoff of `first_message_at`).
+  Expanded/collapsed state persists in `localStorage`; the campaign containing the active
+  session auto-expands on load.
+- Sessions inside a group keep all existing `SessionRow` affordances (rename/star/delete)
+  plus "Remove from campaign". Recent rows show a small abbreviated campaign badge (full
+  name on hover) so the same session appearing in both places reads as intentional.
+- **Empty state** (zero campaigns): just the `CAMPAIGNS [+]` header with a one-line ghost
+  hint ("Group sessions into a campaign") — discoverable, no empty chrome. The first
+  campaign can also be created inline from a session's "Move to campaign… → New campaign".
+- Deliberately **not** doing: nesting deeper than one level, or a per-campaign "+ new
+  session" button — the post-creation "Add to a campaign?" prompt covers that with a single
+  creation path. Dragging *out* of a campaign is also omitted (ambiguous gesture); removal
+  is menu-only.
 - Campaign row context menu (same dropdown pattern as `SessionRow`): Rename (inline edit),
   Edit lore… (opens modal), Delete (confirm modal: "Sessions in this campaign will be kept
   and moved out of the campaign").
@@ -254,7 +285,8 @@ from `wiki-modal.tsx`, Tailwind v4 + CSS-variable palette.
 
 No DnD library is installed. Recommended: **native HTML5 drag events for v1** —
 `draggable` on `SessionRow`, drop targets + hover highlight on campaign rows, drop calls
-`onAssignSession`. It's a single straight-line interaction (drag a row onto a group header),
+`onAssignSession`. Collapsed campaign rows are valid drop targets too — assigning must not
+require expanding the group first. It's a single straight-line interaction (drag a row onto a group header),
 which native DnD handles fine with zero bundle cost. Native DnD does not work on touch, so
 the "Move to campaign…" context-menu item is the required fallback (and doubles as the
 accessible path). If richer interactions arrive later (reordering, multi-select),
