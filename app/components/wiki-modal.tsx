@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { ModalOverlay } from './modal';
 
 interface WikiModalProps {
   isOpen: boolean;
@@ -7,37 +7,10 @@ interface WikiModalProps {
 }
 
 export default function WikiModal({ isOpen, onClose }: WikiModalProps) {
-  const onCloseRef = useRef(onClose);
-  useEffect(() => { onCloseRef.current = onClose; });
-
-  useEffect(() => {
-    if (!isOpen) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onCloseRef.current(); };
-    window.addEventListener('keydown', onKey);
-    return () => {
-      document.body.style.overflow = prev;
-      window.removeEventListener('keydown', onKey);
-    };
-  }, [isOpen]);
-
   if (!isOpen) return null;
 
   return (
-    <div
-      style={{
-        position: 'fixed',
-        inset: 0,
-        background: 'rgba(15,23,42,0.6)',
-        zIndex: 50,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '1.5rem',
-      }}
-      onClick={onClose}
-    >
+    <ModalOverlay onClose={onClose} backdrop="rgba(15,23,42,0.6)" zIndex={50}>
       <div
         role="dialog"
         aria-modal="true"
@@ -45,7 +18,7 @@ export default function WikiModal({ isOpen, onClose }: WikiModalProps) {
         style={{
           background: '#fff',
           borderRadius: '0.75rem',
-          width: '100%',
+          width: 'calc(100% - 3rem)',
           maxWidth: '56rem',
           height: '80vh',
           display: 'flex',
@@ -53,7 +26,6 @@ export default function WikiModal({ isOpen, onClose }: WikiModalProps) {
           overflow: 'hidden',
           boxShadow: '0 25px 50px rgba(0,0,0,0.25)',
         }}
-        onClick={(e) => e.stopPropagation()}
       >
         <div
           style={{
@@ -97,6 +69,6 @@ export default function WikiModal({ isOpen, onClose }: WikiModalProps) {
           style={{ flex: 1, border: 'none', width: '100%' }}
         />
       </div>
-    </div>
+    </ModalOverlay>
   );
 }

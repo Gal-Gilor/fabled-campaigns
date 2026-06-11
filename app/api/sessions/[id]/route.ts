@@ -17,7 +17,14 @@ export async function PUT(
   const patch: { name?: string; messages?: string; starred?: number; campaign_id?: string | null } = {};
 
   if (body.name !== undefined) patch.name = body.name;
-  if (body.messages !== undefined) patch.messages = JSON.stringify(body.messages);
+  if (body.messages !== undefined) {
+    // first_message_at derives from this payload — reject non-arrays so a bad
+    // client can't permanently stamp a wrong timestamp
+    if (!Array.isArray(body.messages)) {
+      return NextResponse.json({ error: 'messages must be an array' }, { status: 400 });
+    }
+    patch.messages = JSON.stringify(body.messages);
+  }
   if (body.starred !== undefined) patch.starred = body.starred ? 1 : 0;
   if (body.campaignId !== undefined) {
     if (body.campaignId !== null) {

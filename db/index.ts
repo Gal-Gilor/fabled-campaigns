@@ -11,9 +11,6 @@ export interface ChatSession {
   starred: number;
   campaign_id: string | null;
   first_message_at: number | null;
-  // Joined campaign fields — only populated by getSession
-  campaign_name?: string | null;
-  campaign_lore?: string | null;
 }
 
 type RawChatSession = Omit<ChatSession, 'messages' | 'summary'> & {
@@ -52,15 +49,91 @@ export async function createSession(userId: string, name?: string): Promise<Chat
 }
 
 export async function getSession(id: string, userId: string): Promise<ChatSession | null> {
-  // Joins campaign lore so the chat route gets it in its single pre-stream query
   const rows = await sql`
-    SELECT s.*, c.name AS campaign_name, c.lore AS campaign_lore
-    FROM chat_sessions s
-    LEFT JOIN campaigns c ON c.id = s.campaign_id
-    WHERE s.id = ${id} AND s.user_id = ${userId}
+    SELECT * FROM chat_sessions
+    WHERE id = ${id} AND user_id = ${userId}
   `;
   if ((rows as RawChatSession[]).length === 0) return null;
   return serializeRow((rows as RawChatSession[])[0]);
+}
+
+export interface SessionChatContext {
+  summary: string | null;
+  campaign_name: string | null;
+  campaign_lore: string | null;
+}
+
+// Hot-path projection for the chat route: summary + campaign lore in one query,
+// without shipping the (potentially multi-MB) messages JSONB over the wire.
+// The join is owner-filtered so a corrupted campaign_id can never leak another
+// user's lore into this user's prompt.
+export async function getSessionChatContext(
+  id: string,
+  userId: string
+): Promise<SessionChatContext | null> {
+  const rows = await sql`
+    SELECT s.summary, c.name AS campaign_name, c.lore AS campaign_lore
+    FROM chat_sessions s
+    LEFT JOIN campaigns c ON c.id = s.campaign_id AND c.user_id = s.user_id
+    WHERE s.id = ${id} AND s.user_id = ${userId}
+  `;
+  const list = rows as { summary: unknown; campaign_name: string | null; campaign_lore: string | null }[];
+  if (list.length === 0) return null;
+  const row = list[0];
+  return {
+    summary: row.summary != null ? JSON.stringify(row.summary) : null,
+    campaign_name: row.campaign_name ?? null,
+    campaign_lore: row.campaign_lore ?? null,
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Shared dynamic-patch UPDATE
+// ---------------------------------------------------------------------------
+
+type RawClause = { render: (param: string) => string; value: unknown };
+
+// Runs `UPDATE <table> SET … WHERE id AND user_id RETURNING *` from a map of
+// column assignments (undefined entries skipped; null is a real value) plus
+// optional raw clauses for expressions a plain assignment can't express.
+// Returns the updated row, or null when no row matched. Table and column
+// names are compile-time literals at every call site — never user input.
+async function runPatchUpdate(
+  table: string,
+  assignments: Record<string, unknown>,
+  id: string,
+  userId: string,
+  rawClauses: RawClause[] = []
+): Promise<Record<string, unknown> | null> {
+  const setClauses: string[] = [];
+  const values: unknown[] = [];
+
+  for (const [column, value] of Object.entries(assignments)) {
+    if (value === undefined) continue;
+    values.push(value);
+    setClauses.push(`${column} = $${values.length}`);
+  }
+  for (const { render, value } of rawClauses) {
+    values.push(value);
+    setClauses.push(render(`$${values.length}`));
+  }
+
+  // Empty patch: nothing to write — read the row so callers still get it back
+  if (setClauses.length === 0) {
+    const rows = await sql.query(`SELECT * FROM ${table} WHERE id = $1 AND user_id = $2`, [id, userId]);
+    const row = (rows as unknown as { rows: unknown[] }).rows?.[0] ?? (rows as unknown[])[0];
+    return (row as Record<string, unknown>) ?? null;
+  }
+
+  values.push(id);
+  const idParam = `$${values.length}`;
+  values.push(userId);
+  const userParam = `$${values.length}`;
+
+  const query = `UPDATE ${table} SET ${setClauses.join(', ')} WHERE id = ${idParam} AND user_id = ${userParam} RETURNING *`;
+  const rows = await sql.query(query, values);
+  const row = (rows as unknown as { rows: unknown[] }).rows?.[0] ?? (rows as unknown[])[0];
+  return (row as Record<string, unknown>) ?? null;
 }
 
 export async function updateSession(
@@ -69,45 +142,30 @@ export async function updateSession(
   patch: { name?: string; messages?: string; starred?: number; campaign_id?: string | null }
 ): Promise<ChatSession> {
   const now = Date.now();
-  const setClauses: string[] = [];
-  const values: unknown[] = [];
+  // updated_at tracks session activity, so a campaign-only patch must not bump
+  // it — filing a dormant session into a campaign shouldn't make it "recent"
+  const touchesContent =
+    patch.name !== undefined || patch.messages !== undefined || patch.starred !== undefined;
+  // Capture the moment the session first gains messages — campaigns sort by it
+  const stampsFirstMessage = patch.messages !== undefined && patch.messages !== '[]';
 
-  // updated_at is always set
-  values.push(now);
-  setClauses.push(`updated_at = $${values.length}`);
-
-  if (patch.name !== undefined) {
-    values.push(patch.name);
-    setClauses.push(`name = $${values.length}`);
-  }
-  if (patch.messages !== undefined) {
-    values.push(patch.messages);
-    setClauses.push(`messages = $${values.length}`);
-    if (patch.messages !== '[]') {
-      // Capture the moment the session first gains messages — campaigns sort by it
-      values.push(now);
-      setClauses.push(`first_message_at = COALESCE(first_message_at, $${values.length})`);
-    }
-  }
-  if (patch.starred !== undefined) {
-    values.push(patch.starred);
-    setClauses.push(`starred = $${values.length}`);
-  }
-  if (patch.campaign_id !== undefined) {
-    values.push(patch.campaign_id);
-    setClauses.push(`campaign_id = $${values.length}`);
-  }
-
-  values.push(id);
-  const idParam = `$${values.length}`;
-  values.push(userId);
-  const userParam = `$${values.length}`;
-
-  const query = `UPDATE chat_sessions SET ${setClauses.join(', ')} WHERE id = ${idParam} AND user_id = ${userParam} RETURNING *`;
-  const rows = await sql.query(query, values);
-  const row = (rows as unknown as { rows: unknown[] }).rows?.[0] ?? rows[0];
+  const row = await runPatchUpdate(
+    'chat_sessions',
+    {
+      updated_at: touchesContent ? now : undefined,
+      name: patch.name,
+      messages: patch.messages,
+      starred: patch.starred,
+      campaign_id: patch.campaign_id,
+    },
+    id,
+    userId,
+    stampsFirstMessage
+      ? [{ render: (p) => `first_message_at = COALESCE(first_message_at, ${p})`, value: now }]
+      : []
+  );
   if (!row) throw new Error('Session not found');
-  return serializeRow(row as RawChatSession);
+  return serializeRow(row as unknown as RawChatSession);
 }
 
 export async function updateSessionSummary(
@@ -139,7 +197,6 @@ export interface DbCampaign {
   userId: string;
   name: string;
   lore: string | null;
-  sessionIds: string[]; // derived from chat_sessions.campaign_id, chronological play order
   createdAt: number;
   updatedAt: number;
 }
@@ -151,7 +208,6 @@ type RawCampaign = {
   lore: string | null;
   created_at: number;
   updated_at: number;
-  session_ids?: unknown;
 };
 
 function serializeCampaign(row: RawCampaign): DbCampaign {
@@ -160,42 +216,22 @@ function serializeCampaign(row: RawCampaign): DbCampaign {
     userId: row.user_id,
     name: row.name,
     lore: row.lore,
-    sessionIds: Array.isArray(row.session_ids) ? (row.session_ids as string[]) : [],
     createdAt: row.created_at,
     updatedAt: row.updated_at,
   };
 }
 
-const CAMPAIGN_SESSION_IDS_AGG = `
-  COALESCE(
-    json_agg(s.id ORDER BY COALESCE(s.first_message_at, s.created_at))
-      FILTER (WHERE s.id IS NOT NULL),
-    '[]'::json
-  ) AS session_ids
-`;
-
 export async function listCampaigns(userId: string): Promise<DbCampaign[]> {
-  const rows = await sql.query(
-    `SELECT c.*, ${CAMPAIGN_SESSION_IDS_AGG}
-     FROM campaigns c
-     LEFT JOIN chat_sessions s ON s.campaign_id = c.id
-     WHERE c.user_id = $1
-     GROUP BY c.id
-     ORDER BY c.updated_at DESC`,
-    [userId]
-  );
+  const rows = await sql`
+    SELECT * FROM campaigns WHERE user_id = ${userId} ORDER BY updated_at DESC
+  `;
   return (rows as RawCampaign[]).map(serializeCampaign);
 }
 
 export async function getCampaignById(userId: string, id: string): Promise<DbCampaign | null> {
-  const rows = await sql.query(
-    `SELECT c.*, ${CAMPAIGN_SESSION_IDS_AGG}
-     FROM campaigns c
-     LEFT JOIN chat_sessions s ON s.campaign_id = c.id
-     WHERE c.id = $1 AND c.user_id = $2
-     GROUP BY c.id`,
-    [id, userId]
-  );
+  const rows = await sql`
+    SELECT * FROM campaigns WHERE id = ${id} AND user_id = ${userId}
+  `;
   if (!(rows as RawCampaign[]).length) return null;
   return serializeCampaign((rows as RawCampaign[])[0]);
 }
@@ -214,37 +250,20 @@ export async function createCampaign(
   return serializeCampaign((rows as RawCampaign[])[0]);
 }
 
+// Returns null when the campaign doesn't exist (or isn't the user's) so the
+// route can 404; genuine DB failures propagate instead of masquerading as 404s
 export async function updateCampaign(
   id: string,
   userId: string,
   patch: { name?: string; lore?: string | null }
-): Promise<DbCampaign> {
-  const now = Date.now();
-  const setClauses: string[] = [];
-  const values: unknown[] = [];
-
-  values.push(now);
-  setClauses.push(`updated_at = $${values.length}`);
-
-  if (patch.name !== undefined) {
-    values.push(patch.name);
-    setClauses.push(`name = $${values.length}`);
-  }
-  if (patch.lore !== undefined) {
-    values.push(patch.lore);
-    setClauses.push(`lore = $${values.length}`);
-  }
-
-  values.push(id);
-  const idParam = `$${values.length}`;
-  values.push(userId);
-  const userParam = `$${values.length}`;
-
-  const query = `UPDATE campaigns SET ${setClauses.join(', ')} WHERE id = ${idParam} AND user_id = ${userParam} RETURNING *`;
-  const rows = await sql.query(query, values);
-  const row = (rows as unknown as { rows: unknown[] }).rows?.[0] ?? rows[0];
-  if (!row) throw new Error('Campaign not found');
-  return serializeCampaign(row as RawCampaign);
+): Promise<DbCampaign | null> {
+  const row = await runPatchUpdate(
+    'campaigns',
+    { updated_at: Date.now(), name: patch.name, lore: patch.lore },
+    id,
+    userId
+  );
+  return row ? serializeCampaign(row as unknown as RawCampaign) : null;
 }
 
 export async function deleteCampaign(id: string, userId: string): Promise<void> {
@@ -363,44 +382,21 @@ export async function updateCollection(
   userId: string,
   patch: { name?: string; terrain?: string; setting?: string; ambiance?: string; visualDetails?: string }
 ): Promise<DbCollection> {
-  const now = Date.now();
-  const setClauses: string[] = [];
-  const values: unknown[] = [];
-
-  values.push(now);
-  setClauses.push(`updated_at = $${values.length}`);
-
-  if (patch.name !== undefined) {
-    values.push(patch.name);
-    setClauses.push(`name = $${values.length}`);
-  }
-  if (patch.terrain !== undefined) {
-    values.push(patch.terrain);
-    setClauses.push(`terrain = $${values.length}`);
-  }
-  if (patch.setting !== undefined) {
-    values.push(patch.setting);
-    setClauses.push(`setting = $${values.length}`);
-  }
-  if (patch.ambiance !== undefined) {
-    values.push(patch.ambiance);
-    setClauses.push(`ambiance = $${values.length}`);
-  }
-  if (patch.visualDetails !== undefined) {
-    values.push(patch.visualDetails);
-    setClauses.push(`visual_details = $${values.length}`);
-  }
-
-  values.push(id);
-  const idParam = `$${values.length}`;
-  values.push(userId);
-  const userParam = `$${values.length}`;
-
-  const query = `UPDATE collections SET ${setClauses.join(', ')} WHERE id = ${idParam} AND user_id = ${userParam} RETURNING *`;
-  const rows = await sql.query(query, values);
-  const row = (rows as unknown as { rows: unknown[] }).rows?.[0] ?? rows[0];
+  const row = await runPatchUpdate(
+    'collections',
+    {
+      updated_at: Date.now(),
+      name: patch.name,
+      terrain: patch.terrain,
+      setting: patch.setting,
+      ambiance: patch.ambiance,
+      visual_details: patch.visualDetails,
+    },
+    id,
+    userId
+  );
   if (!row) throw new Error('Collection not found');
-  return serializeCollection(row as RawCollection);
+  return serializeCollection(row as unknown as RawCollection);
 }
 
 export async function deleteCollection(id: string, userId: string): Promise<void> {

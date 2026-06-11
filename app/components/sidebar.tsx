@@ -6,7 +6,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
 import { ChatSession as Session } from '@/db';
-import type { Campaign, CampaignActions } from './session-context';
+import type { Campaign } from './session-context';
+import { useSessionContext } from './session-context';
 import { CampaignEditModal } from './campaign-modal';
 
 interface SidebarProps {
@@ -14,14 +15,12 @@ interface SidebarProps {
   onOpen: () => void;
   onClose: () => void;
   sessions: Session[];
-  campaigns: Campaign[];
   activeSessionId: string | null;
   onSelectSession: (id: string) => void;
   onNewSession: () => void;
   onDeleteSession: (id: string) => void;
   onRenameSession: (id: string, name: string) => void;
   onStarSession: (id: string, starred: boolean) => void;
-  campaignActions: CampaignActions;
   onWikiOpen?: () => void;
 }
 
@@ -33,6 +32,31 @@ function abbreviateCampaignName(name: string): string {
   const words = name.trim().split(/\s+/);
   if (words.length === 1) return words[0].slice(0, 3).toUpperCase();
   return words.slice(0, 3).map((w) => w[0]).join('').toUpperCase();
+}
+
+function MenuItem({
+  icon,
+  label,
+  danger = false,
+  onClick,
+}: {
+  icon?: React.ReactNode;
+  label: React.ReactNode;
+  danger?: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      className="flex items-center gap-2 w-full px-3 py-1.5 text-xs text-left transition-all"
+      style={{ color: danger ? '#dc2626' : 'var(--neutral-700)' }}
+      onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-100)')}
+      onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+      onClick={onClick}
+    >
+      {icon}
+      {label}
+    </button>
+  );
 }
 
 function formatDate(ts: number): string {
@@ -78,6 +102,7 @@ function WikiIcon() {
 
 function SessionRow({
   session,
+  uiKey,
   isActive,
   onSelect,
   editingId,
@@ -98,18 +123,21 @@ function SessionRow({
   onAssign,
 }: {
   session: Session;
+  // Distinguishes the two renders of the same session (campaign group vs
+  // recent list) so menu/edit state opens on exactly one instance
+  uiKey: string;
   isActive: boolean;
   onSelect: () => void;
   editingId: string | null;
   editingName: string;
   onEditingNameChange: (v: string) => void;
-  onStartEdit: (s: Session) => void;
+  onStartEdit: (s: Session, uiKey: string) => void;
   onCommitRename: (id: string) => void;
   onCancelEdit: () => void;
   onDelete?: (id: string) => void;
   onStar?: (id: string, starred: boolean) => void;
   openMenuId: string | null;
-  onToggleMenu: (id: string) => void;
+  onToggleMenu: (key: string) => void;
   menuRef: React.RefObject<HTMLDivElement | null>;
   compact?: boolean;
   indexLabel?: number;
@@ -117,7 +145,8 @@ function SessionRow({
   campaigns?: Campaign[];
   onAssign?: (sessionId: string, campaignId: string | null) => void;
 }) {
-  const isMenuOpen = openMenuId === session.id;
+  const isMenuOpen = openMenuId === uiKey;
+  const isEditing = editingId === uiKey;
   const moveTargets = (campaigns ?? []).filter((c) => c.id !== session.campaign_id);
 
   return (
@@ -129,16 +158,15 @@ function SessionRow({
         background: isActive ? 'var(--pale-blue)' : 'transparent',
         border: isActive ? '1px solid var(--primary-blue)' : '1px solid transparent',
       }}
-      onClick={() => editingId !== session.id && onSelect()}
-      draggable={Boolean(onAssign) && editingId !== session.id}
+      onClick={() => !isEditing && onSelect()}
+      draggable={Boolean(onAssign) && !isEditing}
       onDragStart={(e) => {
         e.dataTransfer.setData(SESSION_DRAG_TYPE, session.id);
-        e.dataTransfer.setData('text/plain', session.id);
         e.dataTransfer.effectAllowed = 'move';
       }}
     >
       <div className="flex-1 min-w-0">
-        {editingId === session.id ? (
+        {isEditing ? (
           <input
             autoFocus
             value={editingName}
@@ -202,7 +230,7 @@ function SessionRow({
           <button
             className="opacity-100 md:opacity-0 md:group-hover:opacity-100 flex-shrink-0 text-xs w-5 h-5 flex items-center justify-center rounded transition-all mt-0.5 leading-none"
             style={{ color: 'var(--neutral-400)', fontSize: '1rem', letterSpacing: '0.05em' }}
-            onClick={() => onToggleMenu(session.id)}
+            onClick={() => onToggleMenu(uiKey)}
             title="Session actions"
           >
             ···
@@ -218,41 +246,33 @@ function SessionRow({
                 border: '1px solid var(--neutral-200)',
               }}
             >
-              {/* Rename */}
-              <button
-                className="flex items-center gap-2 w-full px-3 py-1.5 text-xs text-left transition-all"
-                style={{ color: 'var(--neutral-700)' }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-100)')}
-                onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+              <MenuItem
+                icon={
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                }
+                label="Rename"
                 onClick={() => {
-                  onStartEdit(session);
-                  onToggleMenu(session.id);
+                  onStartEdit(session, uiKey);
+                  onToggleMenu(uiKey);
                 }}
-              >
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
-                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-                Rename
-              </button>
+              />
 
-              {/* Star / Unstar */}
               {onStar && (
-                <button
-                  className="flex items-center gap-2 w-full px-3 py-1.5 text-xs text-left transition-all"
-                  style={{ color: 'var(--neutral-700)' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-100)')}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+                <MenuItem
+                  icon={
+                    <span style={{ color: session.starred ? 'var(--accent-gold)' : 'currentColor' }}>
+                      <StarIcon filled={!!session.starred} size={12} />
+                    </span>
+                  }
+                  label={session.starred ? 'Unstar' : 'Star'}
                   onClick={() => {
                     onStar(session.id, !session.starred);
-                    onToggleMenu(session.id);
+                    onToggleMenu(uiKey);
                   }}
-                >
-                  <span style={{ color: session.starred ? 'var(--accent-gold)' : 'currentColor' }}>
-                    <StarIcon filled={!!session.starred} size={12} />
-                  </span>
-                  {session.starred ? 'Unstar' : 'Star'}
-                </button>
+                />
               )}
 
               {/* Move to campaign — also the touch/a11y fallback for drag & drop */}
@@ -260,56 +280,43 @@ function SessionRow({
                 <>
                   <div style={{ height: 1, background: 'var(--neutral-200)', margin: '4px 0' }} />
                   {moveTargets.map((c) => (
-                    <button
+                    <MenuItem
                       key={c.id}
-                      className="flex items-center gap-2 w-full px-3 py-1.5 text-xs text-left transition-all"
-                      style={{ color: 'var(--neutral-700)' }}
-                      onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-100)')}
-                      onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+                      label={<span className="truncate">Move to “{c.name}”</span>}
                       onClick={() => {
                         onAssign(session.id, c.id);
-                        onToggleMenu(session.id);
+                        onToggleMenu(uiKey);
                       }}
-                    >
-                      <span className="truncate">Move to “{c.name}”</span>
-                    </button>
+                    />
                   ))}
                   {session.campaign_id && (
-                    <button
-                      className="flex items-center gap-2 w-full px-3 py-1.5 text-xs text-left transition-all"
-                      style={{ color: 'var(--neutral-700)' }}
-                      onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-100)')}
-                      onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+                    <MenuItem
+                      label="Remove from campaign"
                       onClick={() => {
                         onAssign(session.id, null);
-                        onToggleMenu(session.id);
+                        onToggleMenu(uiKey);
                       }}
-                    >
-                      Remove from campaign
-                    </button>
+                    />
                   )}
                 </>
               )}
 
-              {/* Delete */}
-              <button
-                className="flex items-center gap-2 w-full px-3 py-1.5 text-xs text-left transition-all"
-                style={{ color: '#dc2626' }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-100)')}
-                onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+              <MenuItem
+                danger
+                icon={
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <polyline points="3 6 5 6 21 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M10 11v6M14 11v6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                }
+                label="Delete"
                 onClick={() => {
                   onDelete(session.id);
-                  onToggleMenu(session.id);
+                  onToggleMenu(uiKey);
                 }}
-              >
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
-                  <polyline points="3 6 5 6 21 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M10 11v6M14 11v6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-                Delete
-              </button>
+              />
             </div>
           )}
         </div>
@@ -374,17 +381,20 @@ function CampaignGroup({
         }}
         onClick={() => !isEditing && onToggleExpand(campaign.id)}
         onDragOver={(e) => {
+          // Only session-row drags are drop targets — stray text/URL drags
+          // must neither highlight the row nor fire a bogus assignment
+          if (!e.dataTransfer.types.includes(SESSION_DRAG_TYPE)) return;
           e.preventDefault();
           e.dataTransfer.dropEffect = 'move';
           onDragOverChange(campaign.id);
         }}
         onDragLeave={() => onDragOverChange(null)}
         onDrop={(e) => {
+          const sessionId = e.dataTransfer.getData(SESSION_DRAG_TYPE);
+          if (!sessionId) return;
           e.preventDefault();
           onDragOverChange(null);
-          const sessionId =
-            e.dataTransfer.getData(SESSION_DRAG_TYPE) || e.dataTransfer.getData('text/plain');
-          if (sessionId) onAssign(sessionId, campaign.id);
+          onAssign(sessionId, campaign.id);
         }}
       >
         <span className="text-xs flex-shrink-0" style={{ color: 'var(--neutral-400)', width: '0.75rem' }}>
@@ -431,42 +441,28 @@ function CampaignGroup({
               className="absolute right-0 z-30 rounded-lg shadow-lg py-1"
               style={{ top: '100%', minWidth: '9rem', background: '#fff', border: '1px solid var(--neutral-200)' }}
             >
-              <button
-                className="flex items-center gap-2 w-full px-3 py-1.5 text-xs text-left transition-all"
-                style={{ color: 'var(--neutral-700)' }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-100)')}
-                onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+              <MenuItem
+                label="Rename"
                 onClick={() => {
                   onStartRename(campaign);
                   onToggleMenu(menuKey);
                 }}
-              >
-                Rename
-              </button>
-              <button
-                className="flex items-center gap-2 w-full px-3 py-1.5 text-xs text-left transition-all"
-                style={{ color: 'var(--neutral-700)' }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-100)')}
-                onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+              />
+              <MenuItem
+                label="Edit lore…"
                 onClick={() => {
                   onEditLore(campaign);
                   onToggleMenu(menuKey);
                 }}
-              >
-                Edit lore…
-              </button>
-              <button
-                className="flex items-center gap-2 w-full px-3 py-1.5 text-xs text-left transition-all"
-                style={{ color: '#dc2626' }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-100)')}
-                onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+              />
+              <MenuItem
+                danger
+                label="Delete"
                 onClick={() => {
                   onDelete(campaign);
                   onToggleMenu(menuKey);
                 }}
-              >
-                Delete
-              </button>
+              />
             </div>
           )}
         </div>
@@ -534,16 +530,15 @@ export default function Sidebar({
   onOpen,
   onClose,
   sessions,
-  campaigns,
   activeSessionId,
   onSelectSession,
   onNewSession,
   onDeleteSession,
   onRenameSession,
   onStarSession,
-  campaignActions,
   onWikiOpen,
 }: SidebarProps) {
+  const { campaigns, campaignActions } = useSessionContext();
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editingName, setEditingName] = useState('');
   const [openMenuId, setOpenMenuId] = useState<string | null>(null);
@@ -552,11 +547,14 @@ export default function Sidebar({
   const [editingCampaignName, setEditingCampaignName] = useState('');
   const [campaignModal, setCampaignModal] = useState<{ campaign?: Campaign } | null>(null);
   const [dragOverCampaignId, setDragOverCampaignId] = useState<string | null>(null);
+  const autoExpandedForRef = useRef<string | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const { status: authStatus } = useSession();
   const router = useRouter();
 
-  // Restore expanded campaign groups after mount (avoids SSR hydration mismatch)
+  // Restore expanded campaign groups after mount (avoids SSR hydration mismatch).
+  // Persistence is write-through in the setters below rather than an effect, so
+  // the initial empty state can never clobber the stored value before restore.
   useEffect(() => {
     try {
       const stored = JSON.parse(localStorage.getItem(EXPANDED_CAMPAIGNS_KEY) ?? '[]');
@@ -566,24 +564,26 @@ export default function Sidebar({
     }
   }, []);
 
-  useEffect(() => {
+  function persistExpanded(next: Set<string>) {
     try {
-      localStorage.setItem(EXPANDED_CAMPAIGNS_KEY, JSON.stringify([...expandedCampaigns]));
+      localStorage.setItem(EXPANDED_CAMPAIGNS_KEY, JSON.stringify([...next]));
     } catch {
       // Storage may be unavailable (private mode) — expansion just won't persist
     }
-  }, [expandedCampaigns]);
+  }
 
-  // Auto-expand the campaign containing the active session
+  // Auto-expand the campaign containing the active session — once per session
+  // switch, so a deliberately collapsed group stays collapsed while chatting
   useEffect(() => {
-    const active = sessions.find((s) => s.id === activeSessionId);
-    const campaignId = active?.campaign_id;
+    if (!activeSessionId || autoExpandedForRef.current === activeSessionId) return;
+    const campaignId = sessions.find((s) => s.id === activeSessionId)?.campaign_id;
     if (!campaignId) return;
-    setExpandedCampaigns((prev) => {
-      if (prev.has(campaignId)) return prev;
-      return new Set(prev).add(campaignId);
-    });
-  }, [activeSessionId, sessions]);
+    autoExpandedForRef.current = activeSessionId;
+    if (expandedCampaigns.has(campaignId)) return;
+    const next = new Set(expandedCampaigns).add(campaignId);
+    setExpandedCampaigns(next);
+    persistExpanded(next);
+  }, [activeSessionId, sessions, expandedCampaigns]);
 
   const sessionsByCampaign = useMemo(() => {
     const map = new Map<string, Session[]>();
@@ -608,12 +608,11 @@ export default function Sidebar({
   );
 
   function toggleCampaignExpand(id: string) {
-    setExpandedCampaigns((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
-    });
+    const next = new Set(expandedCampaigns);
+    if (next.has(id)) next.delete(id);
+    else next.add(id);
+    setExpandedCampaigns(next);
+    persistExpanded(next);
   }
 
   function startCampaignRename(c: Campaign) {
@@ -651,8 +650,8 @@ export default function Sidebar({
     return () => document.removeEventListener('mousedown', onMouseDown);
   }, [openMenuId]);
 
-  function startEdit(session: Session) {
-    setEditingId(session.id);
+  function startEdit(session: Session, uiKey: string) {
+    setEditingId(uiKey);
     setEditingName(session.name);
   }
 
@@ -958,6 +957,7 @@ export default function Sidebar({
                           <SessionRow
                             key={session.id}
                             session={session}
+                            uiKey={`group:${campaign.id}:${session.id}`}
                             isActive={session.id === activeSessionId}
                             onSelect={() => onSelectSession(session.id)}
                             onDelete={onDeleteSession}
@@ -996,6 +996,7 @@ export default function Sidebar({
                 <SessionRow
                   key={session.id}
                   session={session}
+                  uiKey={`recent:${session.id}`}
                   isActive={session.id === activeSessionId}
                   onSelect={() => onSelectSession(session.id)}
                   onDelete={onDeleteSession}

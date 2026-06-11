@@ -1,18 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { CAMPAIGN_LORE_MAX_CHARS } from '../lib/config';
+import { ModalOverlay } from './modal';
 import type { Campaign } from './session-context';
-
-function useEscape(onClose: () => void) {
-  useEffect(() => {
-    function onKeyDown(e: KeyboardEvent) {
-      if (e.key === 'Escape') onClose();
-    }
-    document.addEventListener('keydown', onKeyDown);
-    return () => document.removeEventListener('keydown', onKeyDown);
-  }, [onClose]);
-}
 
 export function CampaignEditModal({
   campaign,
@@ -25,7 +16,6 @@ export function CampaignEditModal({
 }) {
   const [name, setName] = useState(campaign?.name ?? '');
   const [lore, setLore] = useState(campaign?.lore ?? '');
-  useEscape(onClose);
 
   const overLimit = lore.length > CAMPAIGN_LORE_MAX_CHARS;
   const canSave = name.trim().length > 0 && !overLimit;
@@ -37,15 +27,8 @@ export function CampaignEditModal({
   }
 
   return (
-    <div
-      className="fixed inset-0 z-[100] flex items-center justify-center"
-      style={{ background: 'rgba(0,0,0,0.5)' }}
-      onClick={onClose}
-    >
-      <div
-        className="bg-white rounded-xl w-full max-w-lg mx-4 max-h-[90vh] flex flex-col overflow-hidden"
-        onClick={(e) => e.stopPropagation()}
-      >
+    <ModalOverlay onClose={onClose}>
+      <div className="bg-white rounded-xl w-full max-w-lg mx-4 max-h-[90vh] flex flex-col overflow-hidden">
         <div className="px-5 pt-4 pb-3" style={{ borderBottom: '1px solid var(--neutral-200)' }}>
           <p
             className="text-base font-semibold"
@@ -116,7 +99,7 @@ export function CampaignEditModal({
           </button>
         </div>
       </div>
-    </div>
+    </ModalOverlay>
   );
 }
 
@@ -129,18 +112,9 @@ export function CampaignPromptModal({
   onChoose: (campaignId: string | null) => void;
   onClose: () => void; // skip — same as choosing no campaign
 }) {
-  useEscape(onClose);
-
   return (
-    <div
-      className="fixed inset-0 z-[100] flex items-center justify-center"
-      style={{ background: 'rgba(0,0,0,0.4)' }}
-      onClick={onClose}
-    >
-      <div
-        className="bg-white rounded-xl w-full max-w-sm mx-4 overflow-hidden"
-        onClick={(e) => e.stopPropagation()}
-      >
+    <ModalOverlay onClose={onClose} backdrop="rgba(0,0,0,0.4)">
+      <div className="bg-white rounded-xl w-full max-w-sm mx-4 overflow-hidden">
         <div className="px-5 pt-4 pb-3">
           <p
             className="text-base font-semibold"
@@ -175,6 +149,6 @@ export function CampaignPromptModal({
           </button>
         </div>
       </div>
-    </div>
+    </ModalOverlay>
   );
 }

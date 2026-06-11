@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { updateCampaign, deleteCampaign } from '@/db';
 import { auth } from '@/auth';
-import { CAMPAIGN_LORE_MAX_CHARS } from '../../../lib/config';
+import { parseCampaignBody } from '../../../lib/campaigns';
 
 export async function PUT(
   request: Request,
@@ -15,32 +15,16 @@ export async function PUT(
 
   const { id } = await params;
   const body = await request.json().catch(() => ({}));
-  const patch: { name?: string; lore?: string | null } = {};
-
-  if (body.name !== undefined) {
-    const name = typeof body.name === 'string' ? body.name.trim() : '';
-    if (!name) {
-      return NextResponse.json({ error: 'Name cannot be empty' }, { status: 400 });
-    }
-    patch.name = name;
-  }
-  if (body.lore !== undefined) {
-    const lore = typeof body.lore === 'string' ? body.lore : null;
-    if (lore && lore.length > CAMPAIGN_LORE_MAX_CHARS) {
-      return NextResponse.json(
-        { error: `Lore must be at most ${CAMPAIGN_LORE_MAX_CHARS} characters` },
-        { status: 400 }
-      );
-    }
-    patch.lore = lore;
+  const parsed = parseCampaignBody(body, { requireName: false });
+  if ('error' in parsed) {
+    return NextResponse.json({ error: parsed.error }, { status: 400 });
   }
 
-  try {
-    const campaign = await updateCampaign(id, userId, patch);
-    return NextResponse.json({ campaign });
-  } catch {
+  const campaign = await updateCampaign(id, userId, parsed.patch);
+  if (!campaign) {
     return NextResponse.json({ error: 'Campaign not found' }, { status: 404 });
   }
+  return NextResponse.json({ campaign });
 }
 
 export async function DELETE(

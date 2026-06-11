@@ -11,8 +11,8 @@ import { safeJsonParse, isImageOutput, ImageOutput } from '../lib/messageUtils';
 import type { Collection } from '../lib/collections';
 import { AMBIANCE_OPTIONS } from '../lib/collections';
 import { useSessionContext } from './session-context';
-import type { Campaign } from './session-context';
 import { CampaignPromptModal } from './campaign-modal';
+import { ModalOverlay } from './modal';
 import { useSession } from 'next-auth/react';
 import { VALID_TERRAINS, VALID_SETTINGS, type Terrain, type Setting } from '../lib/mapPrompts';
 
@@ -219,15 +219,8 @@ function ImageModal({
   onDownload: () => void;
 }) {
   return (
-    <div
-      className="fixed inset-0 z-[100] flex items-center justify-center"
-      style={{ background: 'rgba(0,0,0,0.7)' }}
-      onClick={onClose}
-    >
-      <div
-        className="relative bg-white rounded-xl overflow-hidden max-w-2xl w-full mx-4 max-h-[90vh] flex flex-col"
-        onClick={(e) => e.stopPropagation()}
-      >
+    <ModalOverlay onClose={onClose} backdrop="rgba(0,0,0,0.7)">
+      <div className="relative bg-white rounded-xl overflow-hidden max-w-2xl w-full mx-4 max-h-[90vh] flex flex-col">
         <img src={img.src} alt={img.label} className="w-full object-contain max-h-[60vh]" />
         <div className="px-4 py-3 flex flex-col gap-2">
           <p className="text-sm font-semibold" style={{ color: 'var(--neutral-900)', fontFamily: 'var(--font-cinzel), serif' }}>
@@ -269,7 +262,7 @@ function ImageModal({
           </div>
         </div>
       </div>
-    </div>
+    </ModalOverlay>
   );
 }
 
@@ -531,7 +524,6 @@ export default function Chat({ initialSessionId }: ChatProps) {
   const { sessions, setSessions, activeSessionId, setActiveSessionId, setHandlers, campaigns, campaignActions, openSidebar } = useSessionContext();
   const { status: authStatus } = useSession();
   const [campaignPromptSessionId, setCampaignPromptSessionId] = useState<string | null>(null);
-  const campaignsRef = useRef<Campaign[]>(campaigns);
 
   const activeCollection = collections.find((c) => c.id === activeCollectionId) ?? undefined;
 
@@ -560,10 +552,6 @@ export default function Chat({ initialSessionId }: ChatProps) {
   useEffect(() => {
     messagesRef.current = messages;
   }, [messages]);
-
-  useEffect(() => {
-    campaignsRef.current = campaigns;
-  }, [campaigns]);
 
   const persistMessages = useCallback(async (id: string, msgs: UIMessage[]) => {
     const r = await fetch(`/api/sessions/${id}`, {
@@ -636,7 +624,11 @@ export default function Chat({ initialSessionId }: ChatProps) {
     if (status === 'ready' && messages.length > 0 && id) {
       persistMessages(id, messages).then((d) => {
         if (d.session) {
-          setSessions((prev) => prev.map((s) => (s.id === d.session!.id ? d.session! : s)));
+          // Keep the locally-known campaign_id: this response may have been
+          // committed before a concurrent assignment and must not undo it
+          setSessions((prev) =>
+            prev.map((s) => (s.id === d.session!.id ? { ...d.session!, campaign_id: s.campaign_id } : s))
+          );
         }
       });
     }
@@ -834,10 +826,10 @@ export default function Chat({ initialSessionId }: ChatProps) {
     setMessages([]);
     // Session is created and active immediately; the campaign prompt floats on
     // top and assignment happens in the background — creation latency unchanged
-    if (campaignsRef.current.length > 0) {
+    if (campaigns.length > 0) {
       setCampaignPromptSessionId(session.id);
     }
-  }, [authStatus, saveCurrentSession, setMessages, stop]);
+  }, [authStatus, campaigns, saveCurrentSession, setMessages, stop]);
 
   const handleDeleteSession = useCallback(
     async (id: string) => {
@@ -881,7 +873,8 @@ export default function Chat({ initialSessionId }: ChatProps) {
       body: JSON.stringify({ name }),
     });
     const { session } = await res.json();
-    setSessions((prev) => prev.map((s) => (s.id === id ? session : s)));
+    // campaign_id kept from local state — see the persist effect for why
+    setSessions((prev) => prev.map((s) => (s.id === id ? { ...session, campaign_id: s.campaign_id } : s)));
   }, []);
 
   const handleStarSession = useCallback(async (id: string, starred: boolean) => {
@@ -891,7 +884,7 @@ export default function Chat({ initialSessionId }: ChatProps) {
       body: JSON.stringify({ starred }),
     });
     const { session } = await res.json();
-    setSessions((prev) => prev.map((s) => (s.id === id ? session : s)));
+    setSessions((prev) => prev.map((s) => (s.id === id ? { ...session, campaign_id: s.campaign_id } : s)));
   }, []);
 
   // Register handlers into context so Sidebar (via AppShell) can call them

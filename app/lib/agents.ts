@@ -23,7 +23,9 @@ export interface CampaignContext {
 // Composable "Campaign Context" section — phase 2 appends the campaign
 // chronicle here. Kept ahead of the collection block so the static-per-campaign
 // prefix stays byte-identical across requests (Gemini implicit caching).
-function buildCampaignContext(campaign?: CampaignContext): string {
+// Exported so the chat route can reserve this block's actual length in the
+// token window — the reserve can't drift from what is really injected.
+export function buildCampaignContext(campaign?: CampaignContext): string {
   const lore = campaign?.lore.trim();
   if (!lore) return '';
   return (
