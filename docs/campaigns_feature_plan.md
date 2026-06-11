@@ -248,7 +248,47 @@ context assembly — no cache to bust in v1).
   the `SessionMemory` blocks of sibling sessions could seed a campaign chronicle.
 - Reordering sessions manually within a campaign (chronological order is the spec).
 
-## 7. Implementation order
+## 7. Deployment considerations (Vercel + Neon + Vercel Blob)
+
+The app deploys to Vercel with a Neon Postgres database and Vercel Blob storage. This stack
+validates several choices above and adds a few constraints:
+
+**Migrations run during the Vercel build.** The `build` script is
+`tsx db/migrate.ts && next build`, with migrate.ts connecting over `DATABASE_URL_UNPOOLED`.
+The campaigns schema rides this existing pipeline with no new env vars or steps. Two
+properties make that safe:
+
+- The change is **purely additive** (new table, two nullable columns, indexes), so code
+  running *before* the deploy promotes — or after a rollback to a previous deployment —
+  is unaffected by the new schema. No coordinated cutover needed.
+- All statements are idempotent (`IF NOT EXISTS`), so repeated builds (including preview
+  deployments) re-running the migration are no-ops.
+
+One caveat to be aware of: if preview deployments share the production `DATABASE_URL_UNPOOLED`,
+the schema lands in production as soon as the *first preview build* of the branch runs, ahead
+of the code. Harmless here because the change is additive, but for future destructive
+migrations consider Neon's branch-per-preview workflow.
+
+**Stateless serverless functions rule out in-process caching.** Each invocation may be a
+cold start, and module-level state only survives warm reuse — so the design correctly avoids
+any in-memory lore cache. The two layers it relies on instead are exactly the ones that work
+serverless: the DB as the single source of truth (lore fetched fresh per request) and
+Gemini's provider-side implicit prefix caching (lives in Google's infrastructure, indifferent
+to which Vercel instance served the request).
+
+**Every Neon query is an HTTP round trip.** The runtime client is `neon(DATABASE_URL)` over
+HTTP, not a pooled TCP connection, so each query costs a full request to Neon. This is why
+the lore join (§3) folds into the existing `getSession` call instead of adding a second
+query, and why `GET /api/campaigns` returns campaigns with derived session IDs in a single
+`LEFT JOIN` + `array_agg` query rather than N+1 lookups. For the same reason, keep the
+Vercel function region and the Neon region co-located (check the project's current pairing)
+— it bounds the per-query latency that sits ahead of time-to-first-token.
+
+**Blob storage is unaffected.** Campaigns store only text. Unlike collection deletion, which
+must clean up location artifacts in Vercel Blob, campaign deletion touches no blobs — the
+`ON DELETE SET NULL` on sessions is the entire teardown.
+
+## 8. Implementation order
 
 1. **Schema + DB layer** — `db/schema/campaigns.ts`, `chat_sessions` ALTERs, migrate.ts
    registration, `db/index.ts` functions, `first_message_at` guard in `updateSession`.
@@ -259,6 +299,9 @@ context assembly — no cache to bust in v1).
 5. **Sidebar UI** — campaigns section, context menus, modals, new-session prompt.
 6. **Drag and drop** — native DnD + menu fallback.
 7. **Docs** — update `session_management.md`, add a short `campaigns.md`.
+
+Step 1's schema ships automatically with the first Vercel deploy of the branch (build-time
+migration); it is additive and inert until the API and UI land.
 
 Steps 1–3 ship the backend completely and are independently testable via curl; 4–6 are
 pure-frontend and can land incrementally behind the absence of campaigns (empty state shows
