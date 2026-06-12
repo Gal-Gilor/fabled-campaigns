@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://fabled-campaigns.vercel.app/sitemap.xml
+Sitemap: https://fabledcampaigns.com/sitemap.xml

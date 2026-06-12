@@ -16,7 +16,7 @@ const jsonLdSoftware = {
     'A personal campaign assistant for tabletop RPG players. Manage sessions, plan encounters, generate maps, and keep your homebrew organized through a simple chat interface.',
   applicationCategory: 'GameApplication',
   operatingSystem: 'Web',
-  url: 'https://fabled-campaigns.vercel.app',
+  url: 'https://fabledcampaigns.com',
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
 };
 

@@ -7,7 +7,7 @@ import { MarkdownBody } from '@/app/components/wiki/markdown-body';
 
 type Props = { params: Promise<{ slug: string }>; searchParams: Promise<{ from?: string; q?: string }> };
 
-const BASE_URL = 'https://fabled-campaigns.vercel.app';
+const BASE_URL = 'https://fabledcampaigns.com';
 
 export function generateStaticParams() {
   return getAllMagicItems().map((item) => ({ slug: item.slug }));

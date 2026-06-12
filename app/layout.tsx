@@ -16,7 +16,7 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://fabled-campaigns.vercel.app"),
+  metadataBase: new URL("https://fabledcampaigns.com"),
   title: "Fabled Campaigns",
   description:
     "Your AI Dungeon Master guide. Manage sessions, homebrew campaigns, encounters, characters, and roll to quest.",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     description:
       "Your AI Dungeon Master guide. Manage sessions, homebrew campaigns, encounters, characters, and roll to quest.",
     siteName: "Fabled Campaigns",
-    url: "https://fabled-campaigns.vercel.app",
+    url: "https://fabledcampaigns.com",
     type: "website",
   },
   twitter: {
