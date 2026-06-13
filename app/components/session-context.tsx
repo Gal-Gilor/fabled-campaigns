@@ -1,6 +1,9 @@
 'use client';
 import { createContext, useContext } from 'react';
 import { ChatSession as Session } from '@/db';
+import type { DbCampaign } from '@/db';
+
+export type Campaign = DbCampaign;
 
 export interface SessionHandlers {
   onNewSession: () => void;
@@ -10,6 +13,13 @@ export interface SessionHandlers {
   onStarSession: (id: string, starred: boolean) => void;
 }
 
+export interface CampaignActions {
+  createCampaign: (data: { name: string; lore?: string | null }) => Promise<Campaign | null>;
+  updateCampaign: (id: string, patch: { name?: string; lore?: string | null }) => Promise<void>;
+  deleteCampaign: (id: string) => Promise<void>;
+  assignSessionToCampaign: (sessionId: string, campaignId: string | null) => Promise<void>;
+}
+
 export interface SessionContextValue {
   sessions: Session[];
   setSessions: (s: Session[] | ((prev: Session[]) => Session[])) => void;
@@ -17,6 +27,8 @@ export interface SessionContextValue {
   setActiveSessionId: (id: string | null) => void;
   handlers: SessionHandlers | null;
   setHandlers: (h: SessionHandlers | null) => void;
+  campaigns: Campaign[];
+  campaignActions: CampaignActions;
   openSidebar?: () => void;
 }
 

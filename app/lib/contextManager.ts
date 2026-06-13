@@ -120,9 +120,11 @@ function estimateMessageChars(message: UIMessage): number {
 // ---------------------------------------------------------------------------
 
 export function applyTokenWindow(
-  messages: UIMessage[]
+  messages: UIMessage[],
+  reserveExtraChars = 0
 ): { recent: UIMessage[]; evicted: UIMessage[] } {
-  const budgetChars = TOKEN_EVICTION_THRESHOLD * CHARS_PER_TOKEN - TOKEN_OVERHEAD_RESERVE_CHARS;
+  const budgetChars =
+    TOKEN_EVICTION_THRESHOLD * CHARS_PER_TOKEN - TOKEN_OVERHEAD_RESERVE_CHARS - reserveExtraChars;
 
   let accumulated = 0;
   let splitIndex = messages.length;
@@ -267,9 +269,10 @@ interface PreparedContext {
 
 export async function prepareContext(
   messages: UIMessage[],
-  existingSummary: string | null
+  existingSummary: string | null,
+  reserveExtraChars = 0 // e.g. campaign lore length — reserved on top of the base overhead
 ): Promise<PreparedContext> {
-  const { recent: rawRecent, evicted } = applyTokenWindow(messages);
+  const { recent: rawRecent, evicted } = applyTokenWindow(messages, reserveExtraChars);
   const recent = pruneToolOutputs(rawRecent);
 
   const parsedSummary = existingSummary ? tryParseMemory(existingSummary) : null;
