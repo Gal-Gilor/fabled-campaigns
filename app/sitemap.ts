@@ -2,7 +2,7 @@
 import type { MetadataRoute } from 'next';
 import { getAllMonsters, getAllMagicItems } from '@/app/lib/wiki';
 
-const BASE_URL = 'https://fabled-campaigns.vercel.app';
+const BASE_URL = 'https://fabledcampaigns.com';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const monsters = getAllMonsters();
