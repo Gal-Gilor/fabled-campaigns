@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { auth } from '@/auth';
+import Footer from '@/app/components/footer';
 
 export const metadata: Metadata = {
   alternates: {
@@ -105,8 +106,8 @@ export default async function LandingPage() {
         </Link>
         <Link
           href="/wiki"
-          className="text-sm transition-opacity hover:opacity-75"
-          style={{ color: 'var(--primary-blue)' }}
+          className="text-sm font-medium transition-opacity hover:opacity-75"
+          style={{ color: 'var(--neutral-700)' }}
         >
           Wiki
         </Link>
@@ -233,18 +234,6 @@ export default async function LandingPage() {
               </div>
             ))}
           </div>
-          <div
-            className="mt-8 pt-6 text-center"
-            style={{ borderTop: '1px solid var(--neutral-200)' }}
-          >
-            <Link
-              href="/wiki"
-              className="text-sm transition-opacity hover:opacity-75"
-              style={{ color: 'var(--primary-blue)' }}
-            >
-              Wiki
-            </Link>
-          </div>
         </section>
 
         {/* Bottom CTA */}
@@ -271,6 +260,7 @@ export default async function LandingPage() {
           )}
         </section>
       </main>
+      <Footer />
     </>
   );
 }
