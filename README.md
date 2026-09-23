@@ -70,7 +70,7 @@ of the older messages. The full history stays in the database and in the UI.
 
 ### SRD Wiki
 
-Public reference pages for D&D 5e SRD content, no account required:
+Public reference pages for SRD 5.2.1 content, no account required (see [SRD attribution](#srd-attribution)):
 
 - `/wiki/magic-items`: 270 magic items, filterable by name, type, and rarity.
 - `/wiki/monsters`: monster stat blocks, filterable by name, type, and challenge rating. The
@@ -270,8 +270,13 @@ When `GOOGLE_SERVICE_ACCOUNT_KEY` is set, the app uses it and ignores
 `GOOGLE_APPLICATION_CREDENTIALS`. When self-hosting outside Vercel behind a proxy, Auth.js may
 also need `AUTH_URL` or `AUTH_TRUST_HOST`.
 
-The Neon integration from the Vercel Marketplace also creates `PG*` and `POSTGRES_*` variables.
-The app does not read them.
+The Neon integration from the Vercel Marketplace also creates `PG*`, `POSTGRES_*`, and `NEON_*`
+variables (for example `POSTGRES_URL`, `POSTGRES_PRISMA_URL`, `NEON_PROJECT_ID`,
+`NEON_AUTH_BASE_URL`). The app does not read them. It uses Auth.js with its own tables, not Neon
+Auth.
+
+`NODE_ENV` does not need to be set. Next.js sets it to `development` for `npm run dev` and
+`production` for `npm run build` and `npm start`.
 
 ## Database
 
@@ -437,5 +442,10 @@ This website, its code, content, and associated materials are proprietary and co
 - Vercel for hosting, Blob storage, and the AI SDK
 - Neon for serverless Postgres
 - Auth.js for authentication
-- The D&D 5e System Reference Document for wiki content
 - The tabletop RPG community for inspiration
+
+### SRD attribution
+
+This work includes material from the System Reference Document 5.2.1 ("SRD 5.2.1") by Wizards of the Coast LLC, available at https://www.dndbeyond.com/srd. The SRD 5.2.1 is licensed under the Creative Commons Attribution 4.0 International License, available at https://creativecommons.org/licenses/by/4.0/legalcode.
+
+The SRD monster and magic item text in `data/` was converted to JSON and reformatted for display in the wiki.
