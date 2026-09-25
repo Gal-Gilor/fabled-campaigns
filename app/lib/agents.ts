@@ -11,6 +11,7 @@ import {
 import { createEditEncounterMap } from './imageEditTools';
 import { VALID_TERRAINS, VALID_SETTINGS } from './mapPrompts';
 import type { Collection } from './collections';
+import type { UsageRecorder } from './usage';
 import { getAmbiancePromptLanguage } from './collections';
 import { vertex } from './vertexClient';
 import { safeJsonParse, isImageOutput } from './messageUtils';
@@ -39,7 +40,8 @@ export function buildCampaignContext(campaign?: CampaignContext): string {
 export function createRootAgent(
   activeCollection?: Collection,
   sessionId?: string,
-  campaign?: CampaignContext
+  campaign?: CampaignContext,
+  usage?: UsageRecorder
 ) {
   const campaignContext = buildCampaignContext(campaign);
   const collectionContext = activeCollection
@@ -64,9 +66,9 @@ export function createRootAgent(
       })()
     : '';
 
-  const generateNarrative = createGenerateNarrativeDescription(activeCollection);
-  const enhanceMapPrompt = createEnhanceMapPrompt(activeCollection);
-  const generateEncounterMap = createGenerateEncounterMap(sessionId);
+  const generateNarrative = createGenerateNarrativeDescription(activeCollection, usage);
+  const enhanceMapPrompt = createEnhanceMapPrompt(activeCollection, usage);
+  const generateEncounterMap = createGenerateEncounterMap(sessionId, usage);
 
   const mapAgentTool = tool({
     description: 'Generate a NEW D&D tactical encounter map image from scratch. Describe the scene in natural language — the tool handles image prompt engineering internally. Do NOT use this tool to modify an existing map; use editEncounterMap instead.',
@@ -114,7 +116,10 @@ export function createRootAgent(
     tools: {
       ...gmStubTools,
       mapAgent: mapAgentTool,
-      editEncounterMap: createEditEncounterMap(),
+      editEncounterMap: createEditEncounterMap(usage),
+    },
+    onStepFinish: async ({ usage: stepUsage }) => {
+      await usage?.recordText('chat', GEMINI_MODEL, stepUsage);
     },
   });
 }

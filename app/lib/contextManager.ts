@@ -2,6 +2,7 @@ import { convertToModelMessages, generateObject, getToolName, isToolUIPart, UIMe
 import { z } from 'zod';
 import { TOKEN_EVICTION_THRESHOLD, TOKEN_OVERHEAD_RESERVE_CHARS, GEMINI_MODEL } from './config';
 import { vertex } from './vertexClient';
+import type { UsageRecorder } from './usage';
 
 type ModelMessages = Awaited<ReturnType<typeof convertToModelMessages>>;
 
@@ -234,7 +235,8 @@ function renderMemory(m: SessionMemory): string {
 
 export async function summarize(
   evicted: UIMessage[],
-  existingSummary: SessionMemory | null
+  existingSummary: SessionMemory | null,
+  usage?: UsageRecorder
 ): Promise<SessionMemory> {
   const conversationText = serializeForSummary(evicted);
 
@@ -242,7 +244,7 @@ export async function summarize(
     ? `<existing_memory>\n${JSON.stringify(existingSummary, null, 2)}\n</existing_memory>\n\n`
     : '';
 
-  const { object } = await generateObject({
+  const { object, usage: callUsage } = await generateObject({
     model: vertex(GEMINI_MODEL),
     schema: SessionMemorySchema,
     prompt:
@@ -254,6 +256,7 @@ export async function summarize(
       existingBlock +
       `Conversation:\n${conversationText}`,
   });
+  await usage?.recordText('summary', GEMINI_MODEL, callUsage);
 
   return object;
 }
@@ -270,7 +273,8 @@ interface PreparedContext {
 export async function prepareContext(
   messages: UIMessage[],
   existingSummary: string | null,
-  reserveExtraChars = 0 // e.g. campaign lore length — reserved on top of the base overhead
+  reserveExtraChars = 0, // e.g. campaign lore length — reserved on top of the base overhead
+  usage?: UsageRecorder
 ): Promise<PreparedContext> {
   const { recent: rawRecent, evicted } = applyTokenWindow(messages, reserveExtraChars);
   const recent = pruneToolOutputs(rawRecent);
@@ -279,7 +283,7 @@ export async function prepareContext(
 
   // Run summarization and model message conversion in parallel — they operate on disjoint slices
   const summaryPromise = evicted.length > 0
-    ? summarize(evicted, parsedSummary).catch((err) => {
+    ? summarize(evicted, parsedSummary, usage).catch((err) => {
         console.error('[contextManager] summarize failed, proceeding without summary:', err);
         return null;
       })

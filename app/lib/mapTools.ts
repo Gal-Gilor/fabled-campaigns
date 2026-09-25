@@ -14,6 +14,7 @@ import {
 } from './mapPrompts';
 import { vertex } from './vertexClient';
 import type { Collection } from './collections';
+import type { UsageRecorder } from './usage';
 
 async function uploadImageToBlob(
   base64: string,
@@ -50,7 +51,7 @@ async function saveMapArtifact(
   return { src };
 }
 
-export function createGenerateNarrativeDescription(collection?: Collection) {
+export function createGenerateNarrativeDescription(collection?: Collection, usage?: UsageRecorder) {
   return async function (params: {
     userRequest: string;
     terrain?: string;
@@ -71,6 +72,7 @@ export function createGenerateNarrativeDescription(collection?: Collection) {
         prompt,
         maxOutputTokens: 300,
       });
+      await usage?.recordText('map_narrative', GEMINI_MODEL, result.usage);
       const narrative = result.text.trim();
       if (narrative.length >= 30) return narrative;
       throw new Error('Narrative too short');
@@ -85,7 +87,7 @@ export function createGenerateNarrativeDescription(collection?: Collection) {
   };
 }
 
-export function createEnhanceMapPrompt(collection?: Collection) {
+export function createEnhanceMapPrompt(collection?: Collection, usage?: UsageRecorder) {
   return tool({
     description:
       'Expand the user\'s map request into a rich, detailed image generation prompt using AI prompt engineering. ' +
@@ -114,6 +116,7 @@ export function createEnhanceMapPrompt(collection?: Collection) {
           prompt: metaPrompt,
           maxOutputTokens: 4096,
         });
+        await usage?.recordText('map_prompt', GEMINI_MODEL, result.usage);
         const enhanced = result.text.trim();
         if (enhanced.length >= 50) return enhanced;
         throw new Error('Enhancement response too short');
@@ -159,7 +162,7 @@ export const generateMapName = tool({
   },
 });
 
-export function createGenerateEncounterMap(sessionId?: string) {
+export function createGenerateEncounterMap(sessionId?: string, usage?: UsageRecorder) {
   return tool({
     description: 'Generate a tactical D&D encounter map image from an enhanced prompt',
     inputSchema: z.object({
@@ -185,6 +188,7 @@ export function createGenerateEncounterMap(sessionId?: string) {
             },
           },
         });
+        await usage?.recordImage('map_generate', IMAGEN_MODEL, result.images.length);
 
         const image = result.image;
         const { src, locationId, artifactId } = await saveMapArtifact(

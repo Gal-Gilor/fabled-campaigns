@@ -663,3 +663,35 @@ export async function getArtifactWithContext(artifactId: string): Promise<Artifa
     }),
   };
 }
+
+// ---------------------------------------------------------------------------
+// Usage events
+// ---------------------------------------------------------------------------
+
+export interface UsageEventInput {
+  userId: string;
+  sessionId: string | null;
+  source: string;
+  model: string;
+  inputTokens?: number | null;
+  cachedInputTokens?: number | null;
+  outputTokens?: number | null;
+  imageCount?: number | null;
+  voiceSeconds?: number | null;
+}
+
+export async function insertUsageEvent(event: UsageEventInput): Promise<void> {
+  const id = crypto.randomUUID();
+  const now = Date.now();
+  await sql`
+    INSERT INTO usage_events (
+      id, user_id, session_id, source, model, created_at,
+      input_tokens, cached_input_tokens, output_tokens, image_count, voice_seconds
+    )
+    VALUES (
+      ${id}, ${event.userId}, ${event.sessionId}, ${event.source}, ${event.model}, ${now},
+      ${event.inputTokens ?? null}, ${event.cachedInputTokens ?? null}, ${event.outputTokens ?? null},
+      ${event.imageCount ?? null}, ${event.voiceSeconds ?? null}
+    )
+  `;
+}

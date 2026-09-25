@@ -17,6 +17,7 @@ import {
   NB_PROMPTING_BEST_PRACTICES,
   type SourceContext,
 } from './nanoBananaPrompts';
+import type { UsageRecorder } from './usage';
 
 function toSourceContext(ctx: ArtifactWithContext): SourceContext {
   return {
@@ -47,6 +48,7 @@ async function uploadDerivedImage(
 async function runPromptExpansion(
   meta: string,
   basePrompt: string,
+  usage?: UsageRecorder,
 ): Promise<string> {
   try {
     const result = await generateText({
@@ -54,6 +56,7 @@ async function runPromptExpansion(
       prompt: meta,
       maxOutputTokens: 800,
     });
+    await usage?.recordText('edit_prompt', GEMINI_MODEL, result.usage);
     const expanded = result.text.trim();
     // Sanity guard: if the LLM returned an empty/truncated/refusal response,
     // fall back to the deterministic basePrompt instead of shipping a degraded prompt.
@@ -65,7 +68,7 @@ async function runPromptExpansion(
   }
 }
 
-async function expandEditPrompt(basePrompt: string): Promise<string> {
+async function expandEditPrompt(basePrompt: string, usage?: UsageRecorder): Promise<string> {
   const meta = [
     'You are polishing a base prompt for editing an existing D&D tactical battle map with the gemini-2.5-flash-image (Nano Banana) model.',
     'The provided source image is the structural anchor. Do NOT add new perspective, grid geometry, lighting, palette, or style — those are owned by the source image, and explicit additions can conflict with the "preserve everything else" instruction in the base prompt.',
@@ -82,7 +85,7 @@ async function expandEditPrompt(basePrompt: string): Promise<string> {
     'BASE PROMPT:',
     basePrompt,
   ].join('\n');
-  return runPromptExpansion(meta, basePrompt);
+  return runPromptExpansion(meta, basePrompt, usage);
 }
 
 // ---------------------------------------------------------------------------
@@ -90,7 +93,7 @@ async function expandEditPrompt(basePrompt: string): Promise<string> {
 // SAME location, with parent_artifact_id pointing to the source.
 // ---------------------------------------------------------------------------
 
-export function createEditEncounterMap() {
+export function createEditEncounterMap(usage?: UsageRecorder) {
   return tool({
     description:
       'Edit an existing encounter map using Nano Banana multimodal generation. ' +
@@ -119,13 +122,14 @@ export function createEditEncounterMap() {
           instruction,
           sourceContext: toSourceContext(ctx),
         });
-        const expandedPrompt = await expandEditPrompt(basePrompt);
+        const expandedPrompt = await expandEditPrompt(basePrompt, usage);
 
-        const { image, warnings } = await generateImage({
+        const { image, images, warnings } = await generateImage({
           model: vertex.image(GEMINI_IMAGE_MODEL),
           prompt: { text: expandedPrompt, images: [ctx.artifact.blobUrl] },
           aspectRatio: '4:3',
         });
+        await usage?.recordImage('map_edit', GEMINI_IMAGE_MODEL, images.length);
         if (warnings?.length) {
           console.warn('[editEncounterMap] AI SDK warnings:', warnings);
         }
