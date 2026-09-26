@@ -1,7 +1,9 @@
 export const GEMINI_MODEL = 'gemini-3.5-flash';
 // gemini-3.5-flash is only served from the Vertex `global` location.
 export const GEMINI_LOCATION = 'global';
-export const GEMINI_IMAGE_MODEL = 'gemini-3.1-flash-image';
+// gemini-2.5-flash-image has larger quotas than the Gemini 3 image models. Its output is
+// fixed near 1K (1184x864 at 4:3), so the imageSize setting below has no effect on it.
+export const GEMINI_IMAGE_MODEL = 'gemini-2.5-flash-image';
 export const GEMINI_IMAGE_LOCATION = 'global';
 export const CHAT_API_PATH = '/api/chat';
 

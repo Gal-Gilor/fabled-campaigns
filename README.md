@@ -31,7 +31,7 @@ asks a single follow-up question with a suggested example.
 Generation runs in two steps:
 
 1. Gemini expands the request into a detailed image prompt.
-2. `gemini-3.1-flash-image` (Nano Banana) renders a 4:3 battle map with a tactical grid.
+2. `gemini-2.5-flash-image` (Nano Banana) renders a 4:3 battle map with a tactical grid.
    Nano Banana has no negative-prompt field, so exclusions (people, creatures, text, wrong camera angles)
    are written directly into the prompt.
 
@@ -46,7 +46,7 @@ changed from the Settings modal in the sidebar footer, and applies to both new m
 ### Map editing
 
 Ask to change a map you already generated ("add a campfire near the stones", "make it night").
-The agent sends the source image and the instruction to `gemini-3.1-flash-image` (Nano Banana).
+The agent sends the source image and the instruction to `gemini-2.5-flash-image` (Nano Banana).
 The result is saved as a new version linked to the original, so earlier versions are kept.
 Maps generated without a collection have no artifact row, so they are edited by URL instead and are not saved to Collections.
 
@@ -99,7 +99,7 @@ campaign context is designed in [docs/campaigns_feature_plan.md](docs/campaigns_
 | Framework | Next.js 16 (App Router), React 19, TypeScript |
 | Styling | Tailwind CSS 4, Cinzel and Roboto fonts via `next/font` |
 | AI SDK | Vercel AI SDK 6 (`ai`, `@ai-sdk/react`, `@ai-sdk/google-vertex`) |
-| Models (Google Vertex AI) | `gemini-3.5-flash` (chat, prompt writing, summaries), `gemini-3.1-flash-image` (new maps and map edits, Nano Banana, Vertex location `global`) |
+| Models (Google Vertex AI) | `gemini-3.5-flash` (chat, prompt writing, summaries), `gemini-2.5-flash-image` (new maps and map edits, Nano Banana, Vertex location `global`) |
 | Authentication | Auth.js (`next-auth` v5) with the Google provider and `@auth/pg-adapter` |
 | Database | Neon serverless Postgres (`@neondatabase/serverless`) |
 | File storage | Vercel Blob (`@vercel/blob`) for map images |
@@ -108,8 +108,9 @@ campaign context is designed in [docs/campaigns_feature_plan.md](docs/campaigns_
 
 Model names, their Vertex locations, and the image-size options are set in
 [app/lib/config.ts](app/lib/config.ts). Both models run in the Vertex `global` location
-(`GEMINI_LOCATION` and `GEMINI_IMAGE_LOCATION`), because `gemini-3.5-flash` and
-`gemini-3.1-flash-image` are not available in `us-central1`.
+(`GEMINI_LOCATION` and `GEMINI_IMAGE_LOCATION`), because `gemini-3.5-flash` is not available in
+`us-central1`. `gemini-2.5-flash-image` renders at a fixed size near 1K, so the 2K and 4K quality
+settings currently have no effect.
 
 ## Architecture
 
@@ -425,7 +426,7 @@ Both map tools return a JSON string that the chat UI renders as an image card:
 | Vertex AI authentication errors | Check that `GOOGLE_SERVICE_ACCOUNT_KEY` is valid base64, the service account has `roles/aiplatform.user`, and the Vertex AI API is enabled |
 | `ENAMETOOLONG` from Google auth on Vercel | `GOOGLE_APPLICATION_CREDENTIALS` holds a base64 string instead of a path. Set `GOOGLE_SERVICE_ACCOUNT_KEY` instead |
 | Map request times out | Generation plus editing must finish within the chat route's 300 second limit. Check Vertex AI quotas and region availability |
-| "The image service is busy right now" | The Vertex image quota stayed exhausted through both retries. Wait a minute, or request a higher per-minute quota for `gemini-3.1-flash-image` in the Google Cloud console |
+| "The image service is busy right now" | The Vertex image quota stayed exhausted through both retries. Wait a minute, or request a higher per-minute quota for `gemini-2.5-flash-image` in the Google Cloud console |
 
 Server errors appear in the Vercel function logs. Client errors appear in the browser console.
 
