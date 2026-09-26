@@ -10,6 +10,7 @@ import {
 } from './mapTools';
 import { createEditEncounterMap } from './imageEditTools';
 import { VALID_TERRAINS, VALID_SETTINGS } from './mapPrompts';
+import { MAP_SCALES } from './nanoBananaPrompts';
 import type { Collection } from './collections';
 import type { UsageRecorder } from './usage';
 import { getAmbiancePromptLanguage } from './collections';
@@ -80,12 +81,16 @@ export function createRootAgent(
       terrain: z.enum(VALID_TERRAINS).optional().describe('Terrain type if identifiable'),
       setting: z.enum(VALID_SETTINGS).optional().describe('Specific building or location type if applicable'),
       perspective: z.enum(['indoor', 'outdoor']).describe('Whether this is an indoor or outdoor map'),
-      detailLevel: z.enum(['close-up', 'wide']).describe(
-        'close-up: room/small-area scale (~5ft per grid square); wide: regional or multi-room scale'
+      mapScale: z.enum(MAP_SCALES).optional().describe(
+        'How much area the map covers (every grid square is ~5 ft). ' +
+        'small: 20x15 squares, a small chamber, crevice, or tight passage; ' +
+        'standard: 24x18 squares, most single rooms and encounter areas (use this by default); ' +
+        'large: 28x21 squares, big spaces such as foyers, great halls, factories, or courtyards; ' +
+        'huge: 40x30 squares, very large areas such as fortresses, districts, or wilderness regions'
       ),
       collectionId: z.string().optional().describe('Active collection ID to tag this map'),
     }),
-    execute: async ({ name, userRequest, terrain, setting, perspective, detailLevel, collectionId }, { abortSignal }) => {
+    execute: async ({ name, userRequest, terrain, setting, perspective, mapScale, collectionId }, { abortSignal }) => {
       const narrative = await generateNarrative({ userRequest, terrain, setting, abortSignal });
       const enhanced = await enhanceMapPrompt({
         userRequest: narrative,
@@ -93,7 +98,7 @@ export function createRootAgent(
         terrain,
         setting,
         perspective,
-        detailLevel,
+        mapScale,
         abortSignal,
       });
 

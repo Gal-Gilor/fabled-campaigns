@@ -125,7 +125,8 @@ export function buildNarrativePrompt(params: NarrativePromptParams): string {
 
   const lines: string[] = [
     `Write a vivid, atmospheric 2–3 sentence description of ${locationParts[0]} that a player is entering.`,
-    'Write in second person ("You step into..."). Be immersive and sensory — mention light, texture, and atmosphere.',
+    'Write in second person ("You step into..."). Describe the overall layout, the major features, the light, and the atmosphere.',
+    'This description becomes a zoomed-out battle map, so skip small objects and fine surface detail.',
     'Do NOT mention grid lines, game mechanics, or meta-language. Output only the description itself.',
     '',
     `Location: ${locationParts[0]}`,

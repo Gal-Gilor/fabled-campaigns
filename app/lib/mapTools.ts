@@ -9,7 +9,12 @@ import {
   type ImageSize,
 } from './config';
 import { buildNarrativePrompt } from './mapPrompts';
-import { buildGenerationMetaPrompt, buildFallbackGenerationPrompt, describeSubject } from './nanoBananaPrompts';
+import {
+  buildGenerationMetaPrompt,
+  buildFallbackGenerationPrompt,
+  describeSubject,
+  type MapScale,
+} from './nanoBananaPrompts';
 import { generateMapImage, uploadMapImage } from './imageGeneration';
 import { vertex } from './vertexClient';
 import { getAmbiancePromptLanguage } from './collections';
@@ -102,7 +107,7 @@ export function createEnhanceMapPrompt(collection?: Collection, usage?: UsageRec
     terrain?: string;
     setting?: string;
     perspective?: 'indoor' | 'outdoor';
-    detailLevel?: 'close-up' | 'wide';
+    mapScale?: MapScale;
     abortSignal?: AbortSignal;
   }): Promise<string> {
     const { abortSignal, ...rest } = params;
