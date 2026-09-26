@@ -13,8 +13,9 @@ export const MAP_VIEWS = ['isometric', 'top-down'] as const;
 export type MapView = (typeof MAP_VIEWS)[number];
 
 export function resolveMapView(view?: MapView, mapScale?: MapScale): MapView {
-  if (view) return view;
-  return mapScale === 'region' ? 'top-down' : 'isometric';
+  // A region overview has no isometric form, so it is always top-down.
+  if (mapScale === 'region') return 'top-down';
+  return view ?? 'isometric';
 }
 
 const NEGATION_OCCUPANCY_AND_TEXT =
@@ -152,21 +153,23 @@ const STYLES: Record<MapView, string> = {
     'changes in height, and surface texture is minimal, so the map reads clearly on a table screen or a print.',
 };
 
-// Grid lines drawn in the floor's own seam color disappear into planks and
-// flagstones, so the grid must differ from the seams in color and weight.
+// Grid lines in the floor's own seam color disappear into planks and flagstones.
+// A square grid always runs parallel to planks in one direction, so contrast has
+// to come from hue and line weight, not from direction.
 const GRID_CONTRAST =
-  'The grid lines are one color that differs from the floor\'s own seams, joints, and mortar lines, such as pale ' +
-  'lines over dark planks or dark lines over pale flagstone, and they are slightly heavier than those seams, so the ' +
-  'grid reads as an overlay on top of the floor pattern; on a plank floor the grid never follows the planks.';
+  'Plank and board seams are dark, so over wood floors the grid lines are pale, such as cream or white, heavier than ' +
+  'the seams, and a different hue from them; each plank is narrower than a grid cell, so most seams fall inside the ' +
+  'cells rather than on grid lines. Over pale stone the grid lines are dark and heavier than the mortar lines. The ' +
+  'grid always reads as an overlay on top of the floor pattern.';
 
 const GRID_CLAUSES: Record<MapView, string> = {
   isometric:
-    'A clearly visible, uniform diamond-shaped isometric grid of thin, crisp lines, in a color that contrasts with the ' +
+    'A clearly visible, uniform diamond-shaped isometric grid of crisp lines, heavier than the floor\'s own seams, in a color that contrasts with the ' +
     'ground beneath it, covers the entire playable area edge to edge; each tile is a diamond (rhombus) about twice as ' +
     'wide as it is tall, laid flat on the floor or ground and following the 30-degree angle, and the grid runs ' +
     `unbroken across the whole playable area, including any slopes, stairs, or bridges. ${GRID_CONTRAST}`,
   'top-down':
-    'A clearly visible, uniform square tactical grid of thin, crisp lines, in a color that contrasts with the ground beneath it, ' +
+    'A clearly visible, uniform square tactical grid of crisp lines, heavier than the floor\'s own seams, in a color that contrasts with the ground beneath it, ' +
     'covers the entire playable area edge to edge and runs unbroken across the whole playable area, including any slopes, ' +
     `stairs, or bridges. ${GRID_CONTRAST}`,
 };
@@ -176,11 +179,11 @@ const REGION_NO_GRID = 'There are no grid lines of any kind anywhere on the map.
 // The grid description the meta-prompt's grid rule asks the text model to write.
 const GRID_RULE_DESCRIPTIONS: Record<MapView, string> = {
   isometric:
-    'a clearly visible, uniform diamond-shaped isometric grid of thin, crisp lines, where each tile is a diamond ' +
+    'a clearly visible, uniform diamond-shaped isometric grid of crisp lines heavier than the floor\'s own seams, where each tile is a diamond ' +
     '(rhombus) about twice as wide as it is tall, laid flat on the floor or ground and following the 30-degree angle, ' +
     'covering the entire playable area edge to edge and running unbroken across the whole playable area and any change in height',
   'top-down':
-    'a clearly visible, uniform square grid of thin, crisp lines covering the entire playable area edge to edge ' +
+    'a clearly visible, uniform square grid of crisp lines heavier than the floor\'s own seams, covering the entire playable area edge to edge ' +
     'and running unbroken across the whole playable area and any change in height',
 };
 
@@ -194,10 +197,11 @@ const GRID_UNITS: Record<MapView, { count: string; short: string }> = {
 // means fewer distinct objects, not flatter rendering.
 const LARGE_SCALE_DETAIL: Record<MapView, string> = {
   isometric:
-    'Keep the layout simple: show the major structures, zones, and walkways rather than individual objects, ' +
-    'each still rendered with full material detail.',
+    'Keep the layout simple: the major structures, the routes, and the separate pieces of cover that matter to the ' +
+    'encounter, rather than small decorative objects, each still rendered with full material detail.',
   'top-down':
-    'Keep detail low: show the major structures, zones, and walkways rather than individual objects.',
+    'Keep detail low: the major structures, the routes, and the separate pieces of cover that matter to the ' +
+    'encounter, rather than small decorative objects.',
 };
 
 const HUGE_SCALE_DETAIL: Record<MapView, string> = {
@@ -218,7 +222,8 @@ function buildScaleSentences(view: MapView): Record<MapScale, string> {
       `This is a map of a single room or encounter area: the frame shows 24 by 18 ${count}, each covering roughly ` +
       `5 feet. Show the room's layout and its main furniture or features, each covering at least a couple of ${short}.`,
     large:
-      'This is a map of a large space such as a foyer, great hall, factory floor, or courtyard: the frame shows ' +
+      'This is a map of a large space such as a foyer, great hall, factory floor, or courtyard, or an outdoor ' +
+      'encounter area such as a stretch of road, woods, or a camp: the frame shows ' +
       `28 by 21 ${count}, each covering roughly 5 feet. ${LARGE_SCALE_DETAIL[view]}`,
     huge:
       'This is a map of a very large area such as a fortress, a district, or a stretch of wilderness: the frame shows ' +
@@ -229,6 +234,11 @@ function buildScaleSentences(view: MapView): Record<MapScale, string> {
 
 // Region maps are overviews for travel and worldbuilding, not combat maps: no
 // grid, no 5-foot scale, and settlements shrink to small symbols.
+const REGION_STYLE =
+  'A classic hand-drawn map with flat color fills from a limited palette and crisp dark outlines around the ' +
+  'coastlines, rivers, forests, and mountain ranges. The lighting is soft and even, with light shading on the ' +
+  'mountain slopes, so the land reads clearly at a glance.';
+
 const REGION_SCALE_SENTENCE =
   'This is an overview map of a vast area such as a kingdom, a country, or a dominion. It shows the land\'s terrain ' +
   'regions, mountain ranges, rivers, forests, coastlines, roads, and settlements drawn as small symbols, with the ' +
@@ -307,8 +317,8 @@ const TOP_DOWN_EXAMPLES: GenerationExample[] = [
       'between the table and the shelves. Drawn as a classic tabletop battle map in a clean, hand-drawn style, with flat ' +
       'fills of deep wood and brass colors, crisp dark outlines around the shelves, the table, and the lectern, and soft, ' +
       'even light with only light shadows beside each shelf. A clearly visible, uniform square grid of ' +
-      'thin, crisp black lines covers the entire playable area edge to edge, running unbroken across the floor and ' +
-      `the table. ${TOP_DOWN_NEGATION}`,
+      'crisp pale cream lines, heavier than the dark plank seams, covers the entire playable area edge to edge, ' +
+      `running unbroken across the floor and the table. ${TOP_DOWN_NEGATION}`,
   },
   {
     request: 'a forest clearing map',
@@ -473,8 +483,8 @@ const ENCOUNTER_DESIGN_STEP = [
     'watching the entrance, a road that runs through the scene instead of ending in the middle of it.',
   '- Size things for a 5-foot grid: a tree trunk covers 1 square, a wagon 2 by 4, a road 2 to 3 squares wide, a ' +
     'doorway 1 square.',
-  '- Keep the play space open: at least half of the map is walkable ground, and cover stands as separate pieces with ' +
-    'room to move between them.',
+  '- Keep the play space open: at least half of the walkable area is open ground, and cover stands as separate ' +
+    'pieces with room to move between them. Add only the rooms and areas the story needs.',
   '- If the scale is too small for everything the story implies, describe the most important slice of the scene ' +
     'rather than cramming it all in.',
 ].join('\n');
@@ -504,7 +514,7 @@ function buildRegionMetaPrompt(params: GenerationPromptParams, view: MapView): s
       'inside the frame and open margin on every side.',
     '2. Geography. Where each region, range, river, and forest lies, in compass directions.',
     '3. Settlements and roads. Each settlement is a small symbol, never a detailed street plan.',
-    `4. Style. ${STYLES['top-down']}`,
+    `4. Style. ${REGION_STYLE}`,
     `5. Exclusions. End the prompt with this text, copied exactly: ${negation}`,
     '',
     'This is not a combat map: never describe a grid, squares, tiles, or a 5-foot scale.',
@@ -573,15 +583,18 @@ export function buildGenerationMetaPrompt(params: GenerationPromptParams): strin
     '3. Layout and paths. Match the layout to the location. A single room stays on one floor level unless the request says ' +
       'otherwise. Use height changes only where the place has them, such as sloping terrain, multi-level buildings, pits, or ' +
       'balconies. Every stair, ramp, or ladder connects two areas drawn on the map; none leads off the map or into a wall. ' +
-      'At least half the map is open, walkable ground. Place cover such as trees, boulders, bushes, and crates as separate ' +
-      'pieces with gaps between them, never as solid walls of foliage or rock along the map edges, and say where the open ' +
-      'ground is.',
+      'At least half of the walkable area (the area inside the walls, on interior maps) is open ground. Place cover such ' +
+      'as trees, boulders, bushes, and crates as separate pieces with gaps between them. On outdoor maps, never line the ' +
+      'map edges with solid walls of foliage or rock; on interior and cave maps, walls stand where the structure\'s walls ' +
+      'are. A single room keeps to its own walls: do not invent extra rooms, corridors, or partitions the request does ' +
+      'not mention. Say where the open ground is.',
     `4. Style and lighting. Describe this rendering style, keeping every quality it names: ${STYLES[view]} ` +
       LIGHTING_GUIDANCE[view],
     `5. Grid overlay. This is the most important sentence in the prompt. Describe ${GRID_RULE_DESCRIPTIONS[view]}. ` +
-      'Choose a line color that contrasts with the scene: dark lines on light ground, light lines on dark ground. ' +
-      'The lines must also differ in color from the floor\'s own seams, planks, and mortar lines and be slightly heavier ' +
-      'than them, so the grid reads as an overlay; on a plank floor the grid never follows the planks. ' +
+      'Choose the line color by the floor\'s seams first, then by the ground\'s brightness: over wood planks, whose seams ' +
+      'are dark, use pale cream or white lines; over pale stone use dark lines; otherwise dark lines on light ground and ' +
+      'light lines on dark ground. The lines are heavier than the floor\'s own seams and mortar lines, and each plank is ' +
+      'narrower than a grid cell, so the grid reads as an overlay. ' +
       'Never describe the grid as faint, subtle, soft, or barely visible.',
     `6. Exclusions. End the prompt with this text, copied exactly: ${nanoBananaNegation(view)}`,
     '',
@@ -634,7 +647,7 @@ export function buildFallbackGenerationPrompt(params: GenerationPromptParams): s
         'drawn on the map, never leading off the map or into a wall.',
     );
   }
-  sentences.push(STYLES[view]);
+  sentences.push(isRegion ? REGION_STYLE : STYLES[view]);
   if (collection?.ambiance) {
     sentences.push(`The light and atmosphere: ${getAmbiancePromptLanguage(collection.ambiance)}.`);
   }
