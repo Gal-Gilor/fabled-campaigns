@@ -1,23 +1,15 @@
-import { generateText } from 'ai';
 import { randomUUID } from 'crypto';
 import { createLocation, createArtifact, getCollectionById } from '@/db';
-import {
-  GEMINI_MODEL,
-  GEMINI_IMAGE_MODEL,
-  SHORT_CALL_MAX_OUTPUT_TOKENS,
-  SHORT_CALL_THINKING,
-  type ImageSize,
-} from './config';
-import { buildNarrativePrompt } from './mapPrompts';
+import { GEMINI_IMAGE_MODEL, type ImageSize } from './config';
 import {
   buildGenerationMetaPrompt,
   buildFallbackGenerationPrompt,
-  describeSubject,
   type MapScale,
+  type MapView,
 } from './nanoBananaPrompts';
 import { generateMapImage, uploadMapImage } from './imageGeneration';
-import { vertex } from './vertexClient';
-import { getAmbiancePromptLanguage } from './collections';
+import { expandPrompt } from './promptExpansion';
+import { buildImageOutput, errorMessage } from './messageUtils';
 import type { Collection } from './collections';
 import type { UsageRecorder } from './usage';
 
@@ -39,67 +31,6 @@ async function saveMapArtifact(
   return { src };
 }
 
-// Subject-only fallback for the narrative step. Unlike buildFallbackGenerationPrompt,
-// this must NOT produce a full image prompt: its output is fed as `userRequest` into
-// createEnhanceMapPrompt, whose own fallback wraps it in a full image prompt. Returning
-// a full prompt here would double up the camera opening, grid clause, and negation when
-// both LLM calls fail together.
-function buildNarrativeFallback(params: {
-  userRequest: string;
-  terrain?: string;
-  setting?: string;
-  ambiance?: string;
-}): string {
-  const subject = describeSubject({
-    userRequest: params.userRequest,
-    terrain: params.terrain,
-    setting: params.setting,
-  });
-  if (!params.ambiance) return subject;
-  return `${subject} ${getAmbiancePromptLanguage(params.ambiance)}`;
-}
-
-export function createGenerateNarrativeDescription(collection?: Collection, usage?: UsageRecorder) {
-  return async function (params: {
-    userRequest: string;
-    terrain?: string;
-    setting?: string;
-    ambiance?: string;
-    abortSignal?: AbortSignal;
-  }): Promise<string> {
-    const mergedParams = {
-      userRequest: params.userRequest,
-      terrain: params.terrain ?? collection?.terrain,
-      setting: params.setting ?? collection?.setting,
-      ambiance: params.ambiance ?? collection?.ambiance,
-      visualDetails: collection?.visualDetails,
-    };
-    try {
-      const prompt = buildNarrativePrompt(mergedParams);
-      const result = await generateText({
-        model: vertex(GEMINI_MODEL),
-        prompt,
-        maxOutputTokens: SHORT_CALL_MAX_OUTPUT_TOKENS,
-        providerOptions: SHORT_CALL_THINKING,
-        abortSignal: params.abortSignal,
-      });
-      await usage?.recordText('map_narrative', GEMINI_MODEL, result.usage);
-      if (result.finishReason === 'length') throw new Error('Narrative cut off at maxOutputTokens');
-      const narrative = result.text.trim();
-      if (narrative.length >= 30) return narrative;
-      throw new Error('Narrative too short');
-    } catch (err) {
-      console.warn('[mapNarrative] LLM narrative generation failed; using fallback:', err);
-      return buildNarrativeFallback({
-        userRequest: mergedParams.userRequest,
-        terrain: mergedParams.terrain,
-        setting: mergedParams.setting,
-        ambiance: mergedParams.ambiance,
-      });
-    }
-  };
-}
-
 export function createEnhanceMapPrompt(collection?: Collection, usage?: UsageRecorder) {
   return async function (params: {
     userRequest: string;
@@ -108,27 +39,20 @@ export function createEnhanceMapPrompt(collection?: Collection, usage?: UsageRec
     setting?: string;
     perspective?: 'indoor' | 'outdoor';
     mapScale?: MapScale;
+    mapView?: MapView;
     abortSignal?: AbortSignal;
   }): Promise<string> {
     const { abortSignal, ...rest } = params;
     const promptParams = { ...rest, collection };
-    try {
-      const metaPrompt = buildGenerationMetaPrompt(promptParams);
-      const result = await generateText({
-        model: vertex(GEMINI_MODEL),
-        prompt: metaPrompt,
-        maxOutputTokens: 4096,
-        abortSignal,
-      });
-      await usage?.recordText('map_prompt', GEMINI_MODEL, result.usage);
-      if (result.finishReason === 'length') throw new Error('Enhancement cut off at maxOutputTokens');
-      const enhanced = result.text.trim();
-      if (enhanced.length >= 50) return enhanced;
-      throw new Error('Enhancement response too short');
-    } catch (err) {
-      console.warn('[mapPrompt] LLM prompt enhancement failed; using fallback:', err);
-      return buildFallbackGenerationPrompt(promptParams);
-    }
+    return expandPrompt({
+      prompt: buildGenerationMetaPrompt(promptParams),
+      usage,
+      usageSource: 'map_prompt',
+      isAcceptable: (text) => text.length >= 50,
+      fallback: () => buildFallbackGenerationPrompt(promptParams),
+      logTag: 'mapPrompt',
+      abortSignal,
+    });
   };
 }
 
@@ -155,14 +79,14 @@ export function createGenerateEncounterMap(
         imageSize,
         abortSignal,
       });
-      await usage?.recordImage('map_generate', GEMINI_IMAGE_MODEL, 1, imageSize);
 
-      const { src, locationId, artifactId } = await saveMapArtifact(
-        base64, mediaType, name, collectionId, sessionId, enhancedPrompt,
-      );
-      return JSON.stringify({ type: 'image', src, label: name ?? 'Encounter Map', collectionId, locationId, artifactId, prompt: enhancedPrompt });
+      const [, { src, locationId, artifactId }] = await Promise.all([
+        usage?.recordImage('map_generate', GEMINI_IMAGE_MODEL, 1, imageSize),
+        saveMapArtifact(base64, mediaType, name, collectionId, sessionId, enhancedPrompt),
+      ]);
+      return buildImageOutput({ type: 'image', src, label: name ?? 'Encounter Map', collectionId, locationId, artifactId, prompt: enhancedPrompt });
     } catch (err) {
-      return `[Encounter map error] ${err instanceof Error ? err.message : String(err)}`;
+      return `[Encounter map error] ${errorMessage(err)}`;
     }
   };
 }

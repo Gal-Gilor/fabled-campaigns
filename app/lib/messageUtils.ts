@@ -29,3 +29,33 @@ export function isImageOutput(o: unknown): o is ImageOutput {
     typeof (o as Record<string, unknown>).src === 'string'
   );
 }
+
+// Key order matches the ImageOutput fields above; JSON.stringify omits any
+// optional key left undefined, so callers that skip collectionId/locationId/
+// artifactId (e.g. an uncollected map edit) get the same string as before.
+export function buildImageOutput(o: ImageOutput): string {
+  return JSON.stringify({
+    type: o.type,
+    src: o.src,
+    label: o.label,
+    collectionId: o.collectionId,
+    locationId: o.locationId,
+    artifactId: o.artifactId,
+    prompt: o.prompt,
+  });
+}
+
+// Shared toModelOutput for the map-generation and map-edit tools: both reduce
+// a successful ImageOutput to "<prefix>: <label>" and otherwise pass the raw
+// output string through unchanged.
+export function imageToolModelOutput(prefix: string) {
+  return ({ output }: { output: unknown }) => {
+    const o = safeJsonParse(output);
+    if (isImageOutput(o)) return { type: 'text' as const, value: `${prefix}: ${o.label}` };
+    return { type: 'text' as const, value: String(output) };
+  };
+}
+
+export function errorMessage(err: unknown): string {
+  return err instanceof Error ? err.message : String(err);
+}

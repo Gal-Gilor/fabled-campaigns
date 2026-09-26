@@ -28,13 +28,16 @@ Ask for a map in plain language ("a flooded crypt lit by green candles"). If the
 location type and a mood, the agent generates the map right away. If one of them is missing, it
 asks a single follow-up question with a suggested example.
 
-Generation runs in three steps:
+Generation runs in two steps:
 
-1. Gemini writes a short scene narrative from the request.
-2. Gemini expands the narrative into a detailed image prompt.
-3. `gemini-3.1-flash-image` (Nano Banana) renders a 4:3 top-down battle map with a tactical grid.
-   Nano Banana has no negative-prompt field, so exclusions (people, creatures, text, side views)
+1. Gemini expands the request into a detailed image prompt.
+2. `gemini-3.1-flash-image` (Nano Banana) renders a 4:3 battle map with a tactical grid.
+   Nano Banana has no negative-prompt field, so exclusions (people, creatures, text, wrong camera angles)
    are written directly into the prompt.
+
+Indoor maps default to an isometric view: a 30-degree corner camera, a diamond grid, and cutaway near walls.
+Outdoor maps default to a top-down view with a square grid. Asking for "top-down", "overhead", or
+"isometric" overrides the default.
 
 Maps can be downloaded as PNG files. Output resolution (1K, 2K, or 4K) is a per-user setting,
 changed from the Settings modal in the sidebar footer, and applies to both new maps and edits.
@@ -95,17 +98,17 @@ campaign context is designed in [docs/campaigns_feature_plan.md](docs/campaigns_
 | Framework | Next.js 16 (App Router), React 19, TypeScript |
 | Styling | Tailwind CSS 4, Cinzel and Roboto fonts via `next/font` |
 | AI SDK | Vercel AI SDK 6 (`ai`, `@ai-sdk/react`, `@ai-sdk/google-vertex`) |
-| Models (Google Vertex AI) | `gemini-2.5-flash` (chat, prompt writing, summaries), `gemini-3.1-flash-image` (new maps and map edits, Nano Banana, Vertex location `global`) |
+| Models (Google Vertex AI) | `gemini-3.5-flash` (chat, prompt writing, summaries), `gemini-3.1-flash-image` (new maps and map edits, Nano Banana, Vertex location `global`) |
 | Authentication | Auth.js (`next-auth` v5) with the Google provider and `@auth/pg-adapter` |
 | Database | Neon serverless Postgres (`@neondatabase/serverless`) |
 | File storage | Vercel Blob (`@vercel/blob`) for map images |
 | Markdown | `react-markdown` with `remark-gfm` |
 | Hosting | Vercel |
 
-Model names, the image model's Vertex location, and the image-size options are set in
-[app/lib/config.ts](app/lib/config.ts). The image model runs in the `global` location
-(`GEMINI_IMAGE_LOCATION`), independent of `GOOGLE_CLOUD_LOCATION`, since `gemini-3.1-flash-image`
-is not available in `us-central1`.
+Model names, their Vertex locations, and the image-size options are set in
+[app/lib/config.ts](app/lib/config.ts). Both models run in the Vertex `global` location
+(`GEMINI_LOCATION` and `GEMINI_IMAGE_LOCATION`), because `gemini-3.5-flash` and
+`gemini-3.1-flash-image` are not available in `us-central1`.
 
 ## Architecture
 
@@ -268,7 +271,6 @@ explicitly, and it is already in `.gitignore`.
 | `AUTH_GOOGLE_ID` | Yes | Auth.js Google provider | OAuth client ID |
 | `AUTH_GOOGLE_SECRET` | Yes | Auth.js Google provider | OAuth client secret |
 | `GOOGLE_CLOUD_PROJECT` | Yes | `app/lib/vertexClient.ts` | Vertex AI project ID |
-| `GOOGLE_CLOUD_LOCATION` | No | `app/lib/vertexClient.ts` | Vertex AI region, defaults to `us-central1` |
 | `GOOGLE_APPLICATION_CREDENTIALS` | Local | Google auth library | Path to the service account JSON file |
 | `GOOGLE_SERVICE_ACCOUNT_KEY` | Production | `app/lib/vertexClient.ts` | Base64-encoded service account JSON |
 
@@ -331,7 +333,7 @@ The production site runs on Vercel with Neon and Vercel Blob.
 2. Add the Neon integration from the Vercel Marketplace and connect it to the project.
 3. Create a Blob store under Storage and connect it to the project.
 4. Add `AUTH_SECRET`, `AUTH_GOOGLE_ID`, `AUTH_GOOGLE_SECRET`, `GOOGLE_CLOUD_PROJECT`,
-   `GOOGLE_CLOUD_LOCATION`, and `GOOGLE_SERVICE_ACCOUNT_KEY` in the project settings.
+   and `GOOGLE_SERVICE_ACCOUNT_KEY` in the project settings.
 5. Add the production callback URL to the Google OAuth client.
 6. Deploy from the dashboard or with `vercel --prod`. The build migrates the database.
 

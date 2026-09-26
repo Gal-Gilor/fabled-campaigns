@@ -1,21 +1,20 @@
-import { ToolLoopAgent, tool, InferAgentUIMessage } from 'ai';
+import { ToolLoopAgent, tool } from 'ai';
 import { z } from 'zod';
 import { GEMINI_MODEL, DEFAULT_IMAGE_SIZE, type ImageSize } from './config';
 import { GM_SYSTEM_PROMPT } from './prompts';
 import { gmStubTools } from './tools';
 import {
   createGenerateEncounterMap,
-  createGenerateNarrativeDescription,
   createEnhanceMapPrompt,
 } from './mapTools';
 import { createEditEncounterMap } from './imageEditTools';
 import { VALID_TERRAINS, VALID_SETTINGS } from './mapPrompts';
-import { MAP_SCALES } from './nanoBananaPrompts';
+import { MAP_SCALES, MAP_VIEWS, resolveMapView } from './nanoBananaPrompts';
 import type { Collection } from './collections';
 import type { UsageRecorder } from './usage';
 import { getAmbiancePromptLanguage } from './collections';
 import { vertex } from './vertexClient';
-import { safeJsonParse, isImageOutput } from './messageUtils';
+import { imageToolModelOutput } from './messageUtils';
 
 export interface CampaignContext {
   name: string;
@@ -38,6 +37,29 @@ export function buildCampaignContext(campaign?: CampaignContext): string {
   );
 }
 
+// Composable "Active Collection" section — injected when the user has a
+// collection active, so generated maps stay visually consistent with it.
+export function buildCollectionContext(collection?: Collection): string {
+  if (!collection) return '';
+  const parts: string[] = [
+    `The user has activated the "${collection.name}" collection.`,
+    'All maps generated in this session must visually match this collection:',
+  ];
+  if (collection.terrain) parts.push(`- Terrain: ${collection.terrain}`);
+  if (collection.setting) parts.push(`- Setting: ${collection.setting}`);
+  if (collection.ambiance)
+    parts.push(`- Lighting/Atmosphere: ${getAmbiancePromptLanguage(collection.ambiance)}`);
+  if (collection.visualDetails) parts.push(`- Visual details: ${collection.visualDetails}`);
+  parts.push(
+    `When calling mapAgent, include collectionId: "${collection.id}" and incorporate the above visual properties into enhancedPrompt.`
+  );
+  parts.push(
+    'IMPORTANT: This collection already provides the atmosphere and terrain context. ' +
+    'Any location type the user mentions is immediately "rich enough" — call mapAgent without asking for more details.'
+  );
+  return '\n\n## Active Collection\n' + parts.join('\n');
+}
+
 export function createRootAgent(
   userId: string | null,
   activeCollection?: Collection,
@@ -47,29 +69,8 @@ export function createRootAgent(
   imageSize: ImageSize = DEFAULT_IMAGE_SIZE
 ) {
   const campaignContext = buildCampaignContext(campaign);
-  const collectionContext = activeCollection
-    ? (() => {
-        const parts: string[] = [
-          `The user has activated the "${activeCollection.name}" collection.`,
-          'All maps generated in this session must visually match this collection:',
-        ];
-        if (activeCollection.terrain) parts.push(`- Terrain: ${activeCollection.terrain}`);
-        if (activeCollection.setting) parts.push(`- Setting: ${activeCollection.setting}`);
-        if (activeCollection.ambiance)
-          parts.push(`- Lighting/Atmosphere: ${getAmbiancePromptLanguage(activeCollection.ambiance)}`);
-        if (activeCollection.visualDetails) parts.push(`- Visual details: ${activeCollection.visualDetails}`);
-        parts.push(
-          `When calling mapAgent, include collectionId: "${activeCollection.id}" and incorporate the above visual properties into enhancedPrompt.`
-        );
-        parts.push(
-          'IMPORTANT: This collection already provides the atmosphere and terrain context. ' +
-          'Any location type the user mentions is immediately "rich enough" — call mapAgent without asking for more details.'
-        );
-        return '\n\n## Active Collection\n' + parts.join('\n');
-      })()
-    : '';
+  const collectionContext = buildCollectionContext(activeCollection);
 
-  const generateNarrative = createGenerateNarrativeDescription(activeCollection, usage);
   const enhanceMapPrompt = createEnhanceMapPrompt(activeCollection, usage);
   const generateEncounterMap = createGenerateEncounterMap(userId, sessionId, imageSize, usage);
 
@@ -88,27 +89,39 @@ export function createRootAgent(
         'large: 28x21 squares, big spaces such as foyers, great halls, factories, or courtyards; ' +
         'huge: 40x30 squares, very large areas such as fortresses, districts, or wilderness regions'
       ),
+      mapView: z.enum(MAP_VIEWS).optional().describe(
+        'Camera angle. Omit to use the default: isometric for indoor maps, top-down for outdoor maps. ' +
+        'Set \'top-down\' when the user asks for an overhead, bird\'s-eye, orthographic, or top-down view; ' +
+        'set \'isometric\' when they ask for isometric, angled, or 3/4 view.'
+      ),
       collectionId: z.string().optional().describe('Active collection ID to tag this map'),
     }),
-    execute: async ({ name, userRequest, terrain, setting, perspective, mapScale, collectionId }, { abortSignal }) => {
-      const narrative = await generateNarrative({ userRequest, terrain, setting, abortSignal });
+    execute: async ({ name, userRequest, terrain, setting, perspective, mapScale, mapView, collectionId }, { abortSignal }) => {
+      const startedAt = Date.now();
       const enhanced = await enhanceMapPrompt({
-        userRequest: narrative,
+        userRequest,
         ambiance: activeCollection?.ambiance ?? '',
-        terrain,
-        setting,
+        terrain: terrain ?? activeCollection?.terrain,
+        setting: setting ?? activeCollection?.setting,
         perspective,
         mapScale,
+        mapView,
         abortSignal,
       });
+      const promptDoneAt = Date.now();
 
-      return generateEncounterMap({ enhancedPrompt: enhanced, name, collectionId, abortSignal });
+      const result = await generateEncounterMap({ enhancedPrompt: enhanced, name, collectionId, abortSignal });
+      const finishedAt = Date.now();
+      console.info('[mapAgent] timings', {
+        promptMs: promptDoneAt - startedAt,
+        imageMs: finishedAt - promptDoneAt,
+        totalMs: finishedAt - startedAt,
+        mapScale,
+        mapView: resolveMapView(mapView, perspective),
+      });
+      return result;
     },
-    toModelOutput: ({ output }: { output: unknown }) => {
-      const o = safeJsonParse(output);
-      if (isImageOutput(o)) return { type: 'text' as const, value: `Map generated: ${o.label}` };
-      return { type: 'text' as const, value: String(output) };
-    },
+    toModelOutput: imageToolModelOutput('Map generated'),
   });
 
   return new ToolLoopAgent({
@@ -124,6 +137,3 @@ export function createRootAgent(
     },
   });
 }
-
-// Keep type export for consumers
-export type RootAgentMessage = InferAgentUIMessage<ReturnType<typeof createRootAgent>>;

@@ -5,7 +5,6 @@ import type { ImageSize } from './config';
 export type UsageSource =
   | 'chat'
   | 'summary'
-  | 'map_narrative'
   | 'map_prompt'
   | 'map_generate'
   | 'edit_prompt'

@@ -1,13 +1,15 @@
-export const GEMINI_MODEL = 'gemini-2.5-flash';
+export const GEMINI_MODEL = 'gemini-3.5-flash';
+// gemini-3.5-flash is only served from the Vertex `global` location.
+export const GEMINI_LOCATION = 'global';
 export const GEMINI_IMAGE_MODEL = 'gemini-3.1-flash-image';
 export const GEMINI_IMAGE_LOCATION = 'global';
 export const CHAT_API_PATH = '/api/chat';
-export const DEFAULT_GCP_LOCATION = 'us-central1';
 
-// gemini-2.5-flash thinks by default, and thinking tokens count against
-// maxOutputTokens. Short rewrite calls cap thinking so text always has room.
-export const SHORT_CALL_MAX_OUTPUT_TOKENS = 4096;
-export const SHORT_CALL_THINKING = { vertex: { thinkingConfig: { thinkingBudget: 756 } } };
+// gemini-3.5-flash thinks by default, and thinking tokens count against
+// maxOutputTokens. Every prompt-writing call (new-map expansion and edit
+// expansion) caps thinking, which bounds latency and leaves room for the text.
+export const PROMPT_CALL_MAX_OUTPUT_TOKENS = 4096;
+export const PROMPT_CALL_THINKING = { vertex: { thinkingConfig: { thinkingBudget: 756 } } };
 
 export const IMAGE_SIZES = ['1K', '2K', '4K'] as const;
 export type ImageSize = (typeof IMAGE_SIZES)[number];

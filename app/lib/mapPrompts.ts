@@ -1,5 +1,3 @@
-import { getAmbiancePromptLanguage } from './collections';
-
 export const VALID_TERRAINS = [
   'forest', 'grassland', 'mountain', 'desert', 'tundra', 'jungle', 'swamp',
   'ocean', 'underground', 'urban', 'volcanic', 'industrial', 'indoor',
@@ -104,37 +102,3 @@ export function generateSettingDescription(setting: string): string {
   const template = pick(SETTING_DESCRIPTIONS);
   return template.replace(/\{\{\s*setting\s*\}\}/g, setting);
 }
-
-export interface NarrativePromptParams {
-  userRequest?: string;
-  terrain?: string;
-  setting?: string;
-  ambiance?: string;
-  visualDetails?: string;
-}
-
-export function buildNarrativePrompt(params: NarrativePromptParams): string {
-  const { userRequest, terrain, setting, ambiance, visualDetails } = params;
-  const ambianceDesc = ambiance ? getAmbiancePromptLanguage(ambiance) : '';
-
-  const locationParts: string[] = [];
-  if (terrain && setting) locationParts.push(`a ${setting} in a ${terrain} environment`);
-  else if (setting) locationParts.push(`a ${setting}`);
-  else if (terrain) locationParts.push(`a ${terrain} area`);
-  else locationParts.push('a fantasy location');
-
-  const lines: string[] = [
-    `Write a vivid, atmospheric 2–3 sentence description of ${locationParts[0]} that a player is entering.`,
-    'Write in second person ("You step into..."). Describe the overall layout, the major features, the light, and the atmosphere.',
-    'This description becomes a zoomed-out battle map, so skip small objects and fine surface detail.',
-    'Do NOT mention grid lines, game mechanics, or meta-language. Output only the description itself.',
-    '',
-    `Location: ${locationParts[0]}`,
-  ];
-  if (ambianceDesc) lines.push(`Lighting and atmosphere: ${ambianceDesc}`);
-  if (visualDetails) lines.push(`Visual details: ${visualDetails}`);
-  if (userRequest) lines.push(`Specific features requested: ${userRequest}`);
-
-  return lines.join('\n');
-}
-

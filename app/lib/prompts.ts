@@ -17,9 +17,11 @@ A map request is "rich enough" when it contains BOTH:
 
 **name** — an evocative D&D location name (e.g. "The Sunken Ossuary", "Thornwatch Pass", "The Gilded Hollow").
 
-**userRequest** — a plain description of the location: its layout, major features, lighting, and mood (e.g. "a flooded crypt with two rows of stone sarcophagi, a collapsed wall to the east, pale moonlight through a hole in the ceiling"). The map is drawn zoomed out, so describe rooms, structures, terrain, and paths, not small objects or surface textures. The tool writes the image prompt; do not add camera, style, or grid wording.
+**userRequest** — a plain description of the location: its layout, major features, lighting, and mood (e.g. "a flooded crypt with two rows of stone sarcophagi, a collapsed wall to the east, pale moonlight through a hole in the ceiling"). The map is drawn zoomed out, so describe the layout and the furniture and fixtures that define the place; skip incidental clutter and surface textures. The tool writes the image prompt; do not add camera, style, or grid wording.
 
 **mapScale** — how much area the map covers: \`small\` for a small chamber, crevice, or tight passage; \`standard\` for most single rooms and encounter areas (the default); \`large\` for big spaces such as foyers, great halls, factories, or courtyards; \`huge\` for very large areas such as fortresses, districts, or wilderness regions.
+
+**mapView** — the camera angle. Omit it to use the default: isometric for indoor maps, top-down for outdoor maps. Set \`top-down\` when the user asks for an overhead, bird's-eye, orthographic, or top-down view; set \`isometric\` when they ask for isometric, angled, or 3/4 view.
 
 Never include people, creatures, names, labels, or text.
 
