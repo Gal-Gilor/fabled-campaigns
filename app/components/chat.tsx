@@ -7,7 +7,7 @@ import { createPortal } from 'react-dom';
 import { CHAT_API_PATH } from '../lib/config';
 import { ChatSession as Session } from '@/db';
 import type { DbCollection, DbLocation } from '@/db';
-import { safeJsonParse, isImageOutput, ImageOutput } from '../lib/messageUtils';
+import { safeJsonParse, isImageOutput, isRetryHint, ImageOutput } from '../lib/messageUtils';
 import type { Collection } from '../lib/collections';
 import { AMBIANCE_OPTIONS } from '../lib/collections';
 import { useSessionContext } from './session-context';
@@ -1083,6 +1083,9 @@ export default function Chat({ initialSessionId }: ChatProps) {
                         </div>
                       );
                     }
+
+                    // Retry hints are corrective guidance for the model, not user-facing output.
+                    if (isRetryHint(rawOutput)) return null;
 
                     const outputStr = rawOutput !== null ? String(rawOutput) : null;
                     return (

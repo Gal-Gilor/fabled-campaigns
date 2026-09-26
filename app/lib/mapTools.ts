@@ -1,7 +1,13 @@
 import { generateText } from 'ai';
 import { randomUUID } from 'crypto';
 import { createLocation, createArtifact, getCollectionById } from '@/db';
-import { GEMINI_MODEL, GEMINI_IMAGE_MODEL, type ImageSize } from './config';
+import {
+  GEMINI_MODEL,
+  GEMINI_IMAGE_MODEL,
+  SHORT_CALL_MAX_OUTPUT_TOKENS,
+  SHORT_CALL_THINKING,
+  type ImageSize,
+} from './config';
 import { buildNarrativePrompt } from './mapPrompts';
 import { buildGenerationMetaPrompt, buildFallbackGenerationPrompt, describeSubject } from './nanoBananaPrompts';
 import { generateMapImage, uploadMapImage } from './imageGeneration';
@@ -68,10 +74,12 @@ export function createGenerateNarrativeDescription(collection?: Collection, usag
       const result = await generateText({
         model: vertex(GEMINI_MODEL),
         prompt,
-        maxOutputTokens: 300,
+        maxOutputTokens: SHORT_CALL_MAX_OUTPUT_TOKENS,
+        providerOptions: SHORT_CALL_THINKING,
         abortSignal: params.abortSignal,
       });
       await usage?.recordText('map_narrative', GEMINI_MODEL, result.usage);
+      if (result.finishReason === 'length') throw new Error('Narrative cut off at maxOutputTokens');
       const narrative = result.text.trim();
       if (narrative.length >= 30) return narrative;
       throw new Error('Narrative too short');
@@ -108,6 +116,7 @@ export function createEnhanceMapPrompt(collection?: Collection, usage?: UsageRec
         abortSignal,
       });
       await usage?.recordText('map_prompt', GEMINI_MODEL, result.usage);
+      if (result.finishReason === 'length') throw new Error('Enhancement cut off at maxOutputTokens');
       const enhanced = result.text.trim();
       if (enhanced.length >= 50) return enhanced;
       throw new Error('Enhancement response too short');

@@ -3,14 +3,17 @@ import { tool, generateText } from 'ai';
 import {
   GEMINI_MODEL,
   GEMINI_IMAGE_MODEL,
+  SHORT_CALL_MAX_OUTPUT_TOKENS,
+  SHORT_CALL_THINKING,
   type ImageSize,
 } from './config';
 import { vertex } from './vertexClient';
 import { generateMapImage, uploadMapImage } from './imageGeneration';
-import { safeJsonParse, isImageOutput } from './messageUtils';
+import { safeJsonParse, isImageOutput, RETRY_HINT_PREFIX } from './messageUtils';
 import {
   createArtifact,
   getArtifactWithContext,
+  sessionReferencesText,
   type ArtifactWithContext,
 } from '@/db';
 import {
@@ -39,9 +42,11 @@ async function runPromptExpansion(
     const result = await generateText({
       model: vertex(GEMINI_MODEL),
       prompt: meta,
-      maxOutputTokens: 800,
+      maxOutputTokens: SHORT_CALL_MAX_OUTPUT_TOKENS,
+      providerOptions: SHORT_CALL_THINKING,
     });
     await usage?.recordText('edit_prompt', GEMINI_MODEL, result.usage);
+    if (result.finishReason === 'length') throw new Error('Expansion cut off at maxOutputTokens');
     const expanded = result.text.trim();
     // Sanity guard: if the LLM returned an empty/truncated/refusal response,
     // fall back to the deterministic basePrompt instead of shipping a degraded prompt.
@@ -73,21 +78,135 @@ async function expandEditPrompt(basePrompt: string, usage?: UsageRecorder): Prom
   return runPromptExpansion(meta, basePrompt, usage);
 }
 
+// UUID-shaped IDs only. Catches filename-style strings the model may invent
+// from a Blob URL (e.g. "1790392080140-the-chronosynclastic-infusion-chamber--").
+const ARTIFACT_ID_PATTERN = /^[0-9a-f-]{36}$/i;
+
+const SOURCE_GUIDANCE =
+  `${RETRY_HINT_PREFIX} Pass sourceArtifactId when the prior result has an artifactId; otherwise pass sourceImageUrl (the prior result's src).`;
+
+const SOURCE_NOT_FOUND = '[editEncounterMap error] Source image not found in this session.';
+
+// True when `urlStr` is a map image the app itself uploaded: parses, https,
+// hosted under a Vercel Blob public store, and under the maps/ prefix that
+// uploadMapImage always writes to.
+function isBlobMapUrl(urlStr: string): boolean {
+  let url: URL;
+  try {
+    url = new URL(urlStr);
+  } catch {
+    return false;
+  }
+  return (
+    url.protocol === 'https:' &&
+    url.hostname.endsWith('.public.blob.vercel-storage.com') &&
+    url.pathname.startsWith('/maps/')
+  );
+}
+
 // ---------------------------------------------------------------------------
-// editEncounterMap — multimodal Nano Banana edit; new artifact under the
-// SAME location, with parent_artifact_id pointing to the source.
+// editByImageUrl — edits a map that has no artifact row, i.e. one generated
+// without an active collection (saveMapArtifact only writes a location/artifact
+// when a collection is active). There is no artifact or collection to check
+// ownership against, so ownership is scoped to the session that produced the
+// image: the URL must appear in that session's own message history.
 // ---------------------------------------------------------------------------
 
-export function createEditEncounterMap(userId: string | null, imageSize: ImageSize, usage?: UsageRecorder) {
+async function editByImageUrl(params: {
+  userId: string;
+  sessionId: string | undefined;
+  sourceImageUrl: string;
+  sourceLabel: string | undefined;
+  instruction: string;
+  imageSize: ImageSize;
+  usage?: UsageRecorder;
+  abortSignal?: AbortSignal;
+}): Promise<string> {
+  const { userId, sessionId, sourceImageUrl, sourceLabel, instruction, imageSize, usage, abortSignal } = params;
+
+  const warn = (message: string): string => {
+    console.warn('[editEncounterMap]', message, { sourceArtifactId: undefined, sourceImageUrl });
+    return message;
+  };
+
+  if (!isBlobMapUrl(sourceImageUrl)) return warn(SOURCE_NOT_FOUND);
+  if (!sessionId) return warn(SOURCE_NOT_FOUND);
+
+  let referencesSource: boolean;
+  try {
+    referencesSource = await sessionReferencesText(sessionId, userId, sourceImageUrl);
+  } catch (err) {
+    console.error('[editEncounterMap] sessionReferencesText failed', err);
+    return '[editEncounterMap error] Could not look up the source map.';
+  }
+  if (!referencesSource) return warn(SOURCE_NOT_FOUND);
+
+  try {
+    const label = sourceLabel ?? 'Encounter Map';
+    const basePrompt = buildEditPrompt({
+      instruction,
+      sourceContext: { prompt: null, terrain: null, setting: null, ambiance: null, visualDetails: null },
+    });
+    const expandedPrompt = await expandEditPrompt(basePrompt, usage);
+
+    const { base64, mediaType } = await generateMapImage({
+      prompt: expandedPrompt,
+      sourceImages: [sourceImageUrl],
+      imageSize,
+      abortSignal,
+    });
+    await usage?.recordImage('map_edit', GEMINI_IMAGE_MODEL, 1, imageSize);
+
+    // No collection/location for an uncollected map, so this lands at
+    // maps/{ts}-edit-{label}.png rather than under a collection/location prefix.
+    const newBlobUrl = await uploadMapImage(base64, mediaType, { label, variantTag: 'edit' });
+
+    // No artifact row is created, so there is no artifactId in the result.
+    // A later edit of this result chains by URL again.
+    return JSON.stringify({
+      type: 'image',
+      src: newBlobUrl,
+      label: `${label} (edit)`,
+      prompt: expandedPrompt,
+    });
+  } catch (err) {
+    console.error('[editEncounterMap]', err);
+    return `[editEncounterMap error] ${err instanceof Error ? err.message : String(err)}`;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// editEncounterMap — multimodal Nano Banana edit. When the source map has an
+// artifact (saved under a collection), creates a new artifact under the same
+// location, with parent_artifact_id pointing to the source. Otherwise, edits
+// by the prior result's image URL (see editByImageUrl above).
+// ---------------------------------------------------------------------------
+
+export function createEditEncounterMap(
+  userId: string | null,
+  sessionId: string | undefined,
+  imageSize: ImageSize,
+  usage?: UsageRecorder
+) {
   return tool({
     description:
       'Edit an existing encounter map using Nano Banana multimodal generation. ' +
-      'Creates a new artifact under the same location, linked back to the source. ' +
-      'Use for in-place modifications and what-if branches of the same scene.',
+      'Maps with an artifactId are edited by passing sourceArtifactId, and the result is saved as a new artifact linked back to the source; ' +
+      'maps without one are edited by passing sourceImageUrl (the prior result\'s src), and the result is not saved to a collection. ' +
+      'Never build an ID from a filename or URL — use only the artifactId or src exactly as returned by the prior tool result.',
     inputSchema: z.object({
       sourceArtifactId: z
         .string()
-        .describe('Artifact ID of the source map. Take this from a prior tool result; do not invent one.'),
+        .optional()
+        .describe('The artifactId from a prior map result. Only use it when that result contains artifactId.'),
+      sourceImageUrl: z
+        .string()
+        .optional()
+        .describe('The src from a prior map result that has no artifactId.'),
+      sourceLabel: z
+        .string()
+        .optional()
+        .describe('The prior result\'s label.'),
       instruction: z
         .string()
         .describe('Natural-language description of the change (e.g. "add a campfire near the stones", "make it darker at dusk").'),
@@ -97,13 +216,47 @@ export function createEditEncounterMap(userId: string | null, imageSize: ImageSi
       if (isImageOutput(o)) return { type: 'text' as const, value: `Edited map: ${o.label}` };
       return { type: 'text' as const, value: String(output) };
     },
-    execute: async ({ sourceArtifactId, instruction }, { abortSignal }) => {
+    execute: async ({ sourceArtifactId, sourceImageUrl, sourceLabel, instruction }, { abortSignal }) => {
       if (!userId) {
         return '[editEncounterMap error] Sign in to edit maps.';
       }
-      const ctx = await getArtifactWithContext(sourceArtifactId, userId);
+
+      const warn = (message: string): string => {
+        console.warn('[editEncounterMap]', message, { sourceArtifactId, sourceImageUrl });
+        return message;
+      };
+
+      if (Boolean(sourceArtifactId) === Boolean(sourceImageUrl)) {
+        return warn(SOURCE_GUIDANCE);
+      }
+
+      if (sourceImageUrl) {
+        return editByImageUrl({
+          userId,
+          sessionId,
+          sourceImageUrl,
+          sourceLabel,
+          instruction,
+          imageSize,
+          usage,
+          abortSignal,
+        });
+      }
+
+      const artifactId = sourceArtifactId!;
+      if (!ARTIFACT_ID_PATTERN.test(artifactId)) {
+        return warn(SOURCE_GUIDANCE);
+      }
+
+      let ctx: ArtifactWithContext | null;
+      try {
+        ctx = await getArtifactWithContext(artifactId, userId);
+      } catch (err) {
+        console.error('[editEncounterMap] getArtifactWithContext failed', err);
+        return '[editEncounterMap error] Could not look up the source map.';
+      }
       if (!ctx) {
-        return `[editEncounterMap error] Source artifact "${sourceArtifactId}" not found.`;
+        return warn(`[editEncounterMap error] Source artifact "${artifactId}" not found.`);
       }
       try {
         const basePrompt = buildEditPrompt({
@@ -144,6 +297,7 @@ export function createEditEncounterMap(userId: string | null, imageSize: ImageSi
           prompt: expandedPrompt,
         });
       } catch (err) {
+        console.error('[editEncounterMap]', err);
         return `[editEncounterMap error] ${err instanceof Error ? err.message : String(err)}`;
       }
     },

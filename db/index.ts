@@ -189,6 +189,17 @@ export async function deleteSession(id: string, userId: string): Promise<void> {
   `;
 }
 
+// True when this user's session history contains the given text (e.g. a map URL
+// the session produced). Used to scope edits of uncollected maps to their session.
+export async function sessionReferencesText(sessionId: string, userId: string, text: string): Promise<boolean> {
+  const rows = await sql`
+    SELECT 1 FROM chat_sessions
+    WHERE id = ${sessionId} AND user_id = ${userId} AND position(${text} in messages::text) > 0
+    LIMIT 1
+  `;
+  return (rows as unknown[]).length > 0;
+}
+
 // ---------------------------------------------------------------------------
 // Campaigns
 // ---------------------------------------------------------------------------

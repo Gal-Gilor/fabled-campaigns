@@ -112,7 +112,7 @@ export function createRootAgent(
     tools: {
       ...gmStubTools,
       mapAgent: mapAgentTool,
-      editEncounterMap: createEditEncounterMap(userId, imageSize, usage),
+      editEncounterMap: createEditEncounterMap(userId, sessionId, imageSize, usage),
     },
     onStepFinish: async ({ usage: stepUsage }) => {
       await usage?.recordText('chat', GEMINI_MODEL, stepUsage);

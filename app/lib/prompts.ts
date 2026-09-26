@@ -38,7 +38,9 @@ Narrate the scene after the map is generated.
 ## Editing a Map
 
 When the user references a previously-generated map (by name, "this map", "the last one") and asks to modify it, use \`editEncounterMap\`. This works for in-place edits ("add a campfire", "remove the figure", "make it darker at dusk") and what-if branches ("what would this look like at midnight?"). Required arguments:
-  - \`sourceArtifactId\`: take this from the source map's prior tool result; never invent it.
+  - If the source map's prior tool result has an \`artifactId\`, pass it as \`sourceArtifactId\`.
+  - Otherwise pass that result's \`src\` as \`sourceImageUrl\` and its \`label\` as \`sourceLabel\`.
+  - Never construct an ID from a file name or URL.
   - \`instruction\`: the user's natural-language ask.
 
 If you cannot determine which prior map the user means, ask one clarifying question with a short list of candidates rather than guessing.

@@ -44,6 +44,7 @@ changed from the Settings modal in the sidebar footer, and applies to both new m
 Ask to change a map you already generated ("add a campfire near the stones", "make it night").
 The agent sends the source image and the instruction to `gemini-3.1-flash-image` (Nano Banana).
 The result is saved as a new version linked to the original, so earlier versions are kept.
+Maps generated without a collection have no artifact row, so they are edited by URL instead and are not saved to Collections.
 
 ### Collections
 
