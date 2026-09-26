@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ModalOverlay } from './modal';
-import { IMAGE_SIZES, DEFAULT_IMAGE_SIZE, type ImageSize } from '../lib/config';
+import { IMAGE_SIZES, type ImageSize } from '../lib/config';
 
 const IMAGE_SIZE_COPY: Record<ImageSize, { label: string; note: string }> = {
   '1K': { label: 'Standard (1K)', note: 'Least detail. Fastest and cheapest.' },
@@ -11,18 +11,37 @@ const IMAGE_SIZE_COPY: Record<ImageSize, { label: string; note: string }> = {
 };
 
 export function SettingsModal({ onClose }: { onClose: () => void }) {
-  const [imageSize, setImageSize] = useState<ImageSize>(DEFAULT_IMAGE_SIZE);
+  // null = not loaded yet (or the load failed) — never show a value the
+  // server hasn't actually confirmed.
+  const [imageSize, setImageSize] = useState<ImageSize | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Sequencing for PATCH requests: only the response for the most recently
+  // sent request may touch state. lastConfirmedRef tracks the last value the
+  // server actually acknowledged (from the initial GET, or a successful
+  // PATCH), so a failed request reverts to that — not to whatever was
+  // selected right before the click, which may itself be unconfirmed.
+  const requestSeqRef = useRef(0);
+  const lastConfirmedRef = useRef<ImageSize | null>(null);
 
   useEffect(() => {
     let cancelled = false;
     fetch('/api/settings')
-      .then((res) => res.json())
-      .then((data: { settings?: { imageSize?: ImageSize } }) => {
-        if (!cancelled && data.settings?.imageSize) setImageSize(data.settings.imageSize);
+      .then((res) => {
+        if (!res.ok) throw new Error('Failed to load settings');
+        return res.json() as Promise<{ settings?: { imageSize?: ImageSize } }>;
       })
-      .catch(() => {})
+      .then((data) => {
+        if (cancelled) return;
+        const size = data.settings?.imageSize;
+        if (!size) throw new Error('Malformed settings response');
+        lastConfirmedRef.current = size;
+        setImageSize(size);
+      })
+      .catch(() => {
+        if (!cancelled) setError('Could not load settings.');
+      })
       .finally(() => {
         if (!cancelled) setLoading(false);
       });
@@ -32,7 +51,7 @@ export function SettingsModal({ onClose }: { onClose: () => void }) {
   }, []);
 
   async function handleChange(next: ImageSize) {
-    const previous = imageSize;
+    const seq = ++requestSeqRef.current;
     setImageSize(next);
     setError(null);
     try {
@@ -42,35 +61,40 @@ export function SettingsModal({ onClose }: { onClose: () => void }) {
         body: JSON.stringify({ imageSize: next }),
       });
       if (!res.ok) throw new Error('Failed to save');
+      // A newer click already superseded this request — its own response
+      // (still in flight or already handled) owns the final state now.
+      if (seq !== requestSeqRef.current) return;
+      lastConfirmedRef.current = next;
     } catch {
-      setImageSize(previous);
+      if (seq !== requestSeqRef.current) return;
+      setImageSize(lastConfirmedRef.current);
       setError('Could not save. Try again.');
     }
   }
+
+  const radiosDisabled = loading || imageSize === null;
 
   return (
     <ModalOverlay onClose={onClose}>
       <div className="bg-white rounded-xl w-full max-w-sm mx-4 overflow-hidden">
         <div className="px-5 pt-4 pb-3" style={{ borderBottom: '1px solid var(--neutral-200)' }}>
-          <p
+          <h2
             className="text-base font-semibold"
             style={{ color: 'var(--neutral-900)', fontFamily: 'var(--font-cinzel), serif' }}
           >
             Settings
-          </p>
+          </h2>
         </div>
 
         <div className="px-5 py-4 flex flex-col gap-3">
-          <div>
-            <p className="text-sm uppercase tracking-wider mb-1" style={{ color: 'var(--neutral-600)' }}>
+          <fieldset className="flex flex-col gap-2" disabled={radiosDisabled}>
+            <legend className="text-sm uppercase tracking-wider mb-1" style={{ color: 'var(--neutral-600)' }}>
               Map image quality
-            </p>
-            <p className="text-xs" style={{ color: 'var(--neutral-600)' }}>
+            </legend>
+            <p className="text-xs mb-1" style={{ color: 'var(--neutral-600)' }}>
               Applies to every map you generate or edit from now on.
             </p>
-          </div>
 
-          <div className="flex flex-col gap-2" aria-disabled={loading}>
             {IMAGE_SIZES.map((size) => {
               const { label, note } = IMAGE_SIZE_COPY[size];
               const checked = imageSize === size;
@@ -81,7 +105,7 @@ export function SettingsModal({ onClose }: { onClose: () => void }) {
                   style={{
                     border: `1px solid ${checked ? 'var(--primary-blue)' : 'var(--neutral-200)'}`,
                     background: checked ? 'var(--pale-blue)' : 'transparent',
-                    opacity: loading ? 0.6 : 1,
+                    opacity: radiosDisabled ? 0.6 : 1,
                   }}
                 >
                   <input
@@ -89,7 +113,6 @@ export function SettingsModal({ onClose }: { onClose: () => void }) {
                     name="imageSize"
                     value={size}
                     checked={checked}
-                    disabled={loading}
                     onChange={() => handleChange(size)}
                     className="mt-0.5"
                   />
@@ -104,7 +127,7 @@ export function SettingsModal({ onClose }: { onClose: () => void }) {
                 </label>
               );
             })}
-          </div>
+          </fieldset>
 
           {error && (
             <p className="text-xs" style={{ color: '#dc2626' }}>

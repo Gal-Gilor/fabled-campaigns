@@ -19,8 +19,8 @@ export async function POST(req: Request) {
     activeCollection,
   }: { messages: UIMessage[]; sessionId?: string; activeCollection?: Collection } = await req.json();
 
-  // Summary + campaign lore, and the user's image-quality setting, in one
-  // round trip — the DB is authoritative for both, so a client can't inflate
+  // Summary + campaign lore, and the user's image-quality setting, fetched
+  // in parallel — the DB is authoritative for both, so a client can't inflate
   // its own image cost by sending a size, and joining/leaving a campaign
   // takes effect on the next message.
   const [ctx, settings] = await Promise.all([

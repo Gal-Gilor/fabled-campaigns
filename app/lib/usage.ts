@@ -1,5 +1,6 @@
 import type { LanguageModelUsage } from 'ai';
 import { insertUsageEvent, type UsageEventInput } from '@/db';
+import type { ImageSize } from './config';
 
 export type UsageSource =
   | 'chat'
@@ -14,7 +15,7 @@ export type UsageSource =
 // Methods never throw: a failed usage write is logged and the turn continues.
 export interface UsageRecorder {
   recordText(source: UsageSource, model: string, usage: LanguageModelUsage): Promise<void>;
-  recordImage(source: UsageSource, model: string, imageCount?: number, imageSize?: string): Promise<void>;
+  recordImage(source: UsageSource, model: string, imageCount?: number, imageSize?: ImageSize): Promise<void>;
 }
 
 export function createUsageRecorder(userId: string, sessionId: string): UsageRecorder {
