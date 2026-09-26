@@ -1,10 +1,10 @@
 import type { LanguageModelUsage } from 'ai';
 import { insertUsageEvent, type UsageEventInput } from '@/db';
+import type { ImageSize } from './config';
 
 export type UsageSource =
   | 'chat'
   | 'summary'
-  | 'map_narrative'
   | 'map_prompt'
   | 'map_generate'
   | 'edit_prompt'
@@ -14,7 +14,7 @@ export type UsageSource =
 // Methods never throw: a failed usage write is logged and the turn continues.
 export interface UsageRecorder {
   recordText(source: UsageSource, model: string, usage: LanguageModelUsage): Promise<void>;
-  recordImage(source: UsageSource, model: string, imageCount?: number): Promise<void>;
+  recordImage(source: UsageSource, model: string, imageCount?: number, imageSize?: ImageSize): Promise<void>;
 }
 
 export function createUsageRecorder(userId: string, sessionId: string): UsageRecorder {
@@ -35,6 +35,6 @@ export function createUsageRecorder(userId: string, sessionId: string): UsageRec
         cachedInputTokens: usage.inputTokenDetails.cacheReadTokens ?? null,
         outputTokens: usage.outputTokens ?? null,
       }),
-    recordImage: (source, model, imageCount = 1) => write({ source, model, imageCount }),
+    recordImage: (source, model, imageCount = 1, imageSize) => write({ source, model, imageCount, imageSize }),
   };
 }

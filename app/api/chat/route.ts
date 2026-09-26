@@ -1,12 +1,13 @@
 import { UIMessage } from 'ai';
 import { createRootAgent, buildCampaignContext } from '../../lib/agents';
 import { prepareContext } from '../../lib/contextManager';
-import { getSessionChatContext, updateSessionSummary } from '@/db';
+import { getSessionChatContext, getUserSettings, updateSessionSummary } from '@/db';
 import { auth } from '@/auth';
 import { createUsageRecorder } from '../../lib/usage';
+import { DEFAULT_IMAGE_SIZE } from '../../lib/config';
 import type { Collection } from '../../lib/collections';
 
-export const maxDuration = 60;
+export const maxDuration = 300;
 
 export async function POST(req: Request) {
   const authSession = await auth();
@@ -18,9 +19,19 @@ export async function POST(req: Request) {
     activeCollection,
   }: { messages: UIMessage[]; sessionId?: string; activeCollection?: Collection } = await req.json();
 
-  // Summary + campaign lore in one lightweight pre-stream query — the DB is
-  // authoritative, so joining/leaving a campaign takes effect on the next message
-  const ctx = userId && sessionId ? await getSessionChatContext(sessionId, userId) : null;
+  // Summary + campaign lore, and the user's image-quality setting, fetched
+  // in parallel — the DB is authoritative for both, so a client can't inflate
+  // its own image cost by sending a size, and joining/leaving a campaign
+  // takes effect on the next message.
+  const [ctx, settings] = await Promise.all([
+    userId && sessionId ? getSessionChatContext(sessionId, userId) : Promise.resolve(null),
+    userId
+      ? getUserSettings(userId).catch((err) => {
+          console.error('[chat route] failed to load user settings:', err);
+          return { imageSize: DEFAULT_IMAGE_SIZE };
+        })
+      : Promise.resolve({ imageSize: DEFAULT_IMAGE_SIZE }),
+  ]);
   // ctx is non-null only when this user owns this session, so a client-supplied
   // sessionId can't attribute usage to another account or a nonexistent row
   const usage = ctx && userId && sessionId ? createUsageRecorder(userId, sessionId) : undefined;
@@ -50,7 +61,7 @@ export async function POST(req: Request) {
 
   // Map tools write rows under this session, so only hand over one the user owns
   const ownedSessionId = ctx && sessionId ? sessionId : undefined;
-  const rootAgent = createRootAgent(userId, activeCollection, ownedSessionId, campaign, usage);
+  const rootAgent = createRootAgent(userId, activeCollection, ownedSessionId, campaign, usage, settings.imageSize);
   const result = await rootAgent.stream({ messages: modelMessages });
   return result.toUIMessageStreamResponse();
 }

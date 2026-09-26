@@ -252,7 +252,7 @@ After streaming completes (`status === 'ready'`), the client persists the update
 | `TOKEN_LIMIT` | `200_000` | Practical token cap for a conversation (Gemini 2.5 Flash supports 1M) |
 | `TOKEN_EVICTION_THRESHOLD` | `180_000` | Token count at which summarization triggers (90% of `TOKEN_LIMIT`) |
 | `TOKEN_OVERHEAD_RESERVE` | `15_000` | Characters reserved for system prompt, tool schemas, summary block, and response headroom |
-| `GEMINI_MODEL` | `'gemini-2.5-flash'` | Model used for both chat and summarization |
+| `GEMINI_MODEL` | `'gemini-3.5-flash'` | Model used for both chat and summarization |
 
 All are exported from `app/lib/config.ts`.
 
