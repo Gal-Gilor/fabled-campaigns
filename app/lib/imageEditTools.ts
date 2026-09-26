@@ -1,11 +1,12 @@
 import { z } from 'zod';
-import { tool, generateText, generateImage } from 'ai';
-import { put } from '@vercel/blob';
+import { tool, generateText } from 'ai';
 import {
   GEMINI_MODEL,
   GEMINI_IMAGE_MODEL,
+  type ImageSize,
 } from './config';
 import { vertex } from './vertexClient';
+import { generateMapImage, uploadMapImage } from './imageGeneration';
 import { safeJsonParse, isImageOutput } from './messageUtils';
 import {
   createArtifact,
@@ -27,22 +28,6 @@ function toSourceContext(ctx: ArtifactWithContext): SourceContext {
     ambiance: ctx.collection.ambiance,
     visualDetails: ctx.collection.visualDetails,
   };
-}
-
-async function uploadDerivedImage(
-  base64: string,
-  mediaType: string,
-  collectionId: string,
-  locationId: string,
-  variantTag: string,
-  label: string,
-): Promise<string> {
-  const buffer = Buffer.from(base64, 'base64');
-  const ext = mediaType.split('/')[1] ?? 'png';
-  const sanitized = label.replace(/[^a-z0-9]/gi, '-').toLowerCase();
-  const filename = `maps/${collectionId}/${locationId}/${Date.now()}-${variantTag}-${sanitized}.${ext}`;
-  const { url } = await put(filename, buffer, { access: 'public', contentType: mediaType });
-  return url;
 }
 
 async function runPromptExpansion(
@@ -70,7 +55,7 @@ async function runPromptExpansion(
 
 async function expandEditPrompt(basePrompt: string, usage?: UsageRecorder): Promise<string> {
   const meta = [
-    'You are polishing a base prompt for editing an existing D&D tactical battle map with the gemini-2.5-flash-image (Nano Banana) model.',
+    'You are polishing a base prompt for editing an existing D&D tactical battle map with the Nano Banana model.',
     'The provided source image is the structural anchor. Do NOT add new perspective, grid geometry, lighting, palette, or style — those are owned by the source image, and explicit additions can conflict with the "preserve everything else" instruction in the base prompt.',
     'Limit polish to flow and specificity of the user-provided edit instruction. Strengthen verbs, sharpen vague descriptors, but do not introduce content that was not in the base prompt.',
     '',
@@ -93,7 +78,7 @@ async function expandEditPrompt(basePrompt: string, usage?: UsageRecorder): Prom
 // SAME location, with parent_artifact_id pointing to the source.
 // ---------------------------------------------------------------------------
 
-export function createEditEncounterMap(userId: string | null, usage?: UsageRecorder) {
+export function createEditEncounterMap(userId: string | null, imageSize: ImageSize, usage?: UsageRecorder) {
   return tool({
     description:
       'Edit an existing encounter map using Nano Banana multimodal generation. ' +
@@ -112,7 +97,7 @@ export function createEditEncounterMap(userId: string | null, usage?: UsageRecor
       if (isImageOutput(o)) return { type: 'text' as const, value: `Edited map: ${o.label}` };
       return { type: 'text' as const, value: String(output) };
     },
-    execute: async ({ sourceArtifactId, instruction }) => {
+    execute: async ({ sourceArtifactId, instruction }, { abortSignal }) => {
       if (!userId) {
         return '[editEncounterMap error] Sign in to edit maps.';
       }
@@ -127,29 +112,25 @@ export function createEditEncounterMap(userId: string | null, usage?: UsageRecor
         });
         const expandedPrompt = await expandEditPrompt(basePrompt, usage);
 
-        const { image, images, warnings } = await generateImage({
-          model: vertex.image(GEMINI_IMAGE_MODEL),
-          prompt: { text: expandedPrompt, images: [ctx.artifact.blobUrl] },
-          aspectRatio: '4:3',
+        const { base64, mediaType } = await generateMapImage({
+          prompt: expandedPrompt,
+          sourceImages: [ctx.artifact.blobUrl],
+          imageSize,
+          abortSignal,
         });
-        await usage?.recordImage('map_edit', GEMINI_IMAGE_MODEL, images.length);
-        if (warnings?.length) {
-          console.warn('[editEncounterMap] AI SDK warnings:', warnings);
-        }
+        await usage?.recordImage('map_edit', GEMINI_IMAGE_MODEL, 1);
 
-        const newBlobUrl = await uploadDerivedImage(
-          image.base64,
-          image.mediaType,
-          ctx.collection.id,
-          ctx.location.id,
-          'edit',
-          ctx.location.name,
-        );
+        const newBlobUrl = await uploadMapImage(base64, mediaType, {
+          collectionId: ctx.collection.id,
+          locationId: ctx.location.id,
+          label: ctx.location.name,
+          variantTag: 'edit',
+        });
 
         const artifact = await createArtifact(ctx.location.id, {
           blobUrl: newBlobUrl,
           prompt: expandedPrompt,
-          mediaType: image.mediaType,
+          mediaType,
           parentArtifactId: ctx.artifact.id,
         });
 
@@ -168,4 +149,3 @@ export function createEditEncounterMap(userId: string | null, usage?: UsageRecor
     },
   });
 }
-

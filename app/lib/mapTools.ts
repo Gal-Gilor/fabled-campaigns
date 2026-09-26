@@ -1,37 +1,13 @@
-import { z } from 'zod';
-import { tool, generateText, generateImage, Output } from 'ai';
-import { put } from '@vercel/blob';
+import { generateText } from 'ai';
 import { randomUUID } from 'crypto';
 import { createLocation, createArtifact, getCollectionById } from '@/db';
-import { GEMINI_MODEL, IMAGEN_MODEL, NEGATIVE_PROMPT } from './config';
-import { safeJsonParse, isImageOutput } from './messageUtils';
-import {
-  VALID_TERRAINS,
-  VALID_SETTINGS,
-  buildEnhancementInput,
-  buildFallbackEnhancedPrompt,
-  buildNarrativePrompt,
-} from './mapPrompts';
+import { GEMINI_MODEL, GEMINI_IMAGE_MODEL, type ImageSize } from './config';
+import { buildNarrativePrompt } from './mapPrompts';
+import { buildGenerationMetaPrompt, buildFallbackGenerationPrompt } from './nanoBananaPrompts';
+import { generateMapImage, uploadMapImage } from './imageGeneration';
 import { vertex } from './vertexClient';
 import type { Collection } from './collections';
 import type { UsageRecorder } from './usage';
-
-async function uploadImageToBlob(
-  base64: string,
-  mediaType: string,
-  label?: string,
-  collectionId?: string,
-  locationId?: string,
-): Promise<string> {
-  const buffer = Buffer.from(base64, 'base64');
-  const ext = mediaType.split('/')[1] ?? 'png';
-  const sanitized = (label ?? 'map').replace(/[^a-z0-9]/gi, '-').toLowerCase();
-  const filename = collectionId && locationId
-    ? `maps/${collectionId}/${locationId}/${Date.now()}-${sanitized}.${ext}`
-    : `maps/${Date.now()}-${sanitized}.${ext}`;
-  const { url } = await put(filename, buffer, { access: 'public', contentType: mediaType });
-  return url;
-}
 
 async function saveMapArtifact(
   base64: string,
@@ -42,7 +18,7 @@ async function saveMapArtifact(
   prompt: string,
 ): Promise<{ src: string; locationId?: string; artifactId?: string }> {
   const locationId = collectionId && sessionId ? randomUUID() : undefined;
-  const src = await uploadImageToBlob(base64, mediaType, name, collectionId, locationId);
+  const src = await uploadMapImage(base64, mediaType, { collectionId, locationId, label: name });
   if (collectionId && sessionId && locationId) {
     await createLocation({ id: locationId, collectionId, sessionId, name: name ?? 'Encounter Map' });
     const artifact = await createArtifact(locationId, { blobUrl: src, prompt, mediaType });
@@ -77,7 +53,7 @@ export function createGenerateNarrativeDescription(collection?: Collection, usag
       if (narrative.length >= 30) return narrative;
       throw new Error('Narrative too short');
     } catch {
-      return buildFallbackEnhancedPrompt({
+      return buildFallbackGenerationPrompt({
         userRequest: mergedParams.userRequest,
         terrain: mergedParams.terrain,
         setting: mergedParams.setting,
@@ -88,124 +64,63 @@ export function createGenerateNarrativeDescription(collection?: Collection, usag
 }
 
 export function createEnhanceMapPrompt(collection?: Collection, usage?: UsageRecorder) {
-  return tool({
-    description:
-      'Expand the user\'s map request into a rich, detailed image generation prompt using AI prompt engineering. ' +
-      'Extracts terrain, setting, perspective, and detail level to produce an optimised Gemini image prompt.',
-    inputSchema: z.object({
-      userRequest: z.string().describe("The user's map request"),
-      ambiance: z.string().describe('Mood or atmosphere (e.g. "dark and cursed", "peaceful and serene")'),
-      terrain: z.enum(VALID_TERRAINS).optional().describe(
-        `Terrain type if identifiable. Options: ${VALID_TERRAINS.join(', ')}`
-      ),
-      setting: z.enum(VALID_SETTINGS).optional().describe(
-        `Specific building or location type if applicable. Options: ${VALID_SETTINGS.join(', ')}`
-      ),
-      perspective: z.enum(['indoor', 'outdoor']).describe('Whether this is an indoor or outdoor map'),
-      detailLevel: z.enum(['close-up', 'wide']).describe(
-        'close-up: zoomed-in, room/small-area scale (~5ft per grid square); ' +
-        'wide: zoomed-out, regional or multi-room scale'
-      ),
-    }),
-    execute: async ({ userRequest, ambiance, terrain, setting, perspective, detailLevel }) => {
-      const params = { userRequest, ambiance, terrain, setting, perspective, detailLevel, collection };
-      try {
-        const metaPrompt = buildEnhancementInput(params);
-        const result = await generateText({
-          model: vertex(GEMINI_MODEL),
-          prompt: metaPrompt,
-          maxOutputTokens: 4096,
-        });
-        await usage?.recordText('map_prompt', GEMINI_MODEL, result.usage);
-        const enhanced = result.text.trim();
-        if (enhanced.length >= 50) return enhanced;
-        throw new Error('Enhancement response too short');
-      } catch {
-        return buildFallbackEnhancedPrompt(params);
-      }
-    },
-  });
-}
-
-export const generateMapName = tool({
-  description: 'Generate an evocative, memorable D&D location name for the map',
-  inputSchema: z.object({
-    userRequest: z.string().describe("The user's map request"),
-    ambiance: z.string().optional().describe('Mood or atmosphere'),
-    terrain: z.string().optional().describe('Terrain type'),
-    setting: z.string().optional().describe('Setting type'),
-  }),
-  execute: async ({ userRequest, ambiance, terrain, setting }) => {
-    let prompt = `Generate an evocative, memorable D&D location name.\n\nMap request: ${userRequest}\n`;
-    if (ambiance) prompt += `Mood: ${ambiance}\n`;
-    if (terrain) prompt += `Terrain: ${terrain}\n`;
-    if (setting) prompt += `Setting: ${setting}\n`;
-    prompt += '\nRespond with only the name — no explanation, no quotes.';
-
+  return async function (params: {
+    userRequest: string;
+    ambiance?: string;
+    terrain?: string;
+    setting?: string;
+    perspective?: 'indoor' | 'outdoor';
+    detailLevel?: 'close-up' | 'wide';
+  }): Promise<string> {
+    const promptParams = { ...params, collection };
     try {
-      const { output } = await generateText({
+      const metaPrompt = buildGenerationMetaPrompt(promptParams);
+      const result = await generateText({
         model: vertex(GEMINI_MODEL),
-        output: Output.object({ schema: z.object({ name: z.string() }) }),
-        prompt,
-        temperature: 0.9,
-        maxOutputTokens: 100,
+        prompt: metaPrompt,
+        maxOutputTokens: 4096,
       });
-      return JSON.stringify({ name: output.name.trim() });
+      await usage?.recordText('map_prompt', GEMINI_MODEL, result.usage);
+      const enhanced = result.text.trim();
+      if (enhanced.length >= 50) return enhanced;
+      throw new Error('Enhancement response too short');
     } catch {
-      const base = setting ?? terrain ?? 'location';
-      const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
-      const fallback = setting && terrain
-        ? `The ${cap(terrain)} ${cap(setting)}`
-        : `The ${cap(base)}`;
-      return JSON.stringify({ name: fallback });
+      return buildFallbackGenerationPrompt(promptParams);
     }
-  },
-});
+  };
+}
 
 export function createGenerateEncounterMap(
   userId: string | null,
-  sessionId?: string,
+  sessionId: string | undefined,
+  imageSize: ImageSize,
   usage?: UsageRecorder
 ) {
-  return tool({
-    description: 'Generate a tactical D&D encounter map image from an enhanced prompt',
-    inputSchema: z.object({
-      enhancedPrompt: z.string().describe('The enhanced image generation prompt from createEnhanceMapPrompt'),
-      name: z.string().optional().describe('The location name from generateMapName'),
-      collectionId: z.string().optional().describe('The active collection ID to tag this image'),
-    }),
-    toModelOutput: ({ output }: { output: unknown }) => {
-      const o = safeJsonParse(output);
-      if (isImageOutput(o)) return { type: 'text' as const, value: `Map generated: ${o.label}` };
-      return { type: 'text' as const, value: String(output) };
-    },
-    execute: async ({ enhancedPrompt, name, collectionId }) => {
-      // collectionId comes from the model; check it before paying for Imagen
-      if (collectionId && (!userId || !(await getCollectionById(userId, collectionId)))) {
-        return '[Encounter map error] Collection not found.';
-      }
-      try {
-        const result = await generateImage({
-          model: vertex.image(IMAGEN_MODEL),
-          prompt: enhancedPrompt,
-          aspectRatio: '4:3',
-          providerOptions: {
-            vertex: {
-              negativePrompt: NEGATIVE_PROMPT,
-              personGeneration: 'dont_allow',
-            },
-          },
-        });
-        await usage?.recordImage('map_generate', IMAGEN_MODEL, result.images.length);
+  return async function (params: {
+    enhancedPrompt: string;
+    name?: string;
+    collectionId?: string;
+    abortSignal?: AbortSignal;
+  }): Promise<string> {
+    const { enhancedPrompt, name, collectionId, abortSignal } = params;
+    // collectionId comes from the model; check it before paying for the image call
+    if (collectionId && (!userId || !(await getCollectionById(userId, collectionId)))) {
+      return '[Encounter map error] Collection not found.';
+    }
+    try {
+      const { base64, mediaType } = await generateMapImage({
+        prompt: enhancedPrompt,
+        imageSize,
+        abortSignal,
+      });
+      await usage?.recordImage('map_generate', GEMINI_IMAGE_MODEL, 1);
 
-        const image = result.image;
-        const { src, locationId, artifactId } = await saveMapArtifact(
-          image.base64, image.mediaType, name, collectionId, sessionId, enhancedPrompt,
-        );
-        return JSON.stringify({ type: 'image', src, label: name ?? 'Encounter Map', collectionId, locationId, artifactId, prompt: enhancedPrompt });
-      } catch (err) {
-        return `[Encounter map error] ${err instanceof Error ? err.message : String(err)}`;
-      }
-    },
-  });
+      const { src, locationId, artifactId } = await saveMapArtifact(
+        base64, mediaType, name, collectionId, sessionId, enhancedPrompt,
+      );
+      return JSON.stringify({ type: 'image', src, label: name ?? 'Encounter Map', collectionId, locationId, artifactId, prompt: enhancedPrompt });
+    } catch (err) {
+      return `[Encounter map error] ${err instanceof Error ? err.message : String(err)}`;
+    }
+  };
 }

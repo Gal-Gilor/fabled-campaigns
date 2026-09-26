@@ -1,6 +1,6 @@
 import { ToolLoopAgent, tool, InferAgentUIMessage } from 'ai';
 import { z } from 'zod';
-import { GEMINI_MODEL } from './config';
+import { GEMINI_MODEL, DEFAULT_IMAGE_SIZE, type ImageSize } from './config';
 import { GM_SYSTEM_PROMPT } from './prompts';
 import { gmStubTools } from './tools';
 import {
@@ -42,7 +42,8 @@ export function createRootAgent(
   activeCollection?: Collection,
   sessionId?: string,
   campaign?: CampaignContext,
-  usage?: UsageRecorder
+  usage?: UsageRecorder,
+  imageSize: ImageSize = DEFAULT_IMAGE_SIZE
 ) {
   const campaignContext = buildCampaignContext(campaign);
   const collectionContext = activeCollection
@@ -69,7 +70,7 @@ export function createRootAgent(
 
   const generateNarrative = createGenerateNarrativeDescription(activeCollection, usage);
   const enhanceMapPrompt = createEnhanceMapPrompt(activeCollection, usage);
-  const generateEncounterMap = createGenerateEncounterMap(userId, sessionId, usage);
+  const generateEncounterMap = createGenerateEncounterMap(userId, sessionId, imageSize, usage);
 
   const mapAgentTool = tool({
     description: 'Generate a NEW D&D tactical encounter map image from scratch. Describe the scene in natural language — the tool handles image prompt engineering internally. Do NOT use this tool to modify an existing map; use editEncounterMap instead.',
@@ -84,25 +85,18 @@ export function createRootAgent(
       ),
       collectionId: z.string().optional().describe('Active collection ID to tag this map'),
     }),
-    execute: async ({ name, userRequest, terrain, setting, perspective, detailLevel, collectionId }) => {
+    execute: async ({ name, userRequest, terrain, setting, perspective, detailLevel, collectionId }, { abortSignal }) => {
       const narrative = await generateNarrative({ userRequest, terrain, setting });
-      const enhancedRaw = await enhanceMapPrompt.execute!(
-        {
-          userRequest: narrative,
-          ambiance: activeCollection?.ambiance ?? '',
-          terrain,
-          setting,
-          perspective,
-          detailLevel,
-        },
-        { toolCallId: '', messages: [] }
-      );
-      const enhanced = typeof enhancedRaw === 'string' ? enhancedRaw : narrative;
+      const enhanced = await enhanceMapPrompt({
+        userRequest: narrative,
+        ambiance: activeCollection?.ambiance ?? '',
+        terrain,
+        setting,
+        perspective,
+        detailLevel,
+      });
 
-      return generateEncounterMap.execute!(
-        { enhancedPrompt: enhanced, name, collectionId },
-        { toolCallId: '', messages: [] }
-      );
+      return generateEncounterMap({ enhancedPrompt: enhanced, name, collectionId, abortSignal });
     },
     toModelOutput: ({ output }: { output: unknown }) => {
       const o = safeJsonParse(output);
@@ -117,7 +111,7 @@ export function createRootAgent(
     tools: {
       ...gmStubTools,
       mapAgent: mapAgentTool,
-      editEncounterMap: createEditEncounterMap(userId, usage),
+      editEncounterMap: createEditEncounterMap(userId, imageSize, usage),
     },
     onStepFinish: async ({ usage: stepUsage }) => {
       await usage?.recordText('chat', GEMINI_MODEL, stepUsage);
