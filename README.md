@@ -32,16 +32,18 @@ Generation runs in three steps:
 
 1. Gemini writes a short scene narrative from the request.
 2. Gemini expands the narrative into a detailed image prompt.
-3. Imagen 3 renders a 4:3 top-down battle map with a tactical grid. A negative prompt blocks
-   people, creatures, text, and side views.
+3. `gemini-3.1-flash-image` (Nano Banana) renders a 4:3 top-down battle map with a tactical grid.
+   Nano Banana has no negative-prompt field, so exclusions (people, creatures, text, side views)
+   are written directly into the prompt.
 
-Maps can be downloaded as PNG files.
+Maps can be downloaded as PNG files. Output resolution (1K, 2K, or 4K) is a per-user setting,
+changed from the Settings modal in the sidebar footer, and applies to both new maps and edits.
 
 ### Map editing
 
 Ask to change a map you already generated ("add a campfire near the stones", "make it night").
-The agent sends the source image and the instruction to `gemini-2.5-flash-image`. The result is
-saved as a new version linked to the original, so earlier versions are kept.
+The agent sends the source image and the instruction to `gemini-3.1-flash-image` (Nano Banana).
+The result is saved as a new version linked to the original, so earlier versions are kept.
 
 ### Collections
 
@@ -92,14 +94,17 @@ campaign context is designed in [docs/campaigns_feature_plan.md](docs/campaigns_
 | Framework | Next.js 16 (App Router), React 19, TypeScript |
 | Styling | Tailwind CSS 4, Cinzel and Roboto fonts via `next/font` |
 | AI SDK | Vercel AI SDK 6 (`ai`, `@ai-sdk/react`, `@ai-sdk/google-vertex`) |
-| Models (Google Vertex AI) | `gemini-2.5-flash` (chat, prompt writing, summaries), `imagen-3.0-generate-002` (new maps), `gemini-2.5-flash-image` (map edits) |
+| Models (Google Vertex AI) | `gemini-2.5-flash` (chat, prompt writing, summaries), `gemini-3.1-flash-image` (new maps and map edits, Nano Banana, Vertex location `global`) |
 | Authentication | Auth.js (`next-auth` v5) with the Google provider and `@auth/pg-adapter` |
 | Database | Neon serverless Postgres (`@neondatabase/serverless`) |
 | File storage | Vercel Blob (`@vercel/blob`) for map images |
 | Markdown | `react-markdown` with `remark-gfm` |
 | Hosting | Vercel |
 
-Model names are set in [app/lib/config.ts](app/lib/config.ts).
+Model names, the image model's Vertex location, and the image-size options are set in
+[app/lib/config.ts](app/lib/config.ts). The image model runs in the `global` location
+(`GEMINI_IMAGE_LOCATION`), independent of `GOOGLE_CLOUD_LOCATION`, since `gemini-3.1-flash-image`
+is not available in `us-central1`.
 
 ## Architecture
 
@@ -108,11 +113,11 @@ flowchart TD
   B[Browser: chat UI] -->|POST /api/chat| C[Chat route]
   C -->|session lookup| A[Auth.js]
   A --> N[(Neon Postgres)]
-  C -->|summary + campaign lore| N
+  C -->|summary + campaign lore + image size| N
   C --> P[prepareContext: token window, pruning, summaries]
   P --> G[Gemini agent]
-  G -->|mapAgent| I[Gemini prompt writing + Imagen 3]
-  G -->|editEncounterMap| E[Gemini image model]
+  G -->|mapAgent| I[Gemini prompt writing + Nano Banana]
+  G -->|editEncounterMap| E[Nano Banana image edit]
   I --> BL[(Vercel Blob)]
   E --> BL
   BL -->|public URL| N
@@ -140,7 +145,7 @@ Vercel Blob stores every generated and edited map as a public file:
 except `/auth`, `/api/auth`, `/_next`, and the favicon. It does not block guests. Each API route
 checks the session itself.
 
-The chat route has a 60 second limit (`maxDuration = 60`). Map generation and editing must
+The chat route has a 300 second limit (`maxDuration = 300`). Map generation and editing must
 finish within that time.
 
 ## Project structure
@@ -157,7 +162,7 @@ db/
   client.ts       Neon HTTP client
   index.ts        Query functions
   migrate.ts      Schema migration script
-  schema/         SQL for auth, chat_sessions, campaigns, collections
+  schema/         SQL for auth, user_settings, chat_sessions, campaigns, collections, usage_events
 data/             SRD monsters and magic items (JSON)
 docs/             Design notes
 types/            Wiki and next-auth type declarations
@@ -291,6 +296,8 @@ Tables:
 | `collection_sessions` | Links collections to chat sessions (many to many) |
 | `locations` | Named maps inside a collection |
 | `artifacts` | Map image versions (Blob URL, prompt, parent version) |
+| `user_settings` | Per-user map image quality (`1K`, `2K`, `4K`) |
+| `usage_events` | Per-request token and image usage, for cost tracking |
 
 Relationships:
 
@@ -302,7 +309,7 @@ Relationships:
 
 Migrations are SQL strings in `db/schema/`. Every statement is idempotent (`IF NOT EXISTS`,
 `ADD COLUMN IF NOT EXISTS`), so the script can run repeatedly. `db/migrate.ts` runs them in
-order: auth, chat sessions, campaigns, collections.
+order: auth, user settings, chat sessions, campaigns, collections, usage events.
 
 | Command | What it does |
 |---|---|
@@ -359,6 +366,8 @@ All routes except `/api/chat` and `/api/auth/*` return `401` without a signed-in
 | | DELETE | Delete a location |
 | `/api/artifacts` | POST | Record an artifact for an existing Blob URL. Body `{ locationId, blobUrl, prompt?, mediaType? }` |
 | `/api/artifacts/[id]` | DELETE | Body `{ blobUrl? }`. Deletes the Blob file, then the row |
+| `/api/settings` | GET | Get the signed-in user's map image quality (`1K` for guests) |
+| | PATCH | Body `{ imageSize }` (`1K`, `2K`, or `4K`). Updates the setting |
 
 Collection deletion has two steps. Without `confirmed`, if other sessions still use the
 collection, only this session's locations, artifacts, and Blob files are removed and the link is
@@ -411,7 +420,7 @@ Both map tools return a JSON string that the chat UI renders as an image card:
 | Map generation fails with a Blob error | `BLOB_READ_WRITE_TOKEN` is missing or the Blob store is not connected |
 | Vertex AI authentication errors | Check that `GOOGLE_SERVICE_ACCOUNT_KEY` is valid base64, the service account has `roles/aiplatform.user`, and the Vertex AI API is enabled |
 | `ENAMETOOLONG` from Google auth on Vercel | `GOOGLE_APPLICATION_CREDENTIALS` holds a base64 string instead of a path. Set `GOOGLE_SERVICE_ACCOUNT_KEY` instead |
-| Map request times out | Generation plus editing must finish within the chat route's 60 second limit. Check Vertex AI quotas and region availability |
+| Map request times out | Generation plus editing must finish within the chat route's 300 second limit. Check Vertex AI quotas and region availability |
 
 Server errors appear in the Vercel function logs. Client errors appear in the browser console.
 
@@ -438,7 +447,7 @@ This website, its code, content, and associated materials are proprietary and co
 
 ## Acknowledgments
 
-- Google Vertex AI (Gemini and Imagen) for text and image generation
+- Google Vertex AI (Gemini) for text and image generation
 - Vercel for hosting, Blob storage, and the AI SDK
 - Neon for serverless Postgres
 - Auth.js for authentication
