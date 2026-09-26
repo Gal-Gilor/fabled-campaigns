@@ -99,7 +99,7 @@ function scaleSentence(detailLevel?: 'close-up' | 'wide'): string {
   return SCALE_SENTENCES[detailLevel ?? 'default'];
 }
 
-function describeSubject(params: GenerationPromptParams): string {
+export function describeSubject(params: GenerationPromptParams): string {
   const request = params.userRequest.trim();
   if (request) return request;
   if (params.setting) return generateSettingDescription(params.setting);

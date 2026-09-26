@@ -86,7 +86,7 @@ export function createRootAgent(
       collectionId: z.string().optional().describe('Active collection ID to tag this map'),
     }),
     execute: async ({ name, userRequest, terrain, setting, perspective, detailLevel, collectionId }, { abortSignal }) => {
-      const narrative = await generateNarrative({ userRequest, terrain, setting });
+      const narrative = await generateNarrative({ userRequest, terrain, setting, abortSignal });
       const enhanced = await enhanceMapPrompt({
         userRequest: narrative,
         ambiance: activeCollection?.ambiance ?? '',
@@ -94,6 +94,7 @@ export function createRootAgent(
         setting,
         perspective,
         detailLevel,
+        abortSignal,
       });
 
       return generateEncounterMap({ enhancedPrompt: enhanced, name, collectionId, abortSignal });

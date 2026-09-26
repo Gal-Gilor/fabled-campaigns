@@ -25,7 +25,12 @@ export async function POST(req: Request) {
   // takes effect on the next message.
   const [ctx, settings] = await Promise.all([
     userId && sessionId ? getSessionChatContext(sessionId, userId) : Promise.resolve(null),
-    userId ? getUserSettings(userId) : Promise.resolve({ imageSize: DEFAULT_IMAGE_SIZE }),
+    userId
+      ? getUserSettings(userId).catch((err) => {
+          console.error('[chat route] failed to load user settings:', err);
+          return { imageSize: DEFAULT_IMAGE_SIZE };
+        })
+      : Promise.resolve({ imageSize: DEFAULT_IMAGE_SIZE }),
   ]);
   // ctx is non-null only when this user owns this session, so a client-supplied
   // sessionId can't attribute usage to another account or a nonexistent row

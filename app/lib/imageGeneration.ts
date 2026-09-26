@@ -24,11 +24,16 @@ export async function generateMapImage(params: {
   if (result.warnings?.length) {
     console.warn('[generateMapImage] AI SDK warnings:', result.warnings);
   }
+  if (result.images.length === 0) {
+    throw new Error('[generateMapImage] model returned no images');
+  }
   if (result.images.length !== 1) {
     console.warn(`[generateMapImage] expected 1 image, got ${result.images.length}`);
   }
 
-  const { base64, mediaType } = result.image;
+  // Take the last image, not `result.image` (the first): a model that emits interim
+  // "thought" images before the final render must never have one of those replace it.
+  const { base64, mediaType } = result.images.at(-1)!;
   return { base64, mediaType };
 }
 

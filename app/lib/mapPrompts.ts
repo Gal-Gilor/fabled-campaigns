@@ -37,11 +37,11 @@ const TERRAIN_ELEMENTS: Record<string, TerrainData> = {
   },
   tundra: {
     adjectives: ['Frozen', 'Windswept', 'Barren', 'Ice-bound', 'Permafrost', 'Aurora', 'Polar', 'Blizzard', 'Glacier', 'Nordic'],
-    modifiers: ['ice', 'snow', 'winds', 'cold', 'frost', 'storms', 'lights', 'silence', 'tracks', 'crystals'],
+    modifiers: ['ice', 'snow', 'winds', 'cold', 'frost', 'storms', 'lights', 'icicles', 'tracks', 'crystals'],
   },
   jungle: {
     adjectives: ['Dense', 'Steaming', 'Verdant', 'Primal', 'Untamed', 'Lush', 'Tropical', 'Humid', 'Ancient', 'Overgrown'],
-    modifiers: ['vines', 'leaves', 'humidity', 'sounds', 'calls', 'mist', 'trees', 'branches', 'roots', 'shadows'],
+    modifiers: ['vines', 'leaves', 'ferns', 'lianas', 'blossoms', 'mist', 'trees', 'branches', 'roots', 'shadows'],
   },
   swamp: {
     adjectives: ['Murky', 'Mist-shrouded', 'Rotting', 'Fetid', 'Boggy', 'Willow', 'Crocodile', 'Stagnant', 'Poisonous', "Witch's"],
@@ -53,10 +53,10 @@ const TERRAIN_ELEMENTS: Record<string, TerrainData> = {
   },
   underground: {
     adjectives: ['Deep', 'Echoing', 'Crystal', 'Shadowed', 'Forgotten', 'Dwarf-carved', 'Glowing', 'Limestone', 'Stalactite', 'Hidden'],
-    modifiers: ['crystals', 'echoes', 'shadows', 'stones', 'pools', 'formations', 'minerals', 'veins', 'darkness', 'silence'],
+    modifiers: ['crystals', 'stalactites', 'shadows', 'stones', 'pools', 'formations', 'minerals', 'veins', 'darkness', 'fungi'],
   },
   urban: {
-    adjectives: ['Bustling', 'Crowded', 'Sprawling', 'Ancient', 'Industrial', 'Noble', 'Merchant', 'Cobblestone', 'Walled', 'Metropolitan'],
+    adjectives: ['Lantern-lit', 'Timber-framed', 'Sprawling', 'Ancient', 'Industrial', 'Noble', 'Merchant', 'Cobblestone', 'Walled', 'Metropolitan'],
     modifiers: ['buildings', 'streets', 'fountains', 'market stalls', 'gatehouses', 'rooftops', 'alleys', 'shops', 'inns', 'guildhalls'],
   },
   volcanic: {
@@ -64,8 +64,8 @@ const TERRAIN_ELEMENTS: Record<string, TerrainData> = {
     modifiers: ['lava', 'ash', 'smoke', 'flames', 'heat', 'sulfur', 'steam', 'embers', 'magma', 'rock'],
   },
   industrial: {
-    adjectives: ['Smoke-filled', 'Mechanized', 'Steam-powered', 'Clanking', 'Grimy', 'Forge-lit', 'Working', 'Noisy', 'Production', 'Bustling'],
-    modifiers: ['machinery', 'steam', 'smoke', 'conveyors', 'gears', 'pipes', 'furnaces', 'tools', 'noise', 'production'],
+    adjectives: ['Smoke-filled', 'Mechanized', 'Steam-powered', 'Clanking', 'Grimy', 'Forge-lit', 'Working', 'Noisy', 'Production', 'Rust-streaked'],
+    modifiers: ['machinery', 'steam', 'smoke', 'conveyors', 'gears', 'pipes', 'furnaces', 'tools', 'rust', 'crates'],
   },
   indoor: {
     adjectives: ['Enclosed', 'Candlelit', 'Furnished', 'Comfortable', 'Sheltered', 'Private', 'Decorated', 'Warm', 'Spacious', 'Intimate'],
