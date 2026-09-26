@@ -14,78 +14,62 @@ export const VALID_SETTINGS = [
   'graveyard', 'ship', 'sewer',
 ] as const;
 
-export const VALID_DETAIL_LEVELS = ['detail-high', 'detail-low'] as const;
-
 export type Terrain = typeof VALID_TERRAINS[number];
 export type Setting = typeof VALID_SETTINGS[number];
-export type DetailLevel = typeof VALID_DETAIL_LEVELS[number];
 
-type TerrainData = { adjectives: string[]; nouns: string[]; modifiers: string[] };
+type TerrainData = { adjectives: string[]; modifiers: string[] };
 
 const TERRAIN_ELEMENTS: Record<string, TerrainData> = {
   forest: {
     adjectives: ['Whispering', 'Ancient', 'Deep', 'Wild', 'Emerald', 'Shadowed', 'Thornwood', 'Silverleaf', 'Moss-covered', 'Elven'],
-    nouns: ['Grove', 'Thicket', 'Glade', 'Clearing', 'Canopy', 'Hollow', 'Wood', 'Dell', 'Glen', 'Bower'],
     modifiers: ['pines', 'oaks', 'willows', 'birches', 'cedars', 'maples', 'aspens', 'elms', 'firs', 'spruces'],
   },
   grassland: {
     adjectives: ['Rolling', 'Verdant', 'Endless', 'Golden', 'Windswept', 'Peaceful', 'Fertile', 'Sun-kissed', 'Wild', 'Pastoral'],
-    nouns: ['Plains', 'Fields', 'Meadows', 'Prairies', 'Steppes', 'Pastures', 'Ranges', 'Lands', 'Reaches', 'Expanse'],
     modifiers: ['grass', 'flowers', 'herbs', 'seeds', 'winds', 'paths', 'streams', 'wildlife', 'skies'],
   },
   mountain: {
     adjectives: ['Towering', 'Snow-capped', 'Jagged', 'Windswept', 'Granite', 'Crystal', 'Storm-touched', 'Iron', "Eagle's", 'Cloudbreak'],
-    nouns: ['Peak', 'Ridge', 'Summit', 'Crag', 'Spire', 'Precipice', 'Outcrop', 'Bluff', 'Tor', 'Pinnacle'],
     modifiers: ['heights', 'slopes', 'passes', 'cliffs', 'crags', 'stones', 'rocks', 'boulders', 'ledges'],
   },
   desert: {
     adjectives: ['Burning', 'Endless', 'Shifting', 'Golden', 'Scorching', 'Mirage', 'Sandswept', 'Sun-baked', "Nomad's", 'Oasis'],
-    nouns: ['Dunes', 'Wastes', 'Expanse', 'Reach', 'Sands', 'Basin', 'Flats', 'Mesa', 'Plateau', 'Valley'],
     modifiers: ['sands', 'stones', 'winds', 'mirages', 'cacti', 'bones', 'ruins', 'wells', 'springs', 'tracks'],
   },
   tundra: {
     adjectives: ['Frozen', 'Windswept', 'Barren', 'Ice-bound', 'Permafrost', 'Aurora', 'Polar', 'Blizzard', 'Glacier', 'Nordic'],
-    nouns: ['Plains', 'Wastes', 'Steppes', 'Expanse', 'Fields', 'Reaches', 'Grounds', 'Lands', 'Territory', 'Domain'],
     modifiers: ['ice', 'snow', 'winds', 'cold', 'frost', 'storms', 'lights', 'silence', 'tracks', 'crystals'],
   },
   jungle: {
     adjectives: ['Dense', 'Steaming', 'Verdant', 'Primal', 'Untamed', 'Lush', 'Tropical', 'Humid', 'Ancient', 'Overgrown'],
-    nouns: ['Jungle', 'Rainforest', 'Canopy', 'Undergrowth', 'Thicket', 'Tangle', 'Wilderness', 'Grove', 'Basin', 'Expanse'],
     modifiers: ['vines', 'leaves', 'humidity', 'sounds', 'calls', 'mist', 'trees', 'branches', 'roots', 'shadows'],
   },
   swamp: {
     adjectives: ['Murky', 'Mist-shrouded', 'Rotting', 'Fetid', 'Boggy', 'Willow', 'Crocodile', 'Stagnant', 'Poisonous', "Witch's"],
-    nouns: ['Marsh', 'Bog', 'Fen', 'Mire', 'Bayou', 'Wetlands', 'Morass', 'Quagmire', 'Slough', 'Backwater'],
     modifiers: ['reeds', 'moss', 'mist', 'pools', 'gases', 'vines', 'roots', 'mud', 'lilies', 'frogs'],
   },
   ocean: {
     adjectives: ['Tidal', 'Coral', 'Storm-tossed', 'Pearl', 'Sapphire', 'Misty', "Siren's", 'Deep', 'Salt-spray', 'Windward'],
-    nouns: ['Bay', 'Cove', 'Harbor', 'Port', 'Inlet', 'Strait', 'Sound', 'Reef', 'Atoll', 'Lagoon'],
     modifiers: ['waves', 'tides', 'shores', 'reefs', 'pearls', 'shells', 'currents', 'depths', 'sailors', 'storms'],
   },
   underground: {
     adjectives: ['Deep', 'Echoing', 'Crystal', 'Shadowed', 'Forgotten', 'Dwarf-carved', 'Glowing', 'Limestone', 'Stalactite', 'Hidden'],
-    nouns: ['Caverns', 'Tunnels', 'Chambers', 'Depths', 'Halls', 'Passages', 'Grottos', 'Vaults', 'Warrens', 'Sanctum'],
     modifiers: ['crystals', 'echoes', 'shadows', 'stones', 'pools', 'formations', 'minerals', 'veins', 'darkness', 'silence'],
   },
   urban: {
     adjectives: ['Bustling', 'Crowded', 'Sprawling', 'Ancient', 'Industrial', 'Noble', 'Merchant', 'Cobblestone', 'Walled', 'Metropolitan'],
-    nouns: ['District', 'Quarter', 'Ward', 'Square', 'Street', 'Plaza', 'Market', 'Alley', 'Boulevard', 'Avenue'],
     modifiers: ['buildings', 'streets', 'crowds', 'merchants', 'guards', 'nobles', 'commoners', 'shops', 'inns', 'guilds'],
   },
   volcanic: {
     adjectives: ['Smoldering', 'Molten', 'Fiery', 'Ash-covered', 'Steaming', 'Lava-touched', 'Scorched', 'Blazing', 'Sulfurous', 'Burning'],
-    nouns: ['Crater', 'Caldera', 'Slope', 'Peak', 'Flow', 'Field', 'Ridge', 'Vent', 'Formation', 'Range'],
     modifiers: ['lava', 'ash', 'smoke', 'flames', 'heat', 'sulfur', 'steam', 'embers', 'magma', 'rock'],
   },
   industrial: {
     adjectives: ['Smoke-filled', 'Mechanized', 'Steam-powered', 'Clanking', 'Grimy', 'Forge-lit', 'Working', 'Noisy', 'Production', 'Bustling'],
-    nouns: ['Factory', 'Workshop', 'Foundry', 'Mill', 'Forge', 'Facility', 'Plant', 'Works', 'Complex', 'District'],
     modifiers: ['machinery', 'steam', 'smoke', 'workers', 'gears', 'pipes', 'furnaces', 'tools', 'noise', 'production'],
   },
   indoor: {
     adjectives: ['Enclosed', 'Candlelit', 'Furnished', 'Comfortable', 'Sheltered', 'Private', 'Decorated', 'Warm', 'Spacious', 'Intimate'],
-    nouns: ['Hall', 'Chamber', 'Room', 'Study', 'Parlor', 'Gallery', 'Suite', 'Salon', 'Library', 'Quarters'],
     modifiers: ['furniture', 'tapestries', 'candles', 'fireplaces', 'books', 'art', 'comfort', 'privacy', 'warmth', 'luxury'],
   },
 };
@@ -100,7 +84,7 @@ const SETTING_DESCRIPTIONS = [
   'A hidden {{ setting }} known only to those who seek it out or stumble upon it by chance.',
   'A cursed {{ setting }} where shadows linger longer than natural and whispers echo from empty chambers.',
   'A legendary {{ setting }} spoken of in prophecies and songs, where heroes are tested and fate is decided.',
-  'A fortified {{ setting }} standing as a testament to strength and resilience.',
+  'A fortified {{ setting }} with thick stone walls and battlements that have held through many sieges.',
 ];
 
 const DETAIL_LEVEL_INSTRUCTIONS: Record<string, string> = {
