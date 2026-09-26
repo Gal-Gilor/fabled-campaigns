@@ -50,7 +50,7 @@ const TERRAIN_ELEMENTS: Record<string, TerrainData> = {
   },
   ocean: {
     adjectives: ['Tidal', 'Coral', 'Storm-tossed', 'Pearl', 'Sapphire', 'Misty', "Siren's", 'Deep', 'Salt-spray', 'Windward'],
-    modifiers: ['waves', 'tides', 'shores', 'reefs', 'pearls', 'shells', 'currents', 'depths', 'sailors', 'storms'],
+    modifiers: ['waves', 'tides', 'shores', 'reefs', 'pearls', 'shells', 'currents', 'depths', 'piers', 'storms'],
   },
   underground: {
     adjectives: ['Deep', 'Echoing', 'Crystal', 'Shadowed', 'Forgotten', 'Dwarf-carved', 'Glowing', 'Limestone', 'Stalactite', 'Hidden'],
@@ -58,7 +58,7 @@ const TERRAIN_ELEMENTS: Record<string, TerrainData> = {
   },
   urban: {
     adjectives: ['Bustling', 'Crowded', 'Sprawling', 'Ancient', 'Industrial', 'Noble', 'Merchant', 'Cobblestone', 'Walled', 'Metropolitan'],
-    modifiers: ['buildings', 'streets', 'crowds', 'merchants', 'guards', 'nobles', 'commoners', 'shops', 'inns', 'guilds'],
+    modifiers: ['buildings', 'streets', 'fountains', 'market stalls', 'gatehouses', 'rooftops', 'alleys', 'shops', 'inns', 'guildhalls'],
   },
   volcanic: {
     adjectives: ['Smoldering', 'Molten', 'Fiery', 'Ash-covered', 'Steaming', 'Lava-touched', 'Scorched', 'Blazing', 'Sulfurous', 'Burning'],
@@ -66,7 +66,7 @@ const TERRAIN_ELEMENTS: Record<string, TerrainData> = {
   },
   industrial: {
     adjectives: ['Smoke-filled', 'Mechanized', 'Steam-powered', 'Clanking', 'Grimy', 'Forge-lit', 'Working', 'Noisy', 'Production', 'Bustling'],
-    modifiers: ['machinery', 'steam', 'smoke', 'workers', 'gears', 'pipes', 'furnaces', 'tools', 'noise', 'production'],
+    modifiers: ['machinery', 'steam', 'smoke', 'conveyors', 'gears', 'pipes', 'furnaces', 'tools', 'noise', 'production'],
   },
   indoor: {
     adjectives: ['Enclosed', 'Candlelit', 'Furnished', 'Comfortable', 'Sheltered', 'Private', 'Decorated', 'Warm', 'Spacious', 'Intimate'],
@@ -75,7 +75,7 @@ const TERRAIN_ELEMENTS: Record<string, TerrainData> = {
 };
 
 const SETTING_DESCRIPTIONS = [
-  'A cozy {{ setting }} where adventurers gather to rest, share tales, and plan their next quest.',
+  'A cozy {{ setting }} with a crackling hearth, long wooden tables, and worn floorboards.',
   'An imposing {{ setting }} built for defense, with thick walls and strategic positioning.',
   'A sacred {{ setting }} dedicated to ancient deities, filled with mystery and divine energy.',
   'A treacherous {{ setting }} filled with hidden dangers, ancient traps, and forgotten treasures.',
@@ -83,7 +83,7 @@ const SETTING_DESCRIPTIONS = [
   'A vital {{ setting }} spanning dangerous terrain, connecting distant lands and enabling safe passage.',
   'A hidden {{ setting }} known only to those who seek it out or stumble upon it by chance.',
   'A cursed {{ setting }} where shadows linger longer than natural and whispers echo from empty chambers.',
-  'A legendary {{ setting }} spoken of in prophecies and songs, where heroes are tested and fate is decided.',
+  'A legendary {{ setting }} of weathered stone, carved with old runes and scarred by past battles.',
   'A fortified {{ setting }} with thick stone walls and battlements that have held through many sieges.',
 ];
 

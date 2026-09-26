@@ -84,8 +84,8 @@ const GRID_CLAUSE =
 
 const SCALE_SENTENCES: Record<'close-up' | 'wide' | 'default', string> = {
   'close-up':
-    'This is a close-up map of a small area: each grid square covers roughly 5 feet, so individual props such as barrels, ' +
-    'crates, rocks, and furniture are distinct and each fills one or two squares.',
+    'This is a close-up map of a small area: each grid square covers roughly 5 feet, so individual props and features ' +
+    'are distinct and each fills one or two squares.',
   wide:
     'This is a wide map of a large area: each grid square covers far more than 5 feet, so the map shows major landmarks, ' +
     'the overall layout, and the routes between them rather than small props.',
@@ -140,7 +140,7 @@ const GENERATION_EXAMPLES = [
       'dense canopy of old oaks and pines. A deep ravine with a rocky stream at its bottom cuts across the eastern side, a ' +
       'massive fallen log spans it as a bridge, and a narrow dirt trail winds down the southern slope to the stream bank. ' +
       'Rendered as a painterly fantasy battle map with hand-painted foliage, dappled late-afternoon sunlight, and deep shadows ' +
-      'along the ravine walls that show its depth. A clearly visible, uniform square grid of thin, crisp dark brown lines ' +
+      'along the ravine walls that show its depth. A clearly visible, uniform square grid of thin, crisp pale cream lines ' +
       'covers the entire playable area edge to edge, continuing across the canopy, the ravine floor, and the log bridge. ' +
       NANO_BANANA_NEGATION,
   },
@@ -166,7 +166,7 @@ export function buildGenerationMetaPrompt(params: GenerationPromptParams): strin
   const { ambiance, terrain, setting, perspective, detailLevel, name, collection } = params;
 
   const requestLines = [`Request: ${describeSubject(params)}`];
-  if (name) requestLines.push(`Map name (do not render it as text): "${name}"`);
+  if (name) requestLines.push(`Map name, for context only (do not render it as text): ${name}`);
   if (setting) requestLines.push(`Setting: ${setting}`);
   if (terrain) requestLines.push(`Terrain: ${terrain}`);
   if (perspective === 'indoor') requestLines.push(`Perspective: indoor. ${INDOOR_SENTENCE}`);
@@ -230,23 +230,23 @@ export function buildGenerationMetaPrompt(params: GenerationPromptParams): strin
  * Deterministic Nano Banana prompt used when the meta-prompt expansion fails.
  */
 export function buildFallbackGenerationPrompt(params: GenerationPromptParams): string {
-  const { ambiance, terrain, setting, perspective, detailLevel, name, collection } = params;
+  const { userRequest, ambiance, terrain, setting, perspective, detailLevel, collection } = params;
 
-  const mapType = setting ?? terrain ?? 'location';
-  const nameContext = name ? ` called "${name}"` : '';
-  const subject = describeSubject(params).replace(/[.\s]+$/, '');
-
+  // The map name is left out on purpose: quoted names tend to be rendered as text.
+  const mapType = setting ?? terrain;
   const sentences = [
-    `${CAMERA_OPENING} a fantasy ${mapType} battle map${nameContext}.`,
-    `${subject}.`,
-    scaleSentence(detailLevel),
+    mapType ? `${CAMERA_OPENING} a fantasy ${mapType} battle map.` : `${CAMERA_OPENING} a fantasy battle map.`,
   ];
+  if (userRequest.trim() || mapType) {
+    sentences.push(`${describeSubject(params).replace(/[.\s]+$/, '')}.`);
+  }
+  sentences.push(scaleSentence(detailLevel));
   if (perspective === 'indoor') sentences.push(INDOOR_SENTENCE);
   if (ambiance) sentences.push(`The mood is ${ambiance}.`);
   sentences.push(
     'The map has several elevations connected by stairs, ramps, bridges, or slopes, so every area is reachable on foot, ' +
       'with open ground left for movement.',
-    'Rendered as a painterly fantasy battle map with hand-painted textures and overhead light that casts crisp shadows ' +
+    'Rendered in a painterly style with hand-painted textures and overhead light that casts crisp shadows ' +
       'showing changes in height.',
   );
   if (collection?.ambiance) {
