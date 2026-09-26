@@ -1,5 +1,5 @@
 import { createVertex } from '@ai-sdk/google-vertex';
-import { DEFAULT_GCP_LOCATION } from './config';
+import { DEFAULT_GCP_LOCATION, GEMINI_IMAGE_LOCATION } from './config';
 
 function getGoogleAuthOptions() {
   const encodedKey = process.env.GOOGLE_SERVICE_ACCOUNT_KEY;
@@ -12,8 +12,16 @@ function getGoogleAuthOptions() {
   return { credentials };
 }
 
+const googleAuthOptions = getGoogleAuthOptions();
+
 export const vertex = createVertex({
   project: process.env.GOOGLE_CLOUD_PROJECT,
   location: process.env.GOOGLE_CLOUD_LOCATION ?? DEFAULT_GCP_LOCATION,
-  googleAuthOptions: getGoogleAuthOptions(),
+  googleAuthOptions,
+});
+
+export const vertexImage = createVertex({
+  project: process.env.GOOGLE_CLOUD_PROJECT,
+  location: GEMINI_IMAGE_LOCATION,
+  googleAuthOptions,
 });

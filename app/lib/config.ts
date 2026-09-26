@@ -1,8 +1,14 @@
 export const GEMINI_MODEL = 'gemini-2.5-flash';
-export const GEMINI_IMAGE_MODEL = 'gemini-2.5-flash-image';
+export const GEMINI_IMAGE_MODEL = 'gemini-3.1-flash-image';
+export const GEMINI_IMAGE_LOCATION = 'global';
 export const IMAGEN_MODEL = 'imagen-3.0-generate-002';
 export const CHAT_API_PATH = '/api/chat';
 export const DEFAULT_GCP_LOCATION = 'us-central1';
+
+export const IMAGE_SIZES = ['1K', '2K', '4K'] as const;
+export type ImageSize = (typeof IMAGE_SIZES)[number];
+export const DEFAULT_IMAGE_SIZE: ImageSize = '1K';
+export const MAP_ASPECT_RATIO = '4:3';
 
 export const NEGATIVE_PROMPT =
   'names, text, labels, legends, creatures, characters, people, miniatures, minis, figures, figurines, frontal view, front view, side view, bottom-up, close-up, soft focus, extreme close-up, zoomed-in, zoom in, low quality, low resolution, bad quality, bad resolution';
