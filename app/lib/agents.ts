@@ -38,6 +38,7 @@ export function buildCampaignContext(campaign?: CampaignContext): string {
 }
 
 export function createRootAgent(
+  userId: string | null,
   activeCollection?: Collection,
   sessionId?: string,
   campaign?: CampaignContext,
@@ -68,7 +69,7 @@ export function createRootAgent(
 
   const generateNarrative = createGenerateNarrativeDescription(activeCollection, usage);
   const enhanceMapPrompt = createEnhanceMapPrompt(activeCollection, usage);
-  const generateEncounterMap = createGenerateEncounterMap(sessionId, usage);
+  const generateEncounterMap = createGenerateEncounterMap(userId, sessionId, usage);
 
   const mapAgentTool = tool({
     description: 'Generate a NEW D&D tactical encounter map image from scratch. Describe the scene in natural language — the tool handles image prompt engineering internally. Do NOT use this tool to modify an existing map; use editEncounterMap instead.',
@@ -116,7 +117,7 @@ export function createRootAgent(
     tools: {
       ...gmStubTools,
       mapAgent: mapAgentTool,
-      editEncounterMap: createEditEncounterMap(usage),
+      editEncounterMap: createEditEncounterMap(userId, usage),
     },
     onStepFinish: async ({ usage: stepUsage }) => {
       await usage?.recordText('chat', GEMINI_MODEL, stepUsage);
