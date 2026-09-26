@@ -80,13 +80,13 @@ export function buildEditPrompt(params: {
   return [
     'You are editing the provided D&D encounter battle map.',
     'Apply the requested change as a focused edit, blending it into the surrounding pixels so the change reads as native.',
-    'Preserve everything else, including composition, lighting, palette, brush style, terrain, and structures as in the source image.',
+    'Preserve everything else, including composition, lighting, palette, brush style, rendering style, terrain, and structures as in the source image.',
     'Maintaining the gridlines layer that covers terrain is most important. Reproduce every grid line at the exact same spacing, color, line weight, and opacity as the source. Any region you repaint must show the same grid lines as the surrounding pixels — gridlines must be continuous and seamless across the entire image, including replaced terrain.',
     `\nEdit instruction: ${instruction.trim()}`,
     renderSourceContext(sourceContext),
     `\nConstraints to maintain:\n- ${NANO_BANANA_NEGATION_BASE}`,
     `- ${EDIT_VIEW_CONSTRAINT}`,
-    '- Sharp focus, painterly fantasy-cartography style.',
+    '- Sharp focus, in the same rendering style as the source image.',
   ]
     .filter(Boolean)
     .join('\n')
@@ -121,9 +121,34 @@ const CAMERA_OPENINGS: Record<MapView, string> = {
 // so every scale states how many grid cells the image shows.
 const FRAMING_SENTENCE =
   'The whole location fits inside the frame with open margin on every side; no wall, room, or feature is cut off ' +
-  'by the image edge, and the view is never a close crop of a single object. The furniture and fixtures that ' +
-  'define the place stay, drawn as clear, readable shapes, and the floor is free of incidental clutter such as ' +
-  'papers, bottles, loose tools, and debris.';
+  'by the image edge, and the view is never a close crop of a single object.';
+
+// How much detail each view's style allows. Both keep the defining fixtures
+// and ban clutter; the game style adds material and decorative detail.
+const DETAIL_SENTENCES: Record<MapView, string> = {
+  isometric:
+    'The furniture and fixtures that define the place stay, drawn as clear, readable shapes with rich material ' +
+    'texture and decorative detail on the fixtures, walls, and floor. The floor stays open for movement and free of ' +
+    'clutter piles such as heaps of papers, bottles, loose tools, and debris.',
+  'top-down':
+    'The furniture and fixtures that define the place stay, drawn as clear, readable shapes, and the floor is free of ' +
+    'incidental clutter such as papers, bottles, loose tools, and debris.',
+};
+
+// Rendering style per view: classic tabletop maps for top-down, a modern
+// isometric computer-game look for isometric. Real rendering qualities only;
+// Nano Banana ignores quality tokens.
+const STYLES: Record<MapView, string> = {
+  isometric:
+    'A high-detail rendered scene in the style of a modern isometric computer game, with distinct materials such as ' +
+    'worn stone, grained wood, and forged iron. Light comes from sources inside the scene, such as torches, braziers, ' +
+    'or windows, and casts directional shadows, with soft contact shadows where objects meet the floor. The color is ' +
+    'rich but controlled, with clear depth between the floor, the walls, and the objects.',
+  'top-down':
+    'A classic tabletop battle map in a clean, hand-drawn style, with flat color fills from a limited palette and ' +
+    'crisp dark outlines around walls and objects. The lighting is soft and even, with only light shadows that mark ' +
+    'changes in height, and surface texture is minimal, so the map reads clearly on a table screen or a print.',
+};
 
 const GRID_CLAUSES: Record<MapView, string> = {
   isometric:
@@ -153,6 +178,24 @@ const GRID_UNITS: Record<MapView, { count: string; short: string }> = {
   'top-down': { count: 'grid squares', short: 'squares' },
 };
 
+// For large and huge maps both views simplify the layout. In the game style that
+// means fewer distinct objects, not flatter rendering.
+const LARGE_SCALE_DETAIL: Record<MapView, string> = {
+  isometric:
+    'Keep the layout simple: show the major structures, zones, and walkways rather than individual objects, ' +
+    'each still rendered with full material detail.',
+  'top-down':
+    'Keep detail low: show the major structures, zones, and walkways rather than individual objects.',
+};
+
+const HUGE_SCALE_DETAIL: Record<MapView, string> = {
+  isometric:
+    'Show only the major landmarks, the overall layout, and the routes between them, with few distinct objects, ' +
+    'each still rendered with full material detail.',
+  'top-down':
+    'Show only the major landmarks, the overall layout, and the routes between them, with no small-scale detail.',
+};
+
 function buildScaleSentences(view: MapView): Record<MapScale, string> {
   const { count, short } = GRID_UNITS[view];
   return {
@@ -164,12 +207,10 @@ function buildScaleSentences(view: MapView): Record<MapScale, string> {
       `5 feet. Show the room's layout and its main furniture or features, each covering at least a couple of ${short}.`,
     large:
       'This is a map of a large space such as a foyer, great hall, factory floor, or courtyard: the frame shows ' +
-      `28 by 21 ${count}, each covering roughly 5 feet. Keep detail low: show the major structures, zones, and ` +
-      'walkways rather than individual objects.',
+      `28 by 21 ${count}, each covering roughly 5 feet. ${LARGE_SCALE_DETAIL[view]}`,
     huge:
       'This is a map of a very large area such as a fortress, a district, or a stretch of wilderness: the frame shows ' +
-      `40 by 30 ${count}, each covering roughly 5 feet. Show only the major landmarks, the overall layout, and the ` +
-      'routes between them, with no small-scale detail.',
+      `40 by 30 ${count}, each covering roughly 5 feet. ${HUGE_SCALE_DETAIL[view]}`,
   };
 }
 
@@ -187,7 +228,7 @@ const INDOOR_SENTENCES: Record<MapView, string> = {
 };
 
 function scaleSentence(view: MapView, mapScale: MapScale = DEFAULT_MAP_SCALE): string {
-  return `${SCALE_SENTENCES[view][mapScale]} ${FRAMING_SENTENCE}`;
+  return `${SCALE_SENTENCES[view][mapScale]} ${FRAMING_SENTENCE} ${DETAIL_SENTENCES[view]}`;
 }
 
 function describeSubject(params: GenerationPromptParams): string {
@@ -227,9 +268,10 @@ const TOP_DOWN_EXAMPLES: GenerationExample[] = [
       `${TOP_DOWN_OPENING} the entire ground floor of a fantasy tavern, framed to show 24 by 18 grid squares of roughly ` +
       '5 feet each, with every outer wall visible and open margin around the building. The common room is a single ' +
       'level with a flagstone floor. A long timber bar runs along the west wall, rows of long tables and benches fill ' +
-      'the center with open aisles between them, and a wide stone fireplace stands against the north wall. Rendered as ' +
-      'a painterly fantasy battle map in warm wood and stone tones, lit by firelight from the hearth that casts soft ' +
-      'shadows beside the tables and the bar. A clearly visible, uniform square grid of thin, crisp black lines covers ' +
+      'the center with open aisles between them, and a wide stone fireplace stands against the north wall. Drawn as a ' +
+      'classic tabletop battle map in a clean, hand-drawn style, with flat fills of warm wood and stone colors, crisp ' +
+      'dark outlines around the walls, the bar, and every table, and soft, even light with only light shadows beside ' +
+      'the furniture. A clearly visible, uniform square grid of thin, crisp black lines covers ' +
       `the entire playable area edge to edge, running unbroken across the floor, the tables, and the bar. ${TOP_DOWN_NEGATION}`,
   },
   {
@@ -240,8 +282,9 @@ const TOP_DOWN_EXAMPLES: GenerationExample[] = [
       'walls and the door visible and open margin around the room. The room is a single level with a dark oak plank ' +
       'floor. Tall bookshelves line the north, east, and west walls, a large reading table stands in the center, a ' +
       'carved lectern faces it from the south wall, and a brass orrery sits in the northeast corner, leaving open floor ' +
-      'between the table and the shelves. Rendered as a painterly fantasy battle map in deep wood and brass tones, lit by ' +
-      'floating candles that cast soft shadows beside each shelf and the table. A clearly visible, uniform square grid of ' +
+      'between the table and the shelves. Drawn as a classic tabletop battle map in a clean, hand-drawn style, with flat ' +
+      'fills of deep wood and brass colors, crisp dark outlines around the shelves, the table, and the lectern, and soft, ' +
+      'even light with only light shadows beside each shelf. A clearly visible, uniform square grid of ' +
       'thin, crisp black lines covers the entire playable area edge to edge, running unbroken across the floor and ' +
       `the table. ${TOP_DOWN_NEGATION}`,
   },
@@ -252,9 +295,10 @@ const TOP_DOWN_EXAMPLES: GenerationExample[] = [
       `${TOP_DOWN_OPENING} a forest clearing and the woods around it, framed to show 28 by 21 grid squares of roughly ` +
       '5 feet each, so the whole clearing and its edges sit inside the frame. A ring of standing stones sits at the ' +
       'center of a grassy clearing bordered by a dense tree canopy. A ravine with a stream cuts across the eastern side, ' +
-      'a fallen log spans it as a bridge, and a dirt trail winds down the southern slope to the stream. Rendered as a ' +
-      'painterly fantasy battle map in deep greens and earth tones under late-afternoon sunlight, with shadows along the ' +
-      'ravine walls that show its depth. A clearly visible, uniform square grid of thin, crisp pale cream lines covers ' +
+      'a fallen log spans it as a bridge, and a dirt trail winds down the southern slope to the stream. Drawn as a ' +
+      'classic tabletop battle map in a clean, hand-drawn style, with flat fills of greens and earth colors, crisp dark ' +
+      'outlines around the stones, the tree canopy, and the ravine edges, and soft, even light with a light shadow ' +
+      'along the ravine walls that marks its depth. A clearly visible, uniform square grid of thin, crisp pale cream lines covers ' +
       'the entire playable area edge to edge, continuing across the canopy, the ravine floor, and the log bridge. ' +
       TOP_DOWN_NEGATION,
   },
@@ -265,9 +309,10 @@ const TOP_DOWN_EXAMPLES: GenerationExample[] = [
       `${TOP_DOWN_OPENING} a sprawling dungeon maze, framed to show 40 by 30 grid squares of roughly 5 feet each, so the ` +
       'full network of passages sits inside the frame. Corridors of rough stone twist between chambers, several of them ' +
       'ending in dead ends. A wide chasm splits the center of the maze and is crossed by a single bridge, and stairs lead ' +
-      'down from the northern passages to a lower level of chambers drawn in the northeast corner. Rendered as a ' +
-      'painterly fantasy battle map in cold grey-blue stone tones lit by scattered wall sconces, with pitch-black ' +
-      'shadow inside the chasm. A clearly visible, ' +
+      'down from the northern passages to a lower level of chambers drawn in the northeast corner. Drawn as a classic ' +
+      'tabletop battle map in a clean, hand-drawn style, with flat fills of cold grey-blue stone colors, crisp dark ' +
+      'outlines around every wall and the chasm edge, and soft, even light, with a flat black fill marking the depth ' +
+      'of the chasm. A clearly visible, ' +
       'uniform square grid of thin, crisp white lines covers the entire playable area edge to edge, running across the ' +
       `corridors, the stairs, and the bridge. ${TOP_DOWN_NEGATION}`,
   },
@@ -285,8 +330,11 @@ const ISOMETRIC_EXAMPLES: GenerationExample[] = [
       'height, and the near south and east walls are cut away to low stubs, so the whole floor is visible. The common ' +
       'room is a single level with a flagstone floor. A long timber bar with shelves of casks behind it runs along the ' +
       'west wall, a wide stone fireplace stands against the north wall, and rows of long tables and benches fill the ' +
-      'center with open aisles between them. Rendered as a painterly fantasy battle map in warm wood and stone tones, ' +
-      'lit by firelight from the hearth that casts soft shadows beside the tables and the bar. A clearly visible, ' +
+      'center with open aisles between them. Rendered as a high-detail scene in the style of a modern isometric ' +
+      'computer game: worn flagstones with chipped edges, grained oak tables and benches, and forged iron bands on the ' +
+      'casks. The fire in the hearth and iron lanterns on the far walls cast warm directional shadows across the floor, ' +
+      'with soft contact shadows under every table and bench. The color is rich but controlled, and the floor, walls, ' +
+      'and furniture separate clearly in depth. A clearly visible, ' +
       'uniform diamond-shaped isometric grid of thin, crisp black lines, each tile a diamond about twice as wide as it ' +
       'is tall, lies flat on the floor at the 30-degree angle and covers the entire floor edge to edge, running unbroken ' +
       `beneath the tables and the bar. ${ISOMETRIC_NEGATION}`,
@@ -300,8 +348,11 @@ const ISOMETRIC_EXAMPLES: GenerationExample[] = [
       'the near south and east walls are drawn as low stubs, so the whole floor is visible. The room is a single level ' +
       'with a dark oak plank floor. Tall bookshelves line the north and west walls, a brass orrery stands in the corner ' +
       'where they meet, a large reading table stands in the center, and a carved lectern faces it, leaving open floor ' +
-      'between the table and the shelves. Rendered as a painterly fantasy battle map in deep wood and brass tones, lit ' +
-      'by floating candles that cast soft shadows beside each shelf and the table. A clearly visible, uniform ' +
+      'between the table and the shelves. Rendered as a high-detail scene in the style of a modern isometric computer ' +
+      'game: grained dark oak shelves with carved crowns, rows of leather book spines, polished brass rings on the ' +
+      'orrery, and worn planks underfoot. Floating candles and a tall arched window in the west wall cast directional ' +
+      'shadows away from the shelves, with soft contact shadows under the table and the lectern. The color is rich but ' +
+      'controlled, and the floor, walls, and furniture separate clearly in depth. A clearly visible, uniform ' +
       'diamond-shaped isometric grid of thin, crisp pale cream lines, each tile a diamond about twice as wide as it is ' +
       'tall, lies flat on the floor at the 30-degree angle and covers the entire floor edge to edge, running unbroken ' +
       `beneath the table and the lectern. ${ISOMETRIC_NEGATION}`,
@@ -318,6 +369,31 @@ function joinExamples(examples: GenerationExample[]): string {
 const GENERATION_EXAMPLES_TEXT: Record<MapView, string> = {
   isometric: joinExamples(ISOMETRIC_EXAMPLES),
   'top-down': joinExamples(TOP_DOWN_EXAMPLES),
+};
+
+// The meta-prompt's detail guidance per view. Top-down describes the map as seen
+// from far above; isometric only as zoomed out, so it doesn't pull toward top-down.
+const DETAIL_GUIDANCE: Record<MapView, string> = {
+  isometric:
+    'The map is a zoomed-out view of the whole location, so describe it at the level of rooms, structures, terrain, ' +
+    'paths, and large fixtures. Add the furniture and fixtures that define this kind of place, such as an armory\'s ' +
+    'weapon racks and armor stands, a library\'s bookshelves, or a tavern\'s bar and tables. Give the fixtures, walls, ' +
+    'and floor rich material texture and decorative detail, but leave out clutter piles, and keep the floor open and ' +
+    'the layout readable.',
+  'top-down':
+    'The map is seen from far above, so describe the location at the level of rooms, structures, terrain, paths, and ' +
+    'large fixtures. Add the furniture and fixtures that define this kind of place, such as an armory\'s weapon racks ' +
+    'and armor stands, a library\'s bookshelves, or a tavern\'s bar and tables. Leave out only incidental clutter and ' +
+    'fine surface texture.',
+};
+
+// What rule 4 asks the text model to say about light, per view.
+const LIGHTING_GUIDANCE: Record<MapView, string> = {
+  isometric:
+    'Name each light source inside the scene, its color, and the directional and contact shadows it casts, so walls, ' +
+    'fixtures, and any changes in height read clearly.',
+  'top-down':
+    'Name the light and its color, and keep shadows light: just enough to mark walls, fixtures, and any changes in height.',
 };
 
 // Short names the meta-prompt uses when it refers to the view and grid.
@@ -358,10 +434,7 @@ export function buildGenerationMetaPrompt(params: GenerationPromptParams): strin
     `You write image prompts for Nano Banana, Google's image model, that produce ${names.view} Dungeons & Dragons tactical battle maps.`,
     '',
     'Expand the request below into one image prompt. The request is the foundation: keep its subject and every feature it names, ' +
-      'and never replace or drop the subject. The map is seen from far above, so describe the location at the level of rooms, ' +
-      'structures, terrain, paths, and large fixtures. Add the furniture and fixtures that define this kind of place, such as an ' +
-      'armory\'s weapon racks and armor stands, a library\'s bookshelves, or a tavern\'s bar and tables. Leave out only ' +
-      'incidental clutter and fine surface texture.',
+      `and never replace or drop the subject. ${DETAIL_GUIDANCE[view]}`,
     '',
     'Write one narrative paragraph of plain sentences, not a keyword list. Cover these parts in order:',
     `1. View and scale. Open with "${CAMERA_OPENINGS[view]}" followed by the subject, then state the scale given in the request, ` +
@@ -376,14 +449,17 @@ export function buildGenerationMetaPrompt(params: GenerationPromptParams): strin
       'otherwise. Use height changes only where the place has them, such as sloping terrain, multi-level buildings, pits, or ' +
       'balconies. Every stair, ramp, or ladder connects two areas drawn on the map; none leads off the map or into a wall. ' +
       'Leave open floor for movement and combat.',
-    '4. Style and lighting. A painterly fantasy battle map with a simple color palette. Name the light source, its color, ' +
-      'and the shadows it casts so walls, fixtures, and any changes in height read clearly from above.',
+    `4. Style and lighting. Describe this rendering style, keeping every quality it names: ${STYLES[view]} ` +
+      LIGHTING_GUIDANCE[view],
     `5. Grid overlay. This is the most important sentence in the prompt. Describe ${GRID_RULE_DESCRIPTIONS[view]}. ` +
       'Choose a line color that contrasts with the scene: dark lines on light ground, light lines on dark ground. ' +
       'Never describe the grid as faint, subtle, soft, or barely visible.',
     `6. Exclusions. End the prompt with this text, copied exactly: ${nanoBananaNegation(view)}`,
     '',
     'The map is empty of people and creatures, so avoid words that imply a crowd, such as "bustling", "crowded", or "occupied".',
+    '',
+    'If the request belongs to a collection, the collection\'s lighting and visual details set the color, mood, and light ' +
+      'sources, and the style in part 4 sets how the map is rendered.',
     '',
     'Nano Banana prompting rules:',
     NB_PROMPTING_BEST_PRACTICES,
@@ -423,9 +499,8 @@ export function buildFallbackGenerationPrompt(params: GenerationPromptParams): s
   sentences.push(
     'Open floor is left for movement, and wherever the location has more than one level, every stair, ramp, or ' +
       'ladder connects two areas drawn on the map, never leading off the map or into a wall.',
-    'Rendered in a painterly style with a simple color palette and overhead light that casts crisp shadows ' +
-      'showing walls, fixtures, and any changes in height.',
   );
+  sentences.push(STYLES[view]);
   if (collection?.ambiance) {
     sentences.push(`The light and atmosphere: ${getAmbiancePromptLanguage(collection.ambiance)}.`);
   }

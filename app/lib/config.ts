@@ -6,10 +6,12 @@ export const GEMINI_IMAGE_LOCATION = 'global';
 export const CHAT_API_PATH = '/api/chat';
 
 // gemini-3.5-flash thinks by default, and thinking tokens count against
-// maxOutputTokens. Every prompt-writing call (new-map expansion and edit
-// expansion) caps thinking, which bounds latency and leaves room for the text.
+// maxOutputTokens. Prompt writing (new-map and edit expansion) is a rewrite
+// task and runs at the minimal thinking level; the chat agent keeps low
+// thinking for tool choice and narration.
 export const PROMPT_CALL_MAX_OUTPUT_TOKENS = 4096;
-export const PROMPT_CALL_THINKING = { vertex: { thinkingConfig: { thinkingBudget: 756 } } };
+export const PROMPT_CALL_THINKING = { vertex: { thinkingConfig: { thinkingLevel: 'minimal' } } };
+export const CHAT_THINKING = { vertex: { thinkingConfig: { thinkingLevel: 'low' } } };
 
 export const IMAGE_SIZES = ['1K', '2K', '4K'] as const;
 export type ImageSize = (typeof IMAGE_SIZES)[number];

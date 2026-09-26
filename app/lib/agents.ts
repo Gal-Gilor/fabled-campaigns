@@ -1,6 +1,6 @@
 import { ToolLoopAgent, tool } from 'ai';
 import { z } from 'zod';
-import { GEMINI_MODEL, DEFAULT_IMAGE_SIZE, type ImageSize } from './config';
+import { GEMINI_MODEL, CHAT_THINKING, DEFAULT_IMAGE_SIZE, type ImageSize } from './config';
 import { GM_SYSTEM_PROMPT } from './prompts';
 import { gmStubTools } from './tools';
 import {
@@ -83,11 +83,11 @@ export function createRootAgent(
       setting: z.enum(VALID_SETTINGS).optional().describe('Specific building or location type if applicable'),
       perspective: z.enum(['indoor', 'outdoor']).describe('Whether this is an indoor or outdoor map'),
       mapScale: z.enum(MAP_SCALES).optional().describe(
-        'How much area the map covers (every grid square is ~5 ft). ' +
-        'small: 20x15 squares, a small chamber, crevice, or tight passage; ' +
-        'standard: 24x18 squares, most single rooms and encounter areas (use this by default); ' +
-        'large: 28x21 squares, big spaces such as foyers, great halls, factories, or courtyards; ' +
-        'huge: 40x30 squares, very large areas such as fortresses, districts, or wilderness regions'
+        'How much area the map covers, in grid squares (tiles on isometric maps) of ~5 ft each. ' +
+        'small: 20x15 grid squares, a small chamber, crevice, or tight passage; ' +
+        'standard: 24x18 grid squares, most single rooms and encounter areas (use this by default); ' +
+        'large: 28x21 grid squares, big spaces such as foyers, great halls, factories, or courtyards; ' +
+        'huge: 40x30 grid squares, very large areas such as fortresses, districts, or wilderness regions'
       ),
       mapView: z.enum(MAP_VIEWS).optional().describe(
         'Camera angle. Omit to use the default: isometric for indoor maps, top-down for outdoor maps. ' +
@@ -126,6 +126,7 @@ export function createRootAgent(
 
   return new ToolLoopAgent({
     model: vertex(GEMINI_MODEL),
+    providerOptions: CHAT_THINKING,
     instructions: GM_SYSTEM_PROMPT + campaignContext + collectionContext,
     tools: {
       ...gmStubTools,
