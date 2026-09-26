@@ -17,13 +17,22 @@ export function SettingsModal({ onClose }: { onClose: () => void }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Sequencing for PATCH requests: only the response for the most recently
-  // sent request may touch state. lastConfirmedRef tracks the last value the
-  // server actually acknowledged (from the initial GET, or a successful
-  // PATCH), so a failed request reverts to that — not to whatever was
-  // selected right before the click, which may itself be unconfirmed.
-  const requestSeqRef = useRef(0);
+  // Saves are serialized on the client — at most one PATCH in flight at a
+  // time — so the server never sees two upserts racing (which could commit
+  // out of order and leave the DB and the UI disagreeing even though each
+  // individual response looked fine).
+  //
+  // desiredRef is the latest value the user picked; the UI shows it right
+  // away (optimistic). lastConfirmedRef is the last value the server has
+  // actually acknowledged, from the initial GET or a successful PATCH.
+  // savingRef gates the "one in flight" rule: a pick made while a PATCH is
+  // already running only updates desiredRef + the optimistic UI — it does
+  // not fire a new request. When the in-flight PATCH settles, it checks
+  // desiredRef again and, if the user has since moved on, kicks off a PATCH
+  // for the new desired value itself.
+  const desiredRef = useRef<ImageSize | null>(null);
   const lastConfirmedRef = useRef<ImageSize | null>(null);
+  const savingRef = useRef(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -37,6 +46,7 @@ export function SettingsModal({ onClose }: { onClose: () => void }) {
         const size = data.settings?.imageSize;
         if (!size) throw new Error('Malformed settings response');
         lastConfirmedRef.current = size;
+        desiredRef.current = size;
         setImageSize(size);
       })
       .catch(() => {
@@ -50,25 +60,44 @@ export function SettingsModal({ onClose }: { onClose: () => void }) {
     };
   }, []);
 
-  async function handleChange(next: ImageSize) {
-    const seq = ++requestSeqRef.current;
-    setImageSize(next);
-    setError(null);
+  // Sends exactly one PATCH for `value`, then either chains the next PATCH
+  // for whatever the user picked meanwhile, or resolves the outcome for
+  // `value` itself if nothing newer is queued.
+  async function savePick(value: ImageSize) {
+    savingRef.current = true;
     try {
       const res = await fetch('/api/settings', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ imageSize: next }),
+        body: JSON.stringify({ imageSize: value }),
       });
       if (!res.ok) throw new Error('Failed to save');
-      // A newer click already superseded this request — its own response
-      // (still in flight or already handled) owns the final state now.
-      if (seq !== requestSeqRef.current) return;
-      lastConfirmedRef.current = next;
+      // Requests are strictly one-at-a-time, so this response is always in
+      // order — always record it as the server's confirmed value.
+      lastConfirmedRef.current = value;
+      savingRef.current = false;
+      if (desiredRef.current !== null && desiredRef.current !== value) {
+        void savePick(desiredRef.current);
+      }
     } catch {
-      if (seq !== requestSeqRef.current) return;
-      setImageSize(lastConfirmedRef.current);
-      setError('Could not save. Try again.');
+      savingRef.current = false;
+      if (desiredRef.current === value) {
+        // Still the wanted value — revert the UI and surface the error.
+        setImageSize(lastConfirmedRef.current);
+        setError('Could not save. Try again.');
+      } else if (desiredRef.current !== null) {
+        // The user already moved on; this failure is stale and not shown.
+        void savePick(desiredRef.current);
+      }
+    }
+  }
+
+  function handleChange(next: ImageSize) {
+    desiredRef.current = next;
+    setImageSize(next);
+    setError(null);
+    if (!savingRef.current) {
+      void savePick(next);
     }
   }
 
