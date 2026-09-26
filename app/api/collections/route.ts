@@ -1,6 +1,12 @@
 import { NextResponse } from 'next/server';
 import { auth } from '@/auth';
-import { listCollectionsBySession, createCollection, linkCollectionToSession, deleteCollection } from '@/db';
+import {
+  listCollectionsBySession,
+  createCollection,
+  linkCollectionToSession,
+  deleteCollection,
+  getSessionChatContext
+} from '@/db';
 
 export async function GET(req: Request) {
   const session = await auth();
@@ -17,6 +23,10 @@ export async function POST(req: Request) {
   if (!session?.user?.id) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   const { name, terrain, setting, ambiance, visualDetails, sessionId } = await req.json();
   if (!name?.trim()) return NextResponse.json({ error: 'name is required' }, { status: 400 });
+  // Check before creating, so a bad sessionId doesn't leave an orphan collection
+  if (sessionId && !(await getSessionChatContext(sessionId, session.user.id))) {
+    return NextResponse.json({ error: 'Not found' }, { status: 404 });
+  }
   const collection = await createCollection(session.user.id, { name, terrain, setting, ambiance, visualDetails });
   if (sessionId) {
     try {

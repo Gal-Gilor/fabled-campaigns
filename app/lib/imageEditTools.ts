@@ -93,7 +93,7 @@ async function expandEditPrompt(basePrompt: string, usage?: UsageRecorder): Prom
 // SAME location, with parent_artifact_id pointing to the source.
 // ---------------------------------------------------------------------------
 
-export function createEditEncounterMap(usage?: UsageRecorder) {
+export function createEditEncounterMap(userId: string | null, usage?: UsageRecorder) {
   return tool({
     description:
       'Edit an existing encounter map using Nano Banana multimodal generation. ' +
@@ -113,7 +113,10 @@ export function createEditEncounterMap(usage?: UsageRecorder) {
       return { type: 'text' as const, value: String(output) };
     },
     execute: async ({ sourceArtifactId, instruction }) => {
-      const ctx = await getArtifactWithContext(sourceArtifactId);
+      if (!userId) {
+        return '[editEncounterMap error] Sign in to edit maps.';
+      }
+      const ctx = await getArtifactWithContext(sourceArtifactId, userId);
       if (!ctx) {
         return `[editEncounterMap error] Source artifact "${sourceArtifactId}" not found.`;
       }

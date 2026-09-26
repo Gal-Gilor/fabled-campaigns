@@ -48,7 +48,9 @@ export async function POST(req: Request) {
     });
   }
 
-  const rootAgent = createRootAgent(activeCollection, sessionId ?? undefined, campaign, usage);
+  // Map tools write rows under this session, so only hand over one the user owns
+  const ownedSessionId = ctx && sessionId ? sessionId : undefined;
+  const rootAgent = createRootAgent(userId, activeCollection, ownedSessionId, campaign, usage);
   const result = await rootAgent.stream({ messages: modelMessages });
   return result.toUIMessageStreamResponse();
 }

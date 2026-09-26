@@ -504,19 +504,6 @@ export async function createLocation(data: {
   return serializeLocation((rows as RawLocation[])[0]);
 }
 
-export async function updateLocation(id: string, name: string): Promise<DbLocation | null> {
-  const rows = await sql`
-    UPDATE locations SET name = ${name}, updated_at = ${Date.now()}
-    WHERE id = ${id} RETURNING *
-  `;
-  if (!(rows as RawLocation[]).length) return null;
-  return serializeLocation((rows as RawLocation[])[0]);
-}
-
-export async function deleteLocation(id: string): Promise<void> {
-  await sql`DELETE FROM locations WHERE id = ${id}`;
-}
-
 export async function deleteLocationsByCollectionAndSession(
   collectionId: string,
   sessionId: string
@@ -588,17 +575,18 @@ export async function createArtifact(
   return serializeArtifact((rows as RawArtifact[])[0]);
 }
 
-export async function deleteArtifact(id: string): Promise<void> {
-  await sql`DELETE FROM artifacts WHERE id = ${id}`;
-}
-
 export interface ArtifactWithContext {
   artifact: DbArtifact;
   location: DbLocation;
   collection: DbCollection;
 }
 
-export async function getArtifactWithContext(artifactId: string): Promise<ArtifactWithContext | null> {
+// Returns null when the artifact is missing OR owned by another user, so callers
+// can't tell the two apart.
+export async function getArtifactWithContext(
+  artifactId: string,
+  userId: string
+): Promise<ArtifactWithContext | null> {
   const rows = await sql`
     SELECT
       a.id              AS a_id,
@@ -627,6 +615,7 @@ export async function getArtifactWithContext(artifactId: string): Promise<Artifa
     JOIN locations  l ON l.id = a.location_id
     JOIN collections c ON c.id = l.collection_id
     WHERE a.id = ${artifactId}
+      AND c.user_id = ${userId}
     LIMIT 1
   `;
   const list = rows as Record<string, unknown>[];

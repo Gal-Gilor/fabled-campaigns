@@ -8,6 +8,7 @@ import {
   deleteLocationsByCollectionAndSession,
   deleteCollectionSessionLink,
   getSessionIdsForCollection,
+  getCollectionById,
 } from '@/db';
 
 export async function PUT(req: Request, { params }: { params: Promise<{ id: string }> }) {
@@ -24,6 +25,9 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ id: s
   const session = await auth();
   if (!session?.user?.id) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   const { id } = await params;
+  // Ownership first: the location and blob cleanup below is not user-scoped
+  const owned = await getCollectionById(session.user.id, id);
+  if (!owned) return NextResponse.json({ error: 'Not found' }, { status: 404 });
   const { sessionId, confirmed } = (await req.json()) as { sessionId?: string; confirmed?: boolean };
 
   if (!sessionId) return NextResponse.json({ error: 'sessionId is required' }, { status: 400 });

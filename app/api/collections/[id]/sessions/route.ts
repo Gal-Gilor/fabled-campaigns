@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { auth } from '@/auth';
-import { linkCollectionToSession, getCollectionById } from '@/db';
+import { linkCollectionToSession, getCollectionById, getSessionChatContext } from '@/db';
 
 export async function POST(req: Request, { params }: { params: Promise<{ id: string }> }) {
   const session = await auth();
@@ -11,6 +11,8 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
 
   const collection = await getCollectionById(session.user.id, id);
   if (!collection) return NextResponse.json({ error: 'Not found' }, { status: 404 });
+  const ownedSession = await getSessionChatContext(sessionId, session.user.id);
+  if (!ownedSession) return NextResponse.json({ error: 'Not found' }, { status: 404 });
 
   await linkCollectionToSession(id, sessionId);
   return NextResponse.json(collection);

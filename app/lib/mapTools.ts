@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { tool, generateText, generateImage, Output } from 'ai';
 import { put } from '@vercel/blob';
 import { randomUUID } from 'crypto';
-import { createLocation, createArtifact } from '@/db';
+import { createLocation, createArtifact, getCollectionById } from '@/db';
 import { GEMINI_MODEL, IMAGEN_MODEL, NEGATIVE_PROMPT } from './config';
 import { safeJsonParse, isImageOutput } from './messageUtils';
 import {
@@ -162,7 +162,11 @@ export const generateMapName = tool({
   },
 });
 
-export function createGenerateEncounterMap(sessionId?: string, usage?: UsageRecorder) {
+export function createGenerateEncounterMap(
+  userId: string | null,
+  sessionId?: string,
+  usage?: UsageRecorder
+) {
   return tool({
     description: 'Generate a tactical D&D encounter map image from an enhanced prompt',
     inputSchema: z.object({
@@ -176,6 +180,10 @@ export function createGenerateEncounterMap(sessionId?: string, usage?: UsageReco
       return { type: 'text' as const, value: String(output) };
     },
     execute: async ({ enhancedPrompt, name, collectionId }) => {
+      // collectionId comes from the model; check it before paying for Imagen
+      if (collectionId && (!userId || !(await getCollectionById(userId, collectionId)))) {
+        return '[Encounter map error] Collection not found.';
+      }
       try {
         const result = await generateImage({
           model: vertex.image(IMAGEN_MODEL),
