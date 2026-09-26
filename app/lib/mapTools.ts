@@ -7,9 +7,9 @@ import {
   type MapScale,
   type MapView,
 } from './nanoBananaPrompts';
-import { generateMapImage, uploadMapImage } from './imageGeneration';
+import { generateMapImage, imageErrorMessage, uploadMapImage } from './imageGeneration';
 import { expandPrompt } from './promptExpansion';
-import { buildImageOutput, errorMessage } from './messageUtils';
+import { buildImageOutput } from './messageUtils';
 import type { Collection } from './collections';
 import type { UsageRecorder } from './usage';
 
@@ -86,7 +86,7 @@ export function createGenerateEncounterMap(
       ]);
       return buildImageOutput({ type: 'image', src, label: name ?? 'Encounter Map', collectionId, locationId, artifactId, prompt: enhancedPrompt });
     } catch (err) {
-      return `[Encounter map error] ${errorMessage(err)}`;
+      return `[Encounter map error] ${imageErrorMessage(err)}`;
     }
   };
 }

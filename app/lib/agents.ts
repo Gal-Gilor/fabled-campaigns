@@ -78,21 +78,25 @@ export function createRootAgent(
     description: 'Generate a NEW D&D tactical encounter map image from scratch. Describe the scene in natural language — the tool handles image prompt engineering internally. Do NOT use this tool to modify an existing map; use editEncounterMap instead.',
     inputSchema: z.object({
       name: z.string().describe('An evocative D&D location name (e.g. "The Sunken Ossuary", "Thornwatch Pass")'),
-      userRequest: z.string().describe('Natural language description of the map scene, features, and mood'),
+      userRequest: z.string().describe(
+        'Natural language description of the map scene: the story beat (who is where and why), the layout, the defining ' +
+        'features, and the mood'
+      ),
       terrain: z.enum(VALID_TERRAINS).optional().describe('Terrain type if identifiable'),
       setting: z.enum(VALID_SETTINGS).optional().describe('Specific building or location type if applicable'),
       perspective: z.enum(['indoor', 'outdoor']).describe('Whether this is an indoor or outdoor map'),
       mapScale: z.enum(MAP_SCALES).optional().describe(
         'How much area the map covers, in grid squares (tiles on isometric maps) of ~5 ft each. ' +
-        'small: 20x15 grid squares, a small chamber, crevice, or tight passage; ' +
-        'standard: 24x18 grid squares, most single rooms and encounter areas (use this by default); ' +
-        'large: 28x21 grid squares, big spaces such as foyers, great halls, factories, or courtyards; ' +
-        'huge: 40x30 grid squares, very large areas such as fortresses, districts, or wilderness regions'
+        'small: 20x15, a small chamber, crevice, or tight passage; ' +
+        'standard: 24x18, a single room (the default for rooms); ' +
+        'large: 28x21, outdoor encounters (roads, woods, camps, ruins, ambushes) and big spaces such as foyers, ' +
+        'great halls, factories, or courtyards; ' +
+        'huge: 40x30, fortresses, districts, or battlefields; ' +
+        'region: a kingdom, country, dominion, or other vast land, drawn as an overview map without a tactical grid'
       ),
       mapView: z.enum(MAP_VIEWS).optional().describe(
-        'Camera angle. Omit to use the default: isometric for indoor maps, top-down for outdoor maps. ' +
-        'Set \'top-down\' when the user asks for an overhead, bird\'s-eye, orthographic, or top-down view; ' +
-        'set \'isometric\' when they ask for isometric, angled, or 3/4 view.'
+        'Camera angle. Omit to use the default: isometric for every map except region maps, which are top-down. ' +
+        'Set \'top-down\' only when the user asks for an overhead, bird\'s-eye, orthographic, or top-down view.'
       ),
       collectionId: z.string().optional().describe('Active collection ID to tag this map'),
     }),
@@ -117,7 +121,7 @@ export function createRootAgent(
         imageMs: finishedAt - promptDoneAt,
         totalMs: finishedAt - startedAt,
         mapScale,
-        mapView: resolveMapView(mapView, perspective),
+        mapView: resolveMapView(mapView, mapScale),
       });
       return result;
     },

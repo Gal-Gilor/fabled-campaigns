@@ -1,9 +1,9 @@
 import { z } from 'zod';
 import { tool } from 'ai';
 import { GEMINI_IMAGE_MODEL, type ImageSize } from './config';
-import { generateMapImage, uploadMapImage } from './imageGeneration';
+import { generateMapImage, imageErrorMessage, uploadMapImage } from './imageGeneration';
 import { expandPrompt } from './promptExpansion';
-import { buildImageOutput, errorMessage, imageToolModelOutput, RETRY_HINT_PREFIX } from './messageUtils';
+import { buildImageOutput, imageToolModelOutput, RETRY_HINT_PREFIX } from './messageUtils';
 import {
   createArtifact,
   getArtifactWithContext,
@@ -157,7 +157,7 @@ async function editByImageUrl(params: {
     });
   } catch (err) {
     console.error('[editEncounterMap]', err);
-    return `[editEncounterMap error] ${errorMessage(err)}`;
+    return `[editEncounterMap error] ${imageErrorMessage(err)}`;
   }
 }
 
@@ -280,7 +280,7 @@ export function createEditEncounterMap(
         });
       } catch (err) {
         console.error('[editEncounterMap]', err);
-        return `[editEncounterMap error] ${errorMessage(err)}`;
+        return `[editEncounterMap error] ${imageErrorMessage(err)}`;
       }
     },
   });

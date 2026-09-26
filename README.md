@@ -35,9 +35,10 @@ Generation runs in two steps:
    Nano Banana has no negative-prompt field, so exclusions (people, creatures, text, wrong camera angles)
    are written directly into the prompt.
 
-Indoor maps default to an isometric view: a 30-degree corner camera, a diamond grid, and cutaway near walls.
-Outdoor maps default to a top-down view with a square grid. Asking for "top-down", "overhead", or
-"isometric" overrides the default.
+Maps default to an isometric view: a 30-degree corner camera, a diamond grid, and cutaway near walls on
+interiors. Region maps of a kingdom or country are top-down overviews with no grid. Asking for "top-down" or
+"overhead" overrides the default. When the image model's quota is exhausted, the app retries twice (after 15 s
+and 30 s) and then tells the user the image service is busy.
 
 Maps can be downloaded as PNG files. Output resolution (1K, 2K, or 4K) is a per-user setting,
 changed from the Settings modal in the sidebar footer, and applies to both new maps and edits.
@@ -424,6 +425,7 @@ Both map tools return a JSON string that the chat UI renders as an image card:
 | Vertex AI authentication errors | Check that `GOOGLE_SERVICE_ACCOUNT_KEY` is valid base64, the service account has `roles/aiplatform.user`, and the Vertex AI API is enabled |
 | `ENAMETOOLONG` from Google auth on Vercel | `GOOGLE_APPLICATION_CREDENTIALS` holds a base64 string instead of a path. Set `GOOGLE_SERVICE_ACCOUNT_KEY` instead |
 | Map request times out | Generation plus editing must finish within the chat route's 300 second limit. Check Vertex AI quotas and region availability |
+| "The image service is busy right now" | The Vertex image quota stayed exhausted through both retries. Wait a minute, or request a higher per-minute quota for `gemini-3.1-flash-image` in the Google Cloud console |
 
 Server errors appear in the Vercel function logs. Client errors appear in the browser console.
 

@@ -17,11 +17,11 @@ A map request is "rich enough" when it contains BOTH:
 
 **name** — an evocative D&D location name (e.g. "The Sunken Ossuary", "Thornwatch Pass", "The Gilded Hollow").
 
-**userRequest** — a plain description of the location: its layout, major features, lighting, and mood (e.g. "a flooded crypt with two rows of stone sarcophagi, a collapsed wall to the east, pale moonlight through a hole in the ceiling"). The map is drawn zoomed out, so describe the layout and the furniture and fixtures that define the place; skip incidental clutter and surface textures. The tool writes the image prompt; do not add camera, style, or grid wording.
+**userRequest** — a plain description of the encounter: the story beat (who is where and why, e.g. "bandits hide along a forest road to ambush travelers"), the layout, the features and fixtures that define the place, the lighting, and the mood. Cover such as trees, rocks, and bushes stands in separate clumps with open ground between them, never as solid walls. The map is drawn zoomed out, so skip incidental clutter and surface textures. The tool writes the image prompt; do not add camera, style, or grid wording.
 
-**mapScale** — how much area the map covers: \`small\` for a small chamber, crevice, or tight passage; \`standard\` for most single rooms and encounter areas (the default); \`large\` for big spaces such as foyers, great halls, factories, or courtyards; \`huge\` for very large areas such as fortresses, districts, or wilderness regions.
+**mapScale** — how much area the map covers: \`small\` for a small chamber, crevice, or tight passage; \`standard\` for a single room; \`large\` for outdoor encounters (roads, woods, camps, ruins, ambushes) and big spaces such as foyers, great halls, factories, or courtyards; \`huge\` for fortresses, districts, or battlefields; \`region\` for a kingdom, country, dominion, or other vast land, drawn as an overview map without a tactical grid.
 
-**mapView** — the camera angle. Omit it to use the default: isometric for indoor maps, top-down for outdoor maps. Set \`top-down\` when the user asks for an overhead, bird's-eye, orthographic, or top-down view; set \`isometric\` when they ask for isometric, angled, or 3/4 view.
+**mapView** — the camera angle. Omit it: every map is isometric except region maps, which are top-down. Set \`top-down\` only when the user asks for an overhead, bird's-eye, orthographic, or top-down view.
 
 Never include people, creatures, names, labels, or text.
 
