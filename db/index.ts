@@ -1,4 +1,5 @@
 import { sql } from './client';
+import { DEFAULT_IMAGE_SIZE, type ImageSize } from '../app/lib/config';
 
 export interface ChatSession {
   id: string;
@@ -667,6 +668,7 @@ export interface UsageEventInput {
   outputTokens?: number | null;
   imageCount?: number | null;
   voiceSeconds?: number | null;
+  imageSize?: string | null;
 }
 
 export async function insertUsageEvent(event: UsageEventInput): Promise<void> {
@@ -675,12 +677,42 @@ export async function insertUsageEvent(event: UsageEventInput): Promise<void> {
   await sql`
     INSERT INTO usage_events (
       id, user_id, session_id, source, model, created_at,
-      input_tokens, cached_input_tokens, output_tokens, image_count, voice_seconds
+      input_tokens, cached_input_tokens, output_tokens, image_count, voice_seconds, image_size
     )
     VALUES (
       ${id}, ${event.userId}, ${event.sessionId}, ${event.source}, ${event.model}, ${now},
       ${event.inputTokens ?? null}, ${event.cachedInputTokens ?? null}, ${event.outputTokens ?? null},
-      ${event.imageCount ?? null}, ${event.voiceSeconds ?? null}
+      ${event.imageCount ?? null}, ${event.voiceSeconds ?? null}, ${event.imageSize ?? null}
     )
   `;
+}
+
+// ---------------------------------------------------------------------------
+// User settings
+// ---------------------------------------------------------------------------
+
+export interface UserSettings {
+  imageSize: ImageSize;
+}
+
+export async function getUserSettings(userId: string): Promise<UserSettings> {
+  const rows = await sql`
+    SELECT image_size FROM user_settings WHERE user_id = ${userId}
+  `;
+  const row = (rows as { image_size: ImageSize }[])[0];
+  return { imageSize: row?.image_size ?? DEFAULT_IMAGE_SIZE };
+}
+
+export async function upsertUserSettings(
+  userId: string,
+  settings: { imageSize: ImageSize }
+): Promise<UserSettings> {
+  const now = Date.now();
+  const rows = await sql`
+    INSERT INTO user_settings (user_id, image_size, updated_at)
+    VALUES (${userId}, ${settings.imageSize}, ${now})
+    ON CONFLICT (user_id) DO UPDATE SET image_size = ${settings.imageSize}, updated_at = ${now}
+    RETURNING image_size
+  `;
+  return { imageSize: (rows as { image_size: ImageSize }[])[0].image_size };
 }

@@ -118,7 +118,7 @@ export function createEditEncounterMap(userId: string | null, imageSize: ImageSi
           imageSize,
           abortSignal,
         });
-        await usage?.recordImage('map_edit', GEMINI_IMAGE_MODEL, 1);
+        await usage?.recordImage('map_edit', GEMINI_IMAGE_MODEL, 1, imageSize);
 
         const newBlobUrl = await uploadMapImage(base64, mediaType, {
           collectionId: ctx.collection.id,

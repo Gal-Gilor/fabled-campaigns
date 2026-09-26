@@ -4,6 +4,7 @@ import { chatSessionsSchema } from './schema/chat_sessions';
 import { collectionsSchema } from './schema/collections';
 import { campaignsSchema } from './schema/campaigns';
 import { usageEventsSchema } from './schema/usage_events';
+import { userSettingsSchema } from './schema/user_settings';
 
 async function dropCollectionTables() {
   const pool = new Pool({ connectionString: process.env.DATABASE_URL_UNPOOLED });
@@ -25,6 +26,7 @@ async function migrate() {
       await dropCollectionTables();
     }
     await pool.query(authSchema);
+    await pool.query(userSettingsSchema);
     await pool.query(chatSessionsSchema);
     // Campaigns must run after chat_sessions: it ALTERs that table with a campaign_id FK
     await pool.query(campaignsSchema);

@@ -9,6 +9,7 @@ import { ChatSession as Session } from '@/db';
 import type { Campaign } from './session-context';
 import { useSessionContext } from './session-context';
 import { CampaignEditModal } from './campaign-modal';
+import { SettingsModal } from './settings-modal';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -480,6 +481,7 @@ function CampaignGroup({
 
 function UserFooter() {
   const { data: session, status } = useSession();
+  const [showSettings, setShowSettings] = useState(false);
 
   if (status !== 'authenticated' || !session?.user) return null;
 
@@ -511,6 +513,16 @@ function UserFooter() {
           {name}
         </span>
         <button
+          onClick={() => setShowSettings(true)}
+          className="flex-shrink-0 text-xs px-2 py-1 rounded transition-all"
+          style={{ color: 'var(--neutral-600)' }}
+          onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-200)')}
+          onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+          title="Settings"
+        >
+          Settings
+        </button>
+        <button
           onClick={() => signOut()}
           className="flex-shrink-0 text-xs px-2 py-1 rounded transition-all"
           style={{ color: 'var(--neutral-600)' }}
@@ -521,6 +533,8 @@ function UserFooter() {
           Sign out
         </button>
       </div>
+      {showSettings &&
+        createPortal(<SettingsModal onClose={() => setShowSettings(false)} />, document.body)}
     </>
   );
 }

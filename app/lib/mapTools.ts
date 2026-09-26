@@ -113,7 +113,7 @@ export function createGenerateEncounterMap(
         imageSize,
         abortSignal,
       });
-      await usage?.recordImage('map_generate', GEMINI_IMAGE_MODEL, 1);
+      await usage?.recordImage('map_generate', GEMINI_IMAGE_MODEL, 1, imageSize);
 
       const { src, locationId, artifactId } = await saveMapArtifact(
         base64, mediaType, name, collectionId, sessionId, enhancedPrompt,

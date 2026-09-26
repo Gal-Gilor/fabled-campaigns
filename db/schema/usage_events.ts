@@ -15,4 +15,8 @@ CREATE TABLE IF NOT EXISTS usage_events (
 
 CREATE INDEX IF NOT EXISTS usage_events_user_id_created_at_idx ON usage_events(user_id, created_at);
 CREATE INDEX IF NOT EXISTS usage_events_session_id_idx ON usage_events(session_id);
+
+-- Lets pricing tiers be told apart in usage data once image generation
+-- moved to a per-user size setting instead of one fixed resolution.
+ALTER TABLE usage_events ADD COLUMN IF NOT EXISTS image_size TEXT;
 `;
