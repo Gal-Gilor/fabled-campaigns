@@ -2,12 +2,20 @@
 
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport, isToolUIPart, getToolName, UIMessage } from 'ai';
-import { useState, useRef, useEffect, useCallback, useMemo, memo, useLayoutEffect } from 'react';
+import { useState, useRef, useEffect, useCallback, useMemo, memo, useLayoutEffect, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { CHAT_API_PATH } from '../lib/config';
 import { ChatSession as Session } from '@/db';
 import type { DbCollection, DbLocation } from '@/db';
-import { safeJsonParse, isImageOutput, isRetryHint, ImageOutput } from '../lib/messageUtils';
+import {
+  safeJsonParse,
+  isImageOutput,
+  isRetryHint,
+  ImageOutput,
+  MAP_FAILURE_MESSAGE,
+  MAP_TOOL_ERROR_PREFIXES
+} from '../lib/messageUtils';
+import { dropInterruptedToolParts, isProgressOutput, type ProgressOutput } from '../lib/toolProgress';
 import type { Collection } from '../lib/collections';
 import { AMBIANCE_OPTIONS } from '../lib/collections';
 import { useSessionContext } from './session-context';
@@ -15,6 +23,58 @@ import { CampaignPromptModal } from './campaign-modal';
 import { ModalOverlay } from './modal';
 import { useSession } from 'next-auth/react';
 import { VALID_TERRAINS, VALID_SETTINGS, type Terrain, type Setting } from '../lib/mapPrompts';
+import { ChatMarkdown } from './chat-markdown';
+import { ToolProgress, ProgressSummary, ThinkingIndicator, GETTING_STARTED_PROGRESS } from './tool-progress';
+
+const MAP_TOOL_NAMES = new Set(['mapAgent', 'editEncounterMap']);
+
+// Friendly past-tense text for the stub tools in app/lib/tools.ts. Anything not
+// listed here (including future tools) falls back to a humanized tool name —
+// never the raw camelCase identifier.
+const TOOL_DISPLAY_TEXT: Record<string, string> = {
+  generateCharacter: 'Generated a character',
+  createCampaign: 'Created a campaign',
+  lookupSRD: 'Looked up the rules',
+};
+
+function humanizeToolName(name: string): string {
+  const words = name.replace(/([a-z0-9])([A-Z])/g, '$1 $2').toLowerCase();
+  return `Used ${words}`;
+}
+
+// Assistant text is Markdown; memoized on the text itself so earlier, unchanging
+// messages don't re-parse on every token streamed into a later message.
+const MarkdownMessage = memo(function MarkdownMessage({ text }: { text: string }) {
+  return <ChatMarkdown content={text} />;
+});
+
+// Clickable map card for a finished image output.
+function MapImageCard({ image, onSelect }: { image: ImageOutput; onSelect: (image: ImageOutput) => void }) {
+  return (
+    <div className="mt-2 rounded-lg overflow-hidden cursor-pointer"
+      style={{ border: '1px solid var(--neutral-200)' }}
+      onClick={() => onSelect(image)}>
+      <img src={image.src} alt={image.label} className="w-full rounded-t-lg" />
+      <p className="text-xs px-2 py-1"
+        style={{ color: 'var(--neutral-600)', fontFamily: 'var(--font-cinzel), serif' }}>
+        {image.label}
+      </p>
+    </div>
+  );
+}
+
+// Gold-bordered notice for map-tool failures, shared by the prefix-stripped
+// error string and the fixed line shown for output-error/output-denied.
+function ToolErrorNotice({ children }: { children: ReactNode }) {
+  return (
+    <div
+      className="mt-2 rounded-lg px-3 py-2 text-sm"
+      style={{ background: 'var(--pale-gold)', border: '1px solid var(--accent-gold)', color: 'var(--neutral-900)' }}
+    >
+      {children}
+    </div>
+  );
+}
 
 function toCollection(db: DbCollection): Collection {
   return {
@@ -507,6 +567,12 @@ export default function Chat({ initialSessionId }: ChatProps) {
   const [selectedImage, setSelectedImage] = useState<ImageOutput | null>(null);
   const [deletedSrcs, setDeletedSrcs] = useState<Set<string>>(new Set());
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  // Last progress snapshot per toolCallId, plus when it was stored and when the
+  // final output first rendered — lets the collapsed summary keep an accurate
+  // total even if the fully-done snapshot never gets its own render.
+  const lastProgressRef = useRef<Map<string, { snapshot: ProgressOutput; receivedAt: number; finalAt?: number }>>(
+    new Map()
+  );
   const activeSessionIdRef = useRef<string | null>(null);
   const messagesRef = useRef<UIMessage[]>([]);
   const pendingMessageRef = useRef<string | null>(null);
@@ -557,7 +623,7 @@ export default function Chat({ initialSessionId }: ChatProps) {
     const r = await fetch(`/api/sessions/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages: msgs }),
+      body: JSON.stringify({ messages: dropInterruptedToolParts(msgs) }),
     });
     return r.json() as Promise<{ session?: Session }>;
   }, []);
@@ -816,14 +882,21 @@ export default function Chat({ initialSessionId }: ChatProps) {
       return;
     }
 
-    await saveCurrentSession();
-    const session = await fetch('/api/sessions', { method: 'POST' })
-      .then((r) => r.json())
-      .then((d) => d.session as Session);
+    // saveCurrentSession captures the current id and messages synchronously, so
+    // the chat can clear at once while the save and the create run in parallel.
+    // Clearing early can't wipe the old session: the persist effect skips empty
+    // message lists.
+    const saved = saveCurrentSession();
+    setMessages([]);
+    const [, session] = await Promise.all([
+      saved,
+      fetch('/api/sessions', { method: 'POST' })
+        .then((r) => r.json())
+        .then((d) => d.session as Session)
+    ]);
     if (!session) return;
     setSessions((prev) => [session, ...prev]);
     setActiveSessionId(session.id);
-    setMessages([]);
     // Session is created and active immediately; the campaign prompt floats on
     // top and assignment happens in the background — creation latency unchanged
     if (campaigns.length > 0) {
@@ -955,6 +1028,18 @@ export default function Chat({ initialSessionId }: ChatProps) {
     setInput('');
   };
 
+  // Thinking row: shown while waiting for the first token, or between a
+  // finished tool call and the reply text that follows it.
+  const lastMessage = messages[messages.length - 1];
+  const lastPart = lastMessage?.parts[lastMessage.parts.length - 1];
+  const lastPartIsFinishedTool =
+    lastMessage?.role === 'assistant' &&
+    !!lastPart &&
+    isToolUIPart(lastPart) &&
+    lastPart.state === 'output-available' &&
+    !lastPart.preliminary;
+  const showThinking = status === 'submitted' || (status === 'streaming' && lastPartIsFinishedTool);
+
   return (
     <div className="flex flex-1 h-full overflow-hidden">
       {/* Chat column */}
@@ -1018,7 +1103,10 @@ export default function Chat({ initialSessionId }: ChatProps) {
 
         {/* Messages */}
         <div className="flex-1 overflow-y-auto px-4 py-6 space-y-4">
-          {messages.map((message: ReturnType<typeof useChat>['messages'][number]) => (
+          {messages.map((message: ReturnType<typeof useChat>['messages'][number], msgIndex) => {
+            const isLastMessage = msgIndex === messages.length - 1;
+            const isLive = isLastMessage && (status === 'submitted' || status === 'streaming');
+            return (
             <div
               key={message.id}
               className={`flex w-full max-w-[800px] mx-auto ${message.role === 'user' ? 'justify-end md:pl-[50px]' : 'justify-start md:pr-[50px]'}`}
@@ -1042,66 +1130,80 @@ export default function Chat({ initialSessionId }: ChatProps) {
               >
                 {message.parts.map((part, i) => {
                   if (part.type === 'text') {
-                    return (
-                      <span key={i} className="whitespace-pre-wrap">
-                        {part.text}
-                      </span>
-                    );
+                    if (message.role === 'user') {
+                      return (
+                        <span key={i} className="whitespace-pre-wrap">
+                          {part.text}
+                        </span>
+                      );
+                    }
+                    return <MarkdownMessage key={i} text={part.text} />;
                   }
                   if (isToolUIPart(part)) {
                     const name = getToolName(part);
-                    const rawOutput = part.state === 'output-available' ? part.output : null;
+                    const isMapTool = MAP_TOOL_NAMES.has(name);
+
+                    // No output yet: mapAgent / editEncounterMap show a "Getting started" step.
+                    if (part.state === 'input-streaming' || part.state === 'input-available') {
+                      if (!isMapTool) return null;
+                      return <ToolProgress key={i} progress={GETTING_STARTED_PROGRESS} live={isLive} />;
+                    }
+
+                    // Map-tool failures: a fixed friendly line, never the raw errorText.
+                    if (part.state === 'output-error' || part.state === 'output-denied') {
+                      if (!isMapTool) return null;
+                      return <ToolErrorNotice key={i}>{MAP_FAILURE_MESSAGE}</ToolErrorNotice>;
+                    }
+
+                    if (part.state !== 'output-available') return null;
+                    const rawOutput = part.output;
+
+                    // Preliminary progress snapshot. Remembered per toolCallId, along with
+                    // when it first arrived, so the collapsed summary can show accurate
+                    // timings once the final output arrives.
+                    if (isProgressOutput(rawOutput)) {
+                      if (lastProgressRef.current.get(part.toolCallId)?.snapshot !== rawOutput) {
+                        lastProgressRef.current.set(part.toolCallId, { snapshot: rawOutput, receivedAt: Date.now() });
+                      }
+                      return <ToolProgress key={i} progress={rawOutput} live={isLive} />;
+                    }
 
                     // Direct image output (string JSON with {type:'image'})
-                    const imgData = rawOutput !== null ? safeJsonParse(rawOutput) : null;
+                    const imgData = safeJsonParse(rawOutput);
                     if (isImageOutput(imgData) && !deletedSrcs.has(imgData.src)) {
+                      const entry = lastProgressRef.current.get(part.toolCallId);
+                      if (entry && entry.finalAt === undefined) entry.finalAt = Date.now();
                       return (
-                        <div key={i} className="mt-2 rounded-lg overflow-hidden cursor-pointer"
-                          style={{ border: '1px solid var(--neutral-200)' }}
-                          onClick={() => setSelectedImage(imgData)}>
-                          <img src={imgData.src} alt={imgData.label} className="w-full rounded-t-lg" />
-                          <p className="text-xs px-2 py-1"
-                            style={{ color: 'var(--neutral-600)', fontFamily: 'var(--font-cinzel), serif' }}>
-                            {imgData.label}
-                          </p>
+                        <div key={i}>
+                          {entry && (
+                            <ProgressSummary progress={entry.snapshot} elapsedMs={entry.finalAt! - entry.receivedAt} />
+                          )}
+                          <MapImageCard image={imgData} onSelect={setSelectedImage} />
                         </div>
                       );
                     }
 
                     // Sub-agent UIMessage output (mapAgent wraps a ToolLoopAgent)
-                    const subAgentImg = rawOutput !== null ? extractSubAgentImage(rawOutput) : null;
+                    const subAgentImg = extractSubAgentImage(rawOutput);
                     if (subAgentImg && !deletedSrcs.has(subAgentImg.src)) {
-                      return (
-                        <div key={i} className="mt-2 rounded-lg overflow-hidden cursor-pointer"
-                          style={{ border: '1px solid var(--neutral-200)' }}
-                          onClick={() => setSelectedImage(subAgentImg)}>
-                          <img src={subAgentImg.src} alt={subAgentImg.label} className="w-full rounded-t-lg" />
-                          <p className="text-xs px-2 py-1"
-                            style={{ color: 'var(--neutral-600)', fontFamily: 'var(--font-cinzel), serif' }}>
-                            {subAgentImg.label}
-                          </p>
-                        </div>
-                      );
+                      return <MapImageCard key={i} image={subAgentImg} onSelect={setSelectedImage} />;
                     }
 
                     // Retry hints are corrective guidance for the model, not user-facing output.
                     if (isRetryHint(rawOutput)) return null;
 
-                    const outputStr = rawOutput !== null ? String(rawOutput) : null;
+                    // Encounter map / edit errors: a friendly notice, prefix stripped.
+                    if (typeof rawOutput === 'string') {
+                      const errorPrefix = MAP_TOOL_ERROR_PREFIXES.find((prefix) => rawOutput.startsWith(prefix));
+                      if (errorPrefix) {
+                        return <ToolErrorNotice key={i}>{rawOutput.slice(errorPrefix.length)}</ToolErrorNotice>;
+                      }
+                    }
+
+                    // Any other tool output: a one-line muted chip, friendly text only.
                     return (
-                      <div
-                        key={i}
-                        className="mt-2 rounded-lg px-3 py-2 text-xs font-mono"
-                        style={{
-                          background: 'var(--pale-blue)',
-                          border: '1px solid var(--primary-blue)',
-                          color: 'var(--neutral-700)',
-                        }}
-                      >
-                        <span className="font-semibold" style={{ color: 'var(--primary-blue)' }}>
-                          [{name}]
-                        </span>{' '}
-                        {outputStr ?? 'Working...'}
+                      <div key={i} className="mt-2 text-xs" style={{ color: 'var(--neutral-600)' }}>
+                        {TOOL_DISPLAY_TEXT[name] ?? humanizeToolName(name)}
                       </div>
                     );
                   }
@@ -1109,7 +1211,9 @@ export default function Chat({ initialSessionId }: ChatProps) {
                 })}
               </div>
             </div>
-          ))}
+            );
+          })}
+          {showThinking && <ThinkingIndicator />}
           <div ref={messagesEndRef} />
         </div>
 

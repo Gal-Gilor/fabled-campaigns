@@ -38,4 +38,7 @@ CREATE TABLE IF NOT EXISTS users (
   image TEXT,
   PRIMARY KEY (id)
 );
+
+-- Grandmaster is a manual flag for now; payments come in a later PR.
+ALTER TABLE users ADD COLUMN IF NOT EXISTS tier TEXT NOT NULL DEFAULT 'free' CHECK (tier IN ('free','grandmaster'));
 `;
