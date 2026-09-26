@@ -2,7 +2,11 @@
 import ReactMarkdown, { type Components } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
-const components: Components = {
+// Exported so chat-markdown.tsx (a client component) can build its chat
+// variant on top of these without duplicating them. This module has no
+// hooks and stays server-safe, since it's imported by the wiki's Server
+// Component pages.
+export const components: Components = {
   h2: ({ children }) => (
     <h2
       style={{

@@ -1,5 +1,5 @@
 import { sql } from './client';
-import { DEFAULT_IMAGE_SIZE, type ImageSize } from '../app/lib/config';
+import { DEFAULT_IMAGE_SIZE, clampImageSize, type ImageSize, type UserTier } from '../app/lib/config';
 
 export interface ChatSession {
   id: string;
@@ -704,14 +704,30 @@ export async function insertUsageEvent(event: UsageEventInput): Promise<void> {
 
 export interface UserSettings {
   imageSize: ImageSize;
+  tier: UserTier;
+}
+
+export async function getUserTier(userId: string): Promise<UserTier> {
+  const rows = await sql`SELECT tier FROM users WHERE id = ${userId}`;
+  return (rows as { tier: UserTier }[])[0]?.tier ?? 'free';
 }
 
 export async function getUserSettings(userId: string): Promise<UserSettings> {
   const rows = await sql`
-    SELECT image_size FROM user_settings WHERE user_id = ${userId}
+    SELECT us.image_size, u.tier
+    FROM users u
+    LEFT JOIN user_settings us ON us.user_id = u.id
+    WHERE u.id = ${userId}
   `;
-  const row = (rows as { image_size: ImageSize }[])[0];
-  return { imageSize: row?.image_size ?? DEFAULT_IMAGE_SIZE };
+  const row = (rows as { image_size: ImageSize | null; tier: UserTier | null }[])[0];
+  const tier = row?.tier ?? 'free';
+  // Clamped here too (the chat route clamps again before rendering) so a
+  // downgraded member's stale saved 4K never shows as their current pick.
+  // The stored row itself is left at 4K, so re-upgrading restores it as-is.
+  return {
+    imageSize: clampImageSize(row?.image_size ?? DEFAULT_IMAGE_SIZE, tier),
+    tier,
+  };
 }
 
 export async function upsertUserSettings(
@@ -720,10 +736,16 @@ export async function upsertUserSettings(
 ): Promise<UserSettings> {
   const now = Date.now();
   const rows = await sql`
-    INSERT INTO user_settings (user_id, image_size, updated_at)
-    VALUES (${userId}, ${settings.imageSize}, ${now})
-    ON CONFLICT (user_id) DO UPDATE SET image_size = ${settings.imageSize}, updated_at = ${now}
-    RETURNING image_size
+    WITH upserted AS (
+      INSERT INTO user_settings (user_id, image_size, updated_at)
+      VALUES (${userId}, ${settings.imageSize}, ${now})
+      ON CONFLICT (user_id) DO UPDATE SET image_size = ${settings.imageSize}, updated_at = ${now}
+      RETURNING image_size
+    )
+    SELECT upserted.image_size, users.tier
+    FROM upserted, users
+    WHERE users.id = ${userId}
   `;
-  return { imageSize: (rows as { image_size: ImageSize }[])[0].image_size };
+  const row = (rows as { image_size: ImageSize; tier: UserTier }[])[0];
+  return { imageSize: row.image_size, tier: row.tier };
 }

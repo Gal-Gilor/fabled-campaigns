@@ -2,6 +2,7 @@ import { convertToModelMessages, generateObject, getToolName, isToolUIPart, UIMe
 import { z } from 'zod';
 import { TOKEN_EVICTION_THRESHOLD, TOKEN_OVERHEAD_RESERVE_CHARS, GEMINI_MODEL } from './config';
 import { vertex } from './vertexClient';
+import { dropInterruptedToolParts } from './toolProgress';
 import type { UsageRecorder } from './usage';
 
 type ModelMessages = Awaited<ReturnType<typeof convertToModelMessages>>;
@@ -277,7 +278,7 @@ export async function prepareContext(
   usage?: UsageRecorder
 ): Promise<PreparedContext> {
   const { recent: rawRecent, evicted } = applyTokenWindow(messages, reserveExtraChars);
-  const recent = pruneToolOutputs(rawRecent);
+  const recent = pruneToolOutputs(dropInterruptedToolParts(rawRecent));
 
   const parsedSummary = existingSummary ? tryParseMemory(existingSummary) : null;
 

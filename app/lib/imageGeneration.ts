@@ -1,10 +1,11 @@
 import { generateImage, APICallError } from 'ai';
 import { put } from '@vercel/blob';
 import { vertexImage } from './vertexClient';
-import { GEMINI_IMAGE_MODEL, MAP_ASPECT_RATIO, type ImageSize } from './config';
-import { errorMessage } from './messageUtils';
+import { GEMINI_IMAGE_MODEL, IMAGE_ATTEMPTS, MAP_ASPECT_RATIO, type ImageSize } from './config';
+import { MAP_FAILURE_MESSAGE } from './messageUtils';
+import type { ImageProgressEvent } from './toolProgress';
 
-/** Thrown when the image model's quota is still exhausted after every retry. */
+/** Thrown when every image model is still out of quota after the last attempt. */
 export class ImageServiceBusyError extends Error {
   constructor(cause: unknown) {
     super('The image service is busy right now.', { cause });
@@ -34,33 +35,50 @@ function sleep(ms: number, abortSignal?: AbortSignal): Promise<void> {
   });
 }
 
-// The quota window is about a minute, so the waits are long; the AI SDK's own
-// retry (a few seconds) is turned off in generateMapImage so the two don't stack.
-export const QUOTA_RETRY_DELAYS_MS = [15_000, 30_000];
-
-/** Error text for an image tool's result: a plain message when the service is busy. */
+/**
+ * Error text for an image tool's result. Always a friendly, non-mechanical line —
+ * the real error (which can include model names or provider details) goes to the
+ * server log instead.
+ */
 export function imageErrorMessage(err: unknown): string {
-  if (err instanceof ImageServiceBusyError) return 'The image service is busy right now. Please try again in a minute.';
-  return errorMessage(err);
+  if (err instanceof ImageServiceBusyError) {
+    return 'The map is taking longer than usual to come together. Give it a minute and ask again.';
+  }
+  console.error('[generateMapImage] image call failed:', err);
+  return MAP_FAILURE_MESSAGE;
 }
 
-/** Runs `call`, retrying only on quota errors after each delay in `delaysMs`. */
-export async function withQuotaRetry<T>(
-  call: () => Promise<T>,
-  options: { abortSignal?: AbortSignal; delaysMs?: number[] } = {},
-): Promise<T> {
-  const { abortSignal, delaysMs = QUOTA_RETRY_DELAYS_MS } = options;
-  for (let attempt = 0; ; attempt++) {
+/**
+ * Runs `call` once per IMAGE_ATTEMPTS entry, in order, moving on only after a quota error.
+ * Each attempt first waits its delayMs. Throws ImageServiceBusyError when the
+ * last attempt also hits the quota; any other error is thrown at once.
+ */
+async function withModelFallback<T>(
+  call: (model: string) => Promise<T>,
+  options: {
+    abortSignal?: AbortSignal;
+    onProgress?: (event: ImageProgressEvent) => void;
+  } = {}
+): Promise<{ result: T; model: string }> {
+  const { abortSignal, onProgress } = options;
+  const attempts = IMAGE_ATTEMPTS;
+  let lastQuotaError: unknown;
+  for (const [index, { model, delayMs }] of attempts.entries()) {
+    if (delayMs > 0) {
+      onProgress?.({ kind: 'waiting', resumeAt: Date.now() + delayMs });
+      await sleep(delayMs, abortSignal);
+    }
+    onProgress?.({ kind: 'rendering', afterQuotaError: lastQuotaError !== undefined });
     try {
-      return await call();
+      return { result: await call(model), model };
     } catch (err) {
       if (!isQuotaError(err)) throw err;
-      const delay = delaysMs[attempt];
-      if (delay === undefined) throw new ImageServiceBusyError(err);
-      console.warn(`[generateMapImage] quota exhausted, retrying in ${delay / 1000}s (attempt ${attempt + 1} of ${delaysMs.length})`);
-      await sleep(delay, abortSignal);
+      lastQuotaError = err;
+      console.warn(`[generateMapImage] ${model} quota exhausted (attempt ${index + 1} of ${attempts.length})`);
     }
   }
+  console.error(`[generateMapImage] every attempt hit the quota; giving up after ${attempts.length} attempts`);
+  throw new ImageServiceBusyError(lastQuotaError);
 }
 
 export async function generateMapImage(params: {
@@ -68,25 +86,28 @@ export async function generateMapImage(params: {
   sourceImages?: string[];
   imageSize: ImageSize;
   abortSignal?: AbortSignal;
-}): Promise<{ base64: string; mediaType: string }> {
-  const { prompt, sourceImages, imageSize, abortSignal } = params;
-  const result = await withQuotaRetry(
-    () => generateImage({
-      model: vertexImage.image(GEMINI_IMAGE_MODEL),
+  onProgress?: (event: ImageProgressEvent) => void;
+}): Promise<{ base64: string; mediaType: string; model: string; imageSize: ImageSize }> {
+  const { prompt, sourceImages, imageSize, abortSignal, onProgress } = params;
+  // The AI SDK's own retry (a few seconds) is turned off so it doesn't stack
+  // with the fallback schedule.
+  const { result, model } = await withModelFallback(
+    (modelId) => generateImage({
+      model: vertexImage.image(modelId),
       prompt: sourceImages?.length ? { text: prompt, images: sourceImages } : prompt,
       providerOptions: {
         vertex: {
-          imageConfig: { aspectRatio: MAP_ASPECT_RATIO, imageSize },
-        },
+          imageConfig: { aspectRatio: MAP_ASPECT_RATIO, imageSize }
+        }
       },
       maxRetries: 0,
-      abortSignal,
+      abortSignal
     }),
-    { abortSignal },
+    { abortSignal, onProgress }
   );
 
   if (result.warnings?.length) {
-    console.warn('[generateMapImage] AI SDK warnings:', result.warnings);
+    console.warn(`[generateMapImage] AI SDK warnings (${model}):`, result.warnings);
   }
   if (result.images.length === 0) {
     throw new Error('[generateMapImage] model returned no images');
@@ -98,7 +119,8 @@ export async function generateMapImage(params: {
   // Take the last image, not `result.image` (the first): a model that emits interim
   // "thought" images before the final render must never have one of those replace it.
   const { base64, mediaType } = result.images.at(-1)!;
-  return { base64, mediaType };
+  // `imageSize` is the size actually rendered: the primary model always renders near 1K.
+  return { base64, mediaType, model, imageSize: model === GEMINI_IMAGE_MODEL ? '1K' : imageSize };
 }
 
 export async function uploadMapImage(

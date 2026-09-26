@@ -1,6 +1,6 @@
 import { randomUUID } from 'crypto';
 import { createLocation, createArtifact, getCollectionById } from '@/db';
-import { GEMINI_IMAGE_MODEL, type ImageSize } from './config';
+import type { ImageSize } from './config';
 import {
   buildGenerationMetaPrompt,
   buildFallbackGenerationPrompt,
@@ -9,9 +9,10 @@ import {
 } from './nanoBananaPrompts';
 import { generateMapImage, imageErrorMessage, uploadMapImage } from './imageGeneration';
 import { expandPrompt } from './promptExpansion';
-import { buildImageOutput } from './messageUtils';
+import { buildImageOutput, MAP_ERROR_PREFIX } from './messageUtils';
 import type { Collection } from './collections';
 import type { UsageRecorder } from './usage';
+import { imageStepProgress, type ProgressTracker } from './toolProgress';
 
 async function saveMapArtifact(
   base64: string,
@@ -34,7 +35,6 @@ async function saveMapArtifact(
 export function createEnhanceMapPrompt(collection?: Collection, usage?: UsageRecorder) {
   return async function (params: {
     userRequest: string;
-    ambiance?: string;
     terrain?: string;
     setting?: string;
     perspective?: 'indoor' | 'outdoor';
@@ -67,26 +67,36 @@ export function createGenerateEncounterMap(
     name?: string;
     collectionId?: string;
     abortSignal?: AbortSignal;
+    /** Drives the 'image' and 'save' steps when the caller shows progress. */
+    progress?: ProgressTracker;
   }): Promise<string> {
-    const { enhancedPrompt, name, collectionId, abortSignal } = params;
-    // collectionId comes from the model; check it before paying for the image call
+    const { enhancedPrompt, name, collectionId, abortSignal, progress } = params;
+    // collectionId comes from the server's active collection, not the model; check it before paying for the image call
     if (collectionId && (!userId || !(await getCollectionById(userId, collectionId)))) {
-      return '[Encounter map error] Collection not found.';
+      return `${MAP_ERROR_PREFIX}Collection not found.`;
     }
     try {
-      const { base64, mediaType } = await generateMapImage({
+      progress?.start('image');
+      const { base64, mediaType, model, imageSize: renderedSize } = await generateMapImage({
         prompt: enhancedPrompt,
         imageSize,
         abortSignal,
+        onProgress: progress && imageStepProgress(progress, 'image'),
       });
+      // Without a 'save' step, finish 'image' after the upload so the blob-upload
+      // time still lands inside a step, as in editByImageUrl.
+      const hasSaveStep = progress?.has('save') ?? false;
+      if (hasSaveStep) progress?.finish('image');
 
+      progress?.start('save');
       const [, { src, locationId, artifactId }] = await Promise.all([
-        usage?.recordImage('map_generate', GEMINI_IMAGE_MODEL, 1, imageSize),
+        usage?.recordImage('map_generate', model, 1, renderedSize),
         saveMapArtifact(base64, mediaType, name, collectionId, sessionId, enhancedPrompt),
       ]);
+      progress?.finish(hasSaveStep ? 'save' : 'image');
       return buildImageOutput({ type: 'image', src, label: name ?? 'Encounter Map', collectionId, locationId, artifactId, prompt: enhancedPrompt });
     } catch (err) {
-      return `[Encounter map error] ${imageErrorMessage(err)}`;
+      return `${MAP_ERROR_PREFIX}${imageErrorMessage(err)}`;
     }
   };
 }

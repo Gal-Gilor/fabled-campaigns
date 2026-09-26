@@ -11,6 +11,16 @@ export function isRetryHint(output: unknown): boolean {
   return typeof output === 'string' && output.startsWith(RETRY_HINT_PREFIX);
 }
 
+// Prefixes on map-tool error strings. The tools prepend them; chat.tsx strips
+// them and shows the rest as a friendly notice.
+export const MAP_ERROR_PREFIX = '[Encounter map error] ';
+export const EDIT_ERROR_PREFIX = '[editEncounterMap error] ';
+export const MAP_TOOL_ERROR_PREFIXES = [MAP_ERROR_PREFIX, EDIT_ERROR_PREFIX];
+
+// The one friendly line for a map tool failure that has no more specific text.
+export const MAP_FAILURE_MESSAGE =
+  'Something went wrong while drawing the map. Try again, or describe it a little differently.';
+
 export interface ImageOutput {
   type: 'image';
   src: string;

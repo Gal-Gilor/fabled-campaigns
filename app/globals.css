@@ -7,6 +7,7 @@
   --accent-gold: #f59e0b;
   --light-gold: #fbbf24;
   --pale-gold: #fef3c7;
+  --gold-ink: #92400e;
   --neutral-50: #f8fafc;
   --neutral-100: #f1f5f9;
   --neutral-200: #e2e8f0;
@@ -54,5 +55,71 @@ body {
   select,
   textarea {
     font-size: 16px;
+  }
+}
+
+/* Chat progress: the patience saying on a waiting step shimmers softly, and the
+   thinking dots rise in turn. Both stay still for reduced-motion users. */
+@keyframes fc-shimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+.fc-shimmer-text {
+  background: linear-gradient(90deg, var(--neutral-600) 35%, var(--light-gold) 50%, var(--neutral-600) 65%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: fc-shimmer 2.4s linear infinite;
+}
+
+@keyframes fc-dot {
+  0%, 80%, 100% { opacity: 0.25; transform: translateY(0); }
+  40% { opacity: 1; transform: translateY(-2px); }
+}
+
+.fc-dot {
+  animation: fc-dot 1.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fc-shimmer-text,
+  .fc-dot {
+    animation: none;
+  }
+
+  .fc-shimmer-text {
+    color: var(--neutral-600);
+    background: none;
+  }
+
+  .fc-dot {
+    opacity: 0.6;
+  }
+}
+
+/* Finished-tool summary: hide the browser's own disclosure marker so the row
+   can show its own "▸ details" toggle, which rotates to "▾" when open. */
+.fc-details-summary {
+  list-style: none;
+}
+
+.fc-details-summary::-webkit-details-marker {
+  display: none;
+}
+
+.fc-details-caret {
+  display: inline-block;
+  transition: transform 0.15s ease;
+}
+
+details[open] > .fc-details-summary .fc-details-caret {
+  transform: rotate(90deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fc-details-caret {
+    transition: none;
   }
 }
