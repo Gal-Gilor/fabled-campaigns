@@ -37,7 +37,7 @@ async function expandEditPrompt(
 ): Promise<string> {
   const meta = [
     'You are polishing a base prompt for editing an existing D&D tactical battle map with the Nano Banana model.',
-    'The provided source image is the structural anchor. Do NOT add new perspective, grid geometry, lighting, palette, or style — those are owned by the source image, and explicit additions can conflict with the "preserve everything else" instruction in the base prompt.',
+    'The provided source image is the structural anchor. Do NOT add new perspective, grid geometry, zoom, framing, lighting, palette, or style — those are owned by the source image, and explicit additions can conflict with the "preserve everything else" instruction in the base prompt.',
     'Limit polish to flow and specificity of the user-provided edit instruction. Strengthen verbs, sharpen vague descriptors, but do not introduce content that was not in the base prompt.',
     '',
     'Nano Banana best practices:',
@@ -45,6 +45,7 @@ async function expandEditPrompt(
     '',
     'Preserve every user-provided instruction and constraint from the base prompt verbatim — do not drop, paraphrase, or weaken them.',
     'The grid-overlay paragraph is the highest-priority constraint. Reproduce it verbatim or strengthen it; never compress, condense, or merge it into the preserve-list.',
+    'The zoom-and-extent constraint is equally binding. Reproduce it verbatim; never soften it or drop it.',
     '',
     'Output only the polished prompt — no preamble, no quotes.',
     '',
@@ -89,9 +90,24 @@ function warn(
   return message;
 }
 
+// Derives this project's Vercel Blob public host from BLOB_READ_WRITE_TOKEN
+// (format `vercel_blob_rw_<storeId>_<secret>`), so isBlobMapUrl can pin to our
+// own store rather than accepting any Vercel Blob store. Returns null when the
+// token is missing or malformed. Never logs the token.
+function blobStoreHost(): string | null {
+  const token = process.env.BLOB_READ_WRITE_TOKEN;
+  if (!token) return null;
+  const parts = token.split('_');
+  if (parts.length < 4 || parts[0] !== 'vercel' || parts[1] !== 'blob' || parts[2] !== 'rw') return null;
+  const storeId = parts[3];
+  if (!storeId) return null;
+  return `${storeId.toLowerCase()}.public.blob.vercel-storage.com`;
+}
+
 // True when `urlStr` is a map image the app itself uploaded: parses, https,
-// hosted under a Vercel Blob public store, and under the maps/ prefix that
-// uploadMapImage always writes to.
+// hosted on this project's own Vercel Blob public store (not just any
+// *.public.blob.vercel-storage.com host, which an attacker could also own),
+// and under the maps/ prefix that uploadMapImage always writes to.
 function isBlobMapUrl(urlStr: string): boolean {
   let url: URL;
   try {
@@ -99,9 +115,11 @@ function isBlobMapUrl(urlStr: string): boolean {
   } catch {
     return false;
   }
+  const host = blobStoreHost();
+  if (!host) return false;
   return (
     url.protocol === 'https:' &&
-    url.hostname.endsWith('.public.blob.vercel-storage.com') &&
+    url.hostname === host &&
     url.pathname.startsWith('/maps/')
   );
 }
@@ -111,31 +129,41 @@ function isBlobMapUrl(urlStr: string): boolean {
 // without an active collection (saveMapArtifact only writes a location/artifact
 // when a collection is active). There is no artifact or collection to check
 // ownership against, so ownership is scoped to the session that produced the
-// image: the URL must appear in that session's own message history.
+// image: the URL must appear in that session's own message history. Guests
+// have no saved session, so guestHistory (the conversation history their
+// request carried) is checked instead — but that history is client-sent, so
+// it is only a sanity filter, not a real boundary. The real guard is
+// isBlobMapUrl's pinned-store /maps/ check above.
 // ---------------------------------------------------------------------------
 
 async function editByImageUrl(params: {
-  userId: string;
+  userId: string | null;
   sessionId: string | undefined;
   sourceImageUrl: string;
   sourceLabel: string | undefined;
   instruction: string;
   imageSize: ImageSize;
   usage?: UsageRecorder;
+  guestHistory: string | undefined;
   abortSignal?: AbortSignal;
   emit: (snapshot: ProgressOutput) => void;
 }): Promise<string> {
-  const { userId, sessionId, sourceImageUrl, sourceLabel, instruction, imageSize, usage, abortSignal, emit } = params;
+  const { userId, sessionId, sourceImageUrl, sourceLabel, instruction, imageSize, usage, guestHistory, abortSignal, emit } = params;
 
   if (!isBlobMapUrl(sourceImageUrl)) return warn(SOURCE_NOT_FOUND, { sourceImageUrl });
-  if (!sessionId) return warn(SOURCE_NOT_FOUND, { sourceImageUrl });
 
   let referencesSource: boolean;
-  try {
-    referencesSource = await sessionReferencesText(sessionId, userId, sourceImageUrl);
-  } catch (err) {
-    console.error('[editEncounterMap] sessionReferencesText failed', err);
-    return `${EDIT_ERROR_PREFIX}Could not look up the source map.`;
+  if (!userId) {
+    // Guests have no saved session; their history arrives with the request.
+    referencesSource = guestHistory?.includes(sourceImageUrl) ?? false;
+  } else {
+    if (!sessionId) return warn(SOURCE_NOT_FOUND, { sourceImageUrl });
+    try {
+      referencesSource = await sessionReferencesText(sessionId, userId, sourceImageUrl);
+    } catch (err) {
+      console.error('[editEncounterMap] sessionReferencesText failed', err);
+      return `${EDIT_ERROR_PREFIX}Could not look up the source map.`;
+    }
   }
   if (!referencesSource) return warn(SOURCE_NOT_FOUND, { sourceImageUrl });
 
@@ -191,7 +219,8 @@ export function createEditEncounterMap(
   userId: string | null,
   sessionId: string | undefined,
   imageSize: ImageSize,
-  usage?: UsageRecorder
+  usage?: UsageRecorder,
+  guestHistory?: string
 ) {
   return tool({
     description:
@@ -219,10 +248,6 @@ export function createEditEncounterMap(
     toModelOutput: imageToolModelOutput('Edited map'),
     execute: ({ sourceArtifactId, sourceImageUrl, sourceLabel, instruction }, { abortSignal }) =>
       streamWithProgress(async (emit) => {
-        if (!userId) {
-          return `${EDIT_ERROR_PREFIX}Sign in to edit maps.`;
-        }
-
         if (Boolean(sourceArtifactId) === Boolean(sourceImageUrl)) {
           return warn(SOURCE_GUIDANCE, { sourceArtifactId, sourceImageUrl });
         }
@@ -236,6 +261,7 @@ export function createEditEncounterMap(
             instruction,
             imageSize,
             usage,
+            guestHistory,
             abortSignal,
             emit,
           });
@@ -244,6 +270,10 @@ export function createEditEncounterMap(
         const artifactId = sourceArtifactId!;
         if (!ARTIFACT_ID_PATTERN.test(artifactId)) {
           return warn(SOURCE_GUIDANCE, { sourceArtifactId, sourceImageUrl });
+        }
+
+        if (!userId) {
+          return warn(`${EDIT_ERROR_PREFIX}Could not find the map to edit.`, { sourceArtifactId, sourceImageUrl });
         }
 
         let ctx: ArtifactWithContext | null;

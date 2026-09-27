@@ -59,6 +59,12 @@ const EDIT_VIEW_CONSTRAINT =
   'isometric with its diamond grid, and a top-down source stays top-down with its square grid. Keep the source\'s ' +
   'framing: a diorama keeps its ground block, cut sides, and dark background.';
 
+const EDIT_ZOOM_CONSTRAINT =
+  'Keep the source\'s zoom level and extent exactly: the output shows the same whole area at the same size in the ' +
+  'frame, with the same number of grid cells across and down and every edge of the source scene still in view. ' +
+  'On a diorama, the whole ground block stays in frame with the same margin of dark background around it. ' +
+  'Never zoom in, crop, or enlarge the scene, and never frame a smaller part of the venue than the source shows.';
+
 export const NB_PROMPTING_BEST_PRACTICES = [
   '- Nano Banana has no negativePrompt parameter — express any "not X" constraint inline as a positive scene property.',
   '- Use conversational, imperative phrasing — "render the rocks as moss-covered granite" works better than tag-soup like "rocks, moss, granite, weathered".',
@@ -104,12 +110,13 @@ export function buildEditPrompt(params: {
   return [
     'You are editing the provided D&D encounter battle map.',
     'Apply the requested change as a focused edit, blending it into the surrounding pixels so the change reads as native.',
-    'Preserve everything else, including composition, lighting, palette, brush style, rendering style, terrain, and structures as in the source image.',
+    'Preserve everything else, including composition, zoom, lighting, palette, brush style, rendering style, terrain, and structures as in the source image.',
     'Maintaining the gridlines layer that covers terrain is most important. Reproduce every grid line at the exact same spacing, color, line weight, and opacity as the source. Any region you repaint must show the same grid lines as the surrounding pixels — gridlines must be continuous and seamless across every area the source grid covers (on a diorama, the block\'s top surface only, never its cut sides or background), including replaced terrain.',
     `\nEdit instruction: ${instruction.trim()}`,
     renderSourceContext(sourceContext),
     `\nConstraints to maintain:\n- ${NANO_BANANA_NEGATION_BASE}`,
     `- ${EDIT_VIEW_CONSTRAINT}`,
+    `- ${EDIT_ZOOM_CONSTRAINT}`,
     '- Sharp focus, in the same rendering style as the source image.',
   ]
     .filter(Boolean)
@@ -380,17 +387,19 @@ function dioramaContextSentences(params: GenerationPromptParams): string[] {
   return sentences;
 }
 
-// How much detail each view's style allows. Both keep the defining fixtures
-// and ban clutter; the game style adds material and decorative detail.
+// How much detail each view's style allows. Both keep only the few defining
+// fixtures and ban clutter and decorative filler; the game style adds material
+// detail, not more props.
 const DETAIL_SENTENCES: Record<MapView, string> = {
   isometric:
-    'The furniture and fixtures that define the place stay, drawn as crisp, readable shapes with physically based ' +
-    'materials and hand-crafted detail on the fixtures and walls. The floor stays open for movement and free of ' +
-    'clutter piles such as heaps of papers, bottles, loose tools, and debris, and its texture stays subtle enough ' +
-    'that the grid reads clearly over it.',
+    'Only the few furniture pieces and fixtures that define the place stay, each with a clear purpose, drawn as ' +
+    'crisp, readable shapes with physically based materials and hand-crafted detail on the fixtures and walls. ' +
+    'Less is more: no decorative filler such as scattered barrels, sacks, pots, signs, flags, or trinkets, and ' +
+    'the floor stays open for movement and free of clutter piles such as heaps of papers, bottles, loose tools, ' +
+    'and debris. Its texture stays subtle enough that the grid reads clearly over it.',
   'top-down':
-    'The furniture and fixtures that define the place stay, drawn as clear, readable shapes, and the floor is free of ' +
-    'incidental clutter such as papers, bottles, loose tools, and debris.',
+    'Only the few furniture pieces and fixtures that define the place stay, drawn as clear, readable shapes, and the ' +
+    'floor is free of decorative filler and incidental clutter such as papers, bottles, loose tools, and debris.',
 };
 
 // Rendering style per view: classic tabletop maps for top-down, a premium
@@ -402,9 +411,11 @@ const STYLES: Record<MapView, string> = {
     'An isometric 3D scene in the style of a premium modern isometric role-playing game rendered in ' +
     'real-time 3D, with physically based materials such as worn stone, grained wood, forged iron, and woven cloth ' +
     'in a matte finish, never glossy. Soft ambient occlusion darkens corners and the ground under objects, and ' +
-    'subtle bounced light lifts the shade. Silhouettes are crisp and readable, and props and architecture carry ' +
-    'hand-crafted detail. Light comes from sources inside the scene, such as torches, braziers, or windows, and ' +
-    'casts directional shadows, with warm pools of light set against cool shade.',
+    'subtle bounced light lifts the shade. Silhouettes are crisp and readable, and the architecture carries ' +
+    'hand-crafted detail. Everything keeps grounded, lifelike proportions and a muted natural palette, so nothing ' +
+    'looks like a toy, a plastic miniature, or a cartoon prop, and colors are never candy-bright or oversaturated. ' +
+    'Light comes from sources inside the scene, such as torches, braziers, or windows, and casts directional ' +
+    'shadows, with warm pools of light set against cool shade.',
   'top-down':
     'A classic tabletop battle map in a clean, hand-drawn style, with flat color fills from a limited palette and ' +
     'crisp dark outlines around walls and objects. The lighting is soft and even, with only light shadows that mark ' +
@@ -847,15 +858,16 @@ const REGION_EXAMPLES_TEXT = joinExamples(REGION_EXAMPLES);
 const DETAIL_GUIDANCE: Record<MapView, string> = {
   isometric:
     'The map is a zoomed-out view of the whole location, so describe it at the level of rooms, structures, terrain, ' +
-    'paths, and large fixtures. Add the furniture and fixtures that define this kind of place, such as an armory\'s ' +
-    'weapon racks and armor stands, a library\'s bookshelves, or a tavern\'s bar and tables. Give the fixtures, walls, ' +
-    'and floor rich material texture and decorative detail, but leave out clutter piles, and keep the floor open and ' +
-    'the layout readable.',
+    'paths, and large fixtures. Add only the few furniture pieces and fixtures that define this kind of place, such ' +
+    'as an armory\'s weapon racks and armor stands, a library\'s bookshelves, or a tavern\'s bar and tables. Less ' +
+    'is more: name few props, each with a purpose in the scene or the encounter, and never add decorative filler ' +
+    'for flavor. Give the fixtures, walls, and floor real material texture, leave out clutter piles, and keep the ' +
+    'floor open and the layout readable.',
   'top-down':
     'The map is seen from far above, so describe the location at the level of rooms, structures, terrain, paths, and ' +
-    'large fixtures. Add the furniture and fixtures that define this kind of place, such as an armory\'s weapon racks ' +
-    'and armor stands, a library\'s bookshelves, or a tavern\'s bar and tables. Leave out only incidental clutter and ' +
-    'fine surface texture.',
+    'large fixtures. Add only the few furniture pieces and fixtures that define this kind of place, such as an ' +
+    'armory\'s weapon racks and armor stands, a library\'s bookshelves, or a tavern\'s bar and tables. Less is more: ' +
+    'leave out decorative filler, incidental clutter, and fine surface texture.',
 };
 
 // What part 5 asks the text model to say about light, per view.

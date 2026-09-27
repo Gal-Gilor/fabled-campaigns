@@ -31,6 +31,8 @@ export const CHAT_THINKING = { vertex: { thinkingConfig: { thinkingLevel: 'low' 
 export const IMAGE_SIZES = ['1K', '2K', '4K'] as const;
 export type ImageSize = (typeof IMAGE_SIZES)[number];
 export const DEFAULT_IMAGE_SIZE: ImageSize = '1K';
+// Signed-out visitors always render at 1K, independent of the signed-in default.
+export const GUEST_IMAGE_SIZE: ImageSize = '1K';
 export const MAP_ASPECT_RATIO = '4:3';
 
 export const USER_TIERS = ['free', 'grandmaster'] as const;

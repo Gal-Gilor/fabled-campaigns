@@ -241,23 +241,13 @@ export default async function LandingPage() {
           className="text-center py-12 md:py-16 px-6 border-t"
           style={{ borderColor: 'var(--neutral-200)', background: 'var(--pale-blue)' }}
         >
-          {session?.user ? (
-            <Link
-              href="/chat"
-              className="px-6 py-3 rounded-lg text-sm font-medium transition-opacity hover:opacity-90"
-              style={{ background: 'var(--primary-blue)', color: '#fff' }}
-            >
-              Roll to Play
-            </Link>
-          ) : (
-            <Link
-              href="/auth/sign-in"
-              className="px-6 py-3 rounded-lg text-sm font-medium transition-opacity hover:opacity-90"
-              style={{ background: 'var(--primary-blue)', color: '#fff' }}
-            >
-              Get started — it&apos;s free
-            </Link>
-          )}
+          <Link
+            href="/chat"
+            className="px-6 py-3 rounded-lg text-sm font-medium transition-opacity hover:opacity-90"
+            style={{ background: 'var(--primary-blue)', color: '#fff' }}
+          >
+            {session?.user ? 'Roll to Play' : 'Get started — it\'s free'}
+          </Link>
         </section>
       </main>
       <Footer />

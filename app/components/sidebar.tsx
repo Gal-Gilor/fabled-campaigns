@@ -48,6 +48,7 @@ function MenuItem({
 }) {
   return (
     <button
+      role="menuitem"
       className="flex items-center gap-2 w-full px-3 py-1.5 text-xs text-left transition-all"
       style={{ color: danger ? '#dc2626' : 'var(--neutral-700)' }}
       onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-100)')}
@@ -239,6 +240,7 @@ function SessionRow({
 
           {isMenuOpen && (
             <div
+              role="menu"
               className="absolute right-0 z-30 rounded-lg shadow-lg py-1"
               style={{
                 top: '100%',
@@ -439,6 +441,7 @@ function CampaignGroup({
           </button>
           {isMenuOpen && (
             <div
+              role="menu"
               className="absolute right-0 z-30 rounded-lg shadow-lg py-1"
               style={{ top: '100%', minWidth: '9rem', background: '#fff', border: '1px solid var(--neutral-200)' }}
             >
@@ -479,9 +482,20 @@ function CampaignGroup({
   );
 }
 
-function UserFooter() {
+const ACCOUNT_MENU_KEY = 'account';
+
+function UserFooter({
+  openMenuId,
+  onToggleMenu,
+  menuRef,
+}: {
+  openMenuId: string | null;
+  onToggleMenu: (key: string) => void;
+  menuRef: React.RefObject<HTMLDivElement | null>;
+}) {
   const { data: session, status } = useSession();
   const [showSettings, setShowSettings] = useState(false);
+  const menuOpen = openMenuId === ACCOUNT_MENU_KEY;
 
   if (status !== 'authenticated' || !session?.user) return null;
 
@@ -491,46 +505,63 @@ function UserFooter() {
   return (
     <>
       <hr style={{ borderColor: 'var(--neutral-200)' }} />
-      <div className="flex items-center gap-2.5 px-3 py-3">
-        {image ? (
-          <img
-            src={image}
-            alt={name ?? 'User avatar'}
-            width={28}
-            height={28}
-            className="rounded-full flex-shrink-0"
-            style={{ width: '1.75rem', height: '1.75rem' }}
-          />
-        ) : (
+      <div ref={menuOpen ? menuRef : undefined} className="relative">
+        {menuOpen && (
           <div
-            className="rounded-full flex-shrink-0 flex items-center justify-center text-xs font-semibold text-white"
-            style={{ width: '1.75rem', height: '1.75rem', background: 'var(--primary-blue)' }}
+            role="menu"
+            className="absolute left-2 right-2 z-30 rounded-lg shadow-lg py-1"
+            style={{ bottom: '100%', marginBottom: '4px', background: '#fff', border: '1px solid var(--neutral-200)' }}
           >
-            {initial}
+            <MenuItem
+              label="Map image quality"
+              onClick={() => {
+                onToggleMenu(ACCOUNT_MENU_KEY);
+                setShowSettings(true);
+              }}
+            />
+            <div style={{ height: 1, background: 'var(--neutral-200)', margin: '4px 0' }} />
+            <MenuItem
+              label="Sign out"
+              onClick={() => {
+                onToggleMenu(ACCOUNT_MENU_KEY);
+                signOut();
+              }}
+            />
           </div>
         )}
-        <span className="flex-1 text-sm truncate min-w-0" style={{ color: 'var(--neutral-700)' }}>
-          {name}
-        </span>
         <button
-          onClick={() => setShowSettings(true)}
-          className="flex-shrink-0 text-xs px-2 py-1 rounded transition-all"
-          style={{ color: 'var(--neutral-600)' }}
+          type="button"
+          onClick={() => onToggleMenu(ACCOUNT_MENU_KEY)}
+          aria-haspopup="menu"
+          aria-expanded={menuOpen}
+          title="Account"
+          className="flex items-center gap-2.5 w-full px-3 py-3 text-left transition-all"
           onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-200)')}
           onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
-          title="Settings"
         >
-          Settings
-        </button>
-        <button
-          onClick={() => signOut()}
-          className="flex-shrink-0 text-xs px-2 py-1 rounded transition-all"
-          style={{ color: 'var(--neutral-600)' }}
-          onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-200)')}
-          onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
-          title="Sign out"
-        >
-          Sign out
+          {image ? (
+            <img
+              src={image}
+              alt={name ?? 'User avatar'}
+              width={28}
+              height={28}
+              className="rounded-full flex-shrink-0"
+              style={{ width: '1.75rem', height: '1.75rem' }}
+            />
+          ) : (
+            <div
+              className="rounded-full flex-shrink-0 flex items-center justify-center text-xs font-semibold text-white"
+              style={{ width: '1.75rem', height: '1.75rem', background: 'var(--primary-blue)' }}
+            >
+              {initial}
+            </div>
+          )}
+          <span className="flex-1 text-sm truncate min-w-0" style={{ color: 'var(--neutral-700)' }}>
+            {name}
+          </span>
+          <span className="text-xs flex-shrink-0" style={{ color: 'var(--neutral-400)' }} aria-hidden="true">
+            {menuOpen ? '▾' : '▴'}
+          </span>
         </button>
       </div>
       {showSettings &&
@@ -652,7 +683,7 @@ export default function Sidebar({
     campaignActions.deleteCampaign(c.id);
   }
 
-  // Close menu on outside click
+  // Close menu on outside click or Escape
   useEffect(() => {
     if (!openMenuId) return;
     function onMouseDown(e: MouseEvent) {
@@ -660,8 +691,15 @@ export default function Sidebar({
         setOpenMenuId(null);
       }
     }
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') setOpenMenuId(null);
+    }
     document.addEventListener('mousedown', onMouseDown);
-    return () => document.removeEventListener('mousedown', onMouseDown);
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', onMouseDown);
+      document.removeEventListener('keydown', onKeyDown);
+    };
   }, [openMenuId]);
 
   function startEdit(session: Session, uiKey: string) {
@@ -1031,7 +1069,7 @@ export default function Sidebar({
             </div>
           </div>
           <div className="flex-1" />
-          <UserFooter />
+          <UserFooter openMenuId={openMenuId} onToggleMenu={toggleMenu} menuRef={menuRef} />
         </div>
       )}
 
