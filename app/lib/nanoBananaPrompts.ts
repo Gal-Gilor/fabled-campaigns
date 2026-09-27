@@ -55,13 +55,15 @@ export function nanoBananaNegation(view: MapView): string {
 }
 
 const EDIT_VIEW_CONSTRAINT =
-  'Keep the exact camera angle, grid shape, and grid geometry of the source image: an isometric source stays ' +
-  'isometric with its diamond grid, and a top-down source stays top-down with its square grid. Keep the source\'s ' +
-  'framing: a diorama keeps its ground block, cut sides, and dark background.';
+  'Keep the exact camera angle of the source image, and its grid shape and geometry if it has a grid: an isometric ' +
+  'source stays isometric, with its diamond grid if it has one, and a top-down source stays top-down, with its ' +
+  'square grid if it has one. Keep the source\'s framing: a diorama keeps its ground block, cut sides, and dark ' +
+  'background.';
 
 const EDIT_ZOOM_CONSTRAINT =
   'Keep the source\'s zoom level and extent exactly: the output shows the same whole area at the same size in the ' +
-  'frame, with the same number of grid cells across and down and every edge of the source scene still in view. ' +
+  'frame, with the same number of grid cells across and down (if it has a grid) and every edge of the source scene ' +
+  'still in view. ' +
   'On a diorama, the whole ground block stays in frame with the same margin of dark background around it. ' +
   'Never zoom in, crop, or enlarge the scene, and never frame a smaller part of the venue than the source shows.';
 
@@ -102,16 +104,22 @@ function renderSourceContext(ctx: SourceContext): string {
   return `\n${heading}\n${parts.map((p) => `- ${p}`).join('\n')}`;
 }
 
+// Only battle maps carry a grid, so an edit keeps whichever state the source has
+// unless the instruction explicitly asks to add or remove one.
+const EDIT_GRID_RULE =
+  'If the source has grid lines, maintaining the gridlines layer that covers terrain is most important. Reproduce every grid line at the exact same spacing, color, line weight, and opacity as the source. Any region you repaint must show the same grid lines as the surrounding pixels — gridlines must be continuous and seamless across every area the source grid covers (on a diorama, the block\'s top surface only, never its cut sides or background), including replaced terrain. ' +
+  'If the source has no grid lines, the edited map has none either. Only an edit instruction that explicitly asks to add or remove a grid changes this: an added grid is a clearly visible, uniform grid of crisp lines with cells of about 5 feet, diamond-shaped on an isometric map and square on a top-down map, covering the whole playable area (on a diorama, the block\'s top surface only); a removed grid leaves the terrain underneath intact.';
+
 export function buildEditPrompt(params: {
   instruction: string;
   sourceContext: SourceContext;
 }): string {
   const { instruction, sourceContext } = params;
   return [
-    'You are editing the provided D&D encounter battle map.',
+    'You are editing the provided D&D map.',
     'Apply the requested change as a focused edit, blending it into the surrounding pixels so the change reads as native.',
     'Preserve everything else, including composition, zoom, lighting, palette, brush style, rendering style, terrain, and structures as in the source image.',
-    'Maintaining the gridlines layer that covers terrain is most important. Reproduce every grid line at the exact same spacing, color, line weight, and opacity as the source. Any region you repaint must show the same grid lines as the surrounding pixels — gridlines must be continuous and seamless across every area the source grid covers (on a diorama, the block\'s top surface only, never its cut sides or background), including replaced terrain.',
+    EDIT_GRID_RULE,
     `\nEdit instruction: ${instruction.trim()}`,
     renderSourceContext(sourceContext),
     `\nConstraints to maintain:\n- ${NANO_BANANA_NEGATION_BASE}`,
@@ -132,6 +140,8 @@ export interface GenerationPromptParams {
   mapScale?: MapScale;
   mapView?: MapView;
   collection?: Collection;
+  /** Draw a tactical grid. Only battle maps have one; region maps never do. */
+  battleMap?: boolean;
 }
 
 // Map size tiers, smallest to largest. On the tactical tiers every square is
@@ -396,11 +406,20 @@ const DETAIL_SENTENCES: Record<MapView, string> = {
     'crisp, readable shapes with physically based materials and hand-crafted detail on the fixtures and walls. ' +
     'Less is more: no decorative filler such as scattered barrels, sacks, pots, signs, flags, or trinkets, and ' +
     'the floor stays open for movement and free of clutter piles such as heaps of papers, bottles, loose tools, ' +
-    'and debris. Its texture stays subtle enough that the grid reads clearly over it.',
+    'and debris.',
   'top-down':
     'Only the few furniture pieces and fixtures that define the place stay, drawn as clear, readable shapes, and the ' +
     'floor is free of decorative filler and incidental clutter such as papers, bottles, loose tools, and debris.',
 };
+
+// On a battle map, the isometric floor texture has to stay quiet under the grid.
+const ISOMETRIC_GRID_TEXTURE_SENTENCE = 'Its texture stays subtle enough that the grid reads clearly over it.';
+
+function detailSentence(view: MapView, grid: boolean): string {
+  return grid && view === 'isometric'
+    ? `${DETAIL_SENTENCES.isometric} ${ISOMETRIC_GRID_TEXTURE_SENTENCE}`
+    : DETAIL_SENTENCES[view];
+}
 
 // Rendering style per view: classic tabletop maps for top-down, a premium
 // isometric role-playing game in real-time 3D for isometric. Genre words, not
@@ -417,7 +436,7 @@ const STYLES: Record<MapView, string> = {
     'Light comes from sources inside the scene, such as torches, braziers, or windows, and casts directional ' +
     'shadows, with warm pools of light set against cool shade.',
   'top-down':
-    'A classic tabletop battle map in a clean, hand-drawn style, with flat color fills from a limited palette and ' +
+    'A classic tabletop map in a clean, hand-drawn style, with flat color fills from a limited palette and ' +
     'crisp dark outlines around walls and objects. The lighting is soft and even, with only light shadows that mark ' +
     'changes in height, and surface texture is minimal, so the map reads clearly on a table screen or a print.',
 };
@@ -464,7 +483,22 @@ function gridClause(view: MapView, framing: MapFraming): string {
   return framing === 'diorama' ? DIORAMA_GRID_CLAUSE : GRID_CLAUSES[view];
 }
 
-const REGION_NO_GRID = 'There are no grid lines of any kind anywhere on the map.';
+// What a region map leaves out, as inline scene properties: every cartographic
+// ornament, anything built, and anything that hides the land.
+// Only battle maps carry a grid; every other map says outright that it has none,
+// since the image model otherwise tends to add one to a tabletop map.
+const NO_GRID_SENTENCE = 'The ground carries no grid lines, tile outlines, or square markings.';
+
+function negation(view: MapView, grid: boolean): string {
+  return grid ? nanoBananaNegation(view) : `${nanoBananaNegation(view)} ${NO_GRID_SENTENCE}`;
+}
+
+const REGION_NEGATION_EXTRA =
+  'The land carries no grid lines, political borders, dotted routes, compass roses, scale bars, map symbols, or ' +
+  'icons. No castles, towers, walls, buildings, ships, or monuments are visible anywhere. The sky over the land is ' +
+  'free of clouds, and the image shows no map interface, logos, or on-screen controls.';
+
+const REGION_NEGATION = `${nanoBananaNegation('top-down')} ${REGION_NEGATION_EXTRA}`;
 
 // The grid description the meta-prompt's grid rule asks the text model to write.
 const GRID_RULE_DESCRIPTIONS: Record<MapView, string> = {
@@ -514,45 +548,83 @@ const HUGE_SCALE_DETAIL: Record<MapView, string> = {
     'Show only the major landmarks, the overall layout, and the routes between them, with no small-scale detail.',
 };
 
-function buildScaleSentences(view: MapView, framing: MapFraming = 'field'): Record<MapScale, string> {
+// Each tactical tier's size in 5-foot cells. Battle maps state the cell count;
+// gridless maps state the same area in feet, so the zoom level matches.
+const SCALE_CELLS: Record<Exclude<MapScale, 'region'>, [number, number]> = {
+  small: [20, 15],
+  standard: [24, 18],
+  large: [28, 21],
+  huge: [40, 30],
+};
+
+function buildScaleSentences(
+  view: MapView,
+  framing: MapFraming = 'field',
+  grid = true,
+): Record<MapScale, string> {
   const { count, short } = GRID_UNITS[view];
-  // A diorama's grid counts the block's top surface, not the whole frame.
+  // A diorama's size is the block's top surface, not the whole frame.
   const shows = framing === 'diorama' ? 'the block\'s top surface is' : 'the frame shows';
+  const size = (tier: keyof typeof SCALE_CELLS) => {
+    const [w, h] = SCALE_CELLS[tier];
+    return grid
+      ? `${shows} ${w} by ${h} ${count}, each covering roughly 5 feet`
+      : `${shows} an area about ${w * 5} by ${h * 5} feet`;
+  };
+  const featureSize = grid ? `each covering at least a couple of ${short}` : 'each several feet across';
   return {
     small:
-      `This is a map of a small chamber, crevice, or tight passage: ${shows} 20 by 15 ${count}, each ` +
-      'covering roughly 5 feet. Show the shape of the space and only its few key features and fixtures.',
+      `This is a map of a small chamber, crevice, or tight passage: ${size('small')}. Show the shape of the space ` +
+      'and only its few key features and fixtures.',
     standard:
-      `This is a map of a single room or encounter area: ${shows} 24 by 18 ${count}, each covering roughly ` +
-      `5 feet. Show the room's layout and its main furniture or features, each covering at least a couple of ${short}.`,
+      `This is a map of a single room or encounter area: ${size('standard')}. Show the room's layout and its main ` +
+      `furniture or features, ${featureSize}.`,
     large:
       'This is a map of a large space such as a foyer, great hall, factory floor, or courtyard, or an outdoor ' +
-      `encounter area such as a stretch of road, woods, or a camp: ${shows} ` +
-      `28 by 21 ${count}, each covering roughly 5 feet. ${LARGE_SCALE_DETAIL[view]}`,
+      `encounter area such as a stretch of road, woods, or a camp: ${size('large')}. ${LARGE_SCALE_DETAIL[view]}`,
     huge:
-      `This is a map of a very large area such as a fortress, a district, or a stretch of wilderness: ${shows} ` +
-      `40 by 30 ${count}, each covering roughly 5 feet. ${HUGE_SCALE_DETAIL[view]}`,
+      `This is a map of a very large area such as a fortress, a district, or a stretch of wilderness: ` +
+      `${size('huge')}. ${HUGE_SCALE_DETAIL[view]}`,
     region: REGION_SCALE_SENTENCE,
   };
 }
 
 // Region maps are overviews for travel and worldbuilding, not combat maps: no
-// grid, no 5-foot scale, and settlements shrink to small symbols.
+// grid, no 5-foot scale. They read as satellite imagery, so only what is visible
+// from orbit appears; map symbols invite castle icons and roads at every town.
+const REGION_OPENING = 'A true-color satellite image, looking straight down from orbit, of';
+
 const REGION_STYLE =
-  'A classic hand-drawn map with flat color fills from a limited palette and crisp dark outlines around the ' +
-  'coastlines, rivers, forests, and mountain ranges. The lighting is soft and even, with light shading on the ' +
-  'mountain slopes, so the land reads clearly at a glance.';
+  'Rendered as a cloud-free satellite mosaic in natural color: deep ocean blue fades to turquoise shallows along ' +
+  'the coasts, lowlands are green, drylands are tan and ochre, and high peaks are gray-brown rock capped with snow. ' +
+  'Mountain ranges take soft relief shading from a low sun in the northwest, and forests read as dark green canopy ' +
+  'texture. The finish is matte and photographic, with clear air and no haze.';
 
 const REGION_SCALE_SENTENCE =
-  'This is an overview map of a vast area such as a kingdom, a country, or a dominion. It shows the land\'s terrain ' +
-  'regions, mountain ranges, rivers, forests, coastlines, roads, and settlements drawn as small symbols, with the ' +
-  'whole land inside the frame and open margin on every side. It is not a combat map and has no tactical grid.';
+  'This is an overview of a vast area such as a continent, a kingdom, or a country, seen from hundreds of miles up, ' +
+  'with the whole land inside the frame and a margin of sea or neighboring land on every side. From that height, ' +
+  'single trees, buildings, walls, bridges, and roads are too small to see: forests show as dark green canopy ' +
+  'texture, mountain ranges as ridged relief, and a city only as a small, pale, irregular patch of cleared land and ' +
+  'fields. It is not a combat map and has no tactical grid.';
 
-const SCALE_SENTENCES: Record<MapView, Record<MapScale, string>> = {
-  isometric: buildScaleSentences('isometric'),
-  'top-down': buildScaleSentences('top-down'),
+// Keyed by grid (battle map) or plain, then by view.
+type GridKey = 'grid' | 'plain';
+const gridKey = (grid: boolean): GridKey => (grid ? 'grid' : 'plain');
+
+const SCALE_SENTENCES: Record<GridKey, Record<MapView, Record<MapScale, string>>> = {
+  grid: {
+    isometric: buildScaleSentences('isometric'),
+    'top-down': buildScaleSentences('top-down'),
+  },
+  plain: {
+    isometric: buildScaleSentences('isometric', 'field', false),
+    'top-down': buildScaleSentences('top-down', 'field', false),
+  },
 };
-const DIORAMA_SCALE_SENTENCES = buildScaleSentences('isometric', 'diorama');
+const DIORAMA_SCALE_SENTENCES: Record<GridKey, Record<MapScale, string>> = {
+  grid: buildScaleSentences('isometric', 'diorama'),
+  plain: buildScaleSentences('isometric', 'diorama', false),
+};
 
 const INDOOR_SENTENCES: Record<MapView, string> = {
   isometric:
@@ -567,16 +639,18 @@ function scaleSentence(
   mapScale: MapScale = DEFAULT_MAP_SCALE,
   framing: MapFraming = 'field',
   dioramaFocus: string = DIORAMA_FOCUS_SENTENCE,
+  grid = true,
 ): string {
   // The framing and detail sentences talk about walls, rooms, and floors, which a region map has none of.
   if (mapScale === 'region') return REGION_SCALE_SENTENCE;
+  const key = gridKey(grid);
   if (framing === 'diorama') {
     return (
-      `${DIORAMA_SCALE_SENTENCES[mapScale]} ${dioramaFocus} ${DIORAMA_FRAMING_SENTENCE} ` +
-      DETAIL_SENTENCES[view]
+      `${DIORAMA_SCALE_SENTENCES[key][mapScale]} ${dioramaFocus} ${DIORAMA_FRAMING_SENTENCE} ` +
+      detailSentence(view, grid)
     );
   }
-  return `${SCALE_SENTENCES[view][mapScale]} ${FRAMING_SENTENCE} ${DETAIL_SENTENCES[view]}`;
+  return `${SCALE_SENTENCES[key][view][mapScale]} ${FRAMING_SENTENCE} ${detailSentence(view, grid)}`;
 }
 
 function describeSubject(params: GenerationPromptParams): string {
@@ -584,7 +658,7 @@ function describeSubject(params: GenerationPromptParams): string {
   if (request) return request;
   if (params.setting) return generateSettingDescription(params.setting);
   if (params.terrain) return generateTerrainDescription(params.terrain);
-  return 'A fantasy battle map location.';
+  return 'A fantasy location.';
 }
 
 // The collection's terrain and setting, phrased as the world its maps share, e.g.
@@ -652,70 +726,85 @@ const EXAMPLE_COLLECTION_LINES = [
 ];
 
 const TOP_DOWN_OPENING = CAMERA_OPENINGS['top-down'];
-const TOP_DOWN_NEGATION = nanoBananaNegation('top-down');
 const ISOMETRIC_OPENING = CAMERA_OPENINGS.isometric;
-const ISOMETRIC_NEGATION = nanoBananaNegation('isometric');
 
-// Every example puts the grid sentence right after the frame, states a count for
-// each singular feature, and keeps to about 150 to 220 words before the
-// exclusions, because gemini-2.5-flash-image weighs early text most and adds
-// features to long, loose prompts.
-const TOP_DOWN_EXAMPLES: GenerationExample[] = [
+// Example helpers: battle-map examples size the frame in grid cells and carry a
+// grid sentence; gridless examples size it in feet and have no grid sentence.
+const exampleFrame = (grid: boolean, w: number, h: number, unit: string) =>
+  grid ? `${w} by ${h} ${unit} of roughly 5 feet each` : `an area about ${w * 5} by ${h * 5} feet`;
+const exampleGrid = (grid: boolean, sentence: string) => (grid ? `${sentence} ` : '');
+const pick = (grid: boolean, gridText: string, plainText: string) => (grid ? gridText : plainText);
+
+// Every example puts the grid sentence (on battle maps) right after the frame,
+// states a count for each singular feature, and keeps to about 150 to 220 words
+// before the exclusions, because gemini-2.5-flash-image weighs early text most
+// and adds features to long, loose prompts.
+const topDownExamples = (grid: boolean): GenerationExample[] => [
   {
     request: 'A map of a tavern',
     scale: 'standard',
     prompt:
-      `${TOP_DOWN_OPENING} the entire ground floor of a fantasy tavern, framed to show 24 by 18 grid squares of roughly ` +
-      '5 feet each, with every outer wall visible and open margin around the building. A clearly visible, uniform ' +
-      'square grid of thin, crisp black lines covers the entire playable area edge to edge, running unbroken across ' +
-      'the floor, the tables, and the bar. The common room is a single level with a flagstone floor. One long timber ' +
+      `${TOP_DOWN_OPENING} the entire ground floor of a fantasy tavern, framed to show ` +
+      `${exampleFrame(grid, 24, 18, 'grid squares')}, with every outer wall visible and open margin around the ` +
+      'building. ' +
+      exampleGrid(grid,
+        'A clearly visible, uniform square grid of thin, crisp black lines covers the entire playable area edge to ' +
+        'edge, running unbroken across the floor, the tables, and the bar.') +
+      'The common room is a single level with a flagstone floor. One long timber ' +
       'bar runs along the west wall, four long tables with benches fill the center with open aisles between them, and ' +
-      'one wide stone fireplace stands against the north wall. Drawn as a classic tabletop battle map in a clean, ' +
+      'one wide stone fireplace stands against the north wall. Drawn as a classic tabletop map in a clean, ' +
       'hand-drawn style, with flat fills of warm wood and stone colors, crisp dark outlines around the walls, the bar, ' +
-      `and every table, and soft, even light with only light shadows beside the furniture. ${TOP_DOWN_NEGATION}`,
+      `and every table, and soft, even light with only light shadows beside the furniture. ${negation('top-down', grid)}`,
   },
   {
     request: 'a wizard\'s library',
     scale: 'standard',
     collection: EXAMPLE_COLLECTION_LINES,
     prompt:
-      `${TOP_DOWN_OPENING} a wizard's library set within a ruined tundra keep, framed to show 24 by 18 grid squares of roughly 5 feet each, with all four ` +
-      'walls and the one door visible and open margin around the room. A clearly visible, uniform square grid of ' +
-      'crisp pale cream lines, heavier than the dark plank seams, covers the entire playable area edge to edge, ' +
-      'running unbroken across the floor and the table. The room is a single level with a dark oak plank floor. Tall ' +
+      `${TOP_DOWN_OPENING} a wizard's library set within a ruined tundra keep, framed to show ` +
+      `${exampleFrame(grid, 24, 18, 'grid squares')}, with all four walls and the one door visible and open margin ` +
+      'around the room. ' +
+      exampleGrid(grid,
+        'A clearly visible, uniform square grid of crisp pale cream lines, heavier than the dark plank seams, covers ' +
+        'the entire playable area edge to edge, running unbroken across the floor and the table.') +
+      'The room is a single level with a dark oak plank floor. Tall ' +
       'bookshelves line the north, east, and west walls, one large reading table stands in the center, one carved ' +
       'lectern faces it from the south wall, and one brass orrery sits in the northeast corner, leaving open floor ' +
-      'between the table and the shelves. Drawn as a classic tabletop battle map in a clean, hand-drawn style, with ' +
+      'between the table and the shelves. Drawn as a classic tabletop map in a clean, hand-drawn style, with ' +
       'flat fills of deep wood and brass colors, frost-rimed stone walls, pale blue banners between the shelves, and ' +
       'crisp dark outlines around the shelves, the table, and the lectern. Pale silver moonlight lies evenly over the ' +
-      `room, with deep blue shadows beside each shelf and the feel of a crisp cold night. ${TOP_DOWN_NEGATION}`,
+      `room, with deep blue shadows beside each shelf and the feel of a crisp cold night. ${negation('top-down', grid)}`,
   },
   {
     request: 'a forest clearing map',
     scale: 'large',
     prompt:
-      `${TOP_DOWN_OPENING} a forest clearing and the woods around it, framed to show 28 by 21 grid squares of roughly ` +
-      '5 feet each, so the whole clearing and its edges sit inside the frame. A clearly visible, uniform square grid ' +
-      'of thin, crisp pale cream lines covers the entire playable area edge to edge, continuing across the canopy, ' +
-      'the ravine floor, and the log bridge. One ring of standing stones sits at the center of a grassy clearing ' +
+      `${TOP_DOWN_OPENING} a forest clearing and the woods around it, framed to show ` +
+      `${exampleFrame(grid, 28, 21, 'grid squares')}, so the whole clearing and its edges sit inside the frame. ` +
+      exampleGrid(grid,
+        'A clearly visible, uniform square grid of thin, crisp pale cream lines covers the entire playable area edge ' +
+        'to edge, continuing across the canopy, the ravine floor, and the log bridge.') +
+      'One ring of standing stones sits at the center of a grassy clearing ' +
       'bordered by separate tree canopies with gaps between them. A single ravine with one stream cuts across the ' +
       'eastern side, one fallen log spans it as a bridge, and one dirt trail winds down the southern slope to the ' +
-      'stream. Drawn as a classic tabletop battle map in a clean, hand-drawn style, with flat fills of greens and ' +
+      'stream. Drawn as a classic tabletop map in a clean, hand-drawn style, with flat fills of greens and ' +
       'earth colors, crisp dark outlines around the stones, the canopies, and the ravine edges, and soft, even light ' +
-      `with a light shadow along the ravine walls that marks its depth. ${TOP_DOWN_NEGATION}`,
+      `with a light shadow along the ravine walls that marks its depth. ${negation('top-down', grid)}`,
   },
   {
     request: 'a dungeon maze',
     scale: 'huge',
     prompt:
-      `${TOP_DOWN_OPENING} a sprawling dungeon maze, framed to show 40 by 30 grid squares of roughly 5 feet each, so the ` +
-      'full network of passages sits inside the frame. A clearly visible, uniform square grid of thin, crisp white ' +
-      'lines covers the entire playable area edge to edge, running across the corridors, the stairs, and the bridge. ' +
+      `${TOP_DOWN_OPENING} a sprawling dungeon maze, framed to show ${exampleFrame(grid, 40, 30, 'grid squares')}, ` +
+      'so the full network of passages sits inside the frame. ' +
+      exampleGrid(grid,
+        'A clearly visible, uniform square grid of thin, crisp white lines covers the entire playable area edge to ' +
+        'edge, running across the corridors, the stairs, and the bridge.') +
       'Corridors of rough stone twist between chambers, several of them ending in dead ends. One wide chasm splits ' +
       'the center of the maze and is crossed by a single bridge, and one stair leads down from the northern passages ' +
-      'to a lower level of chambers in the northeast corner. Drawn as a classic tabletop battle map in a clean, ' +
+      'to a lower level of chambers in the northeast corner. Drawn as a classic tabletop map in a clean, ' +
       'hand-drawn style, with flat fills of cold grey-blue stone colors, crisp dark outlines around every wall and the ' +
-      `chasm edge, soft, even light, and a flat black fill marking the depth of the chasm. ${TOP_DOWN_NEGATION}`,
+      `chasm edge, soft, even light, and a flat black fill marking the depth of the chasm. ${negation('top-down', grid)}`,
   },
 ];
 
@@ -736,58 +825,59 @@ const ISOMETRIC_STYLE_EXAMPLE = 'Rendered as a matte, physically based isometric
 // fixtures, near walls cut away). Isometric's camera opening and grid sentence
 // run longer than top-down's, so these keep to about 200 to 260 words before the
 // exclusion text rather than 150 to 220.
-const ISOMETRIC_FIELD_EXAMPLES: GenerationExample[] = [
+const isometricFieldExamples = (grid: boolean): GenerationExample[] => [
   {
     request: 'The party is ambushed by bandits on a forest road',
     perspective: 'outdoor',
     scale: 'large',
     prompt:
-      `${ISOMETRIC_OPENING} a stretch of forest road where bandits wait in ambush, framed to show 28 by 21 tiles of ` +
-      'roughly 5 feet each, with open margin around the scene. ' +
-      `${ISOMETRIC_GRID_EXAMPLE('pale cream', 'the road, the forest floor, and the camp')} ` +
-      'A single packed-dirt road three tiles wide runs diagonally from edge to edge, and no other roads or ' +
-      'paths cross the map. One fallen oak blocks it near the center. Trees, boulders, and bushes stand a ' +
-      'few tiles apart on both sides. North of the road, one bandit camp holds one cold fire pit, two lean-to ' +
-      `shelters, and crates. More than half the map stays open ground. ${ISOMETRIC_STYLE_EXAMPLE} rough bark, mossy ` +
+      `${ISOMETRIC_OPENING} a stretch of forest road where bandits wait in ambush, framed to show ` +
+      `${exampleFrame(grid, 28, 21, 'tiles')}, with open margin around the scene. ` +
+      exampleGrid(grid, ISOMETRIC_GRID_EXAMPLE('pale cream', 'the road, the forest floor, and the camp')) +
+      `A single packed-dirt road ${pick(grid, 'three tiles', 'about 15 feet')} wide runs diagonally from edge to ` +
+      'edge, and no other roads or paths cross the map. One fallen oak blocks it near the center. Trees, boulders, ' +
+      `and bushes stand ${pick(grid, 'a few tiles', 'a few paces')} apart on both sides. North of the road, one ` +
+      'bandit camp holds one cold fire pit, two lean-to shelters, and crates. More than half the map stays open ' +
+      `ground. ${ISOMETRIC_STYLE_EXAMPLE} rough bark, mossy ` +
       'granite, and packed earth. Afternoon sunlight casts long directional shadows, warm against cool shade, with ' +
-      `soft ambient occlusion under the bushes. ${ISOMETRIC_NEGATION}`,
+      `soft ambient occlusion under the bushes. ${negation('isometric', grid)}`,
   },
   {
     request: 'A guard room with weapon racks',
     perspective: 'indoor',
     scale: 'standard',
     prompt:
-      `${ISOMETRIC_OPENING} a stone guard room, framed to show 24 by 18 tiles of roughly 5 feet each, with open ` +
+      `${ISOMETRIC_OPENING} a stone guard room, framed to show ${exampleFrame(grid, 24, 18, 'tiles')}, with open ` +
       'margin around the room. ' +
-      `${ISOMETRIC_GRID_EXAMPLE('black', 'the flagstones and under the table')} ` +
+      exampleGrid(grid, ISOMETRIC_GRID_EXAMPLE('black', 'the flagstones and under the table')) +
       'The room is a cutaway: the far north and west walls stand at full height, and the near south and east walls ' +
       'are low stubs, so the whole floor is visible. The floor is a single level of pale flagstone. Weapon ' +
       'racks line the north wall, one iron-bound door opens in the west wall, one oak table with two benches ' +
       'stands in the center, and one brazier burns in the northeast corner, leaving open floor around the table. ' +
       `${ISOMETRIC_STYLE_EXAMPLE} worn flagstones, grained oak, and forged iron. The brazier casts warm directional ` +
-      `shadows against cool shade, with soft ambient occlusion under the table. ${ISOMETRIC_NEGATION}`,
+      `shadows against cool shade, with soft ambient occlusion under the table. ${negation('isometric', grid)}`,
   },
 ];
 
 // Diorama examples: a whole-place request (the tavern), and a collection map of
 // one room inside a place (the tower's library), which names the place first. The diorama and cutaway sentences add about 60 words,
 // so these keep to about 240 to 300 words before the exclusion text.
-const ISOMETRIC_DIORAMA_EXAMPLES: GenerationExample[] = [
+const isometricDioramaExamples = (grid: boolean): GenerationExample[] => [
   {
     request: 'A map of a tavern',
     setting: 'tavern',
     perspective: 'indoor',
     scale: 'standard',
     prompt:
-      `${ISOMETRIC_OPENING} a fantasy roadside tavern. ${DIORAMA_BASE} The block's top surface is 24 by 18 tiles ` +
-      'of roughly 5 feet each. ' +
-      `${DIORAMA_GRID_EXAMPLE('black', 'the floor, the yard, and the path')} ` +
+      `${ISOMETRIC_OPENING} a fantasy roadside tavern. ${DIORAMA_BASE} The block's top surface is ` +
+      `${exampleFrame(grid, 24, 18, 'tiles')}. ` +
+      exampleGrid(grid, DIORAMA_GRID_EXAMPLE('black', 'the floor, the yard, and the path')) +
       'The tavern is a cutaway, roof removed and near walls cut low, with its outer walls, door, and chimney stub ' +
       'visible. Inside, one long timber bar runs along the west wall, one stone fireplace stands ' +
       'against the north wall, and four tables with benches fill the center with open aisles. Outside, ' +
       `one dirt path leads from the door past one stable, a fence, and two oaks. ` +
       `${ISOMETRIC_STYLE_EXAMPLE} worn flagstones, grained oak, and rough plaster. The hearth casts warm directional ` +
-      `light against the cool evening yard, with soft ambient occlusion under the furniture. ${ISOMETRIC_NEGATION}`,
+      `light against the cool evening yard, with soft ambient occlusion under the furniture. ${negation('isometric', grid)}`,
   },
   {
     request: 'a wizard\'s library',
@@ -797,14 +887,14 @@ const ISOMETRIC_DIORAMA_EXAMPLES: GenerationExample[] = [
     collection: EXAMPLE_COLLECTION_LINES,
     prompt:
       `${ISOMETRIC_OPENING} a ruined tundra tower, centred on its wizard's library. ${DIORAMA_BASE} The block's ` +
-      'top surface is 28 by 21 tiles of roughly 5 feet each. ' +
-      `${DIORAMA_GRID_EXAMPLE('pale cream', 'the floors and the courtyard')} ` +
+      `top surface is ${exampleFrame(grid, 28, 21, 'tiles')}. ` +
+      exampleGrid(grid, DIORAMA_GRID_EXAMPLE('pale cream', 'the floors and the courtyard')) +
       'The library, the adjoining stair hall, and the tower\'s curved outer wall are cut away, roofs removed and ' +
       'near walls cut low, beside one small courtyard. The library stays the focus: tall bookshelves line its north ' +
       'and west walls, one reading table stands in the center, and one lectern faces it. One stair leads from the ' +
       `hall down to the courtyard. ${ISOMETRIC_STYLE_EXAMPLE} grained oak, frost-rimed stone, and pale blue banners. ` +
       'Pale silver moonlight falls over the tower, with deep blue shadows, a crisp cold night, and soft ambient ' +
-      `occlusion under the furniture. ${ISOMETRIC_NEGATION}`,
+      `occlusion under the furniture. ${negation('isometric', grid)}`,
   },
 ];
 
@@ -822,30 +912,37 @@ function joinExamples(examples: GenerationExample[]): string {
 }
 
 // Region maps get their own example so the model never copies a tactical grid.
-const REGION_NEGATION = `${nanoBananaNegation('top-down')} ${REGION_NO_GRID}`;
 const REGION_EXAMPLES: GenerationExample[] = [
   {
-    request: 'a map of the kingdom of Valdmoor',
+    request: 'a map of the kingdom of Valdmoor, with its capital at the river mouth',
     scale: 'region',
     prompt:
-      `${TOP_DOWN_OPENING} the kingdom of Valdmoor, an overview map with the whole kingdom inside the frame and open ` +
-      'margin on every side. A mountain range runs along the northern border, a wide river flows south from the ' +
-      'mountains to a bay on the eastern coast, a dark forest covers the western hills, and farmland fills the river ' +
-      'valley. Roads link a walled capital at the river mouth to three smaller towns, and every settlement is a small ' +
-      'symbol rather than a detailed street plan. Drawn as a classic hand-drawn map with flat fills of greens, browns, ' +
-      'and blues, crisp dark outlines around the coast, the rivers, and the forest edges, and soft, even light with ' +
-      `light shading on the mountain slopes. ${REGION_NEGATION}`,
+      `${REGION_OPENING} the kingdom of Valdmoor, with the whole kingdom inside the frame and a margin of sea and ` +
+      'neighboring land on every side. One mountain range runs along the northern border, its snow-capped ridges ' +
+      'casting soft relief shadows. One wide river flows south from the mountains, joined by two tributaries, and ' +
+      'meets the sea in a bay on the eastern coast. One dark green forest covers the western hills, and a patchwork ' +
+      'of pale green and tan farmland fills the river valley. The capital is a single small, pale patch of cleared ' +
+      'land at the river mouth. Rendered as a cloud-free satellite mosaic in natural color: deep ocean blue fades to ' +
+      'turquoise shallows along the coast, and the finish is matte and photographic, with clear air and no haze. ' +
+      REGION_NEGATION,
   },
 ];
 
 // Joined once at module load: the examples never change at runtime.
-// Keyed by view and framing, so a prompt never sees field and diorama examples mixed.
+// Keyed by view and framing, so a prompt never sees field and diorama examples
+// mixed, and by grid, so a gridless map never copies a grid sentence.
 type ExampleSet = 'top-down' | 'isometric-field' | 'isometric-diorama';
-const GENERATION_EXAMPLES_TEXT: Record<ExampleSet, string> = {
-  'top-down': joinExamples(TOP_DOWN_EXAMPLES),
-  'isometric-field': joinExamples(ISOMETRIC_FIELD_EXAMPLES),
-  'isometric-diorama': joinExamples(ISOMETRIC_DIORAMA_EXAMPLES),
+const EXAMPLE_BUILDERS: Record<ExampleSet, (grid: boolean) => GenerationExample[]> = {
+  'top-down': topDownExamples,
+  'isometric-field': isometricFieldExamples,
+  'isometric-diorama': isometricDioramaExamples,
 };
+const GENERATION_EXAMPLES_TEXT = Object.fromEntries(
+  Object.entries(EXAMPLE_BUILDERS).map(([set, build]) => [
+    set,
+    { grid: joinExamples(build(true)), plain: joinExamples(build(false)) },
+  ]),
+) as Record<ExampleSet, Record<GridKey, string>>;
 
 function exampleSet(view: MapView, framing: MapFraming): ExampleSet {
   if (view === 'top-down') return 'top-down';
@@ -887,11 +984,17 @@ const VIEW_NAMES: Record<MapView, { view: string; grid: string }> = {
 };
 
 // A map is only useful at the table if its parts sit where the story needs
-// them, so the text model plans the encounter before describing it. Sizes are
-// given in the view's own grid unit: tiles on isometric maps, squares on top-down.
-function encounterDesignStep(view: MapView, framing: MapFraming = 'field'): string {
+// them, so the text model plans the encounter before describing it. On battle
+// maps sizes are given in the view's own grid unit (tiles on isometric maps,
+// squares on top-down); on gridless maps, in feet.
+function encounterDesignStep(view: MapView, framing: MapFraming = 'field', grid = true): string {
   const { short } = GRID_UNITS[view];
   const one = short.replace(/s$/, '');
+  const sizes = grid
+    ? `- Size things for ${short} of about 5 feet: a tree trunk covers 1 ${one}, a wagon 2 by 4, a road 2 to 3 ` +
+      `${short} wide, a doorway 1 ${one}.`
+    : '- Size things in feet: a tree trunk is about 5 feet across, a wagon 10 by 20 feet, a road 10 to 15 feet ' +
+      'wide, a doorway about 5 feet.';
   const scope = framing === 'diorama'
     ? 'The requested area gets the detail; the surroundings stay simple.'
     : 'Add only the rooms and areas the story needs.';
@@ -902,8 +1005,7 @@ function encounterDesignStep(view: MapView, framing: MapFraming = 'field'): stri
       'and a place the attackers camp or fall back to.',
     '- Place everything where it would really be: a kitchen beside the dining hall, a camp near water, a guard post ' +
       'watching the entrance, a road that runs through the scene instead of ending in the middle of it.',
-    `- Size things for ${short} of about 5 feet: a tree trunk covers 1 ${one}, a wagon 2 by 4, a road 2 to 3 ${short} ` +
-      `wide, a doorway 1 ${one}.`,
+    sizes,
     '- Keep the play space open: at least half of the walkable area is open ground, and cover stands as separate ' +
       `pieces with room to move between them. ${scope}`,
     '- If the scale is too small for everything the story implies, describe the most important slice of the scene ' +
@@ -928,41 +1030,79 @@ const DIORAMA_LENGTH_RULE =
   'Keep the paragraph to about 240 to 300 words before the closing exclusion text. Spend the words on the grid, ' +
   'the requested area, and the named features, and keep the surroundings on the block brief.';
 
-function lengthRule(view: MapView, framing: MapFraming): string {
-  return framing === 'diorama' ? DIORAMA_LENGTH_RULE : LENGTH_RULES[view];
+function lengthRule(view: MapView, framing: MapFraming, grid = true): string {
+  const rule = framing === 'diorama' ? DIORAMA_LENGTH_RULE : LENGTH_RULES[view];
+  // A gridless map spends no words on a grid.
+  return grid
+    ? rule
+    : rule
+      .replace('the grid, the layout, and', 'the layout and')
+      .replace('the grid, the requested area, and', 'the requested area and');
 }
 
-/** Meta-prompt for region maps: a gridless overview of a kingdom or country. */
-function buildRegionMetaPrompt(params: GenerationPromptParams, view: MapView): string {
-  const { terrain, setting, collection } = params;
-  const requestLines = [`Request: ${describeSubject(params)}`];
-  if (setting) requestLines.push(`Setting: ${setting}`);
-  if (terrain) requestLines.push(`Terrain: ${terrain}`);
+// A clean overview needs fewer words than a battle map.
+const REGION_LENGTH_RULE =
+  'Keep the paragraph to about 120 to 180 words before the closing exclusion text. Spend the words on the shape of ' +
+  'the land and its major features, not on repeated adjectives.';
+
+// A collection's lighting and visual details describe torches, banners, and
+// stonework at tactical scale, which have no place on a view from orbit.
+// The region block carries only the World line (see regionCollectionBlock).
+const REGION_COLLECTION_RULE =
+  'If a Collection block follows the request, its World line shapes only the climate, land cover, and palette: a ' +
+  'tundra collection gives a colder, paler land. The request\'s own land always stays the subject.';
+
+function regionCollectionBlock(collection?: Collection): string[] {
+  const world = collectionWorldPhrase(collection);
+  if (!collection || !world) return [];
+  return [`Collection "${collection.name}":`, `- World: this collection's maps are set in ${world}`];
+}
+
+/** Meta-prompt for region maps: a gridless satellite view of a continent, kingdom, or country. */
+function buildRegionMetaPrompt(params: GenerationPromptParams): string {
+  const { terrain, collection } = params;
+  // A setting names a building or venue, which has no place on a view of a whole land.
+  const requestLines = [`Request: ${params.userRequest.trim() || 'A fantasy kingdom.'}`];
+  if (terrain) requestLines.push(`Dominant land type: ${terrain}`);
   requestLines.push(`Scale: region. ${REGION_SCALE_SENTENCE}`);
-  const negation = `${nanoBananaNegation(view)} ${REGION_NO_GRID}`;
 
   return [
-    'You write image prompts for Nano Banana, Google\'s image model, that produce overview maps of whole kingdoms and ' +
-      'countries for a Dungeons & Dragons campaign.',
+    'You write image prompts for Nano Banana, Google\'s image model, that produce overview maps of whole continents, ' +
+      'kingdoms, and countries for a Dungeons & Dragons campaign, rendered as satellite imagery.',
     '',
-    'Expand the request below into one image prompt. Keep its subject and every place it names. Describe the land at ' +
-      'the level of terrain regions, mountain ranges, rivers, forests, coastlines, roads, and settlements, and place ' +
-      'them where they would really be: rivers run downhill from the mountains to the sea or a lake, towns sit on ' +
-      'rivers, coasts, and crossroads, and roads link the settlements.',
+    'Expand the request below into one image prompt. Keep its subject and every place it names.',
+    '',
+    'Describe only what is visible from orbit: the shape of the coastline, mountain ranges, major rivers and lakes, ' +
+      'and zones of forest, grassland, desert, marsh, ice, and farmland, each with its color and texture. Never name a ' +
+      'building, castle, tower, wall, bridge, ship, monument, or single tree. A fantasy feature the request names, ' +
+      'such as a blighted waste, a crystal desert, or a great crater, becomes a zone of land color and texture at ' +
+      'that scale, never an object.',
+    '',
+    'Settlements and roads. Show only the cities the request names, each as a small, pale, irregular patch of ' +
+      'cleared land at its location; leave out villages and towns it does not name. Leave out roads unless the ' +
+      'request names one, and then draw it as a single faint, thin line.',
+    '',
+    'Make the land believable: rivers run downhill from highlands to the sea or a lake, tributaries join a river ' +
+      'rather than split from it except at a delta, the windward side of a mountain range is greener and its lee ' +
+      'side drier, and cities sit on coasts, rivers, and mountain passes.',
+    '',
+    'Give a count for each major feature, such as "one mountain range" or "two major rivers", and add no range, ' +
+      'river, lake, or sea the request does not name or clearly imply.',
     '',
     'Write one narrative paragraph of plain sentences, not a keyword list. Cover these parts in order:',
-    `1. View. Open with "${CAMERA_OPENINGS[view]}" followed by the land's name or description, with the whole land ` +
-      'inside the frame and open margin on every side.',
-    '2. Geography. Where each region, range, river, and forest lies, in compass directions.',
-    '3. Settlements and roads. Each settlement is a small symbol, never a detailed street plan.',
-    `4. Style. ${REGION_STYLE}`,
-    `5. Exclusions. End the prompt with this text, copied exactly: ${negation}`,
+    `1. View. Open with "${REGION_OPENING}" followed by the land's name or description, with the whole land inside ` +
+      'the frame and a margin of sea or neighboring land on every side.',
+    '2. Geography. Where each mountain range, river, lake, and coast lies, in compass directions.',
+    '3. Land cover. The zones of forest, grassland, desert, farmland, and other ground, with their colors and textures.',
+    '4. Cities. Each named city as a small pale patch at its location. Skip this part if the request names none.',
+    `5. Style. ${REGION_STYLE}`,
+    `6. Exclusions. End the prompt with this text, copied exactly: ${REGION_NEGATION}`,
     '',
     'This is not a combat map: never describe a grid, squares, tiles, or a 5-foot scale.',
     '',
-    LENGTH_RULES['top-down'],
+    REGION_LENGTH_RULE,
     '',
-    COLLECTION_RULE,
+    REGION_COLLECTION_RULE,
     '',
     'Nano Banana prompting rules:',
     NB_PROMPTING_BEST_PRACTICES,
@@ -973,7 +1113,7 @@ function buildRegionMetaPrompt(params: GenerationPromptParams, view: MapView): s
     '',
     'Now write the prompt for this request:',
     ...requestLines,
-    ...collectionBlock(collection),
+    ...regionCollectionBlock(collection),
     '',
     'Output only the prompt, no preamble, no quotes.',
   ].join('\n');
@@ -986,11 +1126,12 @@ function buildRegionMetaPrompt(params: GenerationPromptParams, view: MapView): s
 export function buildGenerationMetaPrompt(params: GenerationPromptParams): string {
   const { terrain, setting, perspective, mapScale = DEFAULT_MAP_SCALE, collection } = params;
   const view = resolveMapView(params.mapView, mapScale);
-  if (mapScale === 'region') return buildRegionMetaPrompt(params, view);
+  if (mapScale === 'region') return buildRegionMetaPrompt(params);
   const units = GRID_UNITS[view].count;
   const names = VIEW_NAMES[view];
   const framing = resolveMapFraming(view, params);
   const isDiorama = framing === 'diorama';
+  const grid = params.battleMap ?? false;
 
   const requestLines = [`Request: ${describeSubject(params)}`];
   if (setting) requestLines.push(`Setting: ${setting}`);
@@ -1003,19 +1144,20 @@ export function buildGenerationMetaPrompt(params: GenerationPromptParams): strin
     const dioramaLine = [...dioramaContextSentences(params), ...(place ? [placeRoomRule(place)] : [])];
     requestLines.push(`Diorama: ${dioramaLine.join(' ')}`);
   }
-  requestLines.push(`Scale: ${mapScale}. ${scaleSentence(view, mapScale, framing, place ? placeFocusSentence(place) : DIORAMA_FOCUS_SENTENCE)}`);
+  const focus = place ? placeFocusSentence(place) : DIORAMA_FOCUS_SENTENCE;
+  requestLines.push(`Scale: ${mapScale}. ${scaleSentence(view, mapScale, framing, focus, grid)}`);
 
   // With a place, the opening names the place before the requested room.
   const openingSubject = place
     ? 'the place and then the requested room or area, as the Diorama line says'
     : 'the subject';
   const viewPart = isDiorama
-    ? `1. View, diorama, and scale. Open with "${CAMERA_OPENINGS[view]}" followed by ${openingSubject}, then write this ` +
+    ? `View, diorama, and scale. Open with "${CAMERA_OPENINGS[view]}" followed by ${openingSubject}, then write this ` +
       `diorama sentence nearly word for word: "${DIORAMA_BASE}" Then state the scale given in the request, ` +
-      `including how many ${units} the block's top surface is. Never zoom in on a single feature or let the image ` +
+      `including ${grid ? `how many ${units} the block's top surface is` : 'the size of the block\'s top surface in feet'}. Never zoom in on a single feature or let the image ` +
       'edge cut through the block.'
-    : `1. View and scale. Open with "${CAMERA_OPENINGS[view]}" followed by the subject, then state the scale given in the request, ` +
-      `including how many ${units} the frame shows. Frame the whole location with open margin on every side; ` +
+    : `View and scale. Open with "${CAMERA_OPENINGS[view]}" followed by the subject, then state the scale given in the request, ` +
+      `including ${grid ? `how many ${units} the frame shows` : 'the size of the area the frame shows, in feet'}. Frame the whole location with open margin on every side; ` +
       'never zoom in on a single feature or let the image edge cut through walls or rooms.';
   const gridPlacement = isDiorama ? 'right after the view and the diorama sentence' : 'right after the view';
   const noNewFeatures = isDiorama
@@ -1032,47 +1174,60 @@ export function buildGenerationMetaPrompt(params: GenerationPromptParams): strin
       'adjoining rooms and grounds on the block are context, kept simple and drawn in the same style.'
     : 'A single room keeps to its own walls: do not invent extra rooms, corridors, or partitions the request does ' +
       'not mention.';
-  const keepLine = isDiorama
-    ? `Keep the ${names.view} camera opening, the diorama sentence, the ${names.grid} grid right after them, and ` +
-      'the closing exclusion text with its camera constraint.'
-    : `Keep the ${names.view} camera opening, the ${names.grid} grid right after it, and the closing exclusion ` +
-      'text with its camera constraint.';
+  const keepLine = !grid
+    ? `Keep the ${names.view} camera opening${isDiorama ? ', the diorama sentence,' : ''} and the closing ` +
+      'exclusion text with its camera constraint.'
+    : isDiorama
+      ? `Keep the ${names.view} camera opening, the diorama sentence, the ${names.grid} grid right after them, and ` +
+        'the closing exclusion text with its camera constraint.'
+      : `Keep the ${names.view} camera opening, the ${names.grid} grid right after it, and the closing exclusion ` +
+        'text with its camera constraint.';
 
-  return [
-    `You write image prompts for Nano Banana, Google's image model, that produce ${names.view} Dungeons & Dragons tactical battle maps.`,
-    '',
-    'Expand the request below into one image prompt. The request is the foundation: keep its subject and every feature it names, ' +
-      `and never replace or drop the subject. ${DETAIL_GUIDANCE[view]}`,
-    '',
-    encounterDesignStep(view, framing),
-    '',
-    'Write one narrative paragraph of plain sentences, not a keyword list. Cover these parts in order:',
-    viewPart,
-    `2. Grid overlay. This is the most important sentence in the prompt, so it comes ${gridPlacement}. Describe ${gridRuleDescription(view, framing)}. ` +
+  // Only battle maps carry the grid part; the parts are numbered after the list is built.
+  const gridPart = grid
+    ? `Grid overlay. This is the most important sentence in the prompt, so it comes ${gridPlacement}. Describe ${gridRuleDescription(view, framing)}. ` +
       'Choose the line color by the floor\'s seams first, then by the ground\'s brightness: over wood planks, whose seams ' +
       'are dark, use pale cream or white lines; over pale stone use dark lines; otherwise dark lines on light ground and ' +
       'light lines on dark ground. The lines are heavier than the floor\'s own seams and mortar lines, and each plank is ' +
       'narrower than a grid cell, so the grid reads as an overlay. ' +
-      'Never describe the grid as faint, subtle, soft, or barely visible.',
-    '3. Subject. The location, its major features, and the furniture and fixtures that define it, each drawn as a clear shape ' +
-      `covering whole ${units}, with their main materials (for example "a flagstone floor" or "a timber bar"). ` +
+      'Never describe the grid as faint, subtle, soft, or barely visible.'
+    : null;
+  const parts = [
+    viewPart,
+    gridPart,
+    'Subject. The location, its major features, and the furniture and fixtures that define it, each drawn as a clear shape ' +
+      `${grid ? `covering whole ${units}` : 'at its real size'}, with their main materials (for example "a flagstone floor" or "a timber bar"). ` +
       'Name every feature the request mentions in the request\'s own words: if it says "lockers", write "lockers", never a ' +
       'similar object such as chests. Say where each one stands, for example "weapon racks line the north and east walls, a row of iron lockers stands ' +
       'along the south wall, and armor stands flank the door". Give a count for every singular feature, such as ' +
       `"a single road", "one fallen oak", or "two lean-to shelters", ${noNewFeatures} When the request names one ` +
       'road, river, or path, say that no other roads or paths cross the map.',
-    '4. Layout and paths. Match the layout to the location. A single room stays on one floor level unless the request says ' +
+    'Layout and paths. Match the layout to the location. A single room stays on one floor level unless the request says ' +
       'otherwise. Use height changes only where the place has them, such as sloping terrain, multi-level buildings, pits, or ' +
       'balconies. Every stair, ramp, or ladder connects two areas drawn on the map; none leads off the map or into a wall. ' +
       'At least half of the walkable area (the area inside the walls, on interior maps) is open ground. Place cover such ' +
       'as trees, boulders, bushes, and crates as separate pieces with gaps between them. On outdoor maps, never line the ' +
       'map edges with solid walls of foliage or rock; on interior and cave maps, walls stand where the structure\'s walls ' +
       `are. ${roomBoundary} Say where the open ground is.`,
-    `5. Style and lighting. Describe this rendering style, keeping every quality it names: ${STYLES[view]} ` +
+    `Style and lighting. Describe this rendering style, keeping every quality it names: ${STYLES[view]} ` +
       LIGHTING_GUIDANCE[view],
-    `6. Exclusions. End the prompt with this text, copied exactly: ${nanoBananaNegation(view)}`,
+    `Exclusions. End the prompt with this text, copied exactly: ${negation(view, grid)}`,
+  ]
+    .filter((part): part is string => part !== null)
+    .map((part, i) => `${i + 1}. ${part}`);
+
+  return [
+    `You write image prompts for Nano Banana, Google's image model, that produce ${names.view} Dungeons & Dragons ${grid ? 'tactical battle maps' : 'maps'}.`,
     '',
-    lengthRule(view, framing),
+    'Expand the request below into one image prompt. The request is the foundation: keep its subject and every feature it names, ' +
+      `and never replace or drop the subject. ${DETAIL_GUIDANCE[view]}`,
+    '',
+    encounterDesignStep(view, framing, grid),
+    '',
+    'Write one narrative paragraph of plain sentences, not a keyword list. Cover these parts in order:',
+    ...parts,
+    '',
+    lengthRule(view, framing, grid),
     '',
     'The map is empty of people and creatures, so avoid words that imply a crowd, such as "bustling", "crowded", or "occupied".',
     '',
@@ -1083,7 +1238,7 @@ export function buildGenerationMetaPrompt(params: GenerationPromptParams): strin
     '',
     'Examples:',
     '',
-    GENERATION_EXAMPLES_TEXT[exampleSet(view, framing)],
+    GENERATION_EXAMPLES_TEXT[exampleSet(view, framing)][gridKey(grid)],
     '',
     'Now write the prompt for this request:',
     ...requestLines,
@@ -1095,31 +1250,45 @@ export function buildGenerationMetaPrompt(params: GenerationPromptParams): strin
 
 /**
  * Deterministic Nano Banana prompt used when the meta-prompt expansion fails.
- * Like the expanded prompts, the grid clause comes right after the view and scale.
+ * Like the expanded prompts, a battle map's grid clause comes right after the view and scale.
  */
 export function buildFallbackGenerationPrompt(params: GenerationPromptParams): string {
   const { userRequest, terrain, setting, perspective, mapScale, collection } = params;
   const view = resolveMapView(params.mapView, mapScale);
   const isRegion = mapScale === 'region';
-  const opening = CAMERA_OPENINGS[view];
+  const opening = isRegion ? REGION_OPENING : CAMERA_OPENINGS[view];
   const framing = resolveMapFraming(view, params);
   const isDiorama = framing === 'diorama';
+  // Region maps never carry a grid.
+  const grid = !isRegion && (params.battleMap ?? false);
 
   // The map name is left out on purpose: quoted names tend to be rendered as text.
-  const mapType = setting ?? terrain;
-  const kind = isRegion ? 'overview map' : 'battle map';
+  // A setting names a venue, which has no place on a region map.
+  const mapType = isRegion ? terrain : (setting ?? terrain);
+  // "Map" on a region invites cartographic symbols, so a region is just a land,
+  // and the request itself names it in the opening.
+  const kind = isRegion ? 'land' : grid ? 'battle map' : 'map';
+  const regionSubject = isRegion ? userRequest.trim().replace(/[.\s]+$/, '') : '';
   const sentences = [
-    mapType ? `${opening} a fantasy ${mapType} ${kind}.` : `${opening} a fantasy ${kind}.`,
+    regionSubject
+      ? `${opening} ${regionSubject}.`
+      : mapType ? `${opening} a fantasy ${mapType} ${kind}.` : `${opening} a fantasy ${kind}.`,
   ];
   if (isDiorama) sentences.push(DIORAMA_BASE);
   const place = isDiorama ? dioramaPlace(params) : null;
-  sentences.push(scaleSentence(view, mapScale, framing, place ? placeFocusSentence(place) : DIORAMA_FOCUS_SENTENCE));
-  if (!isRegion) sentences.push(gridClause(view, framing));
-  if (userRequest.trim() || mapType) {
+  sentences.push(scaleSentence(view, mapScale, framing, place ? placeFocusSentence(place) : DIORAMA_FOCUS_SENTENCE, grid));
+  if (grid) sentences.push(gridClause(view, framing));
+  // A region's request is already in the opening, and the terrain and setting
+  // descriptions describe battle-map scenes.
+  if (!isRegion && (userRequest.trim() || mapType)) {
     sentences.push(`${describeSubject(params).replace(/[.\s]+$/, '')}.`);
   }
-  const world = collectionWorldPhrase(collection);
-  if (world) sentences.push(`The surroundings match a world set in ${world}.`);
+  if (isRegion) {
+    if (collection?.terrain) sentences.push(`The land's climate and palette match ${collection.terrain} terrain.`);
+  } else {
+    const world = collectionWorldPhrase(collection);
+    if (world) sentences.push(`The surroundings match a world set in ${world}.`);
+  }
   if (isDiorama) {
     sentences.push(...dioramaContextSentences(params));
     if (place) sentences.push(placeAreasSentence(place));
@@ -1132,12 +1301,14 @@ export function buildFallbackGenerationPrompt(params: GenerationPromptParams): s
     );
   }
   sentences.push(isRegion ? REGION_STYLE : STYLES[view]);
-  if (collection?.ambiance) {
+  // A collection's light sources and visual details are too small to see from orbit.
+  if (!isRegion && collection?.ambiance) {
     sentences.push(`The light and atmosphere: ${getAmbiancePromptLanguage(collection.ambiance)}.`);
   }
-  if (collection?.visualDetails) sentences.push(`Include these visual details: ${collection.visualDetails}.`);
-  if (isRegion) sentences.push(nanoBananaNegation(view), REGION_NO_GRID);
-  else sentences.push(nanoBananaNegation(view));
+  if (!isRegion && collection?.visualDetails) {
+    sentences.push(`Include these visual details: ${collection.visualDetails}.`);
+  }
+  sentences.push(isRegion ? REGION_NEGATION : negation(view, grid));
 
   return sentences.join(' ');
 }
