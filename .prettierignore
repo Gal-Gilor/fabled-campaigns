@@ -1,0 +1,12 @@
+.next/
+out/
+build/
+next-env.d.ts
+archive/
+python/
+skills/
+docs/
+.superpowers/
+.worktrees/
+.venv/
+.claude/

@@ -368,7 +368,7 @@ const CollectionFolder = memo(function CollectionFolder({
   const [draft, setDraft] = useState<Collection>({ ...collection });
 
   function handleSave() {
-    let saved = { ...draft };
+    const saved = { ...draft };
     if (!saved.name.trim() || saved.name === 'New Collection') {
       const base = draft.setting ?? draft.terrain ?? 'Location';
       saved.name = `The ${base.charAt(0).toUpperCase()}${base.slice(1)}`;
