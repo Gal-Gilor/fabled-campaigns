@@ -1,18 +1,20 @@
 import type { Metadata } from "next";
-import { Cinzel, Roboto } from "next/font/google";
+import localFont from "next/font/local";
 import { SessionProvider } from "next-auth/react";
 import "./globals.css";
 
-const cinzel = Cinzel({
+const cinzel = localFont({
+  src: "./fonts/cinzel-latin.woff2",
   variable: "--font-cinzel",
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
+  weight: "400 700",
+  display: "swap",
 });
 
-const roboto = Roboto({
+const roboto = localFont({
+  src: "./fonts/roboto-latin.woff2",
   variable: "--font-roboto",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: "400 600",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
