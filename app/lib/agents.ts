@@ -74,7 +74,8 @@ export function createRootAgent(
   sessionId?: string,
   campaign?: CampaignContext,
   usage?: UsageRecorder,
-  imageSize: ImageSize = DEFAULT_IMAGE_SIZE
+  imageSize: ImageSize = DEFAULT_IMAGE_SIZE,
+  guestHistory?: string
 ) {
   const campaignContext = buildCampaignContext(campaign);
   const collectionContext = buildCollectionContext(activeCollection);
@@ -163,7 +164,7 @@ export function createRootAgent(
     tools: {
       ...gmStubTools,
       mapAgent: mapAgentTool,
-      editEncounterMap: createEditEncounterMap(userId, sessionId, imageSize, usage),
+      editEncounterMap: createEditEncounterMap(userId, sessionId, imageSize, usage, guestHistory),
     },
     onStepFinish: async ({ usage: stepUsage }) => {
       await usage?.recordText('chat', GEMINI_MODEL, stepUsage);

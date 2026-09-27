@@ -4,7 +4,7 @@ import { prepareContext } from '../../lib/contextManager';
 import { getSessionChatContext, getUserSettings, updateSessionSummary } from '@/db';
 import { auth } from '@/auth';
 import { createUsageRecorder } from '../../lib/usage';
-import { DEFAULT_IMAGE_SIZE, clampImageSize } from '../../lib/config';
+import { DEFAULT_IMAGE_SIZE, GUEST_IMAGE_SIZE, clampImageSize } from '../../lib/config';
 import type { Collection } from '../../lib/collections';
 
 export const maxDuration = 300;
@@ -30,7 +30,7 @@ export async function POST(req: Request) {
           console.error('[chat route] failed to load user settings:', err);
           return { imageSize: DEFAULT_IMAGE_SIZE, tier: 'free' as const };
         })
-      : Promise.resolve({ imageSize: DEFAULT_IMAGE_SIZE, tier: 'free' as const }),
+      : Promise.resolve({ imageSize: GUEST_IMAGE_SIZE, tier: 'free' as const }),
   ]);
   // ctx is non-null only when this user owns this session, so a client-supplied
   // sessionId can't attribute usage to another account or a nonexistent row
@@ -64,7 +64,15 @@ export async function POST(req: Request) {
   // Clamped server-side so a revoked membership or a stale saved value (e.g.
   // a free user with a previously-saved 4K) never renders above the tier.
   const imageSize = clampImageSize(settings.imageSize, settings.tier);
-  const rootAgent = createRootAgent(userId, activeCollection, ownedSessionId, campaign, usage, imageSize);
+  const rootAgent = createRootAgent(
+    userId,
+    activeCollection,
+    ownedSessionId,
+    campaign,
+    usage,
+    imageSize,
+    userId ? undefined : JSON.stringify(messages)
+  );
   const result = await rootAgent.stream({ messages: modelMessages });
   return result.toUIMessageStreamResponse();
 }
