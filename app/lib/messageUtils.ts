@@ -65,7 +65,3 @@ export function imageToolModelOutput(prefix: string) {
     return { type: 'text' as const, value: String(output) };
   };
 }
-
-export function errorMessage(err: unknown): string {
-  return err instanceof Error ? err.message : String(err);
-}

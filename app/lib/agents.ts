@@ -68,16 +68,25 @@ export function buildCollectionContext(collection?: Collection): string {
   return '\n\n## Active Collection\n' + parts.join('\n');
 }
 
-export function createRootAgent(
-  userId: string | null,
-  activeCollection?: Collection,
-  sessionId?: string,
-  campaign?: CampaignContext,
-  usage?: UsageRecorder,
-  imageSize: ImageSize = DEFAULT_IMAGE_SIZE,
-  guestHistory?: string
-) {
-  const campaignContext = buildCampaignContext(campaign);
+export function createRootAgent({
+  userId,
+  activeCollection,
+  sessionId,
+  campaignContext = '',
+  usage,
+  imageSize = DEFAULT_IMAGE_SIZE,
+  guestHistory,
+}: {
+  userId: string | null;
+  activeCollection?: Collection;
+  sessionId?: string;
+  // Output of buildCampaignContext; the chat route already builds it to size the token window
+  campaignContext?: string;
+  usage?: UsageRecorder;
+  imageSize?: ImageSize;
+  // Guests only: the request's serialized history, used to check edit sources
+  guestHistory?: string;
+}) {
   const collectionContext = buildCollectionContext(activeCollection);
 
   const enhanceMapPrompt = createEnhanceMapPrompt(activeCollection, usage);
