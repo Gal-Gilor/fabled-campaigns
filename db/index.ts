@@ -49,15 +49,6 @@ export async function createSession(userId: string, name?: string): Promise<Chat
   return serializeRow((rows as RawChatSession[])[0]);
 }
 
-export async function getSession(id: string, userId: string): Promise<ChatSession | null> {
-  const rows = await sql`
-    SELECT * FROM chat_sessions
-    WHERE id = ${id} AND user_id = ${userId}
-  `;
-  if ((rows as RawChatSession[]).length === 0) return null;
-  return serializeRow((rows as RawChatSession[])[0]);
-}
-
 export interface SessionChatContext {
   summary: string | null;
   campaign_name: string | null;
@@ -325,13 +316,6 @@ function serializeCollection(row: RawCollection): DbCollection {
     createdAt: row.created_at,
     updatedAt: row.updated_at,
   };
-}
-
-export async function listCollections(userId: string): Promise<DbCollection[]> {
-  const rows = await sql`
-    SELECT * FROM collections WHERE user_id = ${userId} ORDER BY updated_at DESC
-  `;
-  return (rows as RawCollection[]).map(serializeCollection);
 }
 
 export async function listCollectionsBySession(userId: string, sessionId: string): Promise<DbCollection[]> {

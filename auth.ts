@@ -12,7 +12,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [Google],
   pages: { signIn: '/auth/sign-in' },
   callbacks: {
-    authorized({ auth }) {
+    authorized() {
       return true;
     },
     session({ session, user }) {

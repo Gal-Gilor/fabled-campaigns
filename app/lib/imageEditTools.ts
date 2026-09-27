@@ -104,6 +104,8 @@ function blobStoreHost(): string | null {
   return `${storeId.toLowerCase()}.public.blob.vercel-storage.com`;
 }
 
+const BLOB_STORE_HOST = blobStoreHost();
+
 // True when `urlStr` is a map image the app itself uploaded: parses, https,
 // hosted on this project's own Vercel Blob public store (not just any
 // *.public.blob.vercel-storage.com host, which an attacker could also own),
@@ -115,11 +117,10 @@ function isBlobMapUrl(urlStr: string): boolean {
   } catch {
     return false;
   }
-  const host = blobStoreHost();
-  if (!host) return false;
   return (
+    BLOB_STORE_HOST !== null &&
     url.protocol === 'https:' &&
-    url.hostname === host &&
+    url.hostname === BLOB_STORE_HOST &&
     url.pathname.startsWith('/maps/')
   );
 }

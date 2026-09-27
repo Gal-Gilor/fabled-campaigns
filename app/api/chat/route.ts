@@ -64,15 +64,15 @@ export async function POST(req: Request) {
   // Clamped server-side so a revoked membership or a stale saved value (e.g.
   // a free user with a previously-saved 4K) never renders above the tier.
   const imageSize = clampImageSize(settings.imageSize, settings.tier);
-  const rootAgent = createRootAgent(
+  const rootAgent = createRootAgent({
     userId,
     activeCollection,
-    ownedSessionId,
-    campaign,
+    sessionId: ownedSessionId,
+    campaignContext,
     usage,
     imageSize,
-    userId ? undefined : JSON.stringify(messages)
-  );
+    guestHistory: userId ? undefined : JSON.stringify(messages),
+  });
   const result = await rootAgent.stream({ messages: modelMessages });
   return result.toUIMessageStreamResponse();
 }

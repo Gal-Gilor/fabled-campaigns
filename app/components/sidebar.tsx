@@ -61,6 +61,32 @@ function MenuItem({
   );
 }
 
+// Dropdown panel shared by the session, campaign, and account menus.
+// Positioning (top/bottom, left/right) comes from the caller.
+function MenuPanel({
+  className,
+  style,
+  children,
+}: {
+  className: string;
+  style?: React.CSSProperties;
+  children: React.ReactNode;
+}) {
+  return (
+    <div
+      role="menu"
+      className={`absolute z-30 rounded-lg shadow-lg py-1 ${className}`}
+      style={{ background: '#fff', border: '1px solid var(--neutral-200)', ...style }}
+    >
+      {children}
+    </div>
+  );
+}
+
+function MenuDivider() {
+  return <div style={{ height: 1, background: 'var(--neutral-200)', margin: '4px 0' }} />;
+}
+
 function formatDate(ts: number): string {
   return new Date(ts).toLocaleDateString('en-US', {
     month: 'short',
@@ -239,16 +265,7 @@ function SessionRow({
           </button>
 
           {isMenuOpen && (
-            <div
-              role="menu"
-              className="absolute right-0 z-30 rounded-lg shadow-lg py-1"
-              style={{
-                top: '100%',
-                minWidth: '9rem',
-                background: '#fff',
-                border: '1px solid var(--neutral-200)',
-              }}
-            >
+            <MenuPanel className="right-0" style={{ top: '100%', minWidth: '9rem' }}>
               <MenuItem
                 icon={
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
@@ -281,7 +298,7 @@ function SessionRow({
               {/* Move to campaign — also the touch/a11y fallback for drag & drop */}
               {onAssign && (moveTargets.length > 0 || session.campaign_id) && (
                 <>
-                  <div style={{ height: 1, background: 'var(--neutral-200)', margin: '4px 0' }} />
+                  <MenuDivider />
                   {moveTargets.map((c) => (
                     <MenuItem
                       key={c.id}
@@ -320,7 +337,7 @@ function SessionRow({
                   onToggleMenu(uiKey);
                 }}
               />
-            </div>
+            </MenuPanel>
           )}
         </div>
       )}
@@ -440,11 +457,7 @@ function CampaignGroup({
             ···
           </button>
           {isMenuOpen && (
-            <div
-              role="menu"
-              className="absolute right-0 z-30 rounded-lg shadow-lg py-1"
-              style={{ top: '100%', minWidth: '9rem', background: '#fff', border: '1px solid var(--neutral-200)' }}
-            >
+            <MenuPanel className="right-0" style={{ top: '100%', minWidth: '9rem' }}>
               <MenuItem
                 label="Rename"
                 onClick={() => {
@@ -467,7 +480,7 @@ function CampaignGroup({
                   onToggleMenu(menuKey);
                 }}
               />
-            </div>
+            </MenuPanel>
           )}
         </div>
       </div>
@@ -507,11 +520,7 @@ function UserFooter({
       <hr style={{ borderColor: 'var(--neutral-200)' }} />
       <div ref={menuOpen ? menuRef : undefined} className="relative">
         {menuOpen && (
-          <div
-            role="menu"
-            className="absolute left-2 right-2 z-30 rounded-lg shadow-lg py-1"
-            style={{ bottom: '100%', marginBottom: '4px', background: '#fff', border: '1px solid var(--neutral-200)' }}
-          >
+          <MenuPanel className="left-2 right-2" style={{ bottom: '100%', marginBottom: '4px' }}>
             <MenuItem
               label="Map image quality"
               onClick={() => {
@@ -519,7 +528,7 @@ function UserFooter({
                 setShowSettings(true);
               }}
             />
-            <div style={{ height: 1, background: 'var(--neutral-200)', margin: '4px 0' }} />
+            <MenuDivider />
             <MenuItem
               label="Sign out"
               onClick={() => {
@@ -527,7 +536,7 @@ function UserFooter({
                 signOut();
               }}
             />
-          </div>
+          </MenuPanel>
         )}
         <button
           type="button"
