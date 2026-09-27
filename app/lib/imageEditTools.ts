@@ -36,7 +36,7 @@ async function expandEditPrompt(
   abortSignal?: AbortSignal,
 ): Promise<string> {
   const meta = [
-    'You are polishing a base prompt for editing an existing D&D tactical battle map with the Nano Banana model.',
+    'You are polishing a base prompt for editing an existing D&D map with the Nano Banana model.',
     'The provided source image is the structural anchor. Do NOT add new perspective, grid geometry, zoom, framing, lighting, palette, or style — those are owned by the source image, and explicit additions can conflict with the "preserve everything else" instruction in the base prompt.',
     'Limit polish to flow and specificity of the user-provided edit instruction. Strengthen verbs, sharpen vague descriptors, but do not introduce content that was not in the base prompt.',
     '',

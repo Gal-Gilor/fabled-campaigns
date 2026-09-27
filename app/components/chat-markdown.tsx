@@ -23,6 +23,25 @@ const chatHeading = (fontSize: string) => ({
   marginBottom: '0.375rem',
 });
 
+// Named component (not an inline arrow) so the hooks linter sees useContext
+// inside a component.
+function InlineCode({ children }: { children?: React.ReactNode }) {
+  const inPre = useContext(InPreContext);
+  if (inPre) return <code>{children}</code>;
+  return (
+    <code
+      style={{
+        background: 'var(--neutral-100)',
+        borderRadius: '0.25rem',
+        padding: '0.0625rem 0.3125rem',
+        fontSize: '0.875em',
+      }}
+    >
+      {children}
+    </code>
+  );
+}
+
 // Chat replies sit in a compact bubble: tighter spacing, smaller headings, and
 // the elements a model reply uses that wiki pages don't (links, code).
 const chatComponents: Components = {
@@ -51,22 +70,7 @@ const chatComponents: Components = {
       {children}
     </a>
   ),
-  code: ({ children }) => {
-    const inPre = useContext(InPreContext);
-    if (inPre) return <code>{children}</code>;
-    return (
-      <code
-        style={{
-          background: 'var(--neutral-100)',
-          borderRadius: '0.25rem',
-          padding: '0.0625rem 0.3125rem',
-          fontSize: '0.875em',
-        }}
-      >
-        {children}
-      </code>
-    );
-  },
+  code: InlineCode,
   pre: ({ children }) => (
     <pre
       style={{

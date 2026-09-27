@@ -40,6 +40,7 @@ export function createEnhanceMapPrompt(collection?: Collection, usage?: UsageRec
     perspective?: 'indoor' | 'outdoor';
     mapScale?: MapScale;
     mapView?: MapView;
+    battleMap?: boolean;
     abortSignal?: AbortSignal;
   }): Promise<string> {
     const { abortSignal, ...rest } = params;

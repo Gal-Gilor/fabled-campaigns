@@ -7,7 +7,10 @@
     "build": "tsx db/migrate.ts && next build",
     "start": "next start",
     "db:migrate": "tsx --env-file=.env.local db/migrate.ts",
-    "db:reset": "tsx --env-file=.env.local db/migrate.ts --reset"
+    "db:reset": "tsx --env-file=.env.local db/migrate.ts --reset",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@ai-sdk/google": "^3.0.43",
@@ -29,6 +32,10 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.1.6",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.9.9",
     "tailwindcss": "^4",
     "tsx": "^4.21.0",
     "typescript": "^5"

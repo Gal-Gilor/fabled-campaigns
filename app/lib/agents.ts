@@ -93,7 +93,7 @@ export function createRootAgent({
   const generateEncounterMap = createGenerateEncounterMap(userId, sessionId, imageSize, usage);
 
   const mapAgentTool = tool({
-    description: 'Generate a NEW D&D tactical encounter map image from scratch. Describe the scene in natural language — the tool handles image prompt engineering internally. Do NOT use this tool to modify an existing map; use editEncounterMap instead.',
+    description: 'Generate a NEW D&D map image from scratch. Describe the scene in natural language — the tool handles image prompt engineering internally. Do NOT use this tool to modify an existing map; use editEncounterMap instead.',
     inputSchema: z.object({
       name: z.string().describe('An evocative D&D location name (e.g. "The Sunken Ossuary", "Thornwatch Pass")'),
       userRequest: z.string().describe(
@@ -104,13 +104,15 @@ export function createRootAgent({
       setting: z.enum(VALID_SETTINGS).optional().describe('Specific building or location type if applicable'),
       perspective: z.enum(['indoor', 'outdoor']).describe('Whether this is an indoor or outdoor map'),
       mapScale: z.enum(MAP_SCALES).optional().describe(
-        'How much area the map covers, in grid squares (tiles on isometric maps) of ~5 ft each. ' +
+        'How much area the map covers, in 5-ft squares (the grid cells on a battle map). ' +
         'small: 20x15, a small chamber, crevice, or tight passage; ' +
         'standard: 24x18, a single room (the default for rooms); ' +
         'large: 28x21, outdoor encounters (roads, woods, camps, ruins, ambushes) and big spaces such as foyers, ' +
         'great halls, factories, or courtyards; ' +
         'huge: 40x30, fortresses, districts, or battlefields; ' +
-        'region: a kingdom, country, dominion, or other vast land, drawn as an overview map without a tactical grid. ' +
+        'region: a continent, kingdom, country, or other vast land, drawn as satellite imagery from orbit without a ' +
+        'tactical grid; its userRequest names the land\'s major geography (coasts, mountain ranges, rivers, ' +
+        'forests, deserts) and only its few major cities, never buildings, castles, or roads. ' +
         'Maps of a building or named place are drawn as dioramas of the whole place around the requested area, and ' +
         'mapScale sizes that whole diorama, so size these up. Keep the room itself at its natural size in ' +
         'userRequest, naming the place it sits in, and never call the room sprawling or large-scale.'
@@ -119,8 +121,13 @@ export function createRootAgent({
         'Camera angle. Omit to use the default: isometric for every map except region maps, which are top-down. ' +
         'Set \'top-down\' only when the user asks for an overhead, bird\'s-eye, orthographic, or top-down view.'
       ),
+      battleMap: z.boolean().optional().describe(
+        'Draws a tactical grid on the map. Set true when the user asks for a battle map, a battle or combat ' +
+        'encounter, a grid, or a tactical map, or describes a fight about to happen, such as an ambush or an attack ' +
+        'on the party. Omit for a plain location, such as a tavern or a wizard\'s library. Ignored for region maps.'
+      ),
     }),
-    execute: ({ name, userRequest, terrain, setting, perspective, mapScale, mapView }, { abortSignal }) =>
+    execute: ({ name, userRequest, terrain, setting, perspective, mapScale, mapView, battleMap }, { abortSignal }) =>
       streamWithProgress(async (emit) => {
         // The server tags the map with the active collection; the model never picks one.
         const collectionId = activeCollection?.id;
@@ -147,6 +154,7 @@ export function createRootAgent({
           perspective,
           mapScale: scale,
           mapView,
+          battleMap,
           abortSignal,
         });
         progress.finish('prompt');
@@ -160,6 +168,7 @@ export function createRootAgent({
           totalMs: finishedAt - startedAt,
           mapScale: scale,
           mapView: resolveMapView(mapView, scale),
+          battleMap: battleMap ?? false,
         });
         return result;
       }),
