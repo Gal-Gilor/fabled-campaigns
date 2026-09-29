@@ -24,6 +24,7 @@ import { ModalOverlay } from './modal';
 import { useSession } from 'next-auth/react';
 import { VALID_TERRAINS, VALID_SETTINGS, type Terrain, type Setting } from '../lib/mapPrompts';
 import { ChatMarkdown } from './chat-markdown';
+import { ChatInputForm } from './chat-input';
 import { ToolProgress, ProgressSummary, ThinkingIndicator, GETTING_STARTED_PROGRESS } from './tool-progress';
 
 const MAP_TOOL_NAMES = new Set(['mapAgent', 'editEncounterMap']);
@@ -173,49 +174,6 @@ function GuestBanner() {
   );
 }
 
-interface ChatInputFormProps {
-  input: string;
-  status: string;
-  formClassName: string;
-  onSubmit: (e: React.FormEvent) => void;
-  onChange: (value: string) => void;
-}
-
-function ChatInputForm({ input, status, formClassName, onSubmit, onChange }: ChatInputFormProps) {
-  return (
-    <form onSubmit={onSubmit} className={formClassName}>
-      <input
-        value={input}
-        onChange={(e) => onChange(e.target.value)}
-        disabled={status !== 'ready'}
-        placeholder="Roll to Quest..."
-        className="flex-1 rounded-lg px-4 py-3 text-base transition-all outline-none disabled:opacity-50"
-        style={{
-          background: 'var(--neutral-100)',
-          border: '2px solid var(--neutral-200)',
-          color: 'var(--neutral-700)',
-          fontFamily: 'inherit',
-        }}
-        onFocus={(e) => {
-          e.currentTarget.style.borderColor = 'var(--primary-blue)';
-          e.currentTarget.style.background = '#ffffff';
-        }}
-        onBlur={(e) => {
-          e.currentTarget.style.borderColor = 'var(--neutral-200)';
-          e.currentTarget.style.background = 'var(--neutral-100)';
-        }}
-      />
-      <button
-        type="submit"
-        disabled={status !== 'ready' || !input.trim()}
-        className="rounded-lg px-5 py-3 text-base font-semibold text-white transition-all disabled:opacity-40 disabled:cursor-not-allowed"
-        style={{ background: 'var(--gradient-primary)' }}
-      >
-        Send
-      </button>
-    </form>
-  );
-}
 
 interface ChatProps {
   initialSessionId?: string;
@@ -1225,7 +1183,8 @@ export default function Chat({ initialSessionId }: ChatProps) {
           <ChatInputForm
             input={input}
             status={status}
-            formClassName="flex gap-3 w-full max-w-[800px] mx-auto"
+            sessionId={activeSessionId}
+            formClassName="w-full max-w-[800px] mx-auto"
             onSubmit={handleSubmit}
             onChange={setInput}
           />
