@@ -10,7 +10,8 @@
     "db:reset": "tsx --env-file=.env.local db/migrate.ts --reset",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "test": "tsx --test app/lib/*.test.ts"
   },
   "dependencies": {
     "@ai-sdk/google": "^3.0.43",

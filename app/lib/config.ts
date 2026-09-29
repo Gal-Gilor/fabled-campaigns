@@ -16,7 +16,7 @@ export const IMAGE_ATTEMPTS: readonly { model: string; delayMs: number }[] = [
   { model: GEMINI_IMAGE_MODEL, delayMs: 15_000 },
   { model: GEMINI_IMAGE_FALLBACK_MODEL, delayMs: 0 },
   { model: GEMINI_IMAGE_MODEL, delayMs: 8_000 },
-  { model: GEMINI_IMAGE_FALLBACK_MODEL, delayMs: 0 }
+  { model: GEMINI_IMAGE_FALLBACK_MODEL, delayMs: 0 },
 ];
 export const CHAT_API_PATH = '/api/chat';
 
@@ -63,3 +63,42 @@ export const TOKEN_OVERHEAD_RESERVE_CHARS = 15_000; // characters, not tokens
 
 // Hard cap on campaign lore length, enforced at the API on write
 export const CAMPAIGN_LORE_MAX_CHARS = 20_000;
+
+// Speech-to-text dictation. The browser enforces the timings; the
+// transcribe route enforces the byte cap and the rate limits.
+export const DICTATION_MAX_SECONDS = 60;
+// The clock turns into a countdown for the last few seconds before the cutoff
+export const DICTATION_COUNTDOWN_SECONDS = 10;
+export const DICTATION_HOLD_THRESHOLD_MS = 300;
+// A mic-button press released sooner than this is a click (hands-free), not a hold
+export const DICTATION_CLICK_MS = 250;
+// Recording continues this long after release, since people let go mid-word
+export const DICTATION_TAIL_MS = 300;
+export const DICTATION_MIN_MS = 500;
+// Peak RMS below which a recording is a muted mic's digital silence (-80 dBFS).
+// Room noise and quiet speech sit well above it; the model gets those.
+export const DICTATION_MUTED_RMS = 0.0001;
+// How long to wait for the transcript when live text is on screen to fall back to
+export const TRANSCRIBE_TIMEOUT_MS = 8000;
+// Without live text (Firefox) the transcript is all there is, so wait longer;
+// stays under the route's 30 s maxDuration
+export const TRANSCRIBE_NO_INTERIM_TIMEOUT_MS = 25_000;
+// About four times cheaper than gemini-3.5-flash for transcription
+export const TRANSCRIBE_MODEL = 'gemini-3.5-flash-lite';
+export const TRANSCRIBE_MAX_BYTES = 2 * 1024 * 1024;
+export const TRANSCRIBE_API_PATH = '/api/transcribe';
+// What MediaRecorder produces (WebM/Ogg Opus in Chrome and Firefox, MP4 in
+// Safari), plus WAV for testing the route with a generated file
+export const TRANSCRIBE_AUDIO_TYPES = [
+  'audio/webm',
+  'audio/ogg',
+  'audio/mp4',
+  'audio/wav',
+] as const;
+export type TranscribeAudioType = (typeof TRANSCRIBE_AUDIO_TYPES)[number];
+export const TRANSCRIBE_RATE_WINDOW_MS = 60 * 60 * 1000;
+export const TRANSCRIBE_USER_LIMIT_PER_WINDOW = 60;
+export const TRANSCRIBE_GUEST_LIMIT_PER_WINDOW = 20;
+
+// The chat textarea grows to about 8 lines, then scrolls
+export const CHAT_INPUT_MAX_HEIGHT_PX = 200;

@@ -79,6 +79,23 @@ export async function getSessionChatContext(
   };
 }
 
+// The session's campaign name for the transcribe route, or null when the user
+// doesn't own the session. Owner-filtered like getSessionChatContext, without
+// the summary and lore that the route never reads.
+export async function getSessionCampaignName(
+  id: string,
+  userId: string,
+): Promise<{ campaignName: string | null } | null> {
+  const rows = await sql`
+    SELECT c.name AS campaign_name
+    FROM chat_sessions s
+    LEFT JOIN campaigns c ON c.id = s.campaign_id AND c.user_id = s.user_id
+    WHERE s.id = ${id} AND s.user_id = ${userId}
+  `;
+  const row = (rows as { campaign_name: string | null }[])[0];
+  return row ? { campaignName: row.campaign_name ?? null } : null;
+}
+
 // ---------------------------------------------------------------------------
 // Shared dynamic-patch UPDATE
 // ---------------------------------------------------------------------------
@@ -732,4 +749,23 @@ export async function upsertUserSettings(
   `;
   const row = (rows as { image_size: ImageSize; tier: UserTier }[])[0];
   return { imageSize: row.image_size, tier: row.tier };
+}
+
+// ---------------------------------------------------------------------------
+// Rate limits
+// ---------------------------------------------------------------------------
+
+// Counts one request against key in the window starting at windowStart and
+// returns the new total. A key's first request in a window prunes expired
+// windows, so the table stays small without a delete on every request.
+export async function incrementRateLimit(key: string, windowStart: number): Promise<number> {
+  const rows = await sql`
+    INSERT INTO rate_limits (key, window_start, count)
+    VALUES (${key}, ${windowStart}, 1)
+    ON CONFLICT (key, window_start) DO UPDATE SET count = rate_limits.count + 1
+    RETURNING count
+  `;
+  const count = (rows as { count: number }[])[0].count;
+  if (count === 1) await sql`DELETE FROM rate_limits WHERE window_start < ${windowStart}`;
+  return count;
 }
