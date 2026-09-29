@@ -39,6 +39,7 @@ export function ModalOverlay({
 
   return (
     <div
+      data-modal-overlay
       className="fixed inset-0 flex items-center justify-center"
       style={{ background: backdrop, zIndex }}
       onClick={onClose}

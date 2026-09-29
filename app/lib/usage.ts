@@ -8,13 +8,23 @@ export type UsageSource =
   | 'map_prompt'
   | 'map_generate'
   | 'edit_prompt'
-  | 'map_edit';
+  | 'map_edit'
+  | 'transcribe';
 
-// Bound to one user and one owned session for the lifetime of a chat request.
-// Methods never throw: a failed usage write is logged and the turn continues.
+// Bound to one user and one owned session for the lifetime of a request.
+// Methods never throw: a failed usage write is logged and the request continues.
 export interface UsageRecorder {
   recordText(source: UsageSource, model: string, usage: LanguageModelUsage): Promise<void>;
   recordImage(source: UsageSource, model: string, imageCount?: number, imageSize?: ImageSize): Promise<void>;
+  recordVoice(source: UsageSource, model: string, usage: LanguageModelUsage, voiceSeconds: number): Promise<void>;
+}
+
+function tokenFields(usage: LanguageModelUsage) {
+  return {
+    inputTokens: usage.inputTokens ?? null,
+    cachedInputTokens: usage.inputTokenDetails.cacheReadTokens ?? null,
+    outputTokens: usage.outputTokens ?? null,
+  };
 }
 
 export function createUsageRecorder(userId: string, sessionId: string): UsageRecorder {
@@ -27,14 +37,8 @@ export function createUsageRecorder(userId: string, sessionId: string): UsageRec
   }
 
   return {
-    recordText: (source, model, usage) =>
-      write({
-        source,
-        model,
-        inputTokens: usage.inputTokens ?? null,
-        cachedInputTokens: usage.inputTokenDetails.cacheReadTokens ?? null,
-        outputTokens: usage.outputTokens ?? null,
-      }),
+    recordText: (source, model, usage) => write({ source, model, ...tokenFields(usage) }),
     recordImage: (source, model, imageCount = 1, imageSize) => write({ source, model, imageCount, imageSize }),
+    recordVoice: (source, model, usage, voiceSeconds) => write({ source, model, ...tokenFields(usage), voiceSeconds }),
   };
 }

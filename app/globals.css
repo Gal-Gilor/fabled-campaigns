@@ -30,6 +30,7 @@
 
   --color-primary: var(--primary-blue);
   --color-gold: var(--accent-gold);
+  --color-gold-pale: var(--pale-gold);
   --color-neutral-100: var(--neutral-100);
   --color-neutral-200: var(--neutral-200);
   --color-neutral-600: var(--neutral-600);
@@ -121,5 +122,23 @@ details[open] > .fc-details-summary .fc-details-caret {
 @media (prefers-reduced-motion: reduce) {
   .fc-details-caret {
     transition: none;
+  }
+}
+
+/* Dictation: a gold ring pulses around the mic while it listens. Reduced
+   motion keeps a still ring; the input-level ring keeps moving either way. */
+@keyframes fc-mic-pulse {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent-gold) 45%, transparent); }
+  100% { box-shadow: 0 0 0 10px color-mix(in srgb, var(--accent-gold) 0%, transparent); }
+}
+
+.fc-mic-pulse {
+  animation: fc-mic-pulse 1.4s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fc-mic-pulse {
+    animation: none;
+    box-shadow: 0 0 0 3px var(--accent-gold);
   }
 }

@@ -5,6 +5,7 @@ import { collectionsSchema } from './schema/collections';
 import { campaignsSchema } from './schema/campaigns';
 import { usageEventsSchema } from './schema/usage_events';
 import { userSettingsSchema } from './schema/user_settings';
+import { rateLimitsSchema } from './schema/rate_limits';
 
 async function dropCollectionTables() {
   const pool = new Pool({ connectionString: process.env.DATABASE_URL_UNPOOLED });
@@ -32,6 +33,7 @@ async function migrate() {
     await pool.query(campaignsSchema);
     await pool.query(collectionsSchema);
     await pool.query(usageEventsSchema);
+    await pool.query(rateLimitsSchema);
     console.log('Migration complete');
   } finally {
     await pool.end();
