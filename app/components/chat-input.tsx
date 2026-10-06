@@ -23,6 +23,7 @@ interface ChatInputFormProps {
   input: string;
   status: string;
   sessionId: string | null;
+  sendDisabled: boolean;
   formClassName: string;
   onSubmit: (e: React.FormEvent) => void;
   onChange: (value: string) => void;
@@ -64,6 +65,7 @@ export function ChatInputForm({
   input,
   status,
   sessionId,
+  sendDisabled,
   formClassName,
   onSubmit,
   onChange,
@@ -479,7 +481,7 @@ export function ChatInputForm({
         )}
         <button
           type="submit"
-          disabled={status !== 'ready' || !input.trim() || active}
+          disabled={status !== 'ready' || !input.trim() || active || sendDisabled}
           aria-label="Send message"
           title="Send"
           className="relative flex size-9 shrink-0 items-center justify-center rounded-full text-white transition-opacity before:absolute before:-inset-1 before:content-[''] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-40"

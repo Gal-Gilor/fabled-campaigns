@@ -85,6 +85,7 @@ lands — and long lore cannot push the conversation past the eviction threshold
 - Recent sessions keep showing all sessions (top 5 by recency) with a small abbreviated
   campaign badge.
 - `CampaignEditModal` / `CampaignPromptModal` (`app/components/campaign-modal.tsx`): the
-  former is create/edit with a lore character counter; the latter appears after creating a
-  new session when at least one campaign exists ("Add this session to a campaign?") — the
-  session is created and active immediately, so the prompt adds no creation latency.
+  former is create/edit with a lore character counter; the latter opens on the "New session"
+  click when at least one campaign exists ("Add this session to a campaign?") while the
+  session is created in the background; a chosen campaign is assigned once the create
+  returns.
