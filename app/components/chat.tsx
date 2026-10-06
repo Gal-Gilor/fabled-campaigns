@@ -533,6 +533,8 @@ export default function Chat({ initialSessionId }: ChatProps) {
   );
   const activeSessionIdRef = useRef<string | null>(null);
   const messagesRef = useRef<UIMessage[]>([]);
+  // The last messages array a PUT stored, and for which session
+  const lastPersistedRef = useRef<{ id: string; messages: UIMessage[] } | null>(null);
   const pendingMessageRef = useRef<string | null>(null);
   const activeCollectionRef = useRef<Collection | undefined>(undefined);
   const loadingLocationsRef = useRef<Set<string>>(new Set());
@@ -587,6 +589,7 @@ export default function Chat({ initialSessionId }: ChatProps) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ messages: dropInterruptedToolParts(msgs) }),
     });
+    if (r.ok) lastPersistedRef.current = { id, messages: msgs };
     return r.json() as Promise<{ session?: Session }>;
   }, []);
 
@@ -680,6 +683,8 @@ export default function Chat({ initialSessionId }: ChatProps) {
     const id = activeSessionIdRef.current;
     const current = messagesRef.current;
     if (!id || current.length === 0) return;
+    // Skip when this exact array is already stored; an interrupted stream leaves a newer one, which still saves
+    if (lastPersistedRef.current?.id === id && lastPersistedRef.current.messages === current) return;
     await persistMessages(id, current);
   }, [persistMessages]);
 
