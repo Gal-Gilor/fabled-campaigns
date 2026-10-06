@@ -863,8 +863,8 @@ export default function Chat({ initialSessionId }: ChatProps) {
       setMessages([]);
       setActiveSessionId(null);
 
-      // The session is in state before this resolves, so anything chained on it
-      // runs against a session that exists
+      // The insert and activation are queued before this resolves, so functional
+      // updates chained on it apply after them (state and refs are not updated yet)
       const created = fetch('/api/sessions', { method: 'POST' })
         .then((r) => {
           if (!r.ok) throw new Error(`Failed to create session: ${r.status}`);
@@ -880,8 +880,11 @@ export default function Chat({ initialSessionId }: ChatProps) {
     } catch (err) {
       console.error(err);
       setCampaignPromptOpen(false);
-      setActiveSessionId(previousId);
-      setMessages(previousMessages);
+      // A non-null id means a session was picked or init() finished during the wait
+      if (activeSessionIdRef.current === null) {
+        setActiveSessionId(previousId);
+        setMessages(previousMessages);
+      }
       window.alert('Starting a new session failed. Please try again.');
     } finally {
       creatingSessionRef.current = false;
