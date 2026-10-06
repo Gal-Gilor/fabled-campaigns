@@ -547,7 +547,11 @@ export default function Chat({ initialSessionId }: ChatProps) {
 
   const { sessions, setSessions, activeSessionId, setActiveSessionId, setHandlers, campaigns, campaignActions, openSidebar } = useSessionContext();
   const { status: authStatus } = useSession();
-  const [campaignPromptSessionId, setCampaignPromptSessionId] = useState<string | null>(null);
+  const [campaignPromptOpen, setCampaignPromptOpen] = useState(false);
+  // Latest new-session create; kept after it resolves so the prompt's choice can chain on it
+  const sessionCreateRef = useRef<Promise<Session> | null>(null);
+  // Set while a create is in flight, so a double click creates one session
+  const creatingSessionRef = useRef(false);
 
   const activeCollection = collections.find((c) => c.id === activeCollectionId) ?? undefined;
 
@@ -840,27 +844,49 @@ export default function Chat({ initialSessionId }: ChatProps) {
       return;
     }
 
-    // saveCurrentSession captures the current id and messages synchronously, so
-    // the chat can clear at once while the save and the create run in parallel.
-    // Clearing early can't wipe the old session: the persist effect skips empty
-    // message lists.
-    const saved = saveCurrentSession();
-    setMessages([]);
-    const [, session] = await Promise.all([
-      saved,
-      fetch('/api/sessions', { method: 'POST' })
-        .then((r) => r.json())
-        .then((d) => d.session as Session)
-    ]);
-    if (!session) return;
-    setSessions((prev) => [session, ...prev]);
-    setActiveSessionId(session.id);
-    // Session is created and active immediately; the campaign prompt floats on
-    // top and assignment happens in the background — creation latency unchanged
-    if (campaigns.length > 0) {
-      setCampaignPromptSessionId(session.id);
+    if (creatingSessionRef.current) return;
+    creatingSessionRef.current = true;
+
+    // Open before any await so the prompt paints in the click's frame; the
+    // chosen campaign is assigned once the create returns
+    if (campaigns.length > 0) setCampaignPromptOpen(true);
+
+    const previousId = activeSessionIdRef.current;
+    const previousMessages = messagesRef.current;
+    try {
+      // saveCurrentSession captures the current id and messages synchronously, so
+      // the chat can clear at once while the save and the create run in parallel.
+      // Clearing early can't wipe the old session: the persist effect skips empty
+      // message lists, and nulling the id detaches the chat from the old session
+      // so nothing is persisted into it while the create is in flight.
+      saveCurrentSession().catch(console.error);
+      setMessages([]);
+      setActiveSessionId(null);
+
+      // The session is in state before this resolves, so anything chained on it
+      // runs against a session that exists
+      const created = fetch('/api/sessions', { method: 'POST' })
+        .then((r) => {
+          if (!r.ok) throw new Error(`Failed to create session: ${r.status}`);
+          return r.json();
+        })
+        .then(({ session }: { session: Session }) => {
+          setSessions((prev) => [session, ...prev]);
+          setActiveSessionId(session.id);
+          return session;
+        });
+      sessionCreateRef.current = created;
+      await created;
+    } catch (err) {
+      console.error(err);
+      setCampaignPromptOpen(false);
+      setActiveSessionId(previousId);
+      setMessages(previousMessages);
+      window.alert('Starting a new session failed. Please try again.');
+    } finally {
+      creatingSessionRef.current = false;
     }
-  }, [authStatus, campaigns, saveCurrentSession, setMessages, stop]);
+  }, [authStatus, campaigns, saveCurrentSession, setActiveSessionId, setCampaignPromptOpen, setMessages, setSessions, stop]);
 
   const handleDeleteSession = useCallback(
     async (id: string) => {
@@ -979,9 +1005,12 @@ export default function Chat({ initialSessionId }: ChatProps) {
     setActiveCollectionId(currentlyActive ? null : id);
   }, []);
 
+  // Signed-in sends need a session; there is none while the first one loads or a new one is created
+  const sessionPending = authStatus === 'authenticated' && !activeSessionId;
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!input.trim() || status !== 'ready') return;
+    if (!input.trim() || status !== 'ready' || sessionPending) return;
     sendMessage({ text: input });
     setInput('');
   };
@@ -1184,6 +1213,7 @@ export default function Chat({ initialSessionId }: ChatProps) {
             input={input}
             status={status}
             sessionId={activeSessionId}
+            sendDisabled={sessionPending}
             formClassName="w-full max-w-[800px] mx-auto"
             onSubmit={handleSubmit}
             onChange={setInput}
@@ -1432,16 +1462,20 @@ export default function Chat({ initialSessionId }: ChatProps) {
         document.body
       )}
 
-      {campaignPromptSessionId && campaigns.length > 0 && createPortal(
+      {campaignPromptOpen && campaigns.length > 0 && createPortal(
         <CampaignPromptModal
           campaigns={campaigns}
           onChoose={(campaignId) => {
+            setCampaignPromptOpen(false);
             if (campaignId) {
-              campaignActions.assignSessionToCampaign(campaignPromptSessionId, campaignId);
+              // A failed create is already rolled back in handleNewSession, and
+              // assignSessionToCampaign handles its own errors
+              sessionCreateRef.current
+                ?.then((s) => campaignActions.assignSessionToCampaign(s.id, campaignId))
+                .catch(() => {});
             }
-            setCampaignPromptSessionId(null);
           }}
-          onClose={() => setCampaignPromptSessionId(null)}
+          onClose={() => setCampaignPromptOpen(false)}
         />,
         document.body
       )}
