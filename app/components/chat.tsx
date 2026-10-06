@@ -683,7 +683,8 @@ export default function Chat({ initialSessionId }: ChatProps) {
     const id = activeSessionIdRef.current;
     const current = messagesRef.current;
     if (!id || current.length === 0) return;
-    // Skip when this exact array is already stored; an interrupted stream leaves a newer one, which still saves
+    // Skip when this exact array is already stored; an interrupted stream
+    // leaves a newer one, which still saves
     if (lastPersistedRef.current?.id === id && lastPersistedRef.current.messages === current) return;
     await persistMessages(id, current);
   }, [persistMessages]);
@@ -868,8 +869,9 @@ export default function Chat({ initialSessionId }: ChatProps) {
       setMessages([]);
       setActiveSessionId(null);
 
-      // The insert and activation are queued before this resolves, so functional
-      // updates chained on it apply after them (state and refs are not updated yet)
+      // The insert (and the activation, if any) is queued before this resolves, so
+      // functional updates chained on it apply after it (state and refs are not
+      // updated yet)
       const created = fetch('/api/sessions', { method: 'POST' })
         .then((r) => {
           if (!r.ok) throw new Error(`Failed to create session: ${r.status}`);
@@ -877,7 +879,9 @@ export default function Chat({ initialSessionId }: ChatProps) {
         })
         .then(({ session }: { session: Session }) => {
           setSessions((prev) => [session, ...prev]);
-          setActiveSessionId(session.id);
+          // Activate only while still detached: the user may have picked a session,
+          // or init() finished, during the wait
+          if (activeSessionIdRef.current === null) setActiveSessionId(session.id);
           return session;
         });
       sessionCreateRef.current = created;
