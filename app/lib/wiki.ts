@@ -17,10 +17,18 @@ export function getMonsterBySlug(slug: string): Monster | undefined {
   return getAllMonsters().find((m) => m.slug === slug);
 }
 
-// Body-less projection for listing/browse views, so the stat-block bodies
+// Card and filter fields for listing/browse views, so the stat blocks
 // aren't serialized into the client bundle.
 export function getMonsterSummaries(): MonsterSummary[] {
-  return getAllMonsters().map(({ body, ...summary }) => summary);
+  return getAllMonsters().map(({ slug, name, category, size, type, creatureType, cr }) => ({
+    slug,
+    name,
+    category,
+    size,
+    type,
+    creatureType,
+    cr,
+  }));
 }
 
 export function getAllMagicItems(): MagicItem[] {
