@@ -1,228 +1,150 @@
-# Wiki Monsters: Replace the Placeholder with the SRD Dataset
+# Wiki Monsters: Ship the SRD Dataset
 
-`data/monsters.json` holds one hand-written Goblin in the SRD 5.1 format. This plan replaces it
-with every stat block from the SRD 5.2.1 Monsters A-Z and Animals chapters, shaped by the
-`WikiMonster` model in roll-to-quest (`src/wiki/models.py` on `claude/wiki-monster-model`), and
-updates the Wiki code to read the new shape.
+`data/monsters.json` holds one hand-written Goblin in the SRD 5.1 shape. This plan replaces it
+with the 330 SRD 5.2.1 stat blocks built in roll-to-quest (`data/wiki/monsters.json` on `main`,
+merged in PR #3) and adapts the Wiki to the new shape. The contract is `WikiMonster` in
+roll-to-quest `src/wiki/models.py`, with the key set in `tests/wiki/test_models.py`. Data fixes
+happen upstream and arrive as a regenerated file; the JSON is never edited here.
 
-It follows the magic items rollout: a structured-output model in roll-to-quest produces the JSON,
-the JSON is copied into `data/`, and the Wiki types and components change to match.
+It follows the magic items rollout: types aligned with the data (`2913156`, `46144b4`), the data
+swapped (`31add4b`), and browse pages fed a light summary (`6d5f377`, `ea1f926`).
 
-## Source data
+## Decisions
 
-`monster_az.md` at the roll-to-quest root, checked while writing this plan:
+Each step below assumes the recommendation. Confirm or change these before work starts.
 
-| Check | Result |
+| # | Question | Recommendation |
+|---|---|---|
+| 1 | Type filter on `creatureType` (14) or `type` (31) | `creatureType`. The 31 printed types split Dragon into 3 options and Humanoid into 4. Cards and the stat block keep showing the printed `type`. The URL key stays `type`. |
+| 2 | Monster/Animal filter, and how search labels animals | Add a Category select before Type. Search results show the record's `category` ("Monster" or "Animal") as the badge. All 90 Beasts are Animals, so Category mostly matters for the 5 non-Beast animals (Giant Eagle, Giant Elk, Giant Owl, Flying Snake, Giant Vulture) and for matching the SRD chapter split. |
+| 3 | Link group members from detail pages | Yes, as the last step, so it can be dropped without touching the rest. 31 of 272 groups have more than one member. Sort members by CR, so White Dragons reads Wyrmling, Young, Adult, Ancient (name order would put Wyrmling third). |
+| 4 | Stat block labels and ability layout | SRD 5.2 labels (AC, Initiative, HP, Speed, CR), since Initiative and the CR line are 5.2 values printed as-is. Keep the 3/6-column grid; each cell shows the ability label, the score, then "Mod +5" and "Save +5" on two small lines. |
+| 5 | Helpers that move into `app/lib/wiki.ts` and get tests | `formatModifier`, `formatChallenge`, `getMonstersInGroup`, plus tests for the untested `sortedCRs`. Add one data test that checks every record's key set and slug uniqueness, since `getAllMonsters()` casts the JSON with no runtime check. |
+
+## Steps
+
+One PR, one commit per step. Every step leaves the app building.
+
+### 1. Types and data together
+
+- `types/wiki.ts`: replace `Monster` with the 31-key shape. Add
+  `MonsterCategory = 'Monster' | 'Animal'` and `AbilityKey = 'str' | 'dex' | 'con' | 'int' | 'wis' | 'cha'`.
+  `ac`, `xp` and `proficiencyBonus` are `number`; `xpInLair` is `number | null`; `saves` is
+  `Record<AbilityKey, number>`; `skills`, `gear`, `resistances`, `vulnerabilities` and
+  `immunities` are `string | null` (the dump writes `null`, never omits the key). The rest are
+  `string`, as `MagicItem` does for `itemType`.
+- `types/wiki.ts`: `MonsterSummary` becomes
+  `Pick<Monster, 'slug' | 'name' | 'category' | 'size' | 'type' | 'creatureType' | 'cr'>`.
+  `Omit<Monster, 'body'>` would ship 229 KB to the browse page; the `Pick` ships 49 KB.
+- `app/lib/wiki.ts`: `getMonsterSummaries()` maps those seven fields explicitly.
+- `data/monsters.json`: copy from roll-to-quest `data/wiki/monsters.json`. Name the source commit
+  in the commit message.
+
+The existing components compile unchanged against this: they read `name`, `size`, `type`,
+`alignment`, `ac`, `hp`, `speed`, the scores and `cr`, which all still exist.
+
+Done when: `npm run lint` and `npx tsc --noEmit` pass, and `npx prettier --check data/monsters.json`
+passes. If Prettier disagrees with the upstream formatting, add `data/monsters.json` to
+`.prettierignore` rather than reformatting the file.
+
+### 2. Helpers and tests
+
+`app/lib/wiki.ts`:
+
+- `formatModifier(n: number): string` returns `+3`, `-1` or `+0`. It replaces `modifier()` in
+  `stat-block.tsx` and also formats saves.
+- `abilityModifier(score: number): number` returns `Math.floor((score - 10) / 2)`.
+- `formatChallenge(m: Pick<Monster, 'cr' | 'xp' | 'xpInLair' | 'proficiencyBonus'>): string`
+  returns `10 (XP 5,900, or 7,200 in lair; PB +4)` or `0 (XP 0; PB +2)`, using
+  `toLocaleString('en-US')`.
+- `getMonstersInGroup(group: string): Monster[]` returns the group's members sorted by
+  `crToNumber`, then name.
+
+New `app/lib/wiki.test.ts`, in the `node:test` style of `app/lib/prompts.test.ts`:
+
+- `abilityModifier` at 1, 10, 11 and 30 (-5, 0, 0, +10), and `formatModifier` at -5, 0 and 17.
+- `formatChallenge` for Aboleth (lair XP) and Shrieker Fungus (CR 0, no lair).
+- `sortedCRs(['1', '1/8', '0', '1/2'])` returns `['0', '1/8', '1/2', '1']`.
+- `getMonstersInGroup('White Dragons')` returns Wyrmling, Young, Adult, Ancient.
+- Every record in `getAllMonsters()` has exactly the 31 keys (listed in the test, matching
+  `WIKI_MONSTER_KEYS`), and slugs are unique. No count assertion, so a legitimate regeneration
+  doesn't fail it.
+
+Done when: `npm test` runs the new file and passes.
+
+### 3. Stat block
+
+`app/components/wiki/stat-block.tsx`, keeping its inline styles:
+
+- Italic line unchanged: `{size} {type}, {alignment}` ("Medium or Small Monstrosity (Lycanthrope),
+  Chaotic Evil").
+- `AC {ac}` and `Initiative {initiative}` on one line, then `HP`, then `Speed`.
+- Ability grid as in decision 4: `formatModifier(abilityModifier(score))` and
+  `formatModifier(saves[key])`. `ABILITY_SCORES` keys type as `AbilityKey`.
+- Skills, Gear, Resistances, Vulnerabilities and Immunities, each only when non-null, then Senses
+  and Languages.
+- `CR {formatChallenge(monster)}` replaces `Challenge {cr}`.
+
+No change to `markdown-body.tsx` or the detail page body: every body starts with an H2 (Traits,
+Actions, or Reactions for Shrieker Fungus), which the existing `h2` renderer styles.
+
+Done when: lint passes and the detail pages in Verification render every field.
+
+### 4. Browse page
+
+- `app/wiki/monsters/page.tsx`: derive `creatureTypes` from `m.creatureType` instead of `m.type`.
+  Update the metadata description to mention animals and category.
+- `app/wiki/monsters/monsters-browser.tsx`: add
+  `{ key: 'category', label: 'Category', type: 'select', getValue: (m) => m.category, options: ['Monster', 'Animal'] }`
+  before Type, and point the `type` filter's `getValue` at `m.creatureType`. CR is unchanged.
+- `app/components/wiki/monster-card.tsx`: no change. It reads `name`, `size`, `type` and `cr`,
+  all in the summary.
+
+Done when: the filter checks in Verification pass.
+
+### 5. Search and README
+
+- `app/wiki/page.tsx`: the monster badge becomes `r.item.category`. Matching on `name` and `type`
+  stays, since `type` contains the base type.
+- `README.md` line 83: replace "The dataset currently contains one sample entry" with "330 stat
+  blocks (235 monsters, 95 animals), filterable by name, category, creature type and challenge
+  rating."
+
+`app/sitemap.ts` and `generateStaticParams` pick up the new slugs with no change. The `goblin`
+slug goes away (the SRD 5.2 has Goblin Minion, Warrior and Boss); nothing in the repo links to it.
+
+Done when: `/wiki?search=dragon` shows dragons with the Monster badge and a printed type such as
+"Dragon (Chromatic) · CR 13".
+
+### 6. Group links (decision 3)
+
+`app/wiki/monsters/[slug]/page.tsx`: after `<MarkdownBody>`, when
+`getMonstersInGroup(monster.group)` has more than one member, render the group name as a heading
+and the other members as links, styled like the breadcrumb links. The page stays a server
+component.
+
+Done when: `adult-white-dragon` links to the other three White Dragons and `aboleth` shows no
+group section.
+
+## Verification
+
+Run after step 6 (or step 5 if group links are dropped):
+
+- `npm run lint` and `npm test` pass.
+- `npx next build` passes and reports 330 `/wiki/monsters/[slug]` pages. Don't use
+  `npm run build`, which runs `db/migrate.ts` and needs `DATABASE_URL_UNPOOLED`.
+- In `npm run dev`:
+
+| Page | Check |
 |---|---|
-| Stat blocks (`#### ` headings) | 330: 235 under `## Monsters A-Z`, 95 under `## Animals` |
-| Group headings (`### `) | 272, none with prose between the group heading and its first stat block |
-| Size and alignment on the italic line | All 330 fit `MonsterSize` and `MonsterAlignment` |
-| Printed creature types | 31 distinct values, which reduce to the 14 `CreatureType` members |
-| AC, HP, Initiative, Speed, Senses, Languages, CR lines | Present in all 330, and AC/HP/Initiative match the model's patterns |
-| Optional lines | Skills 216, Immunities 147, Resistances 70, Gear 45, Vulnerabilities 15 |
-| Section headings (`##### `) | Only Traits, Actions, Bonus Actions, Reactions, Legendary Actions |
-| Slugs from `slugify(name)` | All unique |
+| `/wiki/monsters/aboleth` | CR line `10 (XP 5,900, or 7,200 in lair; PB +4)`, Legendary Actions section |
+| `/wiki/monsters/adult-white-dragon` | Type "Dragon (Chromatic)", Immunities "Cold", group links |
+| `/wiki/monsters/werewolf` | "Medium or Small", Gear "Longbow", Bonus Actions section |
+| `/wiki/monsters/allosaurus` | Body opens with Actions, no Traits heading |
+| `/wiki/monsters/shrieker-fungus` | Body opens with Reactions, saves of -5 render as `-5` |
+| `/wiki/monsters?category=Animal&type=Celestial` | Exactly Giant Eagle, Giant Elk, Giant Owl |
+| `/wiki?search=dragon` | Dragon results with badge and descriptor; magic items still listed |
 
-Three CR lines put "XP" after the number: Gold Dragon Wyrmling (`3 (700 XP; PB +2)`), White Dragon
-Wyrmling (`2 (450 XP; PB +2)`) and Young White Dragon (`6 (2,300 XP; PB +3)`). Every other block
-prints `CR 10 (XP 5,900, ...)`. Fix these three in `monster_az.md` before the run so the source
-and the cross-check below agree.
+## Out of scope
 
-## Part 1: roll-to-quest, generate `monsters.json`
-
-Work on `claude/fabled-monster-data-plan-110tw4`, branched from `claude/wiki-monster-model` (or
-from `main` once that branch merges), so `src/wiki/models.py` and its tests are available.
-
-### 1.1 Split the source into stat blocks
-
-Add `src/wiki/splitter.py` with one function that walks `monster_az.md` line by line and yields
-one record per `#### ` heading:
-
-- `category`: `"Monster"` while under `## Monsters A-Z`, `"Animal"` under `## Animals`.
-- `group`: the most recent `### ` heading text.
-- `name`: the `#### ` heading text.
-- `text`: the stat block from its `#### ` line up to the next `#### ` or `### ` line.
-
-This is plain string handling, with tests in `tests/wiki/test_splitter.py` asserting 330 blocks,
-the 235/95 split, and the group for a few known entries (Adult White Dragon is in White Dragons,
-Bandit Captain is in Bandits).
-
-### 1.2 Extract with Gemini structured output
-
-Add `src/scripts/build_wiki_monsters.py`:
-
-1. Split the source (1.1).
-2. For each block, call Gemini with `response_schema=WikiMonster` (the schema already excludes
-   `slug`), wrapped in `gemini_async_retry()` from `src/services/gemini.py` the way
-   `src/extraction/utils.py` does for entity extraction. The prompt template goes in
-   `src/templates/extract_wiki_monster.md` and carries the category, group and stat block text.
-   It restates the field rules the model descriptions already encode: copy values as printed,
-   rewrite `##### ` section headings as `## `, keep entries verbatim, and use `null` for absent
-   optional lines.
-3. Validate each response with `WikiMonster.model_validate`. On `ValidationError`, retry once
-   with the error text appended to the prompt; log and collect blocks that still fail.
-4. Gate calls with an `AsyncLimiter`, as `src/scripts/extract_entities.py` does.
-
-### 1.3 Cross-check against the source
-
-The source is regular enough that most scalar fields can be read back with a regex. After
-validation, compare each record with its block and fail the run on any mismatch:
-
-- `name`, `category`, `group` equal the splitter values.
-- `ac`, `initiative`, `hp`, `speed`, `senses`, `languages`, `skills`, `gear`, `resistances`,
-  `vulnerabilities`, `immunities` equal the text after the matching `**Label** `.
-- `cr`, `xp`, `xpInLair`, `proficiencyBonus` match the parsed CR line.
-- The six scores and saves match the ability table.
-- `body` equals the block from the first `##### ` line onward, with `##### ` replaced by `## `.
-
-Every field except `type`, `creatureType`, `size` and `alignment` is checked this way, and those
-four are constrained by the model's `Literal` and enum types. This makes LLM transcription errors
-in the body or numbers fail loudly instead of reaching the Wiki.
-
-### 1.4 Write the output
-
-Sort the validated records by `name` (the Wiki lists monsters and animals together) and write
-`model_dump()` output to `data/wiki/monsters.json` with `indent=2` and `ensure_ascii=False`.
-Commit the script, splitter, template, tests and output.
-
-Done when: `poetry run pytest tests/wiki` passes, the script reports 330 records with zero
-validation failures and zero cross-check mismatches, and `ruff check` is clean.
-
-## Part 2: fabled-campaigns, adapt the Wiki
-
-One PR on `claude/fabled-monster-data-plan-110tw4`. The type change and the data swap land
-together because `getAllMonsters()` casts the JSON to `Monster[]` without runtime checks.
-
-### 2.1 `types/wiki.ts`
-
-Replace `Monster` with the `WikiMonster` shape (the key set in `tests/wiki/test_models.py`):
-
-```ts
-export type MonsterCategory = 'Monster' | 'Animal';
-
-export type AbilityKey = 'str' | 'dex' | 'con' | 'int' | 'wis' | 'cha';
-
-export type Monster = {
-  slug: string;
-  name: string;
-  category: MonsterCategory;
-  group: string;
-  size: string;
-  type: string; // as printed, e.g. 'Fiend (Demon)'
-  creatureType: string; // base type for filtering, e.g. 'Fiend'
-  alignment: string;
-  ac: number; // was a string like '15 (leather armor, shield)'
-  initiative: string;
-  hp: string;
-  speed: string;
-  str: number;
-  dex: number;
-  con: number;
-  int: number;
-  wis: number;
-  cha: number;
-  saves: Record<AbilityKey, number>;
-  skills: string | null;
-  gear: string | null;
-  resistances: string | null;
-  vulnerabilities: string | null;
-  immunities: string | null;
-  senses: string;
-  languages: string;
-  cr: string;
-  xp: number;
-  xpInLair: number | null;
-  proficiencyBonus: number;
-  body: string;
-};
-```
-
-Optional fields are `string | null` rather than `?:` because the Python model dumps `null`.
-
-`MonsterSummary` changes from `Omit<Monster, 'body'>` to a `Pick` of what the card and filters
-read: `slug`, `name`, `category`, `size`, `type`, `creatureType`, `cr`. With 330 records and the
-new fields, omitting only `body` would send saves, senses and the rest to the client for nothing.
-
-### 2.2 `app/lib/wiki.ts`
-
-- `getMonsterSummaries()` maps to the narrowed `MonsterSummary` explicitly.
-- Add `formatModifier(n: number): string` (`+3`, `-1`, `+0`), moved out of `stat-block.tsx` so
-  the save column can use it too.
-- Add `formatChallenge(m)` returning the SRD line, e.g. `10 (XP 5,900, or 7,200 in lair; PB +4)`,
-  with `toLocaleString('en-US')` for the thousands separator.
-- Add `getMonstersInGroup(group)` for 2.5.
-- `crToNumber` and `sortedCRs` stay as they are.
-
-Add `app/lib/wiki.test.ts` (already matched by `npm test`) covering `formatModifier`,
-`formatChallenge` with and without lair XP, and `sortedCRs` on `['1', '1/8', '0', '1/2']`.
-
-### 2.3 `app/components/wiki/stat-block.tsx`
-
-Rewrite to the SRD 5.2 layout:
-
-- Italic line: `{size} {type}, {alignment}` (unchanged; "Medium or Small" reads correctly).
-- AC, Initiative, HP, Speed.
-- Ability table with Score, Mod and Save columns. Mod is computed, Save comes from
-  `monster.saves`. Keep the current 3-column mobile / 6-column desktop grid, one cell per ability
-  showing all three values.
-- Skills, Gear, Resistances, Vulnerabilities, Immunities, each rendered only when non-null, then
-  Senses and Languages.
-- `CR {formatChallenge(monster)}` replaces "Challenge {cr}".
-
-The body already starts with `## Traits` or `## Actions`, which `MarkdownBody` styles as h2, so
-the detail page needs no body handling change. The placeholder's untitled traits paragraph goes
-away with the placeholder.
-
-### 2.4 Browse page and filters
-
-`app/wiki/monsters/page.tsx` and `monsters-browser.tsx`:
-
-- Type filter reads `creatureType` instead of `type`: 14 options instead of 31 tagged variants.
-- New Category select (Monster, Animal) before Type.
-- CR filter unchanged.
-
-`monster-card.tsx` keeps its layout and reads from the narrowed summary.
-
-### 2.5 Detail page
-
-`app/wiki/monsters/[slug]/page.tsx`:
-
-- Metadata and JSON-LD descriptions keep their current template; all fields they read still exist.
-- Below the body, when `getMonstersInGroup(monster.group)` returns more than one entry, list the
-  others as links under the group name (White Dragons: Wyrmling, Young, Adult, Ancient). This is
-  what `group` exists for. It is the one UI addition beyond matching the data, and can be split out
-  if not wanted now.
-
-### 2.6 Wiki search and README
-
-- `app/wiki/page.tsx`: the result badge uses `r.item.category` ("Monster" or "Animal") instead of
-  the fixed "Monster". Matching on `name` and `type` is unchanged.
-- `README.md`: replace "The dataset currently contains one sample entry" with the real count and
-  filters (330 stat blocks, 235 monsters and 95 animals, filterable by name, category, creature
-  type and challenge rating).
-
-`app/sitemap.ts` and `generateStaticParams` pick up the new slugs with no change.
-
-### 2.7 Data
-
-Copy `data/wiki/monsters.json` from roll-to-quest over `data/monsters.json`.
-
-Done when: `npm run lint`, `npm test` and `next build` pass; the build generates 330
-`/wiki/monsters/[slug]` pages; and these pages render correctly in `npm run dev`:
-
-| Page | What it exercises |
-|---|---|
-| `/wiki/monsters/aboleth` | Lair XP, Legendary Actions, telepathy in Languages |
-| `/wiki/monsters/adult-white-dragon` | Group links, Immunities, tagged type |
-| `/wiki/monsters/werewolf` | "Medium or Small", Gear, Bonus Actions |
-| `/wiki/monsters/allosaurus` | Animal category, no Traits section |
-| `/wiki/monsters?category=Animal&type=Beast` | Category and creature type filters together |
-| `/wiki?search=dragon` | Search badge and descriptor |
-
-## Order of work
-
-1. roll-to-quest: fix the three CR lines, add the splitter and tests (1.1).
-2. roll-to-quest: script, template and cross-check (1.2, 1.3); run it and commit the JSON (1.4).
-3. fabled-campaigns: types, lib helpers and tests (2.1, 2.2).
-4. fabled-campaigns: stat block, browser, detail page, search, README (2.3 to 2.6).
-5. fabled-campaigns: swap the data (2.7), build, and check the pages above.
+The `lookupSRD` stub in `app/lib/tools.ts`, magic items, and any roll-to-quest change.
