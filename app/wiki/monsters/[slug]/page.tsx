@@ -2,7 +2,7 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { getAllMonsters, getMonsterBySlug } from '@/app/lib/wiki';
+import { getAllMonsters, getMonsterBySlug, getMonstersInGroup } from '@/app/lib/wiki';
 import { StatBlock } from '@/app/components/wiki/stat-block';
 import { MarkdownBody } from '@/app/components/wiki/markdown-body';
 
@@ -33,6 +33,7 @@ export default async function MonsterPage({ params, searchParams }: Props) {
     from === 'search' ? `/wiki${q ? `?search=${encodeURIComponent(q)}` : ''}` : '/wiki/monsters';
   const monster = getMonsterBySlug(slug);
   if (!monster) notFound();
+  const relatives = getMonstersInGroup(monster.group).filter((m) => m.slug !== monster.slug);
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -69,6 +70,31 @@ export default async function MonsterPage({ params, searchParams }: Props) {
 
         <StatBlock monster={monster} />
         <MarkdownBody content={monster.body} />
+        {relatives.length > 0 && (
+          <section>
+            <h2
+              style={{
+                fontFamily: 'var(--font-cinzel), serif',
+                color: 'var(--neutral-900)',
+                fontSize: '1.125rem',
+                fontWeight: 600,
+                marginTop: '1.5rem',
+                marginBottom: '0.5rem',
+              }}
+            >
+              {monster.group}
+            </h2>
+            <ul style={{ paddingLeft: '1.5rem', margin: 0 }}>
+              {relatives.map((m) => (
+                <li key={m.slug} style={{ marginBottom: '0.25rem' }}>
+                  <Link href={`/wiki/monsters/${m.slug}`} style={{ color: 'var(--primary-blue)' }}>
+                    {m.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
         <nav style={{ borderTop: '1px solid var(--neutral-200)', marginTop: '2rem', paddingTop: '1.5rem' }}>
           <Link
             href={backHref}
