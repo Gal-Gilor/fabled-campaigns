@@ -58,6 +58,29 @@ export function sortedCRs(monsters: Pick<Monster, 'cr'>[]): string[] {
   return unique.sort((a, b) => crToNumber(a) - crToNumber(b));
 }
 
+// Group members ordered by CR, so 'White Dragons' reads Wyrmling to Ancient.
+export function getMonstersInGroup(group: string): Monster[] {
+  return getAllMonsters()
+    .filter((m) => m.group === group)
+    .sort((a, b) => crToNumber(a.cr) - crToNumber(b.cr) || a.name.localeCompare(b.name));
+}
+
+export function abilityModifier(score: number): number {
+  return Math.floor((score - 10) / 2);
+}
+
+export function formatModifier(n: number): string {
+  return n >= 0 ? `+${n}` : `${n}`;
+}
+
+// The SRD 5.2 CR line, e.g. '10 (XP 5,900, or 7,200 in lair; PB +4)'.
+export function formatChallenge(
+  m: Pick<Monster, 'cr' | 'xp' | 'xpInLair' | 'proficiencyBonus'>
+): string {
+  const lair = m.xpInLair != null ? `, or ${m.xpInLair.toLocaleString('en-US')} in lair` : '';
+  return `${m.cr} (XP ${m.xp.toLocaleString('en-US')}${lair}; PB +${m.proficiencyBonus})`;
+}
+
 const RARITY_ORDER: MagicItemRarity[] = [
   'Common',
   'Uncommon',
