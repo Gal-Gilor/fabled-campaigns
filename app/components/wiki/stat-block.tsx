@@ -1,21 +1,28 @@
 // app/components/wiki/stat-block.tsx
-import type { Monster } from '@/types/wiki';
+import type { AbilityKey, Monster } from '@/types/wiki';
+import { abilityModifier, formatChallenge, formatModifier } from '@/app/lib/wiki';
 
-function modifier(score: number): string {
-  const mod = Math.floor((score - 10) / 2);
-  return mod >= 0 ? `+${mod}` : `${mod}`;
-}
-
-const ABILITY_SCORES = [
+const ABILITY_SCORES: { label: string; key: AbilityKey }[] = [
   { label: 'STR', key: 'str' },
   { label: 'DEX', key: 'dex' },
   { label: 'CON', key: 'con' },
   { label: 'INT', key: 'int' },
   { label: 'WIS', key: 'wis' },
   { label: 'CHA', key: 'cha' },
-] as const;
+];
 
 export function StatBlock({ monster }: { monster: Monster }) {
+  // Optional lines, shown only when the stat block prints them.
+  const details: [string, string | null][] = [
+    ['Skills', monster.skills],
+    ['Gear', monster.gear],
+    ['Resistances', monster.resistances],
+    ['Vulnerabilities', monster.vulnerabilities],
+    ['Immunities', monster.immunities],
+    ['Senses', monster.senses],
+    ['Languages', monster.languages],
+  ];
+
   return (
     <div
       style={{
@@ -59,10 +66,11 @@ export function StatBlock({ monster }: { monster: Monster }) {
         }}
       >
         <p style={{ margin: 0 }}>
-          <strong>Armor Class</strong> {monster.ac}
+          <strong>AC</strong> {monster.ac}
+          <strong style={{ marginLeft: '1.5rem' }}>Initiative</strong> {monster.initiative}
         </p>
         <p style={{ margin: 0 }}>
-          <strong>Hit Points</strong> {monster.hp}
+          <strong>HP</strong> {monster.hp}
         </p>
         <p style={{ margin: 0 }}>
           <strong>Speed</strong> {monster.speed}
@@ -83,8 +91,12 @@ export function StatBlock({ monster }: { monster: Monster }) {
         {ABILITY_SCORES.map(({ label, key }) => (
           <div key={key}>
             <div style={{ fontWeight: 700, color: 'var(--neutral-900)' }}>{label}</div>
-            <div style={{ color: 'var(--neutral-700)' }}>
-              {monster[key]} ({modifier(monster[key])})
+            <div style={{ color: 'var(--neutral-700)' }}>{monster[key]}</div>
+            <div style={{ color: 'var(--neutral-600)', fontSize: '0.75rem' }}>
+              Mod {formatModifier(abilityModifier(monster[key]))}
+            </div>
+            <div style={{ color: 'var(--neutral-600)', fontSize: '0.75rem' }}>
+              Save {formatModifier(monster.saves[key])}
             </div>
           </div>
         ))}
@@ -92,9 +104,26 @@ export function StatBlock({ monster }: { monster: Monster }) {
 
       <hr style={{ borderColor: 'var(--accent-gold)', margin: '0.75rem 0' }} />
 
-      <p style={{ margin: 0, fontSize: '0.9375rem' }}>
-        <strong>Challenge</strong> {monster.cr}
-      </p>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '0.2rem',
+          fontSize: '0.9375rem',
+        }}
+      >
+        {details.map(
+          ([label, value]) =>
+            value != null && (
+              <p key={label} style={{ margin: 0 }}>
+                <strong>{label}</strong> {value}
+              </p>
+            )
+        )}
+        <p style={{ margin: 0 }}>
+          <strong>CR</strong> {formatChallenge(monster)}
+        </p>
+      </div>
     </div>
   );
 }
