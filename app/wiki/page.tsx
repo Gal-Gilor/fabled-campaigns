@@ -146,7 +146,7 @@ export default async function WikiPage({
                   r.kind === 'monster'
                     ? `/wiki/monsters/${r.item.slug}?from=search&q=${encodeURIComponent(query)}`
                     : `/wiki/magic-items/${r.item.slug}?from=search&q=${encodeURIComponent(query)}`;
-                const badge = r.kind === 'monster' ? 'Monster' : 'Magic Item';
+                const badge = r.kind === 'monster' ? r.item.category : 'Magic Item';
                 const descriptor =
                   r.kind === 'monster'
                     ? `${r.item.type} · CR ${r.item.cr}`

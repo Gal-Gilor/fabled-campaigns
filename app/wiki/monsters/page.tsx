@@ -7,13 +7,14 @@ import { MonstersBrowser } from './monsters-browser';
 
 export const metadata: Metadata = {
   title: 'Monsters | Fabled Campaigns Wiki',
-  description: 'Browse D&D 5e SRD monsters by creature type and challenge rating.',
+  description:
+    'Browse D&D 5e SRD monsters and animals by category, creature type and challenge rating.',
   alternates: { canonical: '/wiki/monsters' },
 };
 
 export default function MonstersPage() {
   const monsters = getMonsterSummaries();
-  const types = [...new Set(monsters.map((m) => m.type))].sort();
+  const types = [...new Set(monsters.map((m) => m.creatureType))].sort();
   const crs = sortedCRs(monsters);
 
   return (

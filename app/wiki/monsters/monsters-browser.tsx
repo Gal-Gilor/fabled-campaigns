@@ -13,7 +13,14 @@ type Props = {
 export function MonstersBrowser({ monsters, types, crs }: Props) {
   const filters: FilterConfig<MonsterSummary>[] = [
     { key: 'name', label: 'Name', type: 'search', getValue: (m) => m.name },
-    { key: 'type', label: 'Type', type: 'select', getValue: (m) => m.type, options: types },
+    {
+      key: 'category',
+      label: 'Category',
+      type: 'select',
+      getValue: (m) => m.category,
+      options: ['Monster', 'Animal'],
+    },
+    { key: 'type', label: 'Type', type: 'select', getValue: (m) => m.creatureType, options: types },
     { key: 'cr', label: 'CR', type: 'select', getValue: (m) => m.cr, options: crs },
   ];
 

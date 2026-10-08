@@ -25,13 +25,27 @@ export type MagicItem = {
 // record). Pass this lighter shape to the client to keep the payload small.
 export type MagicItemSummary = Omit<MagicItem, 'body'>;
 
+export type MonsterCategory = 'Monster' | 'Animal';
+
+export type AbilityKey = 'str' | 'dex' | 'con' | 'int' | 'wis' | 'cha';
+
+// One SRD 5.2.1 stat block. The data contract is WikiMonster in roll-to-quest
+// (src/wiki/models.py); text fields are copied as printed. Optional lines are
+// null when absent, never missing.
 export type Monster = {
   slug: string;
   name: string;
+  category: MonsterCategory;
+  // SRD heading shared by variants, e.g. 'White Dragons'.
+  group: string;
   size: string;
+  // As printed, e.g. 'Fiend (Demon)'.
   type: string;
+  // Base type for filtering, e.g. 'Fiend'.
+  creatureType: string;
   alignment: string;
-  ac: string;
+  ac: number;
+  initiative: string;
   hp: string;
   speed: string;
   str: number;
@@ -40,13 +54,27 @@ export type Monster = {
   int: number;
   wis: number;
   cha: number;
+  saves: Record<AbilityKey, number>;
+  skills: string | null;
+  gear: string | null;
+  resistances: string | null;
+  vulnerabilities: string | null;
+  immunities: string | null;
+  senses: string;
+  languages: string;
   cr: string;
+  xp: number;
+  xpInLair: number | null;
+  proficiencyBonus: number;
   body: string;
 };
 
-// Browse/listing views render cards that never read `body` (the stat block).
-// Pass this lighter shape to the client to keep the payload small.
-export type MonsterSummary = Omit<Monster, 'body'>;
+// Browse/listing views only read the card and filter fields. Pass this lighter
+// shape to the client to keep the payload small.
+export type MonsterSummary = Pick<
+  Monster,
+  'slug' | 'name' | 'category' | 'size' | 'type' | 'creatureType' | 'cr'
+>;
 
 export type FilterConfig<T> =
   | {
