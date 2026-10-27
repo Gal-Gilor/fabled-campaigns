@@ -4,6 +4,7 @@
 import { type ReactNode, useMemo, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import type { FilterConfig } from '@/types/wiki';
+import { CardGrid } from './card-grid';
 
 type Props<T extends { slug: string }> = {
   items: T[];
@@ -113,18 +114,7 @@ export function WikiBrowser<T extends { slug: string }>({
           No results match your filters.
         </p>
       ) : (
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
-            gridAutoRows: 'minmax(88px, auto)',
-            gap: '1rem',
-          }}
-        >
-          {filtered.map((item) => (
-            <div key={item.slug} style={{ height: '100%' }}>{renderCard(item)}</div>
-          ))}
-        </div>
+        <CardGrid items={filtered} renderCard={renderCard} />
       )}
     </div>
   );

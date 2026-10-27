@@ -4,6 +4,8 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { getMonsterSummaries, sortedCRs } from '@/app/lib/wiki';
 import { MonstersBrowser } from './monsters-browser';
+import { CardGrid } from '@/app/components/wiki/card-grid';
+import { MonsterCard } from '@/app/components/wiki/monster-card';
 
 export const metadata: Metadata = {
   title: 'Monsters | Fabled Campaigns Wiki',
@@ -38,7 +40,11 @@ export default function MonstersPage() {
         Monsters
       </h1>
 
-      <Suspense fallback={<p style={{ color: 'var(--neutral-600)' }}>Loading...</p>}>
+      <Suspense
+        fallback={
+          <CardGrid items={monsters} renderCard={(monster) => <MonsterCard monster={monster} />} />
+        }
+      >
         <MonstersBrowser monsters={monsters} types={types} crs={crs} />
       </Suspense>
 

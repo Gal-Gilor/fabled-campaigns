@@ -4,6 +4,8 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { getMagicItemSummaries, sortedRarities } from '@/app/lib/wiki';
 import { MagicItemsBrowser } from './magic-items-browser';
+import { CardGrid } from '@/app/components/wiki/card-grid';
+import { MagicItemCard } from '@/app/components/wiki/magic-item-card';
 
 export const metadata: Metadata = {
   title: 'Magic Items | Fabled Campaigns Wiki',
@@ -37,7 +39,9 @@ export default function MagicItemsPage() {
         Magic Items
       </h1>
 
-      <Suspense fallback={<p style={{ color: 'var(--neutral-600)' }}>Loading...</p>}>
+      <Suspense
+        fallback={<CardGrid items={items} renderCard={(item) => <MagicItemCard item={item} />} />}
+      >
         <MagicItemsBrowser items={items} rarities={rarities} types={types} />
       </Suspense>
 
