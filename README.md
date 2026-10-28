@@ -9,7 +9,7 @@
 
 > Where Every Tale Rolls a Natural 20
 
-An AI Dungeon Master assistant for tabletop RPGs. You describe what you need in a chat, and it
+An AI Game Master assistant for tabletop RPGs. You describe what you need in a chat, and it
 narrates scenes, generates and edits encounter maps, and keeps sessions and homebrew campaigns
 organized.
 
@@ -19,7 +19,7 @@ organized.
 
 ### Chat assistant
 
-A Gemini agent plays the role of a D&D 5e Dungeon Master. Replies stream into the chat. Anyone
+A Gemini agent plays the role of a fifth edition Game Master. Replies stream into the chat. Anyone
 can chat without an account. Signing in with Google saves sessions, collections, and maps.
 
 ### Encounter map generation

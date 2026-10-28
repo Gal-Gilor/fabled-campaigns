@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://fabledcampaigns.com"),
   title: "Fabled Campaigns",
   description:
-    "Your AI Dungeon Master guide. Manage sessions, homebrew campaigns, encounters, characters, and roll to quest.",
+    "Your AI Game Master guide. Manage sessions, homebrew campaigns, encounters, characters, and roll to quest.",
   manifest: "/favicon/site.webmanifest",
   icons: {
     icon: [
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Fabled Campaigns",
     description:
-      "Your AI Dungeon Master guide. Manage sessions, homebrew campaigns, encounters, characters, and roll to quest.",
+      "Your AI Game Master guide. Manage sessions, homebrew campaigns, encounters, characters, and roll to quest.",
     siteName: "Fabled Campaigns",
     url: "https://fabledcampaigns.com",
     type: "website",
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Fabled Campaigns",
     description:
-      "Your AI Dungeon Master guide. Manage sessions, homebrew campaigns, encounters, characters, and roll to quest.",
+      "Your AI Game Master guide. Manage sessions, homebrew campaigns, encounters, characters, and roll to quest.",
   },
 };
 

@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Footer from '@/app/components/footer';
+import { SrdAttribution } from '@/app/components/wiki/srd-attribution';
 
 export default function WikiLayout({ children }: { children: React.ReactNode }) {
   const [isEmbedded, setIsEmbedded] = useState(true);
@@ -31,6 +32,7 @@ export default function WikiLayout({ children }: { children: React.ReactNode }) 
         </header>
       )}
       <div className="flex-1">{children}</div>
+      <SrdAttribution />
       {!isEmbedded && <Footer />}
     </div>
   );
