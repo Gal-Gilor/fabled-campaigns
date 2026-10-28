@@ -39,7 +39,7 @@ Decisions 1 to 4 were picked from mockups of each option. 5 to 7 are still recom
 
 | # | Question | Decision |
 |---|---|---|
-| 1 | Browse cards | One card per group, with the CR range and the number of stat blocks. Filters match any member. |
+| 1 | Browse cards | One card per group, with the CR range. Filters match any member. |
 | 2 | Group page layout | Stacked stat blocks. Order: title, description, lore, a jump list of the stat blocks with their CR, the stat blocks, then sources. Lore comes before anything about the stat blocks. |
 | 3 | Address of a single-member group | The group's address, for every group: `/wiki/monsters/azer`, with `azer-sentinel` redirecting there. |
 | 4 | Group page titles | SRD group names as printed ("Troll", "Crawling Claw"). |
