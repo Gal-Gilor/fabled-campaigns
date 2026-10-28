@@ -1,4 +1,98 @@
 {
+  "Allosaurus": {
+    "description": "A large two-legged hunter with dagger-like, saw-edged teeth, three-fingered hands and small horns above its eyes.[1]",
+    "lore": "Allosaurus was one of the top hunters of North America in the Late Jurassic, tens of millions of years before Tyrannosaurus. It preyed on the plant-eating dinosaurs around it, and Stegosaurus fossils carry its bite marks.[1]\n\nIt also fed on the giant long-necked sauropods, though no one knows whether it attacked them alive or ate them after they died. It may even have torn meat from a living giant without killing it, leaving the animal to heal.[1]\n\nSeveral Allosaurus have been found buried together, and some bear bite marks from their own kind. Whether they hunted in packs is unknown, but they likely competed and fought.[1] No one is sure what the small horns over its eyes were for. They may have helped Allosaurus recognize each other, served as a display for mates, or shaded its eyes from the sun.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Allosaurus",
+        "publisher": "Natural History Museum, London",
+        "url": "https://www.nhm.ac.uk/discover/dino-directory/allosaurus.html",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Ankylosaurus": {
+    "description": "A low, heavy plant-eater covered in bony armor plates, with a beaked mouth and a heavy club of bone at the end of its tail.[1]",
+    "lore": "Ankylosaurus was an armored plant-eater from the end of the age of dinosaurs. Bony plates covered its body, and its tail ended in a heavy club.[1] It probably moved slowly most of the time, grazing on ferns, shrubs and fruit near the ground, and it needed about as much food each day as an elephant.[1]\n\nIt could not lift its tail club far, but it could swing it hard from side to side, and it probably used it to fend off big predators.[1] It ate only plants, but that does not mean it was gentle: elephants and hippos eat plants too, and both can be dangerous.[1]\n\nNo complete skeleton has ever been found, and no one knows exactly how the plates on its back were arranged.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Ankylosaurus",
+        "publisher": "Natural History Museum, London",
+        "url": "https://www.nhm.ac.uk/discover/dino-directory/ankylosaurus.html",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Archelon": {
+    "description": "A sea turtle more than four meters long, with large, flat front flippers, a broad, shallow shell and a hooked beak.[1]",
+    "lore": "Archelon is the largest turtle known to have lived. It swam the warm, shallow seas of the late Cretaceous, about 80 to 74 million years ago, and the biggest one found weighed two to three tonnes.[1] Its shell was more of a frame than solid armor.[1]\n\nIt lived in the shallow sea that once cut through the middle of North America, alongside mosasaurs, plesiosaurs, sharks and huge fish.[1] Its hooked beak points to a strong bite. When attacked, it may have struck back with its flippers and beak or used its shell as a shield, though not always with success: bones of turtles like it have been found in the stomachs of mosasaurs.[1]\n\nLike sea turtles today, Archelon probably laid its eggs on beaches.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Archelon: The biggest turtle to ever live",
+        "author": "Hayley Dunning",
+        "publisher": "Natural History Museum, London",
+        "url": "https://www.nhm.ac.uk/discover/giant-prehistoric-turtles.html",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Black Bear": {
+    "description": "A shy forest bear, usually black with a pale muzzle, though some are brown, cinnamon, blond or even creamy white.[1]",
+    "lore": "Black bears live in thick woods and rough country across North America. Despite their size they eat mostly plants: grass in spring, berries in summer, and nuts, acorns and fruit in fall, when they put on fat for the winter.[1] Insects make up most of the meat they eat, and they take larger animals only when the chance comes.[1]\n\nThey are most active at dawn and dusk, and they spend the winter in dens, coming out in spring thin and hungry.[1] Bears that find people's food or garbage are drawn to it, and that is behind most trouble between black bears and people.[1]\n\nBlack bears are clever and curious, with a keen nose and a remarkable sense of direction.[1] They are usually timid around people, and a mother with cubs is far less likely to attack than a grizzly mother.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Ursus americanus (American black bear)",
+        "author": "Tanya Dewey and Christine Kronk",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Ursus_americanus/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Brown Bear": {
+    "description": "A huge bear with fur from cream to nearly black. In the Rocky Mountains, white-tipped hairs give it a grizzled look, which is where the grizzly bear gets its name.[1]",
+    "lore": "Brown bears are among the largest meat-eaters on land. Standing on its hind legs, a big one towers about two and a half meters tall, and a brown bear is strong enough to kill a cow with a single blow and fast enough to outrun a horse.[1]\n\nThey eat almost anything: grass, roots, berries, nuts, insects and fungi, ground squirrels and marmots dug out of their burrows, and in some places moose, elk, mountain sheep and spawning salmon.[1] In autumn a bear may travel hundreds of kilometers to reach a salmon stream or a good berry crop.[1]\n\nBrown bears usually live alone and avoid people. They rarely attack unless surprised up close, guarding cubs or busy with food, but their temper is hard to predict.[1] Their nose is excellent, able to follow the smell of a rotting carcass for more than three kilometers, though their eyesight is poor.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Ursus arctos (brown bear)",
+        "author": "Tanya Dewey and Liz Ballenger",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Ursus_arctos/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Dire Wolf": {
+    "description": "A wolf heavier and more muscular than any wolf alive today, with a big head, powerful jaws and large, strong teeth.[1][2]",
+    "lore": "Dire wolves hunted across the Americas during the last ice age, from Alaska down into South America, in grasslands, open woods and wetlands alike. Their Latin name means \"terrible wolf\".[1] They stood about as tall as a gray wolf but were around a quarter heavier, with much larger heads and a stronger bite.[2]\n\nThey probably hunted in packs, and thousands of their fossils have been dug from the tar pits of Rancho La Brea in Los Angeles.[1] Horses were their main prey, along with bison, giant ground sloths and camels.[1][2] Many of their teeth are broken, a sign that they fought over carcasses and chewed bone, and when food ran short they may have stolen kills from saber-toothed cats.[1][2]\n\nDespite the name, dire wolves were not close kin to gray wolves. The two lines split millions of years ago and only came to look alike because they lived alike.[1][2] When the great ice age animals died out, dire wolves struggled to compete with gray wolves for smaller prey, and they disappeared about 10,000 years ago.[1][2]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Dire Wolf",
+        "publisher": "U.S. National Park Service",
+        "url": "https://www.nps.gov/articles/000/dire-wolf.htm",
+        "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Dire Wolves",
+        "publisher": "U.S. National Park Service",
+        "url": "https://www.nps.gov/whsa/learn/nature/dire-wolves.htm",
+        "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Giant Octopus": {
     "description": "An octopus grown far past natural size that hides by changing the color and texture of its skin, then seizes prey with eight suckered arms.[1]",
     "lore": "The giant octopus spends most of its life alone in a den under a boulder or in a crack in the rock, sometimes staying hidden for weeks. It comes out only to hunt, to mate or to flee.[1] It carries its catch home to eat, and the broken shells of clams and crabs pile up outside the entrance.[1]\n\nIt hunts by sight, stalking or chasing its prey or lying in wait, and it can change the color and even the texture of its skin to blend in.[1] Every sucker on its arms can feel and taste what it touches.[1] When attacked, it fights back with its arms, then shoots away and leaves a cloud of ink behind.[1]\n\nIt is a clever animal. It finds its way by landmarks, uses objects as tools and learns by watching, and octopuses kept in captivity are known for escaping their tanks.[1] A mother guards her eggs in the den and does not leave them even to eat. She dies before they hatch or soon after.[1]",
@@ -9,6 +103,20 @@
         "author": "Colleen Hartis",
         "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
         "url": "https://animaldiversity.org/accounts/Enteroctopus_dofleini/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Lion": {
+    "description": "A big, tawny cat with powerful forelegs. Adult males wear shaggy manes that range from blond to almost black.[1]",
+    "lore": "Lions are the most social of all cats. They live in prides of related females and their cubs, with one or more males, and a pride can number up to 40.[1] The females do most of the hunting, often closing in on prey from several directions before they charge, and they bring down animals as large as zebra and wildebeest.[1] Lions also steal kills from hyenas and leopards, and sometimes lose their own to groups of hyenas.[1]\n\nMales guard the pride, and both males and females mark their land with scent and with roars that carry for about eight kilometers.[1] Young males are driven out at two to four years old. They band together with brothers and cousins and roam until they can take over a pride, and they usually hold it for about two years before another group drives them out.[1]\n\nWild lions now live only in Africa, apart from a small population in the Gir Forest of northwest India.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Lion",
+        "publisher": "Smithsonian's National Zoo and Conservation Biology Institute",
+        "url": "https://nationalzoo.si.edu/animals/lion",
         "license": "All rights reserved",
         "accessed": "2026-10-28"
       }
@@ -31,6 +139,97 @@
         "title": "The last of the mammoths",
         "publisher": "Natural History Museum, London",
         "url": "https://www.nhm.ac.uk/discover/last-mammoths.html",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Plesiosaurus": {
+    "description": "A sea reptile with a long neck, a small head and four wing-shaped flippers that drove it through the water.[1]",
+    "lore": "Plesiosaurs were reptiles of the open sea that lived while dinosaurs ruled the land, though they were only distant relatives of the dinosaurs.[1] Plesiosaurus itself was about 3.5 meters long and ate small prey such as fish and crustaceans. Its relatives grew as long as 12 meters, and some had necks longer than their bodies.[1][2]\n\nThey swam with four flippers, timing the strokes of the front and back pairs for extra push, and they could not come ashore, so they gave birth to live young at sea.[1] They swallowed stones, which may have helped them break up food or stay steady in the water. Their long necks were stiffer than a swan's and may have helped them sneak up on prey.[1]\n\nPlesiosaurs lasted more than 140 million years and died out with the dinosaurs.[1][2] Mary Anning found the first nearly complete Plesiosaurus skeleton on the south coast of England in 1823, and plesiosaurs later inspired the legend of the Loch Ness Monster.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "What is a plesiosaur? The prehistoric sea creatures that inspired the Loch Ness Monster",
+        "author": "James Ashworth",
+        "publisher": "Natural History Museum, London",
+        "url": "https://www.nhm.ac.uk/discover/what-is-a-plesiosaur.html",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Meet the monsters of the Jurassic seas",
+        "author": "Alison Groom",
+        "publisher": "Natural History Museum, London",
+        "url": "https://www.nhm.ac.uk/discover/meet-the-monsters-of-the-jurassic-seas.html",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Polar Bear": {
+    "description": "The great white bear of the Arctic sea ice, with a long neck, a small head, broad forepaws that work as paddles and fur on the soles of its feet.[1]",
+    "lore": "Polar bears are the largest bears alive, and they live on the sea ice around the North Pole more than on land.[1][2] Seals are their main prey, especially ringed seals, and they also take walruses, belugas, seabirds and their eggs, and fish, or feed on dead whales.[1][2] A bear often eats only the fat of a kill and leaves the rest, and younger bears and Arctic foxes live off those leftovers.[1]\n\nMost of a polar bear's time goes to resting or waiting still for prey, and much of the rest to walking and swimming. They are strong swimmers and range far in search of food.[1] Their fur looks white, but each hair is clear, and the skin underneath is black.[1]\n\nPolar bears live alone, except for mothers with cubs. Black and brown bears den up through the winter, but among polar bears only pregnant females spend the winter in dens.[2] A mother will charge a much larger male to protect her cubs.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Ursus maritimus (polar bear)",
+        "author": "Aren Gunderson",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Ursus_maritimus/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Polar Bear (Ursus maritimus)",
+        "publisher": "U.S. Fish and Wildlife Service",
+        "url": "https://www.fws.gov/species/polar-bear-ursus-maritimus",
+        "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Pteranodon": {
+    "description": "A large flying reptile with wings of skin stretched from one long finger to its ankles, and a long, toothless beak.[1]",
+    "lore": "Pteranodon was a pterosaur, one of the flying reptiles. Pterosaurs are often called flying dinosaurs, but they were a group of reptiles of their own.[1] Each wing was a thin sheet of skin held up by one hugely long finger and reaching back to the ankle, while the other fingers stayed free as a hand.[1]\n\nPteranodon had no teeth, yet its fossils have been found with fish in their stomachs. It probably swooped down to the water and snatched fish from the surface, as some seabirds do.[1][2] Large pterosaurs may have flown like albatrosses, riding air currents over long distances and flapping only now and then.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Pterosaurs: The truth about these ‘flying dinosaurs’",
+        "author": "Emily Osterloff",
+        "publisher": "Natural History Museum, London",
+        "url": "https://www.nhm.ac.uk/discover/the-truth-about-pterosaurs.html",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Meet the monsters of the Jurassic seas",
+        "author": "Alison Groom",
+        "publisher": "Natural History Museum, London",
+        "url": "https://www.nhm.ac.uk/discover/meet-the-monsters-of-the-jurassic-seas.html",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Saber-Toothed Tiger": {
+    "description": "A powerful cat with strong forelegs and two upper fangs up to 28 centimeters long.[1]",
+    "lore": "The saber-toothed tiger, Smilodon, lived in the Americas from about 2.5 million years ago until about 12,000 years ago.[1] It killed with its long fangs, gripping prey with its powerful forelegs and driving the teeth home with a head movement of its own.[1] Saber-toothed hunters may have been able to bring down fully grown large animals, perhaps by striking at the blood vessels of the neck.[1]\n\nLong fangs like these evolved many times, in animals as different as a South American marsupial and the false saber-toothed cats, but Smilodon is the most famous saber-tooth of all.[1]\n\nFor all its fangs, its nose was weak. Scans of its skull suggest its sense of smell was poorer than a house cat's or a wolf's, no better than a mouse's.[2]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "One of the earliest sabre-toothed mammals discovered in the USA",
+        "author": "James Ashworth",
+        "publisher": "Natural History Museum, London",
+        "url": "https://www.nhm.ac.uk/discover/news/2022/march/one-of-earliest-sabre-toothed-mammals-discovered-usa.html",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Sabre-toothed tiger’s sense of smell reconstructed using skull scans",
+        "author": "James Ashworth",
+        "publisher": "Natural History Museum, London",
+        "url": "https://www.nhm.ac.uk/discover/news/2025/december/sabre-toothed-tiger-sense-smell-reconstructed-skull-scans.html",
         "license": "All rights reserved",
         "accessed": "2026-10-28"
       }
@@ -60,6 +259,34 @@
         "publisher": "U.S. National Park Service",
         "url": "https://www.nps.gov/subjects/bats/all-about-bats.htm",
         "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Tiger": {
+    "description": "A huge cat with a reddish-orange coat, bold black stripes and a white belly. No two tigers have the same stripes.[1]",
+    "lore": "Tigers hunt alone, mostly at night. A tiger lies in wait where its stripes hide it, then pounces, drags its prey to the ground and kills it with a bite to the neck.[1] Deer and wild boar are its main prey, but tigers also take monkeys, buffalo, bears, leopards and even crocodiles. They swim well and have been seen hunting in water.[1] A tiger hunts about once a week and can eat as much as 34 kilograms in a night.[1]\n\nTigers guard their land fiercely. They mark it with scent and claw marks on trees, and they roar, grunt and chuff to keep track of each other.[1] Cubs stay with their mother until they can hunt for themselves and leave at two or three years old to find land of their own.[1]\n\nTigers once lived across much of Asia, from the lands around the Caspian Sea to eastern Asia. They now hold only a small part of that range, in South and Southeast Asia, China and the Russian Far East.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Tiger",
+        "publisher": "Smithsonian's National Zoo and Conservation Biology Institute",
+        "url": "https://nationalzoo.si.edu/animals/tiger",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Triceratops": {
+    "description": "A four-legged plant-eater with three horns, a parrot-like beak and a wide frill of bone behind its head.[1]",
+    "lore": "Triceratops had one of the largest skulls of any land animal, with a frill nearly a meter across.[1] It snipped plants with its sharp beak and ground them with rows of teeth at the back of its jaws, and it may have used its horns and frill to push through thick growth.[1]\n\nIts horns were weapons. One fossil horn was bitten off by a Tyrannosaurus and then healed, so at least some Triceratops survived those fights. Males also seem to have fought each other with their horns.[1] In life the horns were covered in keratin, which made them longer and sharper than the fossil bone suggests.[1]\n\nMany horned dinosaurs lived in herds, but Triceratops fossils are usually found alone, so it may have spent much of its life by itself.[1] Its skin was covered in large, pebbled scales.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Triceratops",
+        "publisher": "Natural History Museum, London",
+        "url": "https://www.nhm.ac.uk/discover/dino-directory/triceratops.html",
+        "license": "All rights reserved",
         "accessed": "2026-10-28"
       }
     ]

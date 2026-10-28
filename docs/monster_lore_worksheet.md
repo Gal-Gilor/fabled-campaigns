@@ -18,12 +18,12 @@ original. The lore can mention the myth as the source of the name, with a source
 |---|---|---|---|---|---|
 | Aboleth | Monsters | 1 | original |  | |
 | Air Elemental | Monsters | 1 | myth | Classical elements, Paracelsus | |
-| Allosaurus | Animals | 1 | animal | Extinct: cite natural history museums | |
+| Allosaurus | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
 | Animated Objects | Monsters | 3 | original |  | |
 | Ankheg | Monsters | 1 | original |  | |
-| Ankylosaurus | Animals | 1 | animal | Extinct: cite natural history museums | |
+| Ankylosaurus | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
 | Ape | Animals | 1 | animal |  | |
-| Archelon | Animals | 1 | animal | Extinct: cite natural history museums | |
+| Archelon | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
 | Assassin | Monsters | 1 | history | The medieval Nizari Ismailis | |
 | Awakened Plants | Monsters | 2 | original |  | |
 | Axe Beak | Monsters | 1 | animal | Fantasy version; facts from the extinct terror birds | |
@@ -38,7 +38,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Bearded Devil | Monsters | 1 | original |  | |
 | Behir | Monsters | 1 | original |  | |
 | Berserker | Monsters | 1 | history | Norse sagas | |
-| Black Bear | Animals | 1 | animal |  | |
+| Black Bear | Animals | 1 | animal |  | Yes |
 | Black Dragons | Monsters | 4 | original |  | |
 | Black Pudding | Monsters | 1 | original |  | |
 | Blink Dog | Monsters | 1 | original |  | |
@@ -48,7 +48,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Bone Devil | Monsters | 1 | original |  | |
 | Brass Dragons | Monsters | 4 | original |  | |
 | Bronze Dragons | Monsters | 4 | original |  | |
-| Brown Bear | Animals | 1 | animal |  | |
+| Brown Bear | Animals | 1 | animal |  | Yes |
 | Bugbears | Monsters | 2 | myth | English folklore (bogeys) | |
 | Bulette | Monsters | 1 | original | Real-world origin: a plastic toy | |
 | Camel | Animals | 1 | animal |  | |
@@ -73,7 +73,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Death Dog | Monsters | 1 | myth | Orthrus in Greek myth | |
 | Deer | Animals | 1 | animal |  | |
 | Deva | Monsters | 1 | original | Hindu and Buddhist myth (name only) | |
-| Dire Wolf | Animals | 1 | animal | Extinct: cite natural history museums | |
+| Dire Wolf | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
 | Djinni | Monsters | 1 | myth | Arabian folklore, One Thousand and One Nights | |
 | Doppelganger | Monsters | 1 | myth | German folklore | |
 | Draft Horse | Animals | 1 | animal |  | |
@@ -173,7 +173,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Lamia | Monsters | 1 | myth | Greek myth | |
 | Lemure | Monsters | 1 | myth | Roman religion (lemures) | |
 | Lich | Monsters | 1 | original |  | |
-| Lion | Animals | 1 | animal |  | |
+| Lion | Animals | 1 | animal |  | Yes |
 | Lizard | Animals | 1 | animal |  | |
 | Mages | Monsters | 2 | original | Generic role | |
 | Magmin | Monsters | 1 | original |  | |
@@ -207,12 +207,12 @@ original. The lore can mention the myth as the source of the name, with a source
 | Pirates | Monsters | 2 | history | Historical piracy | |
 | Pit Fiend | Monsters | 1 | original |  | |
 | Planetar | Monsters | 1 | original |  | |
-| Plesiosaurus | Animals | 1 | animal | Extinct: cite natural history museums | |
-| Polar Bear | Animals | 1 | animal |  | |
+| Plesiosaurus | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
+| Polar Bear | Animals | 1 | animal |  | Yes |
 | Pony | Animals | 1 | animal |  | |
 | Priests | Monsters | 2 | original | Generic role | |
 | Pseudodragon | Monsters | 1 | original |  | |
-| Pteranodon | Animals | 1 | animal | Extinct: cite natural history museums | |
+| Pteranodon | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
 | Purple Worm | Monsters | 1 | original |  | |
 | Quasit | Monsters | 1 | original |  | |
 | Rakshasa | Monsters | 1 | myth | Hindu epics | |
@@ -226,7 +226,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Roc | Monsters | 1 | myth | One Thousand and One Nights, Marco Polo | |
 | Roper | Monsters | 1 | original |  | |
 | Rust Monster | Monsters | 1 | original | Real-world origin: a plastic toy | |
-| Saber-Toothed Tiger | Animals | 1 | animal | Extinct: cite natural history museums | |
+| Saber-Toothed Tiger | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
 | Sahuagin | Monsters | 1 | original |  | |
 | Salamander | Monsters | 1 | myth | Paracelsus | |
 | Satyr | Monsters | 1 | myth | Greek myth | |
@@ -258,10 +258,10 @@ original. The lore can mention the myth as the source of the name, with a source
 | Swarm of Ravens | Animals | 1 | animal | Fantasy version; facts from the real ravens | |
 | Swarm of Venomous Snakes | Animals | 1 | animal | Fantasy version; facts from the real venomous snakes | |
 | Tarrasque | Monsters | 1 | myth | French legend of the Tarasque | |
-| Tiger | Animals | 1 | animal |  | |
+| Tiger | Animals | 1 | animal |  | Yes |
 | Toughs | Monsters | 2 | original | Generic role | |
 | Treant | Monsters | 1 | original | Tree spirits are common in folklore, but avoid Tolkien's Ents, which are under copyright | |
-| Triceratops | Animals | 1 | animal | Extinct: cite natural history museums | |
+| Triceratops | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
 | Troll | Monsters | 2 | myth | Norse and Scandinavian folklore | |
 | Tyrannosaurus Rex | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
 | Unicorn | Monsters | 1 | myth | Ctesias, Pliny, medieval bestiaries | |
