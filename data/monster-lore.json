@@ -277,6 +277,21 @@
       }
     ]
   },
+  "Cloud Giant": {
+    "description": "An enormous giant who lives in a great house above the clouds, among treasures such as a hen that lays golden eggs.[1]",
+    "lore": "When Jack climbed the magic beanstalk all the way to the sky, he found a long road and, at its end, a great tall house. A huge woman stood on the doorstep. Her husband, she warned him, was an ogre, and he liked nothing better than boys broiled on toast.[1] The giant shook the house with his footsteps. He came home with calves hanging from his belt, sniffed the air and roared that he smelled the blood of an Englishman.[1]\n\nThe giant was rich. After breakfast he counted his bags of gold, and he kept a hen that laid a golden egg whenever he told it to, and a golden harp that sang him to sleep. Jack stole all three. The harp cried out for its master, and the giant chased Jack down the beanstalk until Jack chopped it through and the giant fell and broke his head.[1]\n\nOther tales tell of cloud giants who float through the air, call up banks of fog and strike with the force of thunder.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "English Fairy Tales",
+        "author": "Collected by Joseph Jacobs (1890)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/7439",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Constrictor Snake": {
     "description": "A heavy-bodied snake with no venom that kills by wrapping its prey in its coils and squeezing.[1]",
     "lore": "The boa constrictor is famous for its size, though other snakes grow far larger, and most are two to three meters long.[1] It hunts mostly from ambush, often hanging from a branch and striking fast at whatever passes below. It eats mainly small mammals, including bats, and birds, but it will take any animal it can catch and fit in its mouth.[1]\n\nA boa has no venom. It wraps its prey in its coils and squeezes until the animal can no longer breathe.[1] Boas live alone and are active at night or at dusk, though they bask in the sun when it is cool.[1] When a boa is about to shed its skin, its eyes turn cloudy and it often stays still until the old skin comes off.[1] Threatened, it bites.[1]",
@@ -497,6 +512,36 @@
       }
     ]
   },
+  "Ettin": {
+    "description": "A terrible giant with more than one head, who asks riddles of the travelers it catches.[1]",
+    "lore": "In the Scottish tale of the Red Ettin, the Ettin was a monster with three heads who spared no one he caught. He had stolen the daughter of the king of Scotland, and dreadful two-headed beasts with four horns on each head roamed the land near his castle.[1] When he came home, he sniffed out any human hiding there. Each of his heads asked a riddle, and anyone who could not answer all three was struck with a mallet and turned into a pillar of stone.[1]\n\nA young man who had been kind to a fairy learned the answers from her. The thing without an end is a bowl. The smaller it is, the more dangerous: a bridge. The dead carry the living when a ship sails with people on board. With his power broken, the Ettin lost all three heads to the young man's axe. The young man freed the king's daughter and the other women the Ettin had locked away, and touched the stone pillar with a magic wand to bring his brother back to life.[1]\n\nOther tales give the ettin two heads rather than three, with a battleaxe in one hand and a morningstar in the other. With two heads keeping watch, it is very hard to catch off guard.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "English Fairy Tales",
+        "author": "Collected by Joseph Jacobs (1890)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/7439",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Fire Giant": {
+    "description": "A towering giant of the burning south, who carries a sword of flame and will one day set the whole world on fire.[1]",
+    "lore": "Far to the south lies Muspelheim, a land so hot and bright that no one born elsewhere can bear it. The giant Surt stands guard at its border with a flaming sword in his hand.[1]\n\nAt the end of the world, the sky will split open and the sons of Muspel will ride out through the gap, with Surt at their head and fire before and behind him. His sword shines brighter than the sun. As they ride over the rainbow bridge, it breaks apart beneath them.[1]\n\nIn the last battle Surt fights the god Frey, who falls because he gave his own good sword away long before. When the gods and their enemies have destroyed each other, Surt flings fire over the earth and burns the whole world.[1]",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Younger Edda, Also Called Snorre's Edda, or The Prose Edda",
+        "author": "Snorri Sturluson, translated by Rasmus B. Anderson (1879)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/18947",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Flying Snake": {
     "description": "A slender tree snake that launches itself from high branches and glides through the air with its body flattened.[1][2]",
     "lore": "Flying snakes live in the forests of South and Southeast Asia. They don't truly fly, but they glide.[2] The paradise tree snake flings itself from the treetops, flattens and stiffens its body into an S-shape, and ripples as it falls to stay steady.[1][2]\n\nBy twisting its body it can turn in midair and steer toward a landing. Glides of more than 20 meters have been measured, and some snakes have been reported landing on branches about a hundred meters away.[1][2]",
@@ -530,6 +575,21 @@
         "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
         "url": "https://animaldiversity.org/accounts/Lithobates_catesbeianus/",
         "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Frost Giant": {
+    "description": "An enormous giant of ice and cold, of the race born from the first giant, who waits for the end of the world to make war on the gods.[1]",
+    "lore": "Before the world was made, rime from the icy north met the heat of the south, and the melting drops became Ymir, the first giant. While he slept, a man and a woman grew from under his arm, and from them came the frost giants. Ymir was wicked, and so was the whole race that came from him.[1]\n\nOdin and his brothers killed Ymir. So much blood poured from him that it drowned the whole race of frost giants except one, Bergelmer, who escaped in a boat with his wife and began the race again. The gods made the earth from Ymir's flesh, the sea from his blood, the rocks from his bones and the sky from his skull.[1]\n\nThe frost giants never forgave it. They would climb into heaven if the fire burning on the rainbow bridge did not keep them back.[1] At the end of the world, the giant Hrym will lead all the frost giants to the last battle against the gods.[1]",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Younger Edda, Also Called Snorre's Edda, or The Prose Edda",
+        "author": "Snorri Sturluson, translated by Rasmus B. Anderson (1879)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/18947",
+        "license": "Public domain",
         "accessed": "2026-10-28"
       }
     ]
@@ -1062,6 +1122,21 @@
       }
     ]
   },
+  "Hill Giant": {
+    "description": "A huge, grim giant who lives in a cave and wades out to steal cattle, sheep and pigs from the farms around it.[1]",
+    "lore": "In the days of King Arthur, the giant Cormoran lived in a cave on the Mount of Cornwall. He stood eighteen feet tall, with a fierce, grim face, and every town nearby lived in terror of him. When he was hungry he waded across to the mainland, and people fled their houses as he came. He carried off half a dozen oxen at once on his back and hung sheep and pigs from his belt.[1]\n\nThe magistrates promised the giant's treasure to whoever could kill him. A farmer's son named Jack crossed to the Mount one winter evening and dug a deep pit through the night and covered it with straw and earth. At dawn he blew a horn. The angry giant charged out of his cave, swearing to broil Jack for breakfast, and fell into the pit, where Jack killed him with a blow of his pickaxe. Jack was called the Giant-Killer from then on, and another giant, Blunderbore, swore revenge on him.[1]",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "English Fairy Tales",
+        "author": "Collected by Joseph Jacobs (1890)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/7439",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Hippopotamus": {
     "description": "A huge, barrel-shaped animal with thin purple-gray skin, short legs and a wide mouth armed with tusks.[1]",
     "lore": "Hippos spend their days in rivers, lakes and swamps, resting in herds of 20 to 100 in water deep enough to cover them, often with their heads on each other's backs.[1] At dusk they come ashore and follow their own worn paths to graze, spending four or five hours a night pulling up grass with lips half a meter wide.[1]\n\nThey look clumsy but are not. A hippo can run at 30 kilometers an hour on land, and in shallow water it pushes along the bottom with its short, powerful legs.[1] Its skin oozes an oily red fluid, once thought to be blood mixed with sweat, which works as a sunscreen and keeps germs at bay.[1]\n\nHippos are loud. Their honking calls carry through the air and the water at the same time, the only mammal calls known to do so.[1] Bulls fight for rank by yawning to show their teeth, roaring, clashing jaws and tusks, and flinging dung with their swinging tails.[1] Apart from people, a grown hippo has no predators.[1]",
@@ -1375,6 +1450,21 @@
         "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
         "url": "https://animaldiversity.org/accounts/Octopus_vulgaris/",
         "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Ogre": {
+    "description": "A huge, cruel brute who eats people, especially children, and is often richer and stronger than it is clever.[1]",
+    "lore": "Charles Perrault's tales are full of ogres. In Little Thumb, seven lost brothers take shelter in an ogre's house, though his wife warns them that he eats little children.[1] The ogre smells them hiding under the bed and decides to kill them in the morning. In the night, the youngest boy swaps his brothers' caps for the gold crowns worn by the ogre's seven daughters. The ogre comes in the dark with his great knife, feels for the crowns and kills his own daughters instead.[1] He chases the boys in boots that cover seven leagues at a stride, but the effort tires him and he falls asleep, and the boy steals the boots from his feet.[1]\n\nIn Puss in Boots, the richest ogre ever known could turn himself into any animal he liked. The clever cat asked to see him become a lion, then a mouse, and when the ogre did, the cat ate him.[1]\n\nOther tales make the ogre a hulking, dim-witted giant who smashes enemies with a great club and hurls javelins.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Tales of Mother Goose",
+        "author": "Charles Perrault, translated by Charles Welsh",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/17208",
+        "license": "Public domain",
         "accessed": "2026-10-28"
       }
     ]
@@ -1753,6 +1843,36 @@
       }
     ]
   },
+  "Stone Giant": {
+    "description": "A giant with a heart and head of stone, who fights behind a thick stone shield and hurls great stones.[1]",
+    "lore": "Hrungnir was the strongest of the giants. His heart was made of stone, sharp and three-cornered, and his head was stone too. He carried a broad, thick shield of stone, and his weapon was a huge flint-stone that he swung over his shoulder.[1]\n\nAfter a drunken visit to the halls of the gods, he challenged Thor to a duel at the borders of the giants' land. The giants built him a huge companion out of clay, but it was so terrified at the sight of Thor that it wet itself.[1] Hrungnir was tricked into standing on his shield, and when Thor hurled his hammer, Hrungnir threw his flint-stone to meet it. The stone shattered in the air. Its pieces became the flint in the mountains, and one shard struck Thor's head and stuck fast there. The hammer crushed the giant's skull, and he fell with his foot across Thor's neck, so heavy that none of the gods could lift it.[1]",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Younger Edda, Also Called Snorre's Edda, or The Prose Edda",
+        "author": "Snorri Sturluson, translated by Rasmus B. Anderson (1879)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/18947",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Storm Giant": {
+    "description": "A giant who sits at the edge of the sky, wrapped in an eagle's feathers, and raises the wind with his wings.[1]",
+    "lore": "The wind is strong enough to stir up great seas and fan fires to flame, yet no one can see it. The Prose Edda explains where it comes from. At the northern end of heaven sits a giant named Hrasvelg, dressed in the shape of an eagle. Whenever he spreads his wings to fly, the winds rise from under them and blow over all the world.[1]\n\nOther tales tell of storm giants who live beneath the sea as easily as on land, hurl thunderbolts and call down storms of lightning. These giants are often kind, if rarely gentle.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Younger Edda, Also Called Snorre's Edda, or The Prose Edda",
+        "author": "Snorri Sturluson, translated by Rasmus B. Anderson (1879)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/18947",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Swarm of Bats": {
     "description": "Hundreds of bats that roost together by day in caves, mines and hollow trees, then fill the night air as they hunt by sound.[1][2]",
     "lore": "Bats spend the day out of sight, packed into caves, old mines, hollow trees and cracks in rock, or under bridges, where predators can't reach them. Some of these places fill with bats each spring as mothers gather to raise their young, and others fill each winter as bats crowd in to sleep through the cold.[1] On summer evenings, many come out to hunt insects over ponds and streams.[1]\n\nBats find their way and their prey in the dark by calling out and listening for the echoes, at a pitch too high for people to hear. When a bat closes in on an insect, its calls speed up into a fast buzz just before it strikes.[2]\n\nNot every bat hunts insects. Some eat fruit or pollen, and a few even catch fish.[3]",
@@ -1909,6 +2029,21 @@
       }
     ]
   },
+  "Troll": {
+    "description": "A huge, ugly man-eater of the forests and fells, with eyes as big as saucers, who hoards gold in its rocky home.[1]",
+    "lore": "In the folk tales of Norway, trolls live in the pine forests on the mountainsides and in caves deep inside the rock, where they sit among heaps of gold and silver. They carry off human children, and they eat people as readily as porridge or sausages, because that is their nature.[1] By day they keep to forests too dark for the sun to reach, and at night they come home, eat their fill and snore until morning.[1]\n\nThe sun is their bane. A troll that looks the sun full in the face bursts. In one tale, the Man o' the Hill is running home to his trapdoor at dawn when the sun rises, and he bursts on the spot. His gold is said to lie under the trapdoor still.[1] In another, a great ugly troll lives under a bridge over a stream and threatens to gobble up the three billy goats Gruff as they cross. The biggest goat charges him, crushes him to bits and tosses him into the stream.[1]\n\nOther tales tell of trolls that no wound can stop. Cut one apart and its flesh knits back together, and a severed limb keeps fighting on its own. Only fire or acid keeps it from healing.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "Popular Tales from the Norse",
+        "author": "Peter Christen Asbjørnsen and Jørgen Moe, translated by Sir George Webbe Dasent",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/8933",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Tyrannosaurus Rex": {
     "description": "A two-legged predator about 12 meters long, with a massive skull, small arms and saw-edged teeth strong enough to crush bone.[1]",
     "lore": "Tyrannosaurus rex lived at the very end of the age of dinosaurs. Its name means \"tyrant lizard king\".[1] Its jaws held 60 saw-edged teeth and gave it the strongest bite of any land animal known, strong enough to crush bone. It swallowed the pieces, too: bone turns up in its fossilized dung.[1]\n\nIt had a keen nose. Much of its brain was given over to smell, which let it follow living prey or find a carcass from far away.[1] Its tooth marks have been found on the bones of Triceratops and Edmontosaurus, and on the bones of other tyrannosaurs, so they fought each other too.[1]\n\nIts arms were tiny for its size, and no one is sure what they were for. They may have helped it get back up after a fall, or held food while it was young.[1] Fossil skin shows it was covered in scales.[1]",
@@ -2011,6 +2146,21 @@
       }
     ]
   },
+  "Wight": {
+    "description": "One of the restless dead, who guards its treasure in a dark burial mound and fights anyone who breaks in.[1]",
+    "lore": "In the saga of Grettir the Strong, a flame burned at night above a burial mound on Haramsey, an island off the coast of Norway. It belonged to Karr the Old, who had been buried there and had since haunted the island so badly that every other landowner had been driven away.[1] Grettir dug into the mound. Inside, in the dark and the stench, he found horse bones and a dead man sitting in a high chair over heaps of gold and silver. As he carried the treasure out, the barrow-dweller seized him, and they wrestled in the dark until the dead man fell. Grettir cut off his head and laid it at his thigh, the old way to keep a ghost from walking.[1]\n\nThe shepherd Glam was harder to put down. After his death he would not lie quiet. He rode the house roofs at night until they nearly broke, and people who saw him fainted or lost their minds. When Grettir finally threw him down, Glam's eyes glared up in the moonlight, and he cursed Grettir to see those eyes forever and to dread being alone.[1]\n\nOther tales arm the wight with sword and bow and give it a touch that drains the life from the living. Sunlight weakens it.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Story of Grettir the Strong",
+        "author": "Translated by Eiríkr Magnússon and William Morris (1869)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/12747",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Wolf": {
     "description": "A lean wild dog with a coat anywhere from gray to brown, black or white, that hunts in family packs able to kill a moose or a bison.[1]",
     "lore": "Wolves live and hunt as families. A pack is usually a mated pair and their young, and the parents lead the hunts and teach the young how to hunt, avoid danger and mark the borders of their land.[1] Together they bring down caribou, moose and bison, animals far bigger than any one wolf, and they take rabbits, beavers, fish and even berries when they can.[1]\n\nA pack's land can be huge, and wolves cover long distances across it, mostly at night.[2] They howl to call the pack together, to stir it up before a hunt and to warn other packs away. A wolf cut off from its pack gives a short, rising \"lonesome howl\", then switches to deeper calls once the others answer, so they can find it.[1]\n\nAround two years of age, a young wolf may wander the edges of its family's land before leaving to find a mate and start a pack of its own.[1] Folklore has long cast wolves as animals to fear, and that fear still shapes how people treat them.[1]",
@@ -2029,6 +2179,21 @@
         "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
         "url": "https://animaldiversity.org/accounts/Canis_lupus/",
         "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Worg": {
+    "description": "A huge, evil wolf, one of a race of giants born in wolf shape in a dark forest at the edge of the world.[1]",
+    "lore": "The sun and moon race across the sky because wolves are chasing them. Skoll runs after the sun and will one day catch her, and Hati runs ahead trying to seize the moon.[1] East of the world of men lies the forest of Ironwood, where an old hag gives birth to many giant sons, all in the shape of wolves. The mightiest of this wolf race is Moongarm, who feeds on the blood of the dead. One day he will swallow the moon and stain the sky with blood, and the sun will go dark.[1]\n\nOther tales describe worgs as cunning, evil wolves of the fey that speak their own language and the language of goblins.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Younger Edda, Also Called Snorre's Edda, or The Prose Edda",
+        "author": "Snorri Sturluson, translated by Rasmus B. Anderson (1879)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/18947",
+        "license": "Public domain",
         "accessed": "2026-10-28"
       }
     ]

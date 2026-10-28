@@ -59,7 +59,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Chuul | Monsters | 1 | original |  | |
 | Clay Golem | Monsters | 1 | myth | Jewish folklore (the Golem of Prague) | |
 | Cloaker | Monsters | 1 | original |  | |
-| Cloud Giant | Monsters | 1 | myth | Jack and the Beanstalk | |
+| Cloud Giant | Monsters | 1 | myth | Jack and the Beanstalk | Yes |
 | Cockatrice | Monsters | 1 | myth | Medieval bestiaries | |
 | Commoner | Monsters | 1 | original | Generic role | |
 | Constrictor Snake | Animals | 1 | animal |  | Yes |
@@ -89,13 +89,13 @@ original. The lore can mention the myth as the source of the name, with a source
 | Elk | Animals | 1 | animal |  | Yes |
 | Erinyes | Monsters | 1 | myth | Greek myth (the Furies) | Yes |
 | Ettercap | Monsters | 1 | original |  | |
-| Ettin | Monsters | 1 | myth | English folklore (two-headed giants) | |
+| Ettin | Monsters | 1 | myth | English folklore (two-headed giants) | Yes |
 | Fire Elemental | Monsters | 1 | myth | Classical elements, Paracelsus | |
-| Fire Giant | Monsters | 1 | myth | Norse myth (Muspelheim) | |
+| Fire Giant | Monsters | 1 | myth | Norse myth (Muspelheim) | Yes |
 | Flesh Golem | Monsters | 1 | myth | Mary Shelley, Frankenstein (1818, public domain) | |
 | Flying Snake | Animals | 1 | animal |  | Yes |
 | Frog | Animals | 1 | animal |  | Yes |
-| Frost Giant | Monsters | 1 | myth | Norse myth (jotnar) | |
+| Frost Giant | Monsters | 1 | myth | Norse myth (jotnar) | Yes |
 | Fungi | Monsters | 2 | original |  | |
 | Gargoyle | Monsters | 1 | myth | Medieval church architecture and folklore | |
 | Gelatinous Cube | Monsters | 1 | original |  | |
@@ -151,7 +151,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Hawk | Animals | 1 | animal |  | Yes |
 | Hell Hound | Monsters | 1 | myth | Black dog folklore, Cerberus | Yes |
 | Hezrou | Monsters | 1 | original |  | |
-| Hill Giant | Monsters | 1 | myth | European folklore | |
+| Hill Giant | Monsters | 1 | myth | European folklore | Yes |
 | Hippogriff | Monsters | 1 | myth | Ariosto, Orlando Furioso | |
 | Hippopotamus | Animals | 1 | animal |  | Yes |
 | Hobgoblins | Monsters | 2 | myth | English folklore | |
@@ -195,7 +195,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Noble | Monsters | 1 | original | Generic role | |
 | Ochre Jelly | Monsters | 1 | original |  | |
 | Octopus | Animals | 1 | animal |  | Yes |
-| Ogre | Monsters | 1 | myth | Perrault and other fairy tales | |
+| Ogre | Monsters | 1 | myth | Perrault and other fairy tales | Yes |
 | Oni | Monsters | 1 | myth | Japanese folklore | |
 | Otyugh | Monsters | 1 | original |  | |
 | Owl | Animals | 1 | animal |  | Yes |
@@ -247,9 +247,9 @@ original. The lore can mention the myth as the source of the name, with a source
 | Sprite | Monsters | 1 | myth | English folklore | |
 | Spy | Monsters | 1 | original | Generic role | |
 | Stirge | Monsters | 1 | original |  | |
-| Stone Giant | Monsters | 1 | myth | European folklore | |
+| Stone Giant | Monsters | 1 | myth | European folklore | Yes |
 | Stone Golem | Monsters | 1 | original |  | |
-| Storm Giant | Monsters | 1 | myth | Norse and Greek myth (loose) | |
+| Storm Giant | Monsters | 1 | myth | Norse and Greek myth (loose) | Yes |
 | Succubus | Monsters | 1 | myth | Medieval demonology | |
 | Swarm of Bats | Animals | 1 | animal | Fantasy version; facts from the real bats | Yes |
 | Swarm of Insects | Animals | 1 | animal | Fantasy version; facts from the real insects | Yes |
@@ -262,7 +262,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Toughs | Monsters | 2 | original | Generic role | |
 | Treant | Monsters | 1 | original | Tree spirits are common in folklore, but avoid Tolkien's Ents, which are under copyright | |
 | Triceratops | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
-| Troll | Monsters | 2 | myth | Norse and Scandinavian folklore | |
+| Troll | Monsters | 2 | myth | Norse and Scandinavian folklore | Yes |
 | Tyrannosaurus Rex | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
 | Unicorn | Monsters | 1 | myth | Ctesias, Pliny, medieval bestiaries | Yes |
 | Vampires | Monsters | 3 | myth | Eastern European folklore | |
@@ -279,11 +279,11 @@ original. The lore can mention the myth as the source of the name, with a source
 | Weretiger | Monsters | 1 | myth | South and Southeast Asian folklore | |
 | Werewolf | Monsters | 1 | myth | European folklore, Ovid (Lycaon) | |
 | White Dragons | Monsters | 4 | original |  | |
-| Wight | Monsters | 1 | myth | Norse draugr and haugbui | |
+| Wight | Monsters | 1 | myth | Norse draugr and haugbui | Yes |
 | Will-o'-Wisp | Monsters | 1 | myth | European folklore | |
 | Winter Wolf | Monsters | 1 | original |  | |
 | Wolf | Animals | 1 | animal |  | Yes |
-| Worg | Monsters | 1 | myth | Norse vargr | |
+| Worg | Monsters | 1 | myth | Norse vargr | Yes |
 | Wraith | Monsters | 1 | myth | Scottish folklore | |
 | Wyvern | Monsters | 1 | myth | Heraldry | |
 | Xorn | Monsters | 1 | original |  | |
