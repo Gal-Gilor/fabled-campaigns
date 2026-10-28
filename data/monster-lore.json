@@ -712,6 +712,12 @@
     "origin": "original",
     "sources": []
   },
+  "Drider": {
+    "description": "A creature with the upper body of an elf and the lower body of a giant spider, which spits venom and calls on the magic of a spider goddess.",
+    "lore": "A drider has an elf's head, arms and chest joined to the body of a huge spider. It runs across walls and ceilings and along its own webs as easily as on the ground, and it feels the slightest tremble of anything caught in them.\n\nDriders fight with their sharp forelegs and spit bursts of venom from a distance. They can also call on gifts from the spider goddess they serve, plunging a cave into darkness, filling it with webs or outlining their prey in glowing light.\n\nDriders shun the sun, which leaves them clumsy and half blind. They speak Elvish and the trade tongue of the deep places, and they often rule over smaller cave dwellers, who leave offerings of food at the edges of their webs.",
+    "origin": "original",
+    "sources": []
+  },
   "Druid": {
     "description": "A priest, judge and teacher of the ancient Gauls and Britons, who learned sacred lore by heart and held the oak and mistletoe holy.[1][2]",
     "lore": "Julius Caesar wrote that the druids of Gaul led the sacrifices, explained all matters of religion and settled almost every dispute, from murders to quarrels over inheritances and boundaries. Anyone who defied their judgment was barred from the sacrifices, the heaviest punishment they had, and everyone shunned him.[1] Once a year they gathered at a holy place in the land of the Carnutes, thought to be the center of Gaul. Their teaching was said to have come from Britain, and those who wanted to study it in depth went there.[1]\n\nDruids paid no taxes and did not go to war. Students spent as long as twenty years learning great numbers of verses by heart, because the druids would not allow their teachings to be written down. They taught that the soul does not die but passes into another body, and they studied the stars, the size of the world and the nature of the gods.[1]\n\nPliny the Elder wrote that nothing was more sacred to the druids than mistletoe growing on an oak. On the fifth day of the moon, a priest in a white robe climbed the tree and cut it with a golden sickle, while others caught it in a white cloak, and two white bulls were sacrificed beneath the branches.[2]",
@@ -1020,6 +1026,12 @@
   "Gelatinous Cube": {
     "description": "A clear, cube-shaped mass of jelly that slides through tunnels, swallowing everything in its path.",
     "lore": "A gelatinous cube is almost invisible. It fills a tunnel from wall to wall and floor to ceiling, and its clear body lets light pass straight through, so most of its victims never see it until they walk into it.\n\nOnce it touches something, it draws it inside and digests it slowly. A person caught inside is held fast and burned by acid, and only quick work by friends can pull them free.\n\nExplorers have their own tricks for finding cubes. Some throw a handful of flour or dust down a tunnel ahead of them, watching for where it hangs in the air. Others roll an old barrel in front of the party and listen for the moment it stops.",
+    "origin": "original",
+    "sources": []
+  },
+  "Ghast": {
+    "description": "A gaunt, foul-smelling corpse that hungers for the flesh of the living and paralyzes its victims with its claws.",
+    "lore": "A ghast is a dead thing that walks and eats. Its skin is gray and stretched, its teeth are long and its stench is so strong that those who come near it gag and choke. A scratch from its claws can leave a victim stiff and helpless, and its bite carries the cold of the grave.\n\nUnlike many of the undead, a ghast can think and speak. It remembers enough of life to be cunning. Ghasts lie in wait in crypts and battlefields, and they sometimes speak to travelers from the dark, pretending to be lost or wounded to draw them close.\n\nGravediggers say that a churchyard with a ghast in it can be known by its smell, a sweet, rotten reek that hangs over the graves even in winter.",
     "origin": "original",
     "sources": []
   },
@@ -1482,6 +1494,12 @@
       }
     ]
   },
+  "Gibbering Mouther": {
+    "description": "A shapeless mass of flesh covered in mouths and eyes, which babbles madly and turns the ground around it to sucking ooze.",
+    "lore": "A gibbering mouther is a heap of quivering flesh that seems to be made of nothing but eyes and mouths. As it oozes along, the ground around it softens into a sticky muck, and every mouth babbles at once in a stream of nonsense that can drive listeners out of their wits.\n\nThe mouther bites anyone who stumbles near it, dragging them down, and it can spit a blinding glob of glowing fluid. It is slow but relentless, and once it starts toward a victim it does not stop.\n\nNo one knows where mouthers come from. Some say they grow wherever too many people have gone mad, and others say they are what remains of people who looked at something they should not have seen.",
+    "origin": "original",
+    "sources": []
+  },
   "Glabrezu": {
     "description": "A huge demon with great crab-like pincers, which sees through every illusion and uses magic to stun, confuse and blind its foes.",
     "lore": "A glabrezu is a brute and a spellcaster at once. It can seize a person in one of its huge pincers and crush them, or fill a room with darkness, tear away magical protections and leave its enemies reeling in confusion. A single word from it can stun a hero where they stand.\n\nNo illusion or disguise fools a glabrezu. It sees things as they truly are, and it takes particular pleasure in hunting wizards who believe their magic will keep them safe.\n\nLike all demons, it cannot truly be killed outside the abyss. Slay one in the mortal world and its body melts into stinking ichor, while the demon itself rises again in the abyss, whole and hungry for revenge.",
@@ -1502,6 +1520,12 @@
         "accessed": "2026-10-28"
       }
     ]
+  },
+  "Gnoll": {
+    "description": "A tall, savage, fiend-touched raider armed with a bow of bone, which flies into a killing frenzy when it smells blood.",
+    "lore": "Gnolls are raiders born with something fiendish in their blood. They live only to hunt and destroy. A gnoll war band sweeps across the countryside like a storm, burning farms, killing herds and leaving nothing alive behind it.\n\nGnolls carry great bows made of bone and sinew, and they tear at their enemies with their teeth. The sight of a wounded foe sends them into a frenzy, and a gnoll that draws blood rushes on to the next victim before the first has fallen.\n\nGnolls cannot be bargained with. Their raids end only when there is nothing left to destroy, or when someone destroys them.",
+    "origin": "original",
+    "sources": []
   },
   "Goat": {
     "description": "A sure-footed herd animal with hollow horns that sweep back or twist like corkscrews. Billy goats grow beards and carry a strong smell.[1]",
@@ -1533,6 +1557,12 @@
       }
     ]
   },
+  "Gorgon": {
+    "description": "A huge, bull-like construct of overlapping metal plates, which charges with its horns and breathes a mist that turns flesh to stone.",
+    "lore": "A gorgon looks like a great bull made of iron plates, with smoke curling from its nostrils. It was built, not born, though no one remembers by whom. Gorgons roam wild places and old ruins, and they attack anything that comes near.\n\nA gorgon charges headlong, goring its victims and trampling them when they fall. Worse is its breath, a choking mist that stiffens flesh and then turns it slowly to stone.\n\nThe land around a gorgon's haunt is full of statues: deer, wolves, shepherds and knights, frozen in mid-step. Some are said to have been there so long that moss covers their faces.",
+    "origin": "original",
+    "sources": []
+  },
   "Gray Ooze": {
     "description": "A slimy, gray puddle that looks like wet stone, which corrodes metal and lashes out at anything that touches it.",
     "lore": "Gray oozes lie in damp caves and sewers, looking like nothing more than wet rock or a puddle. When something steps close, the ooze lashes out, and its touch eats through flesh and metal.\n\nSwords and armor suffer badly against a gray ooze. A blade that strikes it pits and weakens, and armor touched by it can corrode through. Fire, cold and acid barely hurt it.\n\nOld miners say gray oozes grow wherever iron has been left to rust in the dark. Whether or not that is true, a pile of rusted tools in a damp corner is reason enough to walk around it.",
@@ -1562,6 +1592,12 @@
       }
     ]
   },
+  "Grick": {
+    "description": "A worm-like creature with a hooked beak and four tentacles, which lurks on cave walls and drops onto passing prey.",
+    "lore": "A grick's long, rubbery body is the color of wet stone, and it lies so still along a cave wall or ledge that it is almost impossible to spot. When prey passes beneath, it lashes out with four barbed tentacles, wraps them around its victim and tears with its sharp beak.\n\nGricks hunt alone or in small groups. They are patient and can wait for days in the same spot. Explorers who see a cave floor scattered with bones and no tracks leading away should look up.",
+    "origin": "original",
+    "sources": []
+  },
   "Griffon": {
     "description": "A fierce beast with the long ears and hooked beak of a bird of prey, said to guard great hoards of gold.[1][2]",
     "lore": "The Greeks heard of griffins from the far north. Herodotus wrote that a great store of gold lay in the north of Europe, and that the one-eyed Arimaspians stole it from the griffins that guarded it, though he doubted the tale himself.[1] The poet Aristeas, he says, placed the gold-guarding griffins beyond the land of the Arimaspians, and told of all these peoples forever at war with their neighbors.[1]\n\nPliny the Elder described griffins with long ears and hooked beaks, said to live in Ethiopia, and he counted them among fabulous creatures.[2]",
@@ -1585,6 +1621,12 @@
       }
     ]
   },
+  "Grimlock": {
+    "description": "A blind, gray-skinned humanoid of the deep caves, which finds its prey by sound and smell and fights with a heavy bone club.",
+    "lore": "Grimlocks live in the deepest caves, where they have no use for eyes. Their eyes are blind or gone entirely, but their hearing and sense of smell are so keen that they can find a person in total darkness by the sound of breathing.\n\nThey climb the cave walls easily and hunt in packs, beating their victims with clubs made of bone. Something in their touch troubles the mind, and those they strike are left dazed and shaken.\n\nGrimlocks do not speak. They communicate with clicks, hisses and taps on the stone, and a sudden silence in grimlock tunnels usually means they have heard something.",
+    "origin": "original",
+    "sources": []
+  },
   "Guardian Naga": {
     "description": "A great serpent of good heart, wise and devoted to virtue, who keeps watch over the world.[1]",
     "lore": "In the Mahabharata, the nagas are the serpent children of the sage Kasyapa. The eldest, Sesha, could not bear his brothers, who were wicked and jealous. He left them to live alone in holy places, eating nothing but air, until his body withered from his hard devotions.[1]\n\nBrahma, the grandfather of all creation, offered him a boon. Sesha asked only that his heart might always delight in virtue. Pleased, Brahma gave him a task: the earth was unsteady, with all its mountains, forests and seas, and Sesha was to hold it still.[1] The earth opened a crack for him, and the great serpent went down beneath it and held it up on his head. He lives there still, alone, under the name Ananta.[1]\n\nOther tales tell of guardian nagas who watch over holy places, spit blinding venom at intruders and come back to life days after they are slain.",
@@ -1599,6 +1641,18 @@
         "accessed": "2026-10-28"
       }
     ]
+  },
+  "Guards": {
+    "description": "A soldier or watchman who keeps order in a town, castle or caravan, armed with spear and shield.",
+    "lore": "Guards stand watch at city gates, patrol the streets at night and protect the homes of the wealthy. A typical guard is a local who took the job for steady pay. They know the streets, the shopkeepers and the troublemakers, and they can be a great help or a great obstacle to adventurers.\n\nA guard captain is a veteran who has seen real fighting. Captains command the watch, train new recruits and answer to the lord or council who pays them. A good captain is respected; a corrupt one can make a whole town miserable.\n\nMost guards are honest enough, but poorly paid. A coin pressed into the right hand has opened many locked gates.",
+    "origin": "original",
+    "sources": []
+  },
+  "Half-Dragon": {
+    "description": "A being with the blood of a dragon, part humanoid and part dragon, which can breathe the same destructive energy as its draconic kin.",
+    "lore": "Half-dragons carry a dragon's blood in their veins, whether through an ancestor's union or through magic. They usually have scales, claws and a hint of the dragon's horns or crest, and their eyes often gleam with the same color as the dragon's breath.\n\nA half-dragon can breathe fire, frost, lightning, acid or poison, depending on its dragon parent, and it resists the same kind of harm. Its claws are long, and it can leap great distances.\n\nHalf-dragons rarely fit in anywhere. Mortals fear them and dragons see them as lesser. Many become wanderers, mercenaries or rulers of their own small kingdoms.",
+    "origin": "original",
+    "sources": []
   },
   "Harpy": {
     "description": "A winged woman, swift as the storm wind, who swoops down to snatch away food and leave the rest befouled.[1][2]",
@@ -1835,6 +1889,12 @@
       }
     ]
   },
+  "Invisible Stalker": {
+    "description": "A spirit of living wind that cannot be seen, summoned to hunt down a target and pursue it until the task is done.",
+    "lore": "An invisible stalker is a being of elemental air, a shape of moving wind that no eye can see. Spellcasters summon them to find and kill, or to fetch, or to guard, and the stalker carries out its task with perfect patience.\n\nIt strikes with blows of solid wind and can wrap itself around its victim as a whirling vortex. Locked doors mean little to it, since it can slip through the narrowest crack. The only warning of its approach may be a sudden draft or papers stirring on a still day.\n\nWhen its task is finished, the stalker is gone, and the only sign it ever existed may be a door left banging in the wind.",
+    "origin": "original",
+    "sources": []
+  },
   "Iron Golem": {
     "description": "A giant made of metal, forged to stand guard without ever tiring.[1]",
     "lore": "Talos was a man of bronze who guarded the island of Crete. Some said he was the last of the Bronze Race of men, and others that the smith god Hephaestus made him and gave him to King Minos.[1] Three times a day he ran around the whole island, and when he saw the ship Argo coming close to shore, he pelted it with stones.[1]\n\nA single vein ran from his neck to his ankles, sealed with a bronze nail. The sorceress Medea brought about his death, either by driving him mad with drugs or by promising to make him immortal and then pulling out the nail, so that the ichor poured out of him.[1]\n\nLater makers built their guardians of iron. Such a golem fights with bladed arms and breathes poison, and fire only makes it stronger.",
@@ -1894,6 +1954,12 @@
       }
     ]
   },
+  "Kobold": {
+    "description": "A small, scaly creature with dragon blood, which fights in packs with thrown daggers and avoids bright sunlight.",
+    "lore": "Kobolds are small, reptilian creatures who claim kinship with dragons. They are clever and quick, and though one kobold is no great threat, they never fight alone. A kobold pack swarms its target, darting in from every side.\n\nKobolds dislike the sun and live in caves and old mines, coming out at dusk. They are excellent tunnelers and diggers, and a warren of kobolds can riddle a hillside with passages.\n\nKobolds keep long memories. A tribe passes its grudges down from parent to child, and a traveler who wrongs one kobold may find the whole warren still hunting them years later.",
+    "origin": "original",
+    "sources": []
+  },
   "Kraken": {
     "description": "A sea monster so vast that its back is mistaken for a group of islands, with arms that could drag a warship under.[1]",
     "lore": "The legends of the northern seas told of a creature so large it looked more like an island than an animal.[1] Olaus Magnus wrote that fishermen once landed on its back and lit a fire there, and it sank beneath them and drowned them. Another tale said a bishop found it lying by the shore, took it for a rock, and said mass on it. The kraken politely waited until he was safely back on land before it sank.[1]\n\nIn the 1700s, the Norwegian bishop Eric Pontoppidan wrote down what fishermen told him. Far out at sea, where they expected deep water, their lines would sometimes find bottom at a fraction of the depth, and the fish would bite as fast as they could pull them in. That meant the kraken was lying below. If the water grew shallower still, they rowed away as fast as they could.[1] Soon its back would rise, more than a mile around, looking like a cluster of small islands covered in floating weed. Then its arms rose, as tall and thick as ships' masts, strong enough to pull the largest warship to the bottom. As it sank again, it left a whirlpool that dragged down everything nearby.[1]\n\nOther tales make the kraken a titan of the deep, which calls down lightning and storms and swallows its prey whole.",
@@ -1939,6 +2005,12 @@
       }
     ]
   },
+  "Lich": {
+    "description": "A wizard who has cheated death by binding their spirit to a hidden vessel, becoming a powerful undead spellcaster.",
+    "lore": "Some wizards fear death so much that they will do anything to escape it. A lich is one who succeeded. By dark rites, the wizard binds their spirit to a hidden spirit jar, and when their body dies, it rises again as a withered, undead thing with a mind as sharp as ever.\n\nA lich is one of the most powerful spellcasters in any world. Its touch freezes and paralyzes, its gaze fills the bravest with terror, and the life drains from everything near it. Even if its body is destroyed, it forms a new one within days, as long as its spirit jar survives.\n\nLiches have centuries to plan and nothing to lose. Many hunt for knowledge, power or revenge, and most have long since stopped caring about the living. Destroying a lich means finding its spirit jar first, and that is rarely easy.",
+    "origin": "original",
+    "sources": []
+  },
   "Lion": {
     "description": "A big, tawny cat with powerful forelegs. Adult males wear shaggy manes that range from blond to almost black.[1]",
     "lore": "Lions are the most social of all cats. They live in prides of related females and their cubs, with one or more males, and a pride can number up to 40.[1] The females do most of the hunting, often closing in on prey from several directions before they charge, and they bring down animals as large as zebra and wildebeest.[1] Lions also steal kills from hyenas and leopards, and sometimes lose their own to groups of hyenas.[1]\n\nMales guard the pride, and both males and females mark their land with scent and with roars that carry for about eight kilometers.[1] Young males are driven out at two to four years old. They band together with brothers and cousins and roam until they can take over a pride, and they usually hold it for about two years before another group drives them out.[1]\n\nWild lions now live only in Africa, apart from a small population in the Gir Forest of northwest India.[1]",
@@ -1973,6 +2045,18 @@
         "accessed": "2026-10-28"
       }
     ]
+  },
+  "Mages": {
+    "description": "A wizard who has studied the arcane arts and casts spells to attack, defend and escape.",
+    "lore": "Mages are scholars of magic who have spent years learning spells from books and teachers. A mage can hurl bursts of raw magical force, shield themselves with a flick of the hand and vanish in a puff of mist to reappear a short distance away.\n\nArchmages are the masters of the art. An archmage commands powerful spells, speaks many languages and is very hard to catch off guard, since they can turn aside spells aimed at them and resist magic of every kind.\n\nMages are found everywhere: in towers and academies, in the courts of kings, in quiet villages and in the crowded markets of great cities. Many sell their services. Others want only to be left alone with their books.",
+    "origin": "original",
+    "sources": []
+  },
+  "Magmin": {
+    "description": "A small, mischievous creature of living magma that sets fire to anything it touches and bursts into flame when it dies.",
+    "lore": "Magmins are small spirits of elemental fire, shaped like stubby people made of glowing rock. They can make themselves blaze brightly or let their fire die down to a dull red glow, and anything flammable they touch bursts into flame.\n\nMagmins are curious and impulsive, and they do not understand that other creatures can be hurt by fire. Brought into the mortal world, a magmin can set a whole town ablaze while trying to make friends. When a magmin dies, it explodes in a burst of fire, so even killing one is a risk.",
+    "origin": "original",
+    "sources": []
   },
   "Mammoth": {
     "description": "An extinct elephant with long tusks that curve in a spiral, a domed head and a back that slopes down from high shoulders.[1]",
@@ -2062,6 +2146,12 @@
       }
     ]
   },
+  "Mephits": {
+    "description": "A small, winged spirit of mixed elements, such as dust, ice, magma or steam, which is boastful, quarrelsome and explodes when it dies.",
+    "lore": "Mephits are tiny elemental spirits with wings, each made of two elements mixed together. Dust mephits are made of earth and air, ice mephits of water and air, magma mephits of fire and earth, and steam mephits of fire and water. Each has a small breath attack of its own kind, and some can cast simple spells.\n\nMephits are boastful and quarrelsome. They brag about battles they never fought, squabble with each other over trifles and insult anyone who will listen. Few of them are brave, and a mephit outmatched in a fight will fly off shrieking.\n\nWhen a mephit dies, it bursts apart in a puff of its element, dust, frost, fire or scalding steam.",
+    "origin": "original",
+    "sources": []
+  },
   "Merfolk": {
     "description": "A being of the sea, human in shape above, with a body rough with scales.[1]",
     "lore": "Pliny the Elder collected reports of the people of the sea. A delegation from Olisipo told the emperor Tiberius that a triton had been seen and heard in a cave, blowing a conch shell, and looking just as tritons are usually shown.[1]\n\nNereids were real too, Pliny wrote, though the human part of their bodies was rough all over with scales. One was seen dying on that same shore, and people far away heard its mournful cries, and a governor of Gaul wrote to the emperor Augustus that many nereids had been found dead on the beach.[1] Men of rank told Pliny they had seen a sea-man off Gades, human in every part, who climbed onto ships at night and weighed them down until they nearly sank.[1]",
@@ -2091,6 +2181,12 @@
         "accessed": "2026-10-28"
       }
     ]
+  },
+  "Mimic": {
+    "description": "A shapeshifting creature that disguises itself as a chest, a door or another everyday object, then sticks to anyone who touches it.",
+    "lore": "A mimic can take the shape of almost any object of its size: a chest, a chair, a door, a barrel. It sits perfectly still, sometimes for weeks, until something touches it. Then it sticks fast. Its surface becomes a powerful glue, and the victim cannot pull free while the mimic bites and strikes with its acid-soaked limbs.\n\nIn its true form, a mimic is a lumpy, shapeless blob. Mimics are not very clever, but they understand that people like to touch things. They choose shapes that invite it, a chest left in an empty room, a fine chair beside a fire.\n\nOld adventurers have a saying: poke it with a stick before you open it.",
+    "origin": "original",
+    "sources": []
   },
   "Minotaur of Baphomet": {
     "description": "A huge man with the head of a bull.[1]",
@@ -2172,6 +2268,24 @@
       }
     ]
   },
+  "Nightmare": {
+    "description": "A black horse wreathed in flames, with burning hooves and fiery eyes, which carries its rider between worlds.",
+    "lore": "A nightmare is a steed from the lower planes, a horse of black flesh with a mane and tail of fire. Its hooves burn the ground where it steps and set alight whatever it tramples. It gallops through the air as easily as over the earth, and it can carry its rider into the ghostly realm beside the mortal world and back again.\n\nNightmares serve fiends, evil knights and dark wizards, though they are never truly tame. A nightmare protects its rider from fire but despises them all the same, and it will turn on a master who shows weakness.\n\nIn villages near haunted moors, people say that the sound of hooves on a clear night, with no rider in sight, means a nightmare is passing between the worlds.",
+    "origin": "original",
+    "sources": []
+  },
+  "Noble": {
+    "description": "A lord or lady of the upper class, trained in fine manners and in the use of the rapier.",
+    "lore": "Nobles own land, command servants and hold titles passed down through their families. They live in castles, manors or grand town houses and spend their days managing estates, attending court and scheming against their rivals.\n\nMost nobles learn the rapier as part of a proper education, and they can defend themselves well enough in a duel. Their real weapons are wealth, influence and family connections.\n\nFor adventurers, nobles are patrons, employers and sometimes enemies. A noble can open doors that no amount of gold can, or close them forever.",
+    "origin": "original",
+    "sources": []
+  },
+  "Ochre Jelly": {
+    "description": "A yellowish ooze that creeps along walls and ceilings, dissolving flesh with its acid and splitting into smaller jellies when cut.",
+    "lore": "An ochre jelly is a mass of yellow-brown slime that flows across stone, up walls and along ceilings. It can squeeze through cracks no wider than a finger and drop onto its prey from above. Its touch is acid, eating through flesh and leaving bone behind.\n\nCutting an ochre jelly is a mistake. Each blow splits it into smaller jellies, which go on hunting on their own. Fire and cold work better.\n\nOchre jellies are drawn to warmth and movement. They often lurk near sources of heat underground, such as hot springs, and a patch of oddly clean stone near a warm spring may be a sign that one is close.",
+    "origin": "original",
+    "sources": []
+  },
   "Octopus": {
     "description": "A soft-bodied sea animal with eight sucker-lined arms and no shell, able to change its color and shape to vanish against the seabed.[1]",
     "lore": "Octopuses are clever. They learn, and they can tell things apart by sight, touch and taste.[1] The common octopus keeps a hidden home in a hole or crack in the rocks, and it often blocks the entrance with shells and stones it has gathered.[1]\n\nFew animals hide as well. An octopus can change its color, its skin texture and its posture to blend in with almost any surface.[1] It hunts snails and clams.[1] Newly hatched octopuses drift and hunt among the plankton for weeks before they settle on the sea floor.[1]",
@@ -2217,6 +2331,12 @@
       }
     ]
   },
+  "Otyugh": {
+    "description": "A bloated scavenger with a huge mouth and two long tentacles, which eats almost anything and speaks into the minds of others.",
+    "lore": "An otyugh is a heavy, lumpy creature with a wide mouth full of teeth and two long tentacles ending in spiked pads. It eats anything it can catch, living or dead, and its bite carries a sickness that worsens each time its victim sleeps.\n\nStrangely, otyughs are not stupid. They can send their thoughts directly into another creature's mind, though they cannot hear an answer. An otyugh will happily tell travelers what it plans to do to them.\n\nIt grabs its prey with its tentacles and slams them against the ground until they stop struggling. Those who escape an otyugh should seek a healer quickly.",
+    "origin": "original",
+    "sources": []
+  },
   "Owl": {
     "description": "A big owl with tufts of feathers like horns, a round face, forward-facing eyes and a white patch at the throat.[1]",
     "lore": "Great horned owls hunt at night and find their way and their prey in the dark, even in thick forest.[1] They watch from a perch, then swoop down, catching prey on the wing if they have to, and they screech loudly as they strike.[1] They eat rabbits, voles and other rodents, and near water they catch fish, frogs, crabs and reptiles.[1]\n\nThese owls live alone except when nesting, and they stay in the same area all year.[1] Their deep \"hoo-hoo hoooo hoo-hoo\" marks their territory and can be heard for kilometers, and fights over territory can be deadly.[1] Some owls have no territory of their own and wander through the lands of others.[1]",
@@ -2231,6 +2351,12 @@
         "accessed": "2026-10-28"
       }
     ]
+  },
+  "Owlbear": {
+    "description": "A huge, ferocious beast with the body of a bear and the head and beak of an owl, which tears its prey apart with its claws.",
+    "lore": "An owlbear has a bear's massive body and an owl's head, with great round eyes and a hooked beak. It is always hungry, always angry and afraid of nothing.\n\nOwlbears live in deep forests and climb trees with ease. They hunt at dawn and dusk, and their hooting screech carries for miles. An owlbear attacks anything that enters its territory, from deer to armored knights, and it fights until it or its prey is dead.\n\nWoodcutters in owlbear country cut deep notches in trees along the paths they use, so that anyone lost can follow them home. A notched tree that has been clawed to splinters means it is time to find another forest.",
+    "origin": "original",
+    "sources": []
   },
   "Panther": {
     "description": "A sleek, powerful big cat that hunts by stealth. Depending on where it lives, its coat may be spotted, plain tawny or solid black.[1][2]",
@@ -2276,6 +2402,12 @@
         "accessed": "2026-10-28"
       }
     ]
+  },
+  "Phase Spider": {
+    "description": "A huge spider that can step out of the world into a ghostly realm and back, appearing beside its prey without warning.",
+    "lore": "A phase spider hunts between two worlds. It can slip out of the mortal world into the ghostly realm that lies alongside it and back again in an instant. From there, it watches its prey without being seen, then steps out right beside it to bite.\n\nIts venom is strong enough to leave a victim helpless and paralyzed, and the spider often drags its prey into the other realm to feed in peace.\n\nTravelers who feel watched in an empty room, or who see something flicker at the edge of their sight, may have caught a glimpse of a phase spider waiting for its moment.",
+    "origin": "original",
+    "sources": []
   },
   "Piranha": {
     "description": "A river fish with a silver-gray back, a reddish-orange belly and black and reddish-orange fins.[1]",
@@ -2377,6 +2509,12 @@
         "accessed": "2026-10-28"
       }
     ]
+  },
+  "Priests": {
+    "description": "A servant of a god who leads worship, tends the faithful and calls on divine power to heal or to smite.",
+    "lore": "Priests serve temples, shrines and wandering faiths everywhere. An acolyte is a young priest in training who helps with ceremonies, tends the sick and learns the prayers. A full priest leads worship, gives counsel and protects the faithful.\n\nPriests can call on their god for help. They heal wounds, bless their allies, break harmful magic and strike their foes with holy flame. Most also carry a mace and wear armor, since temples are often targets in troubled times.\n\nA priest's power comes from faith, and the god they serve shapes their purpose. A priest of a harvest goddess may spend their life blessing fields, while a priest of a war god marches with the army.",
+    "origin": "original",
+    "sources": []
   },
   "Pteranodon": {
     "description": "A large flying reptile with wings of skin stretched from one long finger to its ankles, and a long, toothless beak.[1]",

@@ -79,7 +79,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Draft Horse | Animals | 1 | animal |  | Yes |
 | Dragon Turtle | Monsters | 1 | myth | Chinese myth (Ao, Bixi) | Yes |
 | Dretch | Monsters | 1 | original |  | Yes |
-| Drider | Monsters | 1 | original |  | |
+| Drider | Monsters | 1 | original |  | Yes |
 | Druid | Monsters | 1 | history | Caesar and Pliny on Celtic druids | Yes |
 | Dryad | Monsters | 1 | myth | Greek myth | Yes |
 | Eagle | Animals | 1 | animal |  | Yes |
@@ -99,7 +99,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Fungi | Monsters | 2 | original |  | Yes |
 | Gargoyle | Monsters | 1 | myth | Medieval church architecture and folklore | Yes |
 | Gelatinous Cube | Monsters | 1 | original |  | Yes |
-| Ghast | Monsters | 1 | original | Avoid Lovecraft's ghasts until their copyright status is checked | |
+| Ghast | Monsters | 1 | original | Avoid Lovecraft's ghasts until their copyright status is checked | Yes |
 | Ghost | Monsters | 1 | myth | Folklore worldwide | Yes |
 | Ghoul | Monsters | 1 | myth | Arabian folklore | Yes |
 | Giant Ape | Animals | 1 | animal | Fantasy version; facts from Gigantopithecus | Yes |
@@ -130,23 +130,23 @@ original. The lore can mention the myth as the source of the name, with a source
 | Giant Wasp | Animals | 1 | animal | Fantasy version; facts from the real wasp | Yes |
 | Giant Weasel | Animals | 1 | animal | Fantasy version; facts from the real weasel | Yes |
 | Giant Wolf Spider | Animals | 1 | animal | Fantasy version; facts from the real wolf spider | Yes |
-| Gibbering Mouther | Monsters | 1 | original |  | |
+| Gibbering Mouther | Monsters | 1 | original |  | Yes |
 | Glabrezu | Monsters | 1 | original |  | Yes |
 | Gladiator | Monsters | 1 | history | Roman games | Yes |
-| Gnoll | Monsters | 1 | original | Lord Dunsany, gnoles (name only) | |
+| Gnoll | Monsters | 1 | original | Lord Dunsany, gnoles (name only) | Yes |
 | Goat | Animals | 1 | animal |  | Yes |
 | Goblins | Monsters | 3 | myth | European folklore | Yes |
 | Gold Dragons | Monsters | 4 | original |  | |
-| Gorgon | Monsters | 1 | original | Greek myth (name only; the SRD gorgon is a metal bull) | |
+| Gorgon | Monsters | 1 | original | Greek myth (name only; the SRD gorgon is a metal bull) | Yes |
 | Gray Ooze | Monsters | 1 | original |  | Yes |
 | Green Dragons | Monsters | 4 | original |  | |
 | Green Hag | Monsters | 1 | myth | English folklore (Jenny Greenteeth) | Yes |
-| Grick | Monsters | 1 | original |  | |
+| Grick | Monsters | 1 | original |  | Yes |
 | Griffon | Monsters | 1 | myth | Greek and Near Eastern art, Pliny | Yes |
-| Grimlock | Monsters | 1 | original |  | |
+| Grimlock | Monsters | 1 | original |  | Yes |
 | Guardian Naga | Monsters | 1 | myth | Hindu and Buddhist myth | Yes |
-| Guards | Monsters | 2 | original | Generic role | |
-| Half-Dragon | Monsters | 1 | original |  | |
+| Guards | Monsters | 2 | original | Generic role | Yes |
+| Half-Dragon | Monsters | 1 | original |  | Yes |
 | Harpy | Monsters | 1 | myth | Hesiod, Virgil | Yes |
 | Hawk | Animals | 1 | animal |  | Yes |
 | Hell Hound | Monsters | 1 | myth | Black dog folklore, Cerberus | Yes |
@@ -163,46 +163,46 @@ original. The lore can mention the myth as the source of the name, with a source
 | Ice Devil | Monsters | 1 | original |  | Yes |
 | Imp | Monsters | 1 | myth | European folklore | Yes |
 | Incubus | Monsters | 1 | myth | Medieval demonology | Yes |
-| Invisible Stalker | Monsters | 1 | original |  | |
+| Invisible Stalker | Monsters | 1 | original |  | Yes |
 | Iron Golem | Monsters | 1 | myth | Talos in Greek myth (loose) | Yes |
 | Jackal | Animals | 1 | animal |  | Yes |
 | Killer Whale | Animals | 1 | animal |  | Yes |
 | Knight | Monsters | 1 | history | Medieval knighthood | Yes |
-| Kobold | Monsters | 1 | original | German folklore (name only; the folklore kobold is a house spirit) | |
+| Kobold | Monsters | 1 | original | German folklore (name only; the folklore kobold is a house spirit) | Yes |
 | Kraken | Monsters | 1 | myth | Scandinavian sailor folklore | Yes |
 | Lamia | Monsters | 1 | myth | Greek myth | Yes |
 | Lemure | Monsters | 1 | myth | Roman religion (lemures) | Yes |
-| Lich | Monsters | 1 | original |  | |
+| Lich | Monsters | 1 | original |  | Yes |
 | Lion | Animals | 1 | animal |  | Yes |
 | Lizard | Animals | 1 | animal |  | Yes |
-| Mages | Monsters | 2 | original | Generic role | |
-| Magmin | Monsters | 1 | original |  | |
+| Mages | Monsters | 2 | original | Generic role | Yes |
+| Magmin | Monsters | 1 | original |  | Yes |
 | Mammoth | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
 | Manticore | Monsters | 1 | myth | Ctesias via Pliny | Yes |
 | Marilith | Monsters | 1 | original |  | Yes |
 | Mastiff | Animals | 1 | animal |  | Yes |
 | Medusa | Monsters | 1 | myth | Hesiod, Ovid | Yes |
-| Mephits | Monsters | 4 | original |  | |
+| Mephits | Monsters | 4 | original |  | Yes |
 | Merfolk | Monsters | 1 | myth | Folklore worldwide | Yes |
 | Merrow | Monsters | 1 | myth | Irish folklore | Yes |
-| Mimic | Monsters | 1 | original |  | |
+| Mimic | Monsters | 1 | original |  | Yes |
 | Minotaur of Baphomet | Monsters | 1 | myth | The Minotaur of Crete in Greek myth; Baphomet in medieval accusations against the Templars | Yes |
 | Mule | Animals | 1 | animal |  | Yes |
 | Mummies | Monsters | 2 | history | Egyptian mummification; the walking mummy is fiction | Yes |
 | Nalfeshnee | Monsters | 1 | original |  | Yes |
 | Night Hag | Monsters | 1 | myth | Old Hag folklore | Yes |
-| Nightmare | Monsters | 1 | original | The mare of folklore (name only) | |
-| Noble | Monsters | 1 | original | Generic role | |
-| Ochre Jelly | Monsters | 1 | original |  | |
+| Nightmare | Monsters | 1 | original | The mare of folklore (name only) | Yes |
+| Noble | Monsters | 1 | original | Generic role | Yes |
+| Ochre Jelly | Monsters | 1 | original |  | Yes |
 | Octopus | Animals | 1 | animal |  | Yes |
 | Ogre | Monsters | 1 | myth | Perrault and other fairy tales | Yes |
 | Oni | Monsters | 1 | myth | Japanese folklore | Yes |
-| Otyugh | Monsters | 1 | original |  | |
+| Otyugh | Monsters | 1 | original |  | Yes |
 | Owl | Animals | 1 | animal |  | Yes |
-| Owlbear | Monsters | 1 | original | Real-world origin: a plastic toy | |
+| Owlbear | Monsters | 1 | original | Real-world origin: a plastic toy | Yes |
 | Panther | Animals | 1 | animal |  | Yes |
 | Pegasus | Monsters | 1 | myth | Hesiod, Ovid | Yes |
-| Phase Spider | Monsters | 1 | original |  | |
+| Phase Spider | Monsters | 1 | original |  | Yes |
 | Piranha | Animals | 1 | animal |  | Yes |
 | Pirates | Monsters | 2 | history | Historical piracy | Yes |
 | Pit Fiend | Monsters | 1 | original |  | Yes |
@@ -210,7 +210,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Plesiosaurus | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
 | Polar Bear | Animals | 1 | animal |  | Yes |
 | Pony | Animals | 1 | animal |  | Yes |
-| Priests | Monsters | 2 | original | Generic role | |
+| Priests | Monsters | 2 | original | Generic role | Yes |
 | Pseudodragon | Monsters | 1 | original |  | |
 | Pteranodon | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
 | Purple Worm | Monsters | 1 | original |  | |
