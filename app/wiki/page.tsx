@@ -3,13 +3,14 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { getAllMonsters, getAllMagicItems } from '@/app/lib/wiki';
 import type { Monster, MagicItem } from '@/types/wiki';
+import { pageMetadata } from '@/app/lib/pageMetadata';
 
-export const metadata: Metadata = {
-  title: 'Wiki | Fabled Campaigns',
-  description:
-    'Browse D&D 5e SRD monsters and magic items as reference cards. No account required.',
-  alternates: { canonical: '/wiki' },
-};
+export const metadata: Metadata = pageMetadata(
+  'Wiki | Fabled Campaigns',
+  'Browse D&D 5e SRD monsters and magic items as reference cards. No account required.',
+  '/wiki',
+  '/opengraph-image'
+);
 
 type SearchResult =
   | { kind: 'monster'; item: Monster }
