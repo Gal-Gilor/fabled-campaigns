@@ -8,6 +8,7 @@ import {
   describeMonsterGroup,
   formatCRRange,
   getAllLore,
+  getLore,
   getMonsterBySlug,
   getMonsterGroupBySlug,
   getMonsterGroupSummaries,
@@ -15,7 +16,7 @@ import {
   getMonsterHref,
   sortedCRs,
 } from './wiki';
-import { loreErrors } from './loreRules';
+import { loreErrors, stripCitations } from './loreRules';
 
 // Mirrors WIKI_MONSTER_KEYS in roll-to-quest tests/wiki/test_models.py.
 const MONSTER_KEYS = [
@@ -99,15 +100,25 @@ test('formatCRRange shows one CR or the lowest and highest', () => {
   assert.equal(formatCRRange(['2', '6', '24']), '2–24');
 });
 
-test('describeMonsterGroup keeps the stat block line for a single member', () => {
+test('describeMonsterGroup uses the stat block line when a group has no lore', () => {
+  const withoutLore = (slug: string) => ({
+    ...getMonsterGroupBySlug('Monster', slug)!,
+    name: 'Group Without Lore',
+  });
   assert.equal(
-    describeMonsterGroup(getMonsterGroupBySlug('Monster', 'aboleth')!),
+    describeMonsterGroup(withoutLore('aboleth')),
     'Large Aberration, CR 10. Lawful Evil.'
   );
   assert.match(
-    describeMonsterGroup(getMonsterGroupBySlug('Monster', 'bandits')!),
+    describeMonsterGroup(withoutLore('bandits')),
     /^2 stat blocks: Bandit, Bandit Captain\. Humanoid, CR 1\/8–2\.$/
   );
+});
+
+test('describeMonsterGroup uses the lore description without its markers', () => {
+  const description = describeMonsterGroup(getMonsterGroupBySlug('Monster', 'medusa')!);
+  assert.equal(description, stripCitations(getLore('Medusa')!.description));
+  assert.doesNotMatch(description, /\[\d+\]/);
 });
 
 test('getMonsterHref links to the group page and the member section', () => {

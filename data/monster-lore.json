@@ -1,4 +1,10 @@
 {
+  "Aboleth": {
+    "description": "A huge, eel-like creature of deep, cold water with long tentacles and slime-coated skin, which reaches into the minds of anyone who comes near.",
+    "lore": "Aboleths live in the deepest lakes and drowned caverns, where light never reaches. They are patient beyond measure. An aboleth may lie in the same black water for centuries, sending its thoughts out to anyone who wanders close and offering each of them exactly what they most want.\n\nThose it takes hold of become its servants. They go about their lives as before, but they bring it news, guard its waters and lure others down to the shore. When one of them dies in its grip, the aboleth keeps their memories, and so it learns the names, secrets and habits of the people above.\n\nIts slime clings to the skin of anyone who swims near it. For a time afterward their skin stays slick, they can breathe underwater, and their wounds will not heal unless they are submerged. Fishing villages near deep lakes have an old rule: when a neighbor starts talking about the voice in the water, do not let them go down to the shore alone.",
+    "origin": "original",
+    "sources": []
+  },
   "Air Elemental": {
     "description": "A spirit of the air, in the old belief that every element has spirits of its own. Those of the air were the gentlest of all.[1]",
     "lore": "Followers of the Rosicrucian teaching, which Alexander Pope knew from a French book called Le Comte de Gabalis, held that each of the four elements is home to its own spirits: sylphs in the air, gnomes in the earth, nymphs in the water and salamanders in fire.[1] Of these, the sylphs of the air were said to be the best natured.[1]\n\nIn Pope's poem The Rape of the Lock, the spirits of the air each have their tasks. The purest play in the bright upper air, and some steer the planets on their courses. Others, less refined, chase shooting stars by moonlight, drink up the mists, dip their wings in the rainbow, brew up storms over the winter sea, or let gentle rain fall on the fields.[1]\n\nOther tales describe the air elemental as the wind itself given life, a howling whirlwind that can slip through the narrowest crack and fling its foes to the ground.",
@@ -27,6 +33,18 @@
         "accessed": "2026-10-28"
       }
     ]
+  },
+  "Animated Objects": {
+    "description": "A suit of armor, a sword or a rug brought to life by magic, which moves and fights without any mind of its own.",
+    "lore": "Wizards and priests have long given simple life to ordinary things to guard their halls. An empty suit of armor stands in an alcove for a hundred years and then steps forward when a stranger passes. A sword hangs on a wall until it leaps free and flies at the throat of a thief. A fine rug lies on the floor of a study and wraps itself around anyone who walks on it uninvited.\n\nAnimated objects have no thoughts and no fear. They follow the last orders they were given, even after their maker is long dead, so they often guard empty rooms and forgotten treasure. They cannot be bargained with, frightened or tricked into mercy.\n\nExplorers learn to be wary of a room that looks too well kept, and of any armor standing a little too straight.",
+    "origin": "original",
+    "sources": []
+  },
+  "Ankheg": {
+    "description": "A burrowing insect as long as a horse, with a hard brown shell, many legs and mandibles that drip acid.",
+    "lore": "Ankhegs dig through soft farmland and forest soil, and in hard country they can grind through solid rock, leaving a round tunnel behind them. They sense the footsteps of animals above and burst up from below to seize them in their jaws, dragging their prey down into the dark.\n\nA farmer who finds a cow missing and a ring of loose earth in the pasture knows what has moved in. Ankhegs can also spit a stream of acid that burns through leather and flesh, so wise folk do not try to dig one out with spades. Instead they lure it up with bait and fight it in the open, or smoke it out of its tunnels.",
+    "origin": "original",
+    "sources": []
   },
   "Ankylosaurus": {
     "description": "A low, heavy plant-eater covered in bony armor plates, with a beaked mouth and a heavy club of bone at the end of its tail.[1]",
@@ -93,6 +111,12 @@
       }
     ]
   },
+  "Awakened Plants": {
+    "description": "A shrub or tree given the power to move, think and speak by magic.",
+    "lore": "Druids and other workers of nature magic can wake a plant to thought. A shrub might be given the mind of a curious child, and a great tree the slow, deep thoughts of an old guardian. An awakened plant can speak and remember, and it usually stays loyal to the one who woke it.\n\nAwakened shrubs make poor fighters but good lookouts. They can stand perfectly still in a hedge and then whisper warnings to their friends. An awakened tree is another matter. It can walk slowly on its roots and crush an enemy with a swing of its branches, and arrows barely trouble it.\n\nA woken plant lives on after its maker dies. Some forests are said to have whole groves of them, old trees that still keep watch over places no one remembers.",
+    "origin": "original",
+    "sources": []
+  },
   "Axe Beak": {
     "description": "A tall, flightless hunting bird with powerful running legs, shrunken wings and a large skull with a hooked beak.[1][2]",
     "lore": "The terror birds were giant flightless hunters, counted among the dominant predators of ancient South America. There were at least 18 kinds, from small to gigantic, and nothing alive today is quite like them.[1][2] Their wings had shrunk and their bodies were heavy, and they lived entirely on the ground.[1]\n\nFossil footprints about eight million years old show they were built for running. They carried their weight on one thick main toe and probably used a long, raised claw on another to pin down prey.[1] Their skulls were rigid and strong for striking downward. A terror bird likely ate mostly smaller prey, and if it took on something big, it probably attacked with repeated, well-aimed strikes of its beak, darting in and out.[2]",
@@ -115,6 +139,12 @@
         "accessed": "2026-10-28"
       }
     ]
+  },
+  "Azer": {
+    "description": "A sturdy figure of living fire sheathed in plates of glowing metal, which stands watch with a burning hammer.",
+    "lore": "Azers are creatures of elemental fire, and they are best known as sentinels. Wherever fire spirits keep a gate, a vault or a holy flame, azers stand guard. They glow so brightly that no torch is needed nearby, and heat rolls off them in waves that scorch anyone who stands too close.\n\nAn azer takes its duty more seriously than its life. It does not sleep at its post, accept bribes or leave until it is properly relieved, and it speaks only the crackling tongue of fire. Summoners who bind an azer to guard a door often find that it keeps obeying the letter of its orders long after they wish it would not.\n\nA sentinel's burning hammer is part of it. When an azer falls, its hammer cools and crumbles to ash along with its body.",
+    "origin": "original",
+    "sources": []
   },
   "Baboon": {
     "description": "A large monkey that lives on the ground, with a long tail and olive-gray fur. Males are nearly twice the size of females, with heavy manes and long fangs.[1]",
@@ -153,6 +183,12 @@
         "accessed": "2026-10-28"
       }
     ]
+  },
+  "Bandits": {
+    "description": "An outlaw who robs travelers on lonely roads, often as part of a gang led by a hardened captain.",
+    "lore": "Wherever trade roads cross empty country, bandits wait for travelers. Most are desperate people: deserters, debtors, runaways and farmers driven off their land. They hide in forests and hills, ambush merchants and pilgrims, and vanish before any soldiers arrive.\n\nA band usually follows a captain who has survived longer than the rest, someone quick with a blade and willing to do what the others will not. A good captain knows which caravans to rob and which to let pass, and which local lords can be paid to look the other way.\n\nSome bandits become heroes in village songs, robbing the rich and sharing with the poor. Most are simply dangerous, and the roads they haunt grow quiet as honest travelers stay away.",
+    "origin": "original",
+    "sources": []
   },
   "Basilisk": {
     "description": "A small serpent with a white mark on its head like a crown, so deadly that it withers plants and splits stones.[1]",
@@ -197,6 +233,12 @@
       }
     ]
   },
+  "Behir": {
+    "description": "A long, many-legged serpent whose scales crackle with static, which climbs cliffs, crushes prey in its coils and breathes lightning.",
+    "lore": "A behir is a huge serpent with many short legs, as much at home on a cliff face or cavern wall as on the ground. It breathes a bolt of lightning long enough to strike a target across a valley, and it wraps its prey in its coils, crushing it, before swallowing it whole.\n\nBehirs are cunning and cruel, and they speak the language of dragons. They lair in high caves and canyons, where they can see anything coming, and they gorge themselves after storms, when injured animals and lost travelers are easy to find.\n\nMountain folk say you can hear a behir before you see it, from the clatter of its claws on stone and the faint crackle of its scales. On dry nights its body throws off sparks as it moves.",
+    "origin": "original",
+    "sources": []
+  },
   "Berserker": {
     "description": "A Norse warrior who fought in a wild frenzy, said to feel no pain and to howl like a wolf in battle.[1]",
     "lore": "The berserkers were Norse champions who went into battle in a frenzy. Sabine Baring-Gould took the name to mean bear-shirt, from the bear skins they wore over their armor, while others read it as bare-shirt, fighting without armor at all.[1] Some, called wolf-coats, wore wolf skins instead.[1]\n\nIn their rage they were believed to have the strength of the beasts they wore. People said no sword could cut them and no fire burn them, and only a club, breaking their bones, could stop them. Their eyes glared as if on fire, they ground their teeth and foamed at the mouth, they bit the rims of their shields, and they charged yelping like dogs and howling like wolves.[1] A berserker could ruin a farmer simply by challenging him to a duel, since in old Norway a man who refused a challenge forfeited all he owned to the challenger.[1]\n\nNot every berserker wanted the rage. The Vatnsdaela saga tells of Thorir, who was seized by fits against his will and begged his brother for help. His brother vowed to rescue a baby left out to die and raise it in the name of the one who made the sun. Thorir took the child in, and the fits never came back.[1]",
@@ -226,6 +268,18 @@
         "accessed": "2026-10-28"
       }
     ]
+  },
+  "Black Pudding": {
+    "description": "A heaving mass of black, acidic slime that creeps along floors and ceilings and dissolves almost anything it touches.",
+    "lore": "A black pudding looks like a pool of thick tar until it moves. It flows across stone, up walls and along ceilings, and it can squeeze through a crack no wider than a finger. Its body is acid, and it dissolves flesh, wood and metal alike.\n\nFighting one is a misery. Swords corrode as they strike it, and arrows dissolve as they hit. Worse, cutting a black pudding apart only makes more of them, each smaller piece crawling off on its own.\n\nOld tunnels where a black pudding has lived are strangely clean. The floors are smooth and bare, with no bones, no rust and no rot, because the pudding has eaten it all.",
+    "origin": "original",
+    "sources": []
+  },
+  "Blink Dog": {
+    "description": "A swift, keen-eyed dog of the fey realms that can vanish and reappear a short distance away in the blink of an eye.",
+    "lore": "Blink dogs run in packs through the deep woods where the fey realm touches the mortal world. They are clever and loyal, and they talk among themselves in yips and barks. They understand the languages of elves and woodland spirits, though they cannot speak them.\n\nIn a fight, a blink dog flickers in and out of sight, vanishing from one spot and appearing a few strides away to bite from behind. A whole pack doing it at once can bewilder even a large predator.\n\nThe fey say blink dogs cannot abide a lie. Travelers who are honest with a pack may be guided out of a dangerous forest, while liars find themselves walking in circles until dawn.",
+    "origin": "original",
+    "sources": []
   },
   "Blood Hawk": {
     "description": "A lean hawk with rust-red feathers and a hooked beak that hunts in noisy flocks.",
@@ -294,6 +348,12 @@
       }
     ]
   },
+  "Bulette": {
+    "description": "A huge, armor-plated burrowing beast with a massive head and jaws, which leaps out of the ground onto its prey.",
+    "lore": "A bulette is a mountain of muscle covered in heavy, overlapping plates. It swims through earth almost as quickly as it runs, and it can feel the footsteps of a horse long before the horse can see it. When it strikes, it bursts out of the ground and leaps into the air, crashing down on its victims and crushing them under its weight.\n\nBulettes are always hungry. They eat horses, cattle and people, and a single bulette can empty a valley of game in a season before moving on. They have no lair, and they wander wherever food leads them.\n\nHerders in bulette country keep their animals on rocky ground, where the beasts cannot burrow, and they watch for a sudden line of trembling earth.",
+    "origin": "original",
+    "sources": []
+  },
   "Camel": {
     "description": "A tall desert animal with a long curved neck, a fatty hump, thick lips for eating thorny plants and broad, padded feet for walking on sand.[1]",
     "lore": "The dromedary, the one-humped camel, is built for the desert. Its hump is a store of fat for hard times, and it shrinks and leans to one side when the camel goes hungry.[1] A double row of eyelashes keeps out blowing sand, and the camel saves water in many ways, including not sweating as the day heats up.[1]\n\nCamels eat thorny plants, dry grass, saltbush and almost anything else that grows in the desert, taking only a few leaves from each plant as they go. They spend long hours grazing and as long again chewing the cud.[1]\n\nThey live in small family groups of a male and several females with their young.[1] They are mostly calm, but rutting males fight. When camels quarrel, they shove each other, snap without biting, and sometimes throw up their cud when hurt or excited.[1] People use them to carry loads and for milk, meat, wool and leather, and camels have made it possible to live in some of the driest lands.[1]",
@@ -353,6 +413,18 @@
       }
     ]
   },
+  "Chuul": {
+    "description": "A huge, lobster-like creature with crushing pincers and writhing tentacles around its mouth, which can sense magic.",
+    "lore": "Chuuls haunt dark lakes, flooded ruins and underground rivers. A chuul grabs its prey in its pincers, then touches it with the tentacles around its mouth, and their poison leaves the victim stiff and helpless.\n\nChuuls can feel magic nearby the way a shark smells blood. A wizard's spells, an enchanted blade or a charm worn around the neck all draw them, and they will follow such prey along a riverbank for miles.\n\nThey understand the speech of the deep places but cannot speak it. Divers who work in chuul waters leave their charms and rings on shore.",
+    "origin": "original",
+    "sources": []
+  },
+  "Cloaker": {
+    "description": "A creature that looks like a dark leather cloak until it unfurls, wraps around its victim and bites with a hidden mouth.",
+    "lore": "Cloakers live in caves and ruins and hate bright light. At rest, a cloaker hangs like an old cloak or lies flat in shadow, perfectly still. When prey comes close, it spreads its wide body, wraps itself around the victim's head and shoulders and bites with the teeth on its underside, while its whiplike tail lashes anyone who tries to help.\n\nIts moan fills listeners with dread, and it can make copies of itself appear, so that its prey strikes at shadows. A party carrying bright torches is far safer than one creeping in the dark.\n\nCloakers can speak and are cleverer than they look. Some trade information with travelers in exchange for leaving their caves in peace.",
+    "origin": "original",
+    "sources": []
+  },
   "Cloud Giant": {
     "description": "An enormous giant who lives in a great house above the clouds, among treasures such as a hen that lays golden eggs.[1]",
     "lore": "When Jack climbed the magic beanstalk all the way to the sky, he found a long road and, at its end, a great tall house. A huge woman stood on the doorstep. Her husband, she warned him, was an ogre, and he liked nothing better than boys broiled on toast.[1] The giant shook the house with his footsteps. He came home with calves hanging from his belt, sniffed the air and roared that he smelled the blood of an Englishman.[1]\n\nThe giant was rich. After breakfast he counted his bags of gold, and he kept a hen that laid a golden egg whenever he told it to, and a golden harp that sang him to sleep. Jack stole all three. The harp cried out for its master, and the giant chased Jack down the beanstalk until Jack chopped it through and the giant fell and broke his head.[1]\n\nOther tales tell of cloud giants who float through the air, call up banks of fog and strike with the force of thunder.",
@@ -382,6 +454,12 @@
         "accessed": "2026-10-28"
       }
     ]
+  },
+  "Commoner": {
+    "description": "An ordinary person: a farmer, a shopkeeper, a servant or a laborer, with no training in war.",
+    "lore": "Commoners make up most of any population. They plow the fields, mend the nets, sell bread, carry water and raise families. When trouble comes to a village, they are the ones who suffer first and suffer most.\n\nA commoner may have no sword, but most have some skill that adventurers lack. A shepherd knows every path in the hills. A miller knows who in the village is in debt. An innkeeper hears every rumor that passes through. Treat them kindly and they are the best source of help in any land.\n\nWhen pushed far enough, commoners fight. Many tyrants have been brought down by angry crowds armed with nothing more than clubs and pitchforks.",
+    "origin": "original",
+    "sources": []
   },
   "Constrictor Snake": {
     "description": "A heavy-bodied snake with no venom that kills by wrapping its prey in its coils and squeezing.[1]",
@@ -427,6 +505,12 @@
       }
     ]
   },
+  "Crawling Claw": {
+    "description": "A severed hand that creeps and scuttles on its fingers, brought to life by dark magic, usually in swarms.",
+    "lore": "Crawling claws are the hands of the dead, raised by necromancers. A single claw is a small, spidery thing. A swarm of them is a nightmare, a carpet of grasping fingers that pours over the floor, climbs the walls and drags its victims down.\n\nNecromancers use them as guards and servants. A swarm can slip under a door, search a room in moments and carry off small objects. The claws understand simple spoken orders, but they have no voices of their own.\n\nPeople who live near a necromancer's tower learn to fear one sound above all: the dry tapping of many fingertips, moving through the walls at night.",
+    "origin": "original",
+    "sources": []
+  },
   "Crocodile": {
     "description": "A long, armored reptile with powerful jaws that lies almost hidden in the water until it lunges.[1]",
     "lore": "Crocodiles hunt from ambush. The saltwater crocodile, the largest reptile alive, waits in the water with only its nostrils, eyes and part of its back showing, then lunges at prey that comes close. It usually kills with one snap of its jaws and drags its catch under the water.[1]\n\nA young crocodile eats insects, frogs, crabs and small fish. A grown one takes turtles, snakes, birds, wild boar, monkeys and even buffalo.[1] Big males reach six or seven meters long, while females rarely pass three.[1]\n\nThe saltwater crocodile is counted among the cleverest reptiles. It communicates with barks, hisses and coughs, and newborns call out as they hatch.[1] A female buries 40 to 60 eggs in a mound of plants and mud.[1] Males guard stretches of river fiercely and drive rivals out to sea.[1]",
@@ -441,6 +525,18 @@
         "accessed": "2026-10-28"
       }
     ]
+  },
+  "Cultists": {
+    "description": "A devoted follower of a forbidden god, demon or dark power, who meets in secret and serves without question.",
+    "lore": "Cults grow in the shadows of every city. They promise power, protection or revenge, and they draw in the lonely, the desperate and the bitter. Most cultists are ordinary people by day, clerks, sailors and servants, who gather at night to perform their rites with hooded robes and curved knives.\n\nAbove them stand the fanatics, true believers who have been granted dark magic by the power they serve. A fanatic can summon a ghostly weapon to fight for them and will gladly die for the cause.\n\nCults are hard to root out. Their members know only a few of their fellows, and the leaders hide behind layers of secrecy. Many an investigator has found that the cult reaches further into the city than anyone imagined.",
+    "origin": "original",
+    "sources": []
+  },
+  "Darkmantle": {
+    "description": "A small cave creature with a squid-like body, which hangs from the ceiling, wraps itself around its prey's head and smothers it in magical darkness.",
+    "lore": "Darkmantles cling to the roofs of caves, folded tight against the stone. When something warm walks beneath, a darkmantle drops onto its head, spreads its webbed body over the victim's face and squeezes.\n\nIt can also fill the space around it with magical darkness, so that torches and lanterns go black. Miners who suddenly find themselves in pitch darkness have only moments to react before a darkmantle falls on them.\n\nCave dwellers learn to walk with a spear held above their heads or to tap the ceiling ahead of them. Darkmantles are not clever, and one that misses its prey usually flies off to find another perch.",
+    "origin": "original",
+    "sources": []
   },
   "Death Dog": {
     "description": "A huge, two-headed hound.[2]",
@@ -732,6 +828,12 @@
       }
     ]
   },
+  "Ettercap": {
+    "description": "A spindly, spider-like humanoid with long clawed arms and a venomous bite, which spins webs in dark forests.",
+    "lore": "Ettercaps live in the oldest, darkest parts of forests, where the canopy shuts out the sun. They spin webs between the trees and string trip lines across game trails, then wait for prey to stumble into them. An ettercap can fling a strand of web to snare a victim from a distance and reel it in.\n\nThey cannot speak, but they understand traps the way a hunter does. An ettercap studies the paths that animals and people use, and it moves its snares every few days so that no one learns where they are.\n\nWoodcutters burn out ettercap webs when they find them, but they rarely find the ettercap itself. It hides high in the branches, watching, until the fire dies down.",
+    "origin": "original",
+    "sources": []
+  },
   "Ettin": {
     "description": "A terrible giant with more than one head, who asks riddles of the travelers it catches.[1]",
     "lore": "In the Scottish tale of the Red Ettin, the Ettin was a monster with three heads who spared no one he caught. He had stolen the daughter of the king of Scotland, and dreadful two-headed beasts with four horns on each head roamed the land near his castle.[1] When he came home, he sniffed out any human hiding there. Each of his heads asked a riddle, and anyone who could not answer all three was struck with a mallet and turned into a pillar of stone.[1]\n\nA young man who had been kind to a fairy learned the answers from her. The thing without an end is a bowl. The smaller it is, the more dangerous: a bridge. The dead carry the living when a ship sails with people on board. With his power broken, the Ettin lost all three heads to the young man's axe. The young man freed the king's daughter and the other women the Ettin had locked away, and touched the stone pillar with a magic wand to bring his brother back to life.[1]\n\nOther tales give the ettin two heads rather than three, with a battleaxe in one hand and a morningstar in the other. With two heads keeping watch, it is very hard to catch off guard.",
@@ -852,6 +954,12 @@
       }
     ]
   },
+  "Fungi": {
+    "description": "A large mushroom that grows in caves. Shriekers scream when anything comes near, and violet fungi lash out with rotting tendrils.",
+    "lore": "Deep underground, in caves where the air is damp and still, grow fungi of many strange kinds. Two are known to every cave explorer.\n\nThe shrieker is a pale, harmless-looking mushroom as tall as a child. When it senses something moving nearby, it lets out a piercing scream that echoes through the tunnels and calls every hungry creature within earshot.\n\nThe violet fungus looks much the same, but it has tendrils that reach out and slap at anything that comes close. Its touch rots flesh, and the corpses of its victims feed it. Explorers who learn where either kind grows take another tunnel.",
+    "origin": "original",
+    "sources": []
+  },
   "Gargoyle": {
     "description": "A huge, hungry dragon of the river marshes that devoured people and even ships, until a saint led it away on a leash.[1]",
     "lore": "The city of Rouen in France told how its bishop, Saint Romain, saved it from the Gargouille, a vast and greedy monster that lived in the marshes and reed beds of the river. It ate men, women and children, and the old chronicles said it did not spare even ships.[1]\n\nThe saint took a condemned criminal with him as bait and lured the dragon out of its den. Then he made the sign of the cross over it, tied his stole around it and led it, unresisting, into the town, where it was burned. To mark the deliverance, the king allowed the cathedral to free one prisoner every year on Ascension Day, as the saint had freed the prisoner who helped him.[1] The writer Theodore Cook pointed out that no one recorded the miracle for centuries after Romain's death.[1]\n\nOther tales tell of gargoyles as creatures of living stone, winged and clawed, that swoop down on their prey.",
@@ -866,6 +974,12 @@
         "accessed": "2026-10-28"
       }
     ]
+  },
+  "Gelatinous Cube": {
+    "description": "A clear, cube-shaped mass of jelly that slides through tunnels, swallowing everything in its path.",
+    "lore": "A gelatinous cube is almost invisible. It fills a tunnel from wall to wall and floor to ceiling, and its clear body lets light pass straight through, so most of its victims never see it until they walk into it.\n\nOnce it touches something, it draws it inside and digests it slowly. A person caught inside is held fast and burned by acid, and only quick work by friends can pull them free.\n\nExplorers have their own tricks for finding cubes. Some throw a handful of flour or dust down a tunnel ahead of them, watching for where it hangs in the air. Others roll an old barrel in front of the party and listen for the moment it stops.",
+    "origin": "original",
+    "sources": []
   },
   "Ghost": {
     "description": "The spirit of a dead person who cannot rest, haunting the place where it lived or died.[1]",
@@ -1370,6 +1484,12 @@
         "accessed": "2026-10-28"
       }
     ]
+  },
+  "Gray Ooze": {
+    "description": "A slimy, gray puddle that looks like wet stone, which corrodes metal and lashes out at anything that touches it.",
+    "lore": "Gray oozes lie in damp caves and sewers, looking like nothing more than wet rock or a puddle. When something steps close, the ooze lashes out, and its touch eats through flesh and metal.\n\nSwords and armor suffer badly against a gray ooze. A blade that strikes it pits and weakens, and armor touched by it can corrode through. Fire, cold and acid barely hurt it.\n\nOld miners say gray oozes grow wherever iron has been left to rust in the dark. Whether or not that is true, a pile of rusted tools in a damp corner is reason enough to walk around it.",
+    "origin": "original",
+    "sources": []
   },
   "Green Hag": {
     "description": "A water spirit with long green teeth, which lurks under the weed of still ponds and drags children down.[1][2]",

@@ -16,32 +16,32 @@ original. The lore can mention the myth as the source of the name, with a source
 
 | Group | Section | Stat blocks | Origin | Notes | Done |
 |---|---|---|---|---|---|
-| Aboleth | Monsters | 1 | original |  | |
+| Aboleth | Monsters | 1 | original |  | Yes |
 | Air Elemental | Monsters | 1 | myth | Classical elements, Paracelsus | Yes |
 | Allosaurus | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
-| Animated Objects | Monsters | 3 | original |  | |
-| Ankheg | Monsters | 1 | original |  | |
+| Animated Objects | Monsters | 3 | original |  | Yes |
+| Ankheg | Monsters | 1 | original |  | Yes |
 | Ankylosaurus | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
 | Ape | Animals | 1 | animal |  | Yes |
 | Archelon | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
 | Assassin | Monsters | 1 | history | The medieval Nizari Ismailis | Yes |
-| Awakened Plants | Monsters | 2 | original |  | |
+| Awakened Plants | Monsters | 2 | original |  | Yes |
 | Axe Beak | Monsters | 1 | animal | Fantasy version; facts from the extinct terror birds | Yes |
-| Azer | Monsters | 1 | original |  | |
+| Azer | Monsters | 1 | original |  | Yes |
 | Baboon | Animals | 1 | animal |  | Yes |
 | Badger | Animals | 1 | animal |  | Yes |
 | Balor | Monsters | 1 | original | Irish myth (name only; Balor of the Evil Eye is a Fomorian king) | |
-| Bandits | Monsters | 2 | original | Generic role | |
+| Bandits | Monsters | 2 | original | Generic role | Yes |
 | Barbed Devil | Monsters | 1 | original |  | |
 | Basilisk | Monsters | 1 | myth | Pliny, Natural History | Yes |
 | Bat | Animals | 1 | animal |  | Yes |
 | Bearded Devil | Monsters | 1 | original |  | |
-| Behir | Monsters | 1 | original |  | |
+| Behir | Monsters | 1 | original |  | Yes |
 | Berserker | Monsters | 1 | history | Norse sagas | Yes |
 | Black Bear | Animals | 1 | animal |  | Yes |
 | Black Dragons | Monsters | 4 | original |  | |
-| Black Pudding | Monsters | 1 | original |  | |
-| Blink Dog | Monsters | 1 | original |  | |
+| Black Pudding | Monsters | 1 | original |  | Yes |
+| Blink Dog | Monsters | 1 | original |  | Yes |
 | Blood Hawk | Animals | 1 | original | Invented for D&D; no real species | Yes |
 | Blue Dragons | Monsters | 4 | original |  | |
 | Boar | Animals | 1 | animal |  | Yes |
@@ -50,26 +50,26 @@ original. The lore can mention the myth as the source of the name, with a source
 | Bronze Dragons | Monsters | 4 | original |  | |
 | Brown Bear | Animals | 1 | animal |  | Yes |
 | Bugbears | Monsters | 2 | myth | English folklore (bogeys) | Yes |
-| Bulette | Monsters | 1 | original | Real-world origin: a plastic toy | |
+| Bulette | Monsters | 1 | original | Real-world origin: a plastic toy | Yes |
 | Camel | Animals | 1 | animal |  | Yes |
 | Cat | Animals | 1 | animal |  | Yes |
 | Centaur | Monsters | 1 | myth | Greek myth | Yes |
 | Chain Devil | Monsters | 1 | original |  | |
 | Chimera | Monsters | 1 | myth | Homer, Hesiod | Yes |
-| Chuul | Monsters | 1 | original |  | |
+| Chuul | Monsters | 1 | original |  | Yes |
 | Clay Golem | Monsters | 1 | myth | Jewish folklore (the Golem of Prague) | |
-| Cloaker | Monsters | 1 | original |  | |
+| Cloaker | Monsters | 1 | original |  | Yes |
 | Cloud Giant | Monsters | 1 | myth | Jack and the Beanstalk | Yes |
 | Cockatrice | Monsters | 1 | myth | Medieval bestiaries | Yes |
-| Commoner | Monsters | 1 | original | Generic role | |
+| Commoner | Monsters | 1 | original | Generic role | Yes |
 | Constrictor Snake | Animals | 1 | animal |  | Yes |
 | Copper Dragons | Monsters | 4 | original |  | |
 | Couatl | Monsters | 1 | myth | Aztec myth (Quetzalcoatl) | Yes |
 | Crab | Animals | 1 | animal |  | Yes |
-| Crawling Claw | Monsters | 1 | original |  | |
+| Crawling Claw | Monsters | 1 | original |  | Yes |
 | Crocodile | Animals | 1 | animal |  | Yes |
-| Cultists | Monsters | 2 | original | Generic role | |
-| Darkmantle | Monsters | 1 | original |  | |
+| Cultists | Monsters | 2 | original | Generic role | Yes |
+| Darkmantle | Monsters | 1 | original |  | Yes |
 | Death Dog | Monsters | 1 | myth | Orthrus in Greek myth | Yes |
 | Deer | Animals | 1 | animal |  | Yes |
 | Deva | Monsters | 1 | original | Hindu and Buddhist myth (name only) | |
@@ -88,7 +88,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Elephant | Animals | 1 | animal |  | Yes |
 | Elk | Animals | 1 | animal |  | Yes |
 | Erinyes | Monsters | 1 | myth | Greek myth (the Furies) | Yes |
-| Ettercap | Monsters | 1 | original |  | |
+| Ettercap | Monsters | 1 | original |  | Yes |
 | Ettin | Monsters | 1 | myth | English folklore (two-headed giants) | Yes |
 | Fire Elemental | Monsters | 1 | myth | Classical elements, Paracelsus | Yes |
 | Fire Giant | Monsters | 1 | myth | Norse myth (Muspelheim) | Yes |
@@ -96,9 +96,9 @@ original. The lore can mention the myth as the source of the name, with a source
 | Flying Snake | Animals | 1 | animal |  | Yes |
 | Frog | Animals | 1 | animal |  | Yes |
 | Frost Giant | Monsters | 1 | myth | Norse myth (jotnar) | Yes |
-| Fungi | Monsters | 2 | original |  | |
+| Fungi | Monsters | 2 | original |  | Yes |
 | Gargoyle | Monsters | 1 | myth | Medieval church architecture and folklore | Yes |
-| Gelatinous Cube | Monsters | 1 | original |  | |
+| Gelatinous Cube | Monsters | 1 | original |  | Yes |
 | Ghast | Monsters | 1 | original | Avoid Lovecraft's ghasts until their copyright status is checked | |
 | Ghost | Monsters | 1 | myth | Folklore worldwide | Yes |
 | Ghoul | Monsters | 1 | myth | Arabian folklore | Yes |
@@ -138,7 +138,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Goblins | Monsters | 3 | myth | European folklore | Yes |
 | Gold Dragons | Monsters | 4 | original |  | |
 | Gorgon | Monsters | 1 | original | Greek myth (name only; the SRD gorgon is a metal bull) | |
-| Gray Ooze | Monsters | 1 | original |  | |
+| Gray Ooze | Monsters | 1 | original |  | Yes |
 | Green Dragons | Monsters | 4 | original |  | |
 | Green Hag | Monsters | 1 | myth | English folklore (Jenny Greenteeth) | Yes |
 | Grick | Monsters | 1 | original |  | |
