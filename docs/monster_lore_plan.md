@@ -133,6 +133,9 @@ The data test enforces the rules marked (test).
   ("Giant Wasp") take their facts from the real animal.
 - Myth: the original text in a named public-domain translation (Perseus, Project Gutenberg, the
   Internet Archive), then other reliable sites.
+- Write about the creature the group names, directly. No framing such as "the real animal behind
+  the giant octopus". Don't narrow a general name to one species: Mammoth covers all mammoths, not
+  only the woolly mammoth.
 - Text is in our own words. Before an entry ships, a person checks each fact against its source,
   that each link opens the cited page, and that no sentence closely follows a source's wording.
 
