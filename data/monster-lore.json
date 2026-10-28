@@ -622,24 +622,24 @@
     "sources": []
   },
   "Death Dog": {
-    "description": "A huge, two-headed hound.[2]",
-    "lore": "Orthus was the hound of Geryon, the three-bodied giant of the island of Erythia, and the first child Echidna bore to the monster Typhaon.[1] He had two heads.[2]\n\nHe kept watch over Geryon's red cattle until Heracles came to take them as his tenth labor. The dog rushed at the hero, and Heracles struck it dead with his club.[2]",
+    "description": "A huge, two-headed hound.[1]",
+    "lore": "Orthus was the hound of Geryon, the three-bodied giant of the island of Erythia, and the first child Echidna bore to the monster Typhaon.[2] He had two heads.[1]\n\nHe kept watch over Geryon's red cattle until Heracles came to take them as his tenth labor. The dog rushed at the hero, and Heracles struck it dead with his club.[1]",
     "origin": "myth",
     "sources": [
-      {
-        "title": "Theogony and Works and Days, in Hesiod, the Homeric Hymns, and Homerica",
-        "author": "Hesiod, translated by Hugh G. Evelyn-White (1914)",
-        "publisher": "Project Gutenberg",
-        "url": "https://www.gutenberg.org/ebooks/348",
-        "license": "Public domain",
-        "accessed": "2026-10-28"
-      },
       {
         "title": "The Library, book 2, chapter 5, section 10",
         "author": "Apollodorus, translated by Sir James George Frazer (1921)",
         "publisher": "Perseus Digital Library, Tufts University",
         "url": "https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0022:text=Library:book=2:chapter=5:section=10",
         "license": "Public domain translation; Perseus edition CC BY-SA 3.0 US",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Theogony and Works and Days, in Hesiod, the Homeric Hymns, and Homerica",
+        "author": "Hesiod, translated by Hugh G. Evelyn-White (1914)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/348",
+        "license": "Public domain",
         "accessed": "2026-10-28"
       }
     ]
@@ -1302,23 +1302,23 @@
     "sources": []
   },
   "Giant Hyena": {
-    "description": "A massive, short-faced hyena weighing more than a hundred kilograms, with jaws made for cracking bones.[2]",
-    "lore": "Pachycrocuta, the giant short-faced hyena, roamed Europe more than a million years ago.[1][2] It lived off the kills of saber-toothed cats and other big hunters, either scavenging what they left or stealing their prey outright.[1]\n\nThe remains of one of its dens, at Venta Micena in Spain, show how it fed. Each hyena seems to have foraged alone. It pulled carcasses apart, carried the marrow-rich leg bones back to its den and cracked them open there.[2] Early humans may have competed with giant hyenas for the same carcasses.[1]\n\nWhen the saber-toothed cats it depended on died out in Europe, the giant hyena seems to have disappeared with them.[1]",
+    "description": "A massive, short-faced hyena weighing more than a hundred kilograms, with jaws made for cracking bones.[1]",
+    "lore": "Pachycrocuta, the giant short-faced hyena, roamed Europe more than a million years ago.[2][1] It lived off the kills of saber-toothed cats and other big hunters, either scavenging what they left or stealing their prey outright.[2]\n\nThe remains of one of its dens, at Venta Micena in Spain, show how it fed. Each hyena seems to have foraged alone. It pulled carcasses apart, carried the marrow-rich leg bones back to its den and cracked them open there.[1] Early humans may have competed with giant hyenas for the same carcasses.[2]\n\nWhen the saber-toothed cats it depended on died out in Europe, the giant hyena seems to have disappeared with them.[2]",
     "origin": "animal",
     "sources": [
-      {
-        "title": "Computer simulation of scavenging by hominins and giant hyenas in the late Early Pleistocene",
-        "author": "Jesús Rodríguez and others (2023)",
-        "publisher": "Scientific Reports, via PubMed Central",
-        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10539305/",
-        "license": "CC BY 4.0",
-        "accessed": "2026-10-28"
-      },
       {
         "title": "Déjà vu: a reappraisal of the taphonomy of quarry VM4 of the Early Pleistocene site of Venta Micena (Baza Basin, SE Spain)",
         "author": "Paul Palmqvist and others (2022)",
         "publisher": "Scientific Reports, via PubMed Central",
         "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8758678/",
+        "license": "CC BY 4.0",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Computer simulation of scavenging by hominins and giant hyenas in the late Early Pleistocene",
+        "author": "Jesús Rodríguez and others (2023)",
+        "publisher": "Scientific Reports, via PubMed Central",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10539305/",
         "license": "CC BY 4.0",
         "accessed": "2026-10-28"
       }
@@ -1881,24 +1881,24 @@
     ]
   },
   "Hydra": {
-    "description": "A huge serpent with nine heads that grows two new heads for every one cut off.[2]",
-    "lore": "The Hydra of Lerna was a child of the monster Echidna, and the goddess Hera raised it out of anger at Heracles.[1] It lived in the swamp of Lerna and came out to ravage the cattle and the countryside. It had a huge body and nine heads, and eight of them could die, but the middle one was immortal.[2]\n\nKilling it was the second labor of Heracles. He drove it out of its den with burning arrows and seized it, but it coiled around his foot, and each head he smashed grew back as two. A giant crab came to the Hydra's aid and bit his foot.[2]\n\nHis companion Iolaus burned the stumps of the necks with torches so no new heads could grow, and Heracles cut off the immortal head and buried it under a heavy rock beside the road. He slit open the body and dipped his arrows in its gall.[2]",
+    "description": "A huge serpent with nine heads that grows two new heads for every one cut off.[1]",
+    "lore": "The Hydra of Lerna was a child of the monster Echidna, and the goddess Hera raised it out of anger at Heracles.[2] It lived in the swamp of Lerna and came out to ravage the cattle and the countryside. It had a huge body and nine heads, and eight of them could die, but the middle one was immortal.[1]\n\nKilling it was the second labor of Heracles. He drove it out of its den with burning arrows and seized it, but it coiled around his foot, and each head he smashed grew back as two. A giant crab came to the Hydra's aid and bit his foot.[1]\n\nHis companion Iolaus burned the stumps of the necks with torches so no new heads could grow, and Heracles cut off the immortal head and buried it under a heavy rock beside the road. He slit open the body and dipped his arrows in its gall.[1]",
     "origin": "myth",
     "sources": [
-      {
-        "title": "Theogony and Works and Days, in Hesiod, the Homeric Hymns, and Homerica",
-        "author": "Hesiod, translated by Hugh G. Evelyn-White (1914)",
-        "publisher": "Project Gutenberg",
-        "url": "https://www.gutenberg.org/ebooks/348",
-        "license": "Public domain",
-        "accessed": "2026-10-28"
-      },
       {
         "title": "The Library, book 2, chapter 5, section 2",
         "author": "Apollodorus, translated by Sir James George Frazer (1921)",
         "publisher": "Perseus Digital Library, Tufts University",
         "url": "https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0022:text=Library:book=2:chapter=5:section=2",
         "license": "Public domain translation; Perseus edition CC BY-SA 3.0 US",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Theogony and Works and Days, in Hesiod, the Homeric Hymns, and Homerica",
+        "author": "Hesiod, translated by Hugh G. Evelyn-White (1914)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/348",
+        "license": "Public domain",
         "accessed": "2026-10-28"
       }
     ]
@@ -2189,23 +2189,23 @@
     ]
   },
   "Medusa": {
-    "description": "A woman whose hair is a mass of living snakes and whose gaze turns anyone who meets it to stone.[2]",
-    "lore": "Medusa was one of the three Gorgons, sisters who lived beyond the ocean at the edge of the world, toward the land of night. Her sisters Stheno and Euryale could neither die nor grow old, but Medusa was mortal.[1]\n\nOvid tells that she was once a famous beauty, admired above all for her hair, until the god of the sea assaulted her in the temple of Minerva. The goddess punished Medusa by turning that hair into hideous snakes.[2] Around her lair stood men and beasts turned to stone by the sight of her.[2]\n\nThe hero Perseus found her by stealing the single eye shared by the two Gray Sisters. He looked at her only in the reflection of his bronze shield, and while Medusa and her snakes slept, he cut off her head.[2] From her neck sprang the winged horse Pegasus and the giant Chrysaor.[1][2] As Perseus flew home over the deserts of Libya, drops of her blood fell to the ground and became snakes, which is why, Ovid says, that land is full of them.[2]",
+    "description": "A woman whose hair is a mass of living snakes and whose gaze turns anyone who meets it to stone.[1]",
+    "lore": "Medusa was one of the three Gorgons, sisters who lived beyond the ocean at the edge of the world, toward the land of night. Her sisters Stheno and Euryale could neither die nor grow old, but Medusa was mortal.[2]\n\nOvid tells that she was once a famous beauty, admired above all for her hair, until the god of the sea assaulted her in the temple of Minerva. The goddess punished Medusa by turning that hair into hideous snakes.[1] Around her lair stood men and beasts turned to stone by the sight of her.[1]\n\nThe hero Perseus found her by stealing the single eye shared by the two Gray Sisters. He looked at her only in the reflection of his bronze shield, and while Medusa and her snakes slept, he cut off her head.[1] From her neck sprang the winged horse Pegasus and the giant Chrysaor.[2][1] As Perseus flew home over the deserts of Libya, drops of her blood fell to the ground and became snakes, which is why, Ovid says, that land is full of them.[1]",
     "origin": "myth",
     "sources": [
-      {
-        "title": "Theogony and Works and Days, in Hesiod, the Homeric Hymns, and Homerica",
-        "author": "Hesiod, translated by Hugh G. Evelyn-White (1914)",
-        "publisher": "Project Gutenberg",
-        "url": "https://www.gutenberg.org/ebooks/348",
-        "license": "Public domain",
-        "accessed": "2026-10-28"
-      },
       {
         "title": "The Metamorphoses of Ovid, Books I-VII",
         "author": "Ovid, translated by Henry T. Riley (1851)",
         "publisher": "Project Gutenberg",
         "url": "https://www.gutenberg.org/ebooks/21765",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Theogony and Works and Days, in Hesiod, the Homeric Hymns, and Homerica",
+        "author": "Hesiod, translated by Hugh G. Evelyn-White (1914)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/348",
         "license": "Public domain",
         "accessed": "2026-10-28"
       }
@@ -2925,24 +2925,24 @@
     "sources": []
   },
   "Sphinxes": {
-    "description": "A winged lion with the face of a woman, who asks riddles and devours those who cannot answer.[2]",
-    "lore": "Hesiod names the Sphinx as a child of Echidna and the destroyer of the people of Thebes.[1] Apollodorus says the goddess Hera sent her. She had a woman's face, a lion's chest, feet and tail, and a bird's wings. She sat on a mountain above Thebes and asked the riddle she had learned from the Muses: what has one voice, yet goes on four feet, then two, then three? Whenever the Thebans failed to answer, she snatched one of them and ate him.[2]\n\nOedipus solved it. A man crawls on all fours as a baby, walks on two feet as an adult, and leans on a staff in old age. The Sphinx threw herself from the citadel.[2] In Egypt, Herodotus saw great statues of sphinxes with the heads of men.[3]\n\nOther tales tell of sphinxes as wise guardians sent by the gods, keepers of secret knowledge whose roar can shake the mind.",
+    "description": "A winged lion with the face of a woman, who asks riddles and devours those who cannot answer.[1]",
+    "lore": "Hesiod names the Sphinx as a child of Echidna and the destroyer of the people of Thebes.[2] Apollodorus says the goddess Hera sent her. She had a woman's face, a lion's chest, feet and tail, and a bird's wings. She sat on a mountain above Thebes and asked the riddle she had learned from the Muses: what has one voice, yet goes on four feet, then two, then three? Whenever the Thebans failed to answer, she snatched one of them and ate him.[1]\n\nOedipus solved it. A man crawls on all fours as a baby, walks on two feet as an adult, and leans on a staff in old age. The Sphinx threw herself from the citadel.[1] In Egypt, Herodotus saw great statues of sphinxes with the heads of men.[3]\n\nOther tales tell of sphinxes as wise guardians sent by the gods, keepers of secret knowledge whose roar can shake the mind.",
     "origin": "myth",
     "sources": [
-      {
-        "title": "Theogony and Works and Days, in Hesiod, the Homeric Hymns, and Homerica",
-        "author": "Hesiod, translated by Hugh G. Evelyn-White (1914)",
-        "publisher": "Project Gutenberg",
-        "url": "https://www.gutenberg.org/ebooks/348",
-        "license": "Public domain",
-        "accessed": "2026-10-28"
-      },
       {
         "title": "The Library, book 3, chapter 5, section 8",
         "author": "Apollodorus, translated by Sir James George Frazer (1921)",
         "publisher": "Perseus Digital Library, Tufts University",
         "url": "https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0022:text=Library:book=3:chapter=5:section=8",
         "license": "Public domain translation; Perseus edition CC BY-SA 3.0 US",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Theogony and Works and Days, in Hesiod, the Homeric Hymns, and Homerica",
+        "author": "Hesiod, translated by Hugh G. Evelyn-White (1914)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/348",
+        "license": "Public domain",
         "accessed": "2026-10-28"
       },
       {
@@ -3355,21 +3355,21 @@
     ]
   },
   "Warhorse": {
-    "description": "A strong, steady horse trained to carry a rider into battle.[2]",
-    "lore": "Armies once ran on horses. Some three million horses and mules served in the American Civil War, and about half of them died.[1] They pulled cannons and supply wagons and carried the wounded and the cavalry, and a battery of six guns needed 120 horses.[1] Few died from enemy fire. Most were worked to death or died of disease, often short of proper food, and a cavalry horse needed more than five times as much food each day as the soldier who rode it.[1]\n\nA cavalry trooper's horse could decide whether a mission succeeded, and a trooper would nearly always see to his horse before himself.[2] In the 7th Cavalry, each company rode horses of a single color.[2] At the Little Bighorn, all the horses of the five companies that rode with Custer died except one, Comanche, who was wounded several times and survived.[2]",
+    "description": "A strong, steady horse trained to carry a rider into battle.[1]",
+    "lore": "Armies once ran on horses. Some three million horses and mules served in the American Civil War, and about half of them died.[2] They pulled cannons and supply wagons and carried the wounded and the cavalry, and a battery of six guns needed 120 horses.[2] Few died from enemy fire. Most were worked to death or died of disease, often short of proper food, and a cavalry horse needed more than five times as much food each day as the soldier who rode it.[2]\n\nA cavalry trooper's horse could decide whether a mission succeeded, and a trooper would nearly always see to his horse before himself.[1] In the 7th Cavalry, each company rode horses of a single color.[1] At the Little Bighorn, all the horses of the five companies that rode with Custer died except one, Comanche, who was wounded several times and survived.[1]",
     "origin": "animal",
     "sources": [
-      {
-        "title": "Horses and Mules",
-        "publisher": "U.S. National Park Service (Stones River National Battlefield)",
-        "url": "https://www.nps.gov/stri/cw-horses-and-mule.htm",
-        "license": "Public domain (U.S. government work)",
-        "accessed": "2026-10-28"
-      },
       {
         "title": "Custer's Cavalry Horses at the Little Bighorn",
         "publisher": "U.S. National Park Service (Little Bighorn Battlefield National Monument)",
         "url": "https://www.nps.gov/libi/learn/historyculture/custer-s-cavalry-horses-at-the-little-bighorn.htm",
+        "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Horses and Mules",
+        "publisher": "U.S. National Park Service (Stones River National Battlefield)",
+        "url": "https://www.nps.gov/stri/cw-horses-and-mule.htm",
         "license": "Public domain (U.S. government work)",
         "accessed": "2026-10-28"
       }
