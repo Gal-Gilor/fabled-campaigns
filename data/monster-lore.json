@@ -2516,6 +2516,12 @@
     "origin": "original",
     "sources": []
   },
+  "Pseudodragon": {
+    "description": "A tiny dragon no bigger than a house cat, with a venomous sting in its tail, which understands speech but cannot talk.",
+    "lore": "Pseudodragons look like true dragons shrunk to the size of a cat, with bright scales, leathery wings and a long, barbed tail. They are gentle and playful, and they love warmth, shiny objects and attention.\n\nA pseudodragon understands Common and the language of dragons, but it cannot speak. It makes its feelings known with purrs, hisses and chirps, and anyone who spends time with one soon learns what each sound means.\n\nIn a fight, a pseudodragon bites and lashes out with its stinger, whose venom leaves its victim sick and dizzy for an hour. Spells often fail to take hold of it. Pseudodragons choose their friends carefully, and once they have chosen, they are loyal for life.",
+    "origin": "original",
+    "sources": []
+  },
   "Pteranodon": {
     "description": "A large flying reptile with wings of skin stretched from one long finger to its ankles, and a long, toothless beak.[1]",
     "lore": "Pteranodon was a pterosaur, one of the flying reptiles. Pterosaurs are often called flying dinosaurs, but they were a group of reptiles of their own.[1] Each wing was a thin sheet of skin held up by one hugely long finger and reaching back to the ankle, while the other fingers stayed free as a hand.[1]\n\nPteranodon had no teeth, yet its fossils have been found with fish in their stomachs. It probably swooped down to the water and snatched fish from the surface, as some seabirds do.[1][2] Large pterosaurs may have flown like albatrosses, riding air currents over long distances and flapping only now and then.[1]",
@@ -2538,6 +2544,12 @@
         "accessed": "2026-10-28"
       }
     ]
+  },
+  "Purple Worm": {
+    "description": "A gigantic, burrowing worm that tunnels through solid rock, swallows its prey whole and stabs with a venomous tail.",
+    "lore": "A purple worm is long enough to wrap around a castle, and it moves through the earth the way a fish moves through water, grinding through stone and leaving huge round tunnels behind. It surfaces without warning, snatches up anything in reach in its enormous mouth and swallows it whole.\n\nIts tail ends in a stinger dripping with venom, enough to kill a horse with one strike. A purple worm will eat anything it can catch, and it can swallow several people before it is full.\n\nMiners fear purple worms more than any other creature underground. A sudden rumble and a shaking of the tunnel walls is the signal to drop everything and run.",
+    "origin": "original",
+    "sources": []
   },
   "Quasit": {
     "description": "A tiny demon that can turn into a bat, a centipede or a toad, turn invisible and fill its victims with fear.",
@@ -2605,6 +2617,12 @@
       }
     ]
   },
+  "Remorhaz": {
+    "description": "A huge, many-legged burrowing beast whose body gives off scorching heat, which swallows its prey whole.",
+    "lore": "A remorhaz is a long, segmented creature with dozens of legs and a mouth large enough to swallow a horse. Its body burns from within, so hot that it scorches anyone who comes near and melts the ground it burrows through.\n\nIt hunts by bursting up from below, seizing its prey in its burning jaws and swallowing it. Anything swallowed by a remorhaz is cooked as well as crushed.\n\nAfter a large meal, a remorhaz sleeps for months. The ground above its burrow stays warm the whole time, and in winter a ring of melted snow and green grass in the middle of a frozen field is a warning to stay away.",
+    "origin": "original",
+    "sources": []
+  },
   "Rhinoceros": {
     "description": "A massive, short-legged beast with thick, wrinkled skin like riveted armor and one or two solid horns on its snout.[1]",
     "lore": "There are five kinds of rhinoceros: three in south-central Asia and two in Africa south of the Sahara. They live in grassland, scrub and dense forest, never far from water they can reach each day.[1] Their horns are not bone but solid, packed keratin.[1]\n\nThe black rhino of Africa mostly keeps to itself. It feeds in the morning and evening and rests through the heat of the day, rolling in mud to stay cool.[2] It browses on twigs, shrubs and small trees, gripping them with its grasping upper lip, and knocks branches down with its horn to reach higher ones.[2]\n\nBlack rhinos see poorly, only 25 to 30 meters, and rely on their noses.[2] A startled black rhino runs off snorting, then often turns back out of curiosity and charges whatever scared it. These charges look dangerous but rarely end badly.[2] Rhinos leave their dung in shared piles, which tells other rhinos who has passed and how recently.[2]",
@@ -2658,6 +2676,18 @@
       }
     ]
   },
+  "Roper": {
+    "description": "A lumpy, stone-gray cave creature with a huge toothed mouth and long, sticky tentacles that reel in prey from far away.",
+    "lore": "A roper looks like a heap of gray rubble until it moves. It crawls slowly along cave floors, walls and ceilings, and it can sit in one place for weeks without twitching. When prey wanders near, it shoots out long, sticky tentacles that can reach across a cavern.\n\nThe tentacles drain the strength from anyone they hold, and the roper reels its victims in toward its great mouth. A single roper can hold several people at once.\n\nA roper's victims are often found far from where they were caught, since it drags them back to the deepest corner of its cave to eat. A trail of scrape marks on a cave floor, with no footprints beside it, is a warning.",
+    "origin": "original",
+    "sources": []
+  },
+  "Rust Monster": {
+    "description": "A creature with long antennae whose touch turns iron and steel to rust, which it can smell from a distance.",
+    "lore": "A rust monster is about the size of a pony, with a hard, knobbly body and two long antennae. It can smell iron and steel from far away and is drawn to them irresistibly. Its antennae turn any ordinary metal they touch to flakes of rust in moments: swords, armor, locks and nails.\n\nRust monsters are not truly dangerous to people, since their bite is weak. They are dangerous to equipment. A knight in full armor may walk away from a rust monster unhurt but unarmored.\n\nAdventurers who meet a rust monster often throw it a handful of iron nails or an old shield and run while it is distracted.",
+    "origin": "original",
+    "sources": []
+  },
   "Saber-Toothed Tiger": {
     "description": "A powerful cat with strong forelegs and two upper fangs up to 28 centimeters long.[1]",
     "lore": "The saber-toothed tiger, Smilodon, lived in the Americas from about 2.5 million years ago until about 12,000 years ago.[1] It killed with its long fangs, gripping prey with its powerful forelegs and driving the teeth home with a head movement of its own.[1] Saber-toothed hunters may have been able to bring down fully grown large animals, perhaps by striking at the blood vessels of the neck.[1]\n\nLong fangs like these evolved many times, in animals as different as a South American marsupial and the false saber-toothed cats, but Smilodon is the most famous saber-tooth of all.[1]\n\nFor all its fangs, its nose was weak. Scans of its skull suggest its sense of smell was poorer than a house cat's or a wolf's, no better than a mouse's.[2]",
@@ -2680,6 +2710,12 @@
         "accessed": "2026-10-28"
       }
     ]
+  },
+  "Sahuagin": {
+    "description": "A fierce, fish-like fiend of the sea with scaly skin and clawed hands, which commands sharks and goes into a frenzy at the scent of blood.",
+    "lore": "Sahuagin are warriors of the deep sea, with scales, fins and sharp claws. They can breathe air, but only for a few hours before they must return to the water. They raid coastal villages and ships, rising from the waves at night.\n\nSahuagin can command sharks with their minds, and they often attack with a pack of sharks circling around them. The scent of blood drives them into a frenzy, and they fight hardest against wounded enemies.\n\nCoastal folk know the signs of a coming sahuagin raid: fish disappearing from the shallows, strange lights under the water and sharks swimming far closer to shore than usual.",
+    "origin": "original",
+    "sources": []
   },
   "Salamander": {
     "description": "A lizard-like creature with a starry body, said to be so cold that it puts out fire at a touch.[1]",
@@ -2748,6 +2784,18 @@
       }
     ]
   },
+  "Scout": {
+    "description": "A skilled tracker and lookout who travels ahead of armies, caravans and expeditions, armed with a longbow.",
+    "lore": "Scouts are the eyes of any expedition. They range ahead of armies, find safe paths for caravans, hunt game and watch for danger. A good scout can follow a trail across rocky ground, read the weather and move quietly through any terrain.\n\nMost scouts carry a longbow and a short blade, and they prefer to fight from a distance or not at all. Their job is to see the enemy and report back, not to win battles alone.\n\nScouts are often loners, more comfortable in the wild than in towns. Many have their own reasons for preferring the company of trees.",
+    "origin": "original",
+    "sources": []
+  },
+  "Sea Hag": {
+    "description": "A hideous hag of the sea whose true appearance can terrify, and whose glare can stop a frightened heart.",
+    "lore": "Sea hags live in the cold, dark waters along rocky coasts and in sunken wrecks. A sea hag's true face is so horrible that people who see it may be frozen with terror, and her glare can kill those already gripped by fear.\n\nShe hides her true form behind a disguise, often appearing as a fisher's widow, a beggar on the docks or a sailor in need. Sea hags strike bargains with sailors and fishing villages, offering good weather or full nets in exchange for a price that is paid later.\n\nWhen three hags gather, they can work stronger magic together. A coven of sea hags can raise storms and sink whole fleets.",
+    "origin": "original",
+    "sources": []
+  },
   "Seahorse": {
     "description": "A small fish with a horse-like head set at a right angle to its body and a body armored with bony rings.[1]",
     "lore": "Seahorses spend most of their lives in a small patch of seagrass or coral, holding on and watching for food.[1] They hunt by sight, mostly by day, and when a small shrimp or fish comes close they suck it into their snouts.[1] Some can change color to hide or to court a mate.[1]\n\nSeahorse pairs often stay together season after season. The female passes her eggs to the male, who carries them in a pouch until they hatch.[1] Some seahorses travel far by clinging to floating mats of seaweed.[1] They are small, and many animals eat them, from fish, turtles and seabirds to crabs and shrimp.[1]",
@@ -2763,9 +2811,39 @@
       }
     ]
   },
+  "Shadow": {
+    "description": "A dark, shapeless undead spirit that hides in shadows and drains the strength of the living with its touch.",
+    "lore": "A shadow is a darkness that moves on its own. It looks like a human silhouette, but it has no body. It slides along walls and floors, slips through cracks and hides in dim corners.\n\nIts touch steals strength. Each time a shadow strikes, its victim grows weaker, and anyone whose strength is drained completely dies. Sunlight weakens shadows badly, so they hunt only at night or underground.\n\nSome say shadows gather where people have died alone in the dark, with no one to light a candle for them. In some old houses, servants leave a lamp burning in every room at night, just in case.",
+    "origin": "original",
+    "sources": []
+  },
+  "Shambling Mound": {
+    "description": "A walking heap of rotting plants and vines, which crackles with lightning and engulfs its prey.",
+    "lore": "A shambling mound looks like a pile of swamp weeds, roots and rotting leaves until it rises up and walks. It lurches through marshes and wet forests, wraps its victims in its tendrils and pulls them into its soggy mass to be smothered.\n\nLightning does not hurt a shambling mound; it makes it stronger. Its tendrils crackle with stored energy, and storms bring them out of hiding. Marsh folk will not cross a bog in a thunderstorm.\n\nThey are slow but tireless, and they can stay underwater for hours, rising silently from bogs and pools.",
+    "origin": "original",
+    "sources": []
+  },
+  "Shield Guardian": {
+    "description": "A huge, magical construct bound to an amulet, which protects whoever wears it and can store a spell to release later.",
+    "lore": "A shield guardian is a towering bodyguard of stone, metal and wood, built by powerful wizards. It is bound to an amulet, and whoever wears the amulet commands the guardian. It goes where it is called, follows orders given in any language and steps in front of attacks meant for its master.\n\nThe guardian can also hold a spell cast into it by the amulet's wearer and release it later on command. Its body mends itself as it fights, so it is very hard to stop.\n\nA shield guardian has no will of its own. If the amulet is stolen, the guardian serves the thief just as faithfully. Many wizards have been killed by their own guardians this way.",
+    "origin": "original",
+    "sources": []
+  },
+  "Skeletons": {
+    "description": "The bones of a dead person or beast, held together and moved by dark magic, which fight without fear or mercy.",
+    "lore": "Skeletons are raised by necromancers and other workers of dark magic. A skeleton remembers how to use a sword or a bow, but nothing else of its life. It cannot speak, though it understands simple orders, and it obeys them without question.\n\nSkeletons come in many shapes. Human skeletons guard tombs and march in undead armies. Warhorse skeletons carry riders into battle. The huge, horned skeletons of minotaurs charge through ranks of soldiers.\n\nSkeletons do not tire, feel pain or fear. They keep fighting until they are smashed apart, and even then, in some places, the bones are said to pull themselves back together at night.",
+    "origin": "original",
+    "sources": []
+  },
   "Solar": {
     "description": "The greatest of angels, a radiant being with a sword that flies to its target and a bow that can slay with a single arrow.",
     "lore": "Solars stand closest to the gods. Few mortals ever see one, and those who do never forget it. A solar shines so brightly that its gaze alone can blind, and it can vanish and reappear in a burst of searing light.\n\nIts sword flies from its hand to strike foes far away and returns on its own. Its bow can kill a lesser creature with one arrow from across a battlefield. When a solar goes to war, it is because the gods themselves have decided that something must end.\n\nLike all angels, a solar knows when it hears a lie. It also heals and lifts curses, and it never refuses this help to those in true need.",
+    "origin": "original",
+    "sources": []
+  },
+  "Specter": {
+    "description": "A hateful, ghostly undead spirit that floats through walls and drains the life from the living with its touch.",
+    "lore": "A specter is the restless spirit of someone who died in anger, despair or terror. It floats through the air, passing through walls and floors, and it hates the living for having what it lost.\n\nIts touch drains life, leaving its victims weaker and colder. Sunlight burns specters, so they wander only in darkness, haunting the places where they died.\n\nA specter cannot speak, though it understands speech. It does not want to bargain or explain. It only wants to take life, and the only way to stop it is to destroy it.",
     "origin": "original",
     "sources": []
   },
@@ -2851,6 +2929,18 @@
       }
     ]
   },
+  "Spy": {
+    "description": "A trained agent who gathers secrets, moves quietly and strikes with poisoned blades when discovered.",
+    "lore": "Spies work for kings, merchants, guilds and anyone else who needs to know what their rivals are doing. A good spy is forgettable: a servant, a merchant, a traveler. They listen at doors, read letters they should not and bribe the people who know things.\n\nSpies carry poisoned blades and small crossbows, and they can climb walls, hide in shadows and slip away when discovered. They avoid fights when they can and win them quickly when they cannot.\n\nIn many royal courts, everyone suspects that someone is a spy, and they are usually right.",
+    "origin": "original",
+    "sources": []
+  },
+  "Stirge": {
+    "description": "A small, bat-like creature with a long, needle-sharp proboscis, which attaches to its victims and drinks their blood.",
+    "lore": "Stirges are about the size of a crow, with leathery wings, many legs and a long, sharp nose like a mosquito's. They live in caves, ruins and dark forests, and they hunt in swarms.\n\nA stirge latches onto its victim, sticks its proboscis into the flesh and drinks until it is full or the victim pulls it off. One stirge is a nuisance. A swarm can drain a person dry.\n\nTravelers who camp near stirge caves keep their fires burning all night, since stirges dislike smoke and flame.",
+    "origin": "original",
+    "sources": []
+  },
   "Stone Giant": {
     "description": "A giant with a heart and head of stone, who fights behind a thick stone shield and hurls great stones.[1]",
     "lore": "Hrungnir was the strongest of the giants. His heart was made of stone, sharp and three-cornered, and his head was stone too. He carried a broad, thick shield of stone, and his weapon was a huge flint-stone that he swung over his shoulder.[1]\n\nAfter a drunken visit to the halls of the gods, he challenged Thor to a duel at the borders of the giants' land. The giants built him a huge companion out of clay, but it was so terrified at the sight of Thor that it wet itself.[1] Hrungnir was tricked into standing on his shield, and when Thor hurled his hammer, Hrungnir threw his flint-stone to meet it. The stone shattered in the air. Its pieces became the flint in the mountains, and one shard struck Thor's head and stuck fast there. The hammer crushed the giant's skull, and he fell with his foot across Thor's neck, so heavy that none of the gods could lift it.[1]",
@@ -2865,6 +2955,12 @@
         "accessed": "2026-10-28"
       }
     ]
+  },
+  "Stone Golem": {
+    "description": "A huge figure of carved stone brought to life by magic, which can slow its enemies and shrug off most spells.",
+    "lore": "A stone golem is carved from a single great block of stone and brought to life by powerful magic. It stands as still as a statue until something wakes it, and then it moves with crushing strength. Its fists hit hard enough to shatter shields, and it can strike from afar with bolts of force.\n\nA stone golem can also slow time around its enemies, leaving them sluggish and helpless. Most spells barely touch it.\n\nStone golems guard tombs, vaults and temples, often for centuries. They obey only their makers, and when the maker dies, they keep guarding whatever they were last told to guard.",
+    "origin": "original",
+    "sources": []
   },
   "Storm Giant": {
     "description": "A giant who sits at the edge of the sky, wrapped in an eagle's feathers, and raises the wind with his wings.[1]",
@@ -3053,6 +3149,18 @@
       }
     ]
   },
+  "Toughs": {
+    "description": "A hired thug who fights for pay with mace and crossbow, usually in a gang led by a tougher boss.",
+    "lore": "Toughs are the muscle of the criminal world. They collect debts, guard smugglers' warehouses, break up rival gangs and rough up anyone who gets in their boss's way. Most are former soldiers, dockworkers or street fighters.\n\nA tough fights best in a group, ganging up on a single victim. Their boss is usually the biggest and meanest of them, a veteran with a heavy warhammer and a reputation.\n\nToughs are loyal to money, not people. Pay them more and they may switch sides. Threaten their boss and they will fight to the last.",
+    "origin": "original",
+    "sources": []
+  },
+  "Treant": {
+    "description": "A huge, living tree with a face in its bark, a guardian of ancient forests that can wake other trees to fight beside it.",
+    "lore": "Treants are the oldest and wisest of trees, given minds and voices by the magic of the deep forests. A treant can stand perfectly still among ordinary trees for years, and most people never know they have walked past one.\n\nTreants protect their forests, and they do not forgive those who harm them. A treant can crush walls with its fists, hurl showers of sharp bark and wake nearby trees to fight alongside it.\n\nTreants speak several languages, including the secret tongue of druids. Woodcutters who must fell a tree in an old forest first ask permission aloud, in case something is listening.",
+    "origin": "original",
+    "sources": []
+  },
   "Triceratops": {
     "description": "A four-legged plant-eater with three horns, a parrot-like beak and a wide frill of bone behind its head.[1]",
     "lore": "Triceratops had one of the largest skulls of any land animal, with a frill nearly a meter across.[1] It snipped plants with its sharp beak and ground them with rows of teeth at the back of its jaws, and it may have used its horns and frill to push through thick growth.[1]\n\nIts horns were weapons. One fossil horn was bitten off by a Tyrannosaurus and then healed, so at least some Triceratops survived those fights. Males also seem to have fought each other with their horns.[1] In life the horns were covered in keratin, which made them longer and sharper than the fossil bone suggests.[1]\n\nMany horned dinosaurs lived in herds, but Triceratops fossils are usually found alone, so it may have spent much of its life by itself.[1] Its skin was covered in large, pebbled scales.[1]",
@@ -3190,6 +3298,12 @@
       }
     ]
   },
+  "Warriors": {
+    "description": "A trained soldier who fights in a line with spear and shield, or a battle-hardened veteran with a greatsword.",
+    "lore": "Warriors fill the armies of every kingdom. Infantry are the common soldiers: farmers and laborers who were given a spear and a few weeks of training. They fight best in groups, holding a line together.\n\nVeterans are warriors who have survived many battles. They carry heavier weapons, wear better armor and know how to parry a blow and strike back. A few veterans among a company of new recruits can make all the difference.\n\nWhen wars end, many warriors find themselves without work. Some become guards, mercenaries or adventurers. Others become bandits.",
+    "origin": "original",
+    "sources": []
+  },
   "Water Elemental": {
     "description": "A spirit of the water, in the old belief that nymphs and river spirits live in every lake, stream and sea.[1][2]",
     "lore": "Followers of the Rosicrucian teaching, which Alexander Pope knew from a French book called Le Comte de Gabalis, held that each of the four elements is home to its own spirits: sylphs in the air, gnomes in the earth, nymphs in the water and salamanders in fire.[1] In Pope's poem, gentle, yielding souls glide away to the water after death to live among the nymphs.[1]\n\nIn the north, every river had its spirit, the neck. On summer nights it might sit on the water as a pretty little boy with golden ringlets and a red cap, or as a handsome young man who was a horse below the waterline, or as an old man wringing the water from his long beard. It played a golden harp whose music moved all of nature.[2] People out on the water carried steel to bind its power, laying a knife in the bottom of the boat.[2]\n\nIn one Swedish tale, two boys told a weeping neck that it would never be saved. When their father, the parish priest, sent them back to comfort it, the neck took up its harp and played sweetly until long after sunset.[2]\n\nOther tales describe the water elemental as a living wave, which crashes over its foes and drags them under.",
@@ -3242,6 +3356,18 @@
         "accessed": "2026-10-28"
       }
     ]
+  },
+  "Wereboar": {
+    "description": "A person who can become a boar or a boar-headed hybrid, savage and stubborn, whose bite can pass on the curse.",
+    "lore": "A wereboar is a person cursed with the spirit of a wild boar. In human form, they are often stubborn, short-tempered and strong. In boar form or as a hulking hybrid, they charge headlong at their enemies and gore them with their tusks.\n\nWereboars are hard to kill and harder to stop. They fight with blind fury and keep going long after others would have fallen. Those wounded by a wereboar's tusks may catch the curse themselves.\n\nWereboars often live in remote forests and hills, away from towns. Hunters who wound a boar that later limps into a village on two legs should leave that village quickly.",
+    "origin": "original",
+    "sources": []
+  },
+  "Wererat": {
+    "description": "A person who can become a rat or a rat-like hybrid, sneaky and cunning, whose bite can pass on the curse.",
+    "lore": "Wererats are people cursed with the spirit of a rat. They are clever, sneaky and greedy, and they are most at home in cities, where they live in sewers, cellars and abandoned buildings.\n\nIn rat form, a wererat can slip through tiny holes and spy on anyone. In hybrid form, it fights with teeth and claws or a small crossbow. Its bite can pass the curse to others.\n\nA wererat can hide its nature for years. City folk who notice that the rats in their cellar seem to be listening sometimes move house.",
+    "origin": "original",
+    "sources": []
   },
   "Weretiger": {
     "description": "A person who can take the shape of a tiger, often by secret magic, to hunt by night.[1]",
@@ -3319,6 +3445,12 @@
       }
     ]
   },
+  "Winter Wolf": {
+    "description": "A huge, white-furred wolf that breathes freezing cold and can speak, often found in snowy lands.",
+    "lore": "Winter wolves are larger than ordinary wolves, with thick white fur that blends into the snow. They are cruel, clever and can speak. They hunt in packs across frozen lands, and their breath is a blast of freezing cold that can stop a person in their tracks.\n\nWinter wolves enjoy tormenting their prey, and they often taunt travelers before attacking. They are cunning enough to set ambushes, and they will follow a wounded traveler for days.\n\nIn the far north, people say that a winter wolf's howl on a still night means a blizzard is coming.",
+    "origin": "original",
+    "sources": []
+  },
   "Wolf": {
     "description": "A lean wild dog with a coat anywhere from gray to brown, black or white, that hunts in family packs able to kill a moose or a bison.[1]",
     "lore": "Wolves live and hunt as families. A pack is usually a mated pair and their young, and the parents lead the hunts and teach the young how to hunt, avoid danger and mark the borders of their land.[1] Together they bring down caribou, moose and bison, animals far bigger than any one wolf, and they take rabbits, beavers, fish and even berries when they can.[1]\n\nA pack's land can be huge, and wolves cover long distances across it, mostly at night.[2] They howl to call the pack together, to stir it up before a hunt and to warn other packs away. A wolf cut off from its pack gives a short, rising \"lonesome howl\", then switches to deeper calls once the others answer, so they can find it.[1]\n\nAround two years of age, a young wolf may wander the edges of its family's land before leaving to find a mate and start a pack of its own.[1] Folklore has long cast wolves as animals to fear, and that fear still shapes how people treat them.[1]",
@@ -3385,6 +3517,12 @@
         "accessed": "2026-10-28"
       }
     ]
+  },
+  "Xorn": {
+    "description": "A squat creature of living stone from the realm of elemental earth, which glides through solid rock and can sense gold and gems from afar.",
+    "lore": "A xorn is a creature of elemental earth, heavy and stony, with a mouth full of grinding teeth. It glides through solid rock without leaving a crack or a hole behind, and it can sense gold, silver and precious stones from a distance.\n\nXorns are drawn to treasure the way moths are drawn to lamps. One will follow the glint of gems for miles through the earth, and it may burst out of a wall to charge anyone carrying them.\n\nMiners have mixed feelings about xorns. They are a danger in the tunnels, but where a xorn has been seen gliding through the rock, a rich vein is usually close.",
+    "origin": "original",
+    "sources": []
   },
   "Zombies": {
     "description": "In the folklore of Martinique, a night-terror that can take any shape, from a woman fourteen feet tall to a three-legged horse.[1]",

@@ -211,44 +211,44 @@ original. The lore can mention the myth as the source of the name, with a source
 | Polar Bear | Animals | 1 | animal |  | Yes |
 | Pony | Animals | 1 | animal |  | Yes |
 | Priests | Monsters | 2 | original | Generic role | Yes |
-| Pseudodragon | Monsters | 1 | original |  | |
+| Pseudodragon | Monsters | 1 | original |  | Yes |
 | Pteranodon | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
-| Purple Worm | Monsters | 1 | original |  | |
+| Purple Worm | Monsters | 1 | original |  | Yes |
 | Quasit | Monsters | 1 | original |  | Yes |
 | Rakshasa | Monsters | 1 | myth | Hindu epics | Yes |
 | Rat | Animals | 1 | animal |  | Yes |
 | Raven | Animals | 1 | animal |  | Yes |
 | Red Dragons | Monsters | 4 | original |  | |
 | Reef Shark | Animals | 1 | animal |  | Yes |
-| Remorhaz | Monsters | 1 | original |  | |
+| Remorhaz | Monsters | 1 | original |  | Yes |
 | Rhinoceros | Animals | 1 | animal |  | Yes |
 | Riding Horse | Animals | 1 | animal |  | Yes |
 | Roc | Monsters | 1 | myth | One Thousand and One Nights, Marco Polo | Yes |
-| Roper | Monsters | 1 | original |  | |
-| Rust Monster | Monsters | 1 | original | Real-world origin: a plastic toy | |
+| Roper | Monsters | 1 | original |  | Yes |
+| Rust Monster | Monsters | 1 | original | Real-world origin: a plastic toy | Yes |
 | Saber-Toothed Tiger | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
-| Sahuagin | Monsters | 1 | original |  | |
+| Sahuagin | Monsters | 1 | original |  | Yes |
 | Salamander | Monsters | 1 | myth | Paracelsus | Yes |
 | Satyr | Monsters | 1 | myth | Greek myth | Yes |
 | Scorpion | Animals | 1 | animal |  | Yes |
-| Scout | Monsters | 1 | original | Generic role | |
-| Sea Hag | Monsters | 1 | original | Sea witch folklore (name only) | |
+| Scout | Monsters | 1 | original | Generic role | Yes |
+| Sea Hag | Monsters | 1 | original | Sea witch folklore (name only) | Yes |
 | Seahorse | Animals | 1 | animal |  | Yes |
-| Shadow | Monsters | 1 | original |  | |
-| Shambling Mound | Monsters | 1 | original |  | |
-| Shield Guardian | Monsters | 1 | original |  | |
+| Shadow | Monsters | 1 | original |  | Yes |
+| Shambling Mound | Monsters | 1 | original |  | Yes |
+| Shield Guardian | Monsters | 1 | original |  | Yes |
 | Silver Dragons | Monsters | 4 | original |  | |
-| Skeletons | Monsters | 3 | original |  | |
+| Skeletons | Monsters | 3 | original |  | Yes |
 | Solar | Monsters | 1 | original |  | Yes |
-| Specter | Monsters | 1 | original |  | |
+| Specter | Monsters | 1 | original |  | Yes |
 | Sphinxes | Monsters | 3 | myth | Egyptian and Greek myth | Yes |
 | Spider | Animals | 1 | animal |  | Yes |
 | Spirit Naga | Monsters | 1 | myth | Hindu and Buddhist myth | Yes |
 | Sprite | Monsters | 1 | myth | English folklore | Yes |
-| Spy | Monsters | 1 | original | Generic role | |
-| Stirge | Monsters | 1 | original |  | |
+| Spy | Monsters | 1 | original | Generic role | Yes |
+| Stirge | Monsters | 1 | original |  | Yes |
 | Stone Giant | Monsters | 1 | myth | European folklore | Yes |
-| Stone Golem | Monsters | 1 | original |  | |
+| Stone Golem | Monsters | 1 | original |  | Yes |
 | Storm Giant | Monsters | 1 | myth | Norse and Greek myth (loose) | Yes |
 | Succubus | Monsters | 1 | myth | Medieval demonology | Yes |
 | Swarm of Bats | Animals | 1 | animal | Fantasy version; facts from the real bats | Yes |
@@ -259,8 +259,8 @@ original. The lore can mention the myth as the source of the name, with a source
 | Swarm of Venomous Snakes | Animals | 1 | animal | Fantasy version; facts from the real venomous snakes | Yes |
 | Tarrasque | Monsters | 1 | myth | French legend of the Tarasque | Yes |
 | Tiger | Animals | 1 | animal |  | Yes |
-| Toughs | Monsters | 2 | original | Generic role | |
-| Treant | Monsters | 1 | original | Tree spirits are common in folklore, but avoid Tolkien's Ents, which are under copyright | |
+| Toughs | Monsters | 2 | original | Generic role | Yes |
+| Treant | Monsters | 1 | original | Tree spirits are common in folklore, but avoid Tolkien's Ents, which are under copyright | Yes |
 | Triceratops | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
 | Troll | Monsters | 2 | myth | Norse and Scandinavian folklore | Yes |
 | Tyrannosaurus Rex | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
@@ -270,21 +270,21 @@ original. The lore can mention the myth as the source of the name, with a source
 | Vrock | Monsters | 1 | original |  | Yes |
 | Vulture | Animals | 1 | animal |  | Yes |
 | Warhorse | Animals | 1 | animal |  | Yes |
-| Warriors | Monsters | 2 | original | Generic role | |
+| Warriors | Monsters | 2 | original | Generic role | Yes |
 | Water Elemental | Monsters | 1 | myth | Classical elements, Paracelsus | Yes |
 | Weasel | Animals | 1 | animal |  | Yes |
 | Werebear | Monsters | 1 | myth | Norse folklore | Yes |
-| Wereboar | Monsters | 1 | original |  | |
-| Wererat | Monsters | 1 | original |  | |
+| Wereboar | Monsters | 1 | original |  | Yes |
+| Wererat | Monsters | 1 | original |  | Yes |
 | Weretiger | Monsters | 1 | myth | South and Southeast Asian folklore | Yes |
 | Werewolf | Monsters | 1 | myth | European folklore, Ovid (Lycaon) | Yes |
 | White Dragons | Monsters | 4 | original |  | |
 | Wight | Monsters | 1 | myth | Norse draugr and haugbui | Yes |
 | Will-o'-Wisp | Monsters | 1 | myth | European folklore | Yes |
-| Winter Wolf | Monsters | 1 | original |  | |
+| Winter Wolf | Monsters | 1 | original |  | Yes |
 | Wolf | Animals | 1 | animal |  | Yes |
 | Worg | Monsters | 1 | myth | Norse vargr | Yes |
 | Wraith | Monsters | 1 | myth | Scottish folklore | Yes |
 | Wyvern | Monsters | 1 | myth | Heraldry | Yes |
-| Xorn | Monsters | 1 | original |  | |
+| Xorn | Monsters | 1 | original |  | Yes |
 | Zombies | Monsters | 2 | myth | Haitian folklore | Yes |
