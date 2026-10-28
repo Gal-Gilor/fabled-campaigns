@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og';
 
-export const alt = 'Fabled Campaigns — AI Dungeon Master guide for tabletop RPGs';
+export const alt = 'Fabled Campaigns — AI Game Master guide for tabletop RPGs';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -50,7 +50,7 @@ export default function Image() {
             maxWidth: 700,
           }}
         >
-          AI-powered Dungeon Master guide for tabletop RPG players
+          AI-powered Game Master guide for tabletop RPG players
         </div>
       </div>
     ),

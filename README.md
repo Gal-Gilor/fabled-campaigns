@@ -9,7 +9,7 @@
 
 > Where Every Tale Rolls a Natural 20
 
-An AI Dungeon Master assistant for tabletop RPGs. You describe what you need in a chat, and it
+An AI Game Master assistant for tabletop RPGs. You describe what you need in a chat, and it
 narrates scenes, generates and edits encounter maps, and keeps sessions and homebrew campaigns
 organized.
 
