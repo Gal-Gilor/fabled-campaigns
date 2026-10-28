@@ -292,6 +292,21 @@
       }
     ]
   },
+  "Cockatrice": {
+    "description": "A creature with a rooster's head on the winged body of a two-legged dragon, hatched from a rooster's egg.[1]",
+    "lore": "In heraldry, the cockatrice looks like a wyvern, a two-legged dragon, except that it has a rooster's head. Its beak, comb and wattles are often painted in a different color from the rest of it.[1]\n\nThe cockatrice was sometimes called a basilisk. Old writers said the basilisk hatched from an egg laid by a nine-year-old rooster and kept warm by a toad on a dunghill.[1]\n\nOther tales say a cockatrice's bite slowly turns its victim to stone.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "A Complete Guide to Heraldry",
+        "author": "Arthur Charles Fox-Davies",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/41617",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Constrictor Snake": {
     "description": "A heavy-bodied snake with no venom that kills by wrapping its prey in its coils and squeezing.[1]",
     "lore": "The boa constrictor is famous for its size, though other snakes grow far larger, and most are two to three meters long.[1] It hunts mostly from ambush, often hanging from a branch and striking fast at whatever passes below. It eats mainly small mammals, including bats, and birds, but it will take any animal it can catch and fit in its mouth.[1]\n\nA boa has no venom. It wraps its prey in its coils and squeezes until the animal can no longer breathe.[1] Boas live alone and are active at night or at dusk, though they bask in the sun when it is cool.[1] When a boa is about to shed its skin, its eyes turn cloudy and it often stays still until the old skin comes off.[1] Threatened, it bites.[1]",
@@ -303,6 +318,21 @@
         "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
         "url": "https://animaldiversity.org/accounts/Boa_constrictor/",
         "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Couatl": {
+    "description": "A feathered serpent, a being of wisdom and goodness who brings peace and learning.[1]",
+    "lore": "Quetzalcoatl, whose name means \"Feathered Serpent,\" was the god-king of the Toltecs, who ruled from the city of Tollan and taught his people the arts.[1] In his reign there was plenty for everyone. Maize was abundant, gourds grew as thick as a man's arm, and cotton grew in every color without being dyed. Birds with bright feathers filled the air with song, and there was peace.[1]\n\nThe sorcerer god Tezcatlipoca brought ruin on Tollan with his enchantments, and Quetzalcoatl decided to leave. He burned the houses he had built, buried his treasure in the mountains and called the bright birds to follow him. On the road he looked in a mirror and said, \"I am old.\"[1] Hostile gods met him and asked him to leave behind the secrets of his crafts, working silver and jewels, painting and featherwork, but he refused and threw his treasures into a spring. When he reached the sea, he set out on a raft of serpents for the land he had come from.[1]\n\nOther tales tell of couatls, flying feathered serpents of good heart who serve the gods and aid the faithful with their magic.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Myths of Mexico & Peru",
+        "author": "Lewis Spence (1913)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/53080",
+        "license": "Public domain",
         "accessed": "2026-10-28"
       }
     ]
@@ -409,6 +439,21 @@
       }
     ]
   },
+  "Doppelganger": {
+    "description": "A person's exact double, seen somewhere the real person is not, often as a sign of coming death.[1]",
+    "lore": "The Germans call a person's double a doppelganger.[1] Catherine Crowe retold the story of a man who saw a friend walking ahead of him in the street. He called out, but the friend did not seem to hear and only walked faster. When the friend reached a gate, he went through and slammed it in the man's face, but the lane beyond was empty. At the friend's house, the man learned that his friend had been in bed, ill, for days. A week or two later he joked that his friend could not live long, having been seen as a double. Within a few days the friend was dead, and soon afterward the man who saw the double died too.[1]\n\nNot every double meant death. The poet Goethe once saw himself riding toward him on the road, in a gray suit trimmed with gold that he did not own. Eight years later he found himself riding on that same road in exactly those clothes.[1]\n\nOther tales make the doppelganger a creature in its own right, a shapechanger that can take the face of anyone it meets and read their thoughts to play the part.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Night-Side of Nature; or, Ghosts and Ghost-Seers",
+        "author": "Catherine Crowe",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/54532",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Draft Horse": {
     "description": "A strong, deep-chested working horse bred to pull wagons, plows and farm machines.[1][2][3]",
     "lore": "Before tractors, farms and ranches ran on the strength of horses. They pulled plows and carriages, and their manure fed the fields.[3] At Grant-Kohrs Ranch in Montana, Belgian draft horses were bred from purebred bloodlines from the late 1920s, and Belgian and Percheron teams still pull threshing equipment and hay wagons there.[1]\n\nHaying was one of their great tasks. With horse-drawn mowers and rakes, prairie grass was cut, dried, raked and stacked, so there would be enough hay to feed the animals through the winter.[2]",
@@ -434,6 +479,21 @@
         "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
         "url": "https://animaldiversity.org/accounts/Equus_caballus/",
         "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Dragon Turtle": {
+    "description": "A turtle of enormous size and great age, strong enough to hold up the corners of the world.[1]",
+    "lore": "Chinese myth tells of a great tortoise that holds up the universe. The philosopher Lieh Tzu, who lived more than two thousand years ago, was one of the first to mention it.[1]\n\nIn one old tale, the rebel Kung Kung lost a battle and, in his rage, struck his head against the mountain Pu Chou Shan and brought it crashing down. The pillars of heaven broke and the corners of the earth gave way. The goddess Nü Kua, who had a serpent's body and a human head, melted stones of five colors to mend the sky, and she cut off the feet of the tortoise and set them up to hold the four corners of the earth.[1]\n\nIn the story of the monk Hsüan Chuang's journey to fetch holy books from the west, the pilgrims were stranded by a wide river until a turtle offered to carry them across on its back. In midstream it asked whether the monk had kept his promise to plead for it. He admitted he had forgotten, and the turtle sank beneath them, leaving them to swim for the shore with their books.[1]\n\nOther tales tell of the dragon turtle, a vast dragon of the sea with a turtle's shell, which breathes scalding steam and can sink ships with its bite.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "Myths and Legends of China",
+        "author": "E. T. C. Werner",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/15250",
+        "license": "Public domain",
         "accessed": "2026-10-28"
       }
     ]
@@ -580,6 +640,21 @@
       }
     ]
   },
+  "Flesh Golem": {
+    "description": "A huge figure built from the parts of dead bodies and brought to life, strong and lonely, with yellow skin and watery eyes.[1]",
+    "lore": "In Mary Shelley's novel, the young student Victor Frankenstein discovers how to give life to dead matter. For nearly two years he gathers bones from charnel houses and parts from dissecting rooms and slaughterhouses, and he builds a man about eight feet tall.[1] On a dreary November night he brings it to life. Its yellow skin barely covers the muscles and arteries beneath. Its hair is black and flowing and its teeth white, but its eyes are watery and pale and its lips black. Horrified, Victor runs from his creation.[1]\n\nThe creature is not born wicked. Hiding beside a cottage, it learns to speak and read by watching the family who live there, but when it shows itself, they drive it away in terror. Rejected by everyone, it turns to revenge against its maker and kills his young brother.[1] It begs Victor to make it a companion as hideous as itself. When he tears the half-built mate to pieces, the creature takes its revenge on the people he loves. At last, after Victor dies chasing it into the Arctic, the creature sets off for the far north to burn itself on a funeral pyre.[1]\n\nOther tales tell of flesh golems that lightning heals, that flinch from fire and that can fly into a mindless rage when wounded.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "Frankenstein; or, The Modern Prometheus",
+        "author": "Mary Wollstonecraft Shelley",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/84",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Flying Snake": {
     "description": "A slender tree snake that launches itself from high branches and glides through the air with its body flattened.[1][2]",
     "lore": "Flying snakes live in the forests of South and Southeast Asia. They don't truly fly, but they glide.[2] The paradise tree snake flings itself from the treetops, flattens and stiffens its body into an S-shape, and ripples as it falls to stay steady.[1][2]\n\nBy twisting its body it can turn in midair and steer toward a landing. Glides of more than 20 meters have been measured, and some snakes have been reported landing on branches about a hundred meters away.[1][2]",
@@ -627,6 +702,36 @@
         "author": "Snorri Sturluson, translated by Rasmus B. Anderson (1879)",
         "publisher": "Project Gutenberg",
         "url": "https://www.gutenberg.org/ebooks/18947",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Gargoyle": {
+    "description": "A huge, hungry dragon of the river marshes that devoured people and even ships, until a saint led it away on a leash.[1]",
+    "lore": "The city of Rouen in France told how its bishop, Saint Romain, saved it from the Gargouille, a vast and greedy monster that lived in the marshes and reed beds of the river. It ate men, women and children, and the old chronicles said it did not spare even ships.[1]\n\nThe saint took a condemned criminal with him as bait and lured the dragon out of its den. Then he made the sign of the cross over it, tied his stole around it and led it, unresisting, into the town, where it was burned. To mark the deliverance, the king allowed the cathedral to free one prisoner every year on Ascension Day, as the saint had freed the prisoner who helped him.[1] The writer Theodore Cook pointed out that no one recorded the miracle for centuries after Romain's death.[1]\n\nOther tales tell of gargoyles as creatures of living stone, winged and clawed, that swoop down on their prey.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Story of Rouen",
+        "author": "Theodore Andrea Cook",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/24519",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Ghost": {
+    "description": "The spirit of a dead person who cannot rest, haunting the place where it lived or died.[1]",
+    "lore": "Pliny the Younger told of a large house in Athens that no one could live in. In the dead of night, people heard a noise like clashing iron, the rattle of chains coming closer and closer. Then a ghost appeared, a thin, filthy old man with a long beard and wild hair, with chains on his hands and feet. Those who lived there were so terrified that they could not sleep, fell sick and died, and the house was left empty.[1]\n\nThe philosopher Athenodorus rented it anyway, because it was cheap. He sat up writing to keep his mind busy. At last the chains rattled, and the ghost stood in his room, beckoning. He signed for it to wait and kept writing, until it shook its chains over his head. Then he took his lamp and followed it into the courtyard, where it vanished. He marked the spot with grass and leaves.[1] The next day the ground was dug up, and a skeleton in chains was found there. Once the bones were given a proper burial, the house was never haunted again.[1]\n\nOther tales give ghosts the power to pass through walls, to wither the living with a touch and to take over a living body.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "Letters of Pliny",
+        "author": "Pliny the Younger, translated by William Melmoth",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/2811",
         "license": "Public domain",
         "accessed": "2026-10-28"
       }
@@ -1091,6 +1196,44 @@
       }
     ]
   },
+  "Goblins": {
+    "description": "A small, beast-faced fairy man who sells enchanted fruit, or worse, to anyone who will listen.[1]",
+    "lore": "In Christina Rossetti's poem Goblin Market, the goblin men come down the glen every morning and evening crying their wares: every fruit of every season, all ripe at once. They are little men, one with a cat's face, one with a tail, one walking at a rat's pace, one crawling like a snail, and their voices sound as sweet as doves.[1]\n\nLaura has no money, so she pays them with a lock of her golden hair and eats until she can eat no more. Afterward she can no longer hear the goblins' cry, though her sister still can, and she pines away, as another girl named Jeanie did before her, who now lies in a grave where nothing will grow.[1] Her sister Lizzie goes to buy fruit for her. When Lizzie will not eat with them, the goblins turn on her. They scratch, pinch and kick her and try to force the fruit into her mouth, but she keeps it shut. She runs home smeared with juice, and when Laura kisses it from her face, the spell breaks.[1]\n\nOther tales make goblins small, sly raiders armed with curved blades and short bows, who strike and slip away before anyone can catch them.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "Goblin Market, The Prince's Progress, and Other Poems",
+        "author": "Christina Rossetti",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/16950",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Green Hag": {
+    "description": "A water spirit with long green teeth, which lurks under the weed of still ponds and drags children down.[1][2]",
+    "lore": "In Lancashire, children were warned to keep away from stagnant ponds covered with weed. Under the green surface lived Jenny Greenteeth, who would drag them down to drown and to suffer worse things besides.[1] She and a spirit called Grindylow lurked at the bottom of pits and pulled in children who came too near with their long, sinewy arms.[2]\n\nOne Lancashire writer linked her to the water spirits of Scandinavia, such as the Nök, which was said to claim a human life every year from the pond or river where it lived. Country children were warned that \"Green Teeth\" or \"Bloody Bones\" would pull them in if they went too near the water, and bubbles rising from a quiet pool were blamed on the water spirits moving below.[2]\n\nOther tales tell of green hags, fey crones of bog and marsh who can mimic any voice or animal call to lure travelers, and who work magic of their own.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "Traditions, Superstitions and Folk-lore",
+        "author": "Charles Hardwick",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/39934",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Lancashire Folk-lore",
+        "author": "John Harland and Thomas Turner Wilkinson",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/41148",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Griffon": {
     "description": "A fierce beast with the long ears and hooked beak of a bird of prey, said to guard great hoards of gold.[1][2]",
     "lore": "The Greeks heard of griffins from the far north. Herodotus wrote that a great store of gold lay in the north of Europe, and that the one-eyed Arimaspians stole it from the griffins that guarded it, though he doubted the tale himself.[1] The poet Aristeas, he says, placed the gold-guarding griffins beyond the land of the Arimaspians, and told of all these peoples forever at war with their neighbors.[1]\n\nPliny the Elder described griffins with long ears and hooked beaks, said to live in Ethiopia, and he counted them among fabulous creatures.[2]",
@@ -1235,6 +1378,21 @@
       }
     ]
   },
+  "Hobgoblins": {
+    "description": "A mischievous house spirit that does chores at night, plays tricks on the unkind and can take almost any shape.[1]",
+    "lore": "In old English belief, the household spirits were called hobgoblins and Robin Goodfellows.[1] An Elizabethan chapbook told the life of Robin Goodfellow himself. He was the son of a fairy king and a mortal girl, and as a boy he was so full of mischief that he ran away from home. His fairy father gave him the power to turn himself into a horse, a hog, a dog or an ape, on the condition that he harm only rogues and help honest people.[1]\n\nRobin tricked a churlish man into riding him as a horse, then left him sitting in a pond with nothing but a pack saddle between his legs, and ran off laughing \"Ho, ho, ho!\" At a farmhouse he took a liking to a maid and did her work for her at night. When she saw that his clothes were ragged and left him a new waistcoat, he took offense and never came back.[1]\n\nOther tales make hobgoblins a warlike people, disciplined soldiers with swords and longbows who fight in close ranks under their captains.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Fairy Mythology",
+        "author": "Thomas Keightley",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/41006",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Hunter Shark": {
     "description": "A large, torpedo-shaped shark, dark gray above and white below, with broad, saw-edged triangular teeth.[1]",
     "lore": "The great white shark is the best known of the big hunting sharks. It lives in temperate and subtropical seas around the world and sits at the top of the food chain.[1] It can grow to about six meters long and weigh more than 1,800 kilograms.[1] Young sharks eat fish, rays and squid. Larger ones gather around seal and sea lion colonies to hunt, and sometimes feed on dead whales.[1]\n\nThe white shark is partly warm-blooded. It keeps its body warmer than the water around it, which lets it hunt hard in cool seas.[1] It grows slowly and does not breed until it is about 26 to 33 years old, and estimates of its lifespan run from 30 to more than 70 years.[1]",
@@ -1287,6 +1445,21 @@
       }
     ]
   },
+  "Incubus": {
+    "description": "A demon that visits sleepers by night, courting them with whispers and gifts and tormenting those who refuse it.[1]",
+    "lore": "The friar Ludovico Sinistrari told of a woman named Hieronyma who lived in Pavia. One day the baker sent back her bread with a strange cake she had never made, and she and her family ate it. That night she woke to a thin, hissing voice in her ear asking whether she had enjoyed the cake. The voice said it meant her no harm and only longed for her love, and she felt kisses on her cheek as light as down.[1]\n\nShe refused it, night after night, and exorcists could not drive it away. It appeared to her, and to no one else, as a handsome young man with golden hair, a beard that shone like gold and sea-green eyes, dressed in Spanish clothes. When she still refused, it turned cruel. It stole her jewels without touching the locks, beat her so that bruises appeared and vanished, and smashed the dishes, then made them whole again in an instant.[1] One night it walled her and her husband into their bed with roofing stones. At a dinner party it made the whole meal vanish, then brought back a finer feast from somewhere else. After some years of failing to win her, it gave up.[1]\n\nOther tales make the incubus a fiend that can change its shape, wears down its victims' strength with its touch and sends them nightmares.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "Demoniality; or, Incubi and Succubi",
+        "author": "Ludovico Maria Sinistrari, translated by Isidore Liseux (1879)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/54243",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Iron Golem": {
     "description": "A giant made of metal, forged to stand guard without ever tiring.[1]",
     "lore": "Talos was a man of bronze who guarded the island of Crete. Some said he was the last of the Bronze Race of men, and others that the smith god Hephaestus made him and gave him to King Minos.[1] Three times a day he ran around the whole island, and when he saw the ship Argo coming close to shore, he pelted it with stones.[1]\n\nA single vein ran from his neck to his ankles, sealed with a bronze nail. The sorceress Medea brought about his death, either by driving him mad with drugs or by promising to make him immortal and then pulling out the nail, so that the ichor poured out of him.[1]\n\nLater makers built their guardians of iron. Such a golem fights with bladed arms and breathes poison, and fire only makes it stronger.",
@@ -1327,6 +1500,21 @@
         "publisher": "NOAA Fisheries",
         "url": "https://www.fisheries.noaa.gov/species/killer-whale",
         "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Kraken": {
+    "description": "A sea monster so vast that its back is mistaken for a group of islands, with arms that could drag a warship under.[1]",
+    "lore": "The legends of the northern seas told of a creature so large it looked more like an island than an animal.[1] Olaus Magnus wrote that fishermen once landed on its back and lit a fire there, and it sank beneath them and drowned them. Another tale said a bishop found it lying by the shore, took it for a rock, and said mass on it. The kraken politely waited until he was safely back on land before it sank.[1]\n\nIn the 1700s, the Norwegian bishop Eric Pontoppidan wrote down what fishermen told him. Far out at sea, where they expected deep water, their lines would sometimes find bottom at a fraction of the depth, and the fish would bite as fast as they could pull them in. That meant the kraken was lying below. If the water grew shallower still, they rowed away as fast as they could.[1] Soon its back would rise, more than a mile around, looking like a cluster of small islands covered in floating weed. Then its arms rose, as tall and thick as ships' masts, strong enough to pull the largest warship to the bottom. As it sank again, it left a whirlpool that dragged down everything nearby.[1]\n\nOther tales make the kraken a titan of the deep, which calls down lightning and storms and swallows its prey whole.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "Sea Monsters Unmasked, and Sea Fables Explained",
+        "author": "Henry Lee",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/36677",
+        "license": "Public domain",
         "accessed": "2026-10-28"
       }
     ]
@@ -1533,6 +1721,21 @@
         "publisher": "U.S. National Park Service (Chesapeake & Ohio Canal National Historical Park)",
         "url": "https://www.nps.gov/choh/learn/historyculture/mule-history.htm",
         "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Night Hag": {
+    "description": "A witch or spirit that sits on sleepers' chests in the night and brings them nightmares.[1]",
+    "lore": "The English word hag once meant a witch, and the nightmare, the terror that comes on sleepers in the night, was blamed on witches. Someone tormented by bad nights is still called hag-ridden. The French word for a nightmare, cauchemar, comes from a word meaning to tread on.[1]\n\nIn Finland the nightmare was called the Presser. It looked like a maiden in white, so bright that it lit up the whole room. It made sleepers cry out in terror and harmed small children. A piece of steel or a broom under the pillow kept it away.[1]\n\nOther tales tell of night hags, fiends who take the shape of lovely women, slip into their victims' dreams night after night and carry a bag for the souls they steal.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Fairy Mythology",
+        "author": "Thomas Keightley",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/41006",
+        "license": "Public domain",
         "accessed": "2026-10-28"
       }
     ]
@@ -2031,6 +2234,21 @@
       }
     ]
   },
+  "Succubus": {
+    "description": "A demon in the shape of a beautiful woman, who seeks out men as a lover and draws away their strength.[1]",
+    "lore": "Old writers on demons told of incubi and succubi, demons who took lovers among the living.[1] Augustin Calmet repeated stories collected by the scholar Pico della Mirandola. One was of an old priest who lived for years with a woman he called Hermeline. He slept beside her, talked with her and walked with her through the streets, but no one else could see her, and people thought he had lost his mind. Another man was said to have kept a demon as his wife for more than forty years.[1]\n\nCalmet himself believed such tales came from troubled imaginations.[1]\n\nOther tales make the succubus a fiend who can take any form, charms her victims and drains their life with a kiss.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Phantom World; or, The Philosophy of Spirits, Apparitions, &c.",
+        "author": "Augustin Calmet, with a preface and notes by Henry Christmas (1850)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/29412",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Swarm of Bats": {
     "description": "Hundreds of bats that roost together by day in caves, mines and hollow trees, then fill the night air as they hunt by sound.[1][2]",
     "lore": "Bats spend the day out of sight, packed into caves, old mines, hollow trees and cracks in rock, or under bridges, where predators can't reach them. Some of these places fill with bats each spring as mothers gather to raise their young, and others fill each winter as bats crowd in to sleep through the cold.[1] On summer evenings, many come out to hunt insects over ponds and streams.[1]\n\nBats find their way and their prey in the dark by calling out and listening for the echoes, at a pitch too high for people to hear. When a bat closes in on an insect, its calls speed up into a fast buzz just before it strikes.[2]\n\nNot every bat hunts insects. Some eat fruit or pollen, and a few even catch fish.[3]",
@@ -2387,6 +2605,29 @@
       }
     ]
   },
+  "Will-o'-Wisp": {
+    "description": "A wandering light seen at night over marshes and heaths, which leads travelers who follow it astray.[1][2]",
+    "lore": "Strange lights over the marshes have gone by many names in England, among them the corpse candle, Will-o'-the-Wisp, and Jack or Peg-a-Lantern, since no one could say whether the spirit was male or female.[2] In Devon, people who lost their way at night were said to be pixy-led. In Worcestershire they blamed a sprite called Poake, who led travelers into ditches, bogs and ponds, then laughed out loud and left them there.[1]\n\nIn one old tale, Robin Goodfellow met a party of young people walking home across a heath. To amuse himself he became a walking fire and led them back and forth until daylight, then went off laughing and told them that people called him Willy Wisp.[1] The remedy, it was said, was to turn your cloak inside out, and in Scandinavia, to turn your cap.[1]\n\nOther tales make the will-o'-wisp one of the undead, a ghostly light that can wink out of sight, strikes with a shock like lightning and feeds on the dying.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Fairy Mythology",
+        "author": "Thomas Keightley",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/41006",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Lancashire Folk-lore",
+        "author": "John Harland and Thomas Turner Wilkinson",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/41148",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Wolf": {
     "description": "A lean wild dog with a coat anywhere from gray to brown, black or white, that hunts in family packs able to kill a moose or a bison.[1]",
     "lore": "Wolves live and hunt as families. A pack is usually a mated pair and their young, and the parents lead the hunts and teach the young how to hunt, avoid danger and mark the borders of their land.[1] Together they bring down caribou, moose and bison, animals far bigger than any one wolf, and they take rabbits, beavers, fish and even berries when they can.[1]\n\nA pack's land can be huge, and wolves cover long distances across it, mostly at night.[2] They howl to call the pack together, to stir it up before a hunt and to warn other packs away. A wolf cut off from its pack gives a short, rising \"lonesome howl\", then switches to deeper calls once the others answer, so they can find it.[1]\n\nAround two years of age, a young wolf may wander the edges of its family's land before leaving to find a mate and start a pack of its own.[1] Folklore has long cast wolves as animals to fear, and that fear still shapes how people treat them.[1]",
@@ -2419,6 +2660,36 @@
         "author": "Snorri Sturluson, translated by Rasmus B. Anderson (1879)",
         "publisher": "Project Gutenberg",
         "url": "https://www.gutenberg.org/ebooks/18947",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Wraith": {
+    "description": "The apparition of a person seen far from where their body lies, often at the moment of their death.[1]",
+    "lore": "In Scotland, a wraith is the figure of a person seen in a place where their body is not, at the moment of their death. The Irish speak of a fetch, a person's double seen some time before they die, as a sign that their death is near.[1]\n\nCatherine Crowe collected many such accounts. In one, a woman named Maria Goffe lay dying away from home, longing to see her children once more. She fell into a deep stupor, so still that those around her could not tell whether she was alive. When she woke, she said she had been home and seen them.[1] During that time, the widow caring for her children saw Maria's figure come out of the room where the eldest child slept and stand by the bed for nearly a quarter of an hour. Its eyes and mouth moved, but it made no sound. When the widow called on it in God's name, it moved away, and she could not find where it had gone.[1]\n\nOther tales make the wraith something far darker: a spirit of hatred, invisible in sunlight, that drains the life from the living and raises the dead it kills as specters to serve it.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Night-Side of Nature; or, Ghosts and Ghost-Seers",
+        "author": "Catherine Crowe",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/54532",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Wyvern": {
+    "description": "A dragon with only two legs, its body curling away into a long tail.[1]",
+    "lore": "In English heraldry, the wyvern and the dragon have the same head, but the dragon has four legs and the wyvern only two, with its body curling away into its tail. In other countries, the creature usually called a dragon is drawn the way the English draw a wyvern.[1]\n\nA wyvern is usually shown resting on its legs and tail, but sometimes it sits upright on its tail with its claws in the air, as the wyverns on the Duke of Marlborough's arms do. One family's crest shows a green wyvern with two heads, breathing fire at both ends.[1]\n\nOther tales give the wyvern a venomous sting at the tip of its tail.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "A Complete Guide to Heraldry",
+        "author": "Arthur Charles Fox-Davies",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/41617",
         "license": "Public domain",
         "accessed": "2026-10-28"
       }
