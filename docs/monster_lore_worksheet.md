@@ -24,7 +24,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Ankylosaurus | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
 | Ape | Animals | 1 | animal |  | Yes |
 | Archelon | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
-| Assassin | Monsters | 1 | history | The medieval Nizari Ismailis | |
+| Assassin | Monsters | 1 | history | The medieval Nizari Ismailis | Yes |
 | Awakened Plants | Monsters | 2 | original |  | |
 | Axe Beak | Monsters | 1 | animal | Fantasy version; facts from the extinct terror birds | Yes |
 | Azer | Monsters | 1 | original |  | |
@@ -37,7 +37,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Bat | Animals | 1 | animal |  | Yes |
 | Bearded Devil | Monsters | 1 | original |  | |
 | Behir | Monsters | 1 | original |  | |
-| Berserker | Monsters | 1 | history | Norse sagas | |
+| Berserker | Monsters | 1 | history | Norse sagas | Yes |
 | Black Bear | Animals | 1 | animal |  | Yes |
 | Black Dragons | Monsters | 4 | original |  | |
 | Black Pudding | Monsters | 1 | original |  | |
@@ -80,7 +80,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Dragon Turtle | Monsters | 1 | myth | Chinese myth (Ao, Bixi) | Yes |
 | Dretch | Monsters | 1 | original |  | |
 | Drider | Monsters | 1 | original |  | |
-| Druid | Monsters | 1 | history | Caesar and Pliny on Celtic druids | |
+| Druid | Monsters | 1 | history | Caesar and Pliny on Celtic druids | Yes |
 | Dryad | Monsters | 1 | myth | Greek myth | Yes |
 | Eagle | Animals | 1 | animal |  | Yes |
 | Earth Elemental | Monsters | 1 | myth | Classical elements, Paracelsus | Yes |
@@ -132,7 +132,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Giant Wolf Spider | Animals | 1 | animal | Fantasy version; facts from the real wolf spider | Yes |
 | Gibbering Mouther | Monsters | 1 | original |  | |
 | Glabrezu | Monsters | 1 | original |  | |
-| Gladiator | Monsters | 1 | history | Roman games | |
+| Gladiator | Monsters | 1 | history | Roman games | Yes |
 | Gnoll | Monsters | 1 | original | Lord Dunsany, gnoles (name only) | |
 | Goat | Animals | 1 | animal |  | Yes |
 | Goblins | Monsters | 3 | myth | European folklore | Yes |
@@ -167,7 +167,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Iron Golem | Monsters | 1 | myth | Talos in Greek myth (loose) | Yes |
 | Jackal | Animals | 1 | animal |  | Yes |
 | Killer Whale | Animals | 1 | animal |  | Yes |
-| Knight | Monsters | 1 | history | Medieval knighthood | |
+| Knight | Monsters | 1 | history | Medieval knighthood | Yes |
 | Kobold | Monsters | 1 | original | German folklore (name only; the folklore kobold is a house spirit) | |
 | Kraken | Monsters | 1 | myth | Scandinavian sailor folklore | Yes |
 | Lamia | Monsters | 1 | myth | Greek myth | Yes |
@@ -188,7 +188,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Mimic | Monsters | 1 | original |  | |
 | Minotaur of Baphomet | Monsters | 1 | myth | The Minotaur of Crete in Greek myth; Baphomet in medieval accusations against the Templars | Yes |
 | Mule | Animals | 1 | animal |  | Yes |
-| Mummies | Monsters | 2 | history | Egyptian mummification; the walking mummy is fiction | |
+| Mummies | Monsters | 2 | history | Egyptian mummification; the walking mummy is fiction | Yes |
 | Nalfeshnee | Monsters | 1 | original |  | |
 | Night Hag | Monsters | 1 | myth | Old Hag folklore | Yes |
 | Nightmare | Monsters | 1 | original | The mare of folklore (name only) | |
@@ -204,7 +204,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Pegasus | Monsters | 1 | myth | Hesiod, Ovid | Yes |
 | Phase Spider | Monsters | 1 | original |  | |
 | Piranha | Animals | 1 | animal |  | Yes |
-| Pirates | Monsters | 2 | history | Historical piracy | |
+| Pirates | Monsters | 2 | history | Historical piracy | Yes |
 | Pit Fiend | Monsters | 1 | original |  | |
 | Planetar | Monsters | 1 | original |  | |
 | Plesiosaurus | Animals | 1 | animal | Extinct: cite natural history museums | Yes |

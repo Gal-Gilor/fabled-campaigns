@@ -78,6 +78,21 @@
       }
     ]
   },
+  "Assassin": {
+    "description": "A trained killer who strikes in secret, often sent by a master to murder someone too powerful to face openly.[1]",
+    "lore": "Marco Polo heard the legend of the Old Man of the Mountain, a ruler in Persia who had turned a valley between two mountains into a garden of gilded palaces, streams and music, guarded by a fortress at its only entrance. He drugged the young men he wanted as his killers, had them carried in while they slept, and let them wake in what they took for Paradise.[1] When he needed someone killed, he drugged one of them again and brought him back to the castle. Then he sent him out with the promise that, live or die, he would be carried back to the garden. His followers feared no danger, and princes paid him tribute to stay safe.[1]\n\nIn Polo's account, the Mongols besieged the Old Man's castle for three years until hunger forced it to surrender, and the Old Man and his followers were put to death.[1] His editor, Henry Yule, explained that the legend grew from a real community, a branch of the Ismaili Muslims founded around 1090 in the mountains of northern Persia, with its stronghold at Alamut, the \"Eagle's Nest.\" Following the scholar De Sacy, Yule traced their name, Hashishin, to hashish, and wrote that from that name and their use of murder came the word assassin.[1]",
+    "origin": "history",
+    "sources": [
+      {
+        "title": "The Travels of Marco Polo, Volume 1",
+        "author": "Marco Polo, translated by Sir Henry Yule, revised by Henri Cordier",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/10636",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Axe Beak": {
     "description": "A tall, flightless hunting bird with powerful running legs, shrunken wings and a large skull with a hooked beak.[1][2]",
     "lore": "The terror birds were giant flightless hunters, counted among the dominant predators of ancient South America. There were at least 18 kinds, from small to gigantic, and nothing alive today is quite like them.[1][2] Their wings had shrunk and their bodies were heavy, and they lived entirely on the ground.[1]\n\nFossil footprints about eight million years old show they were built for running. They carried their weight on one thick main toe and probably used a long, raised claw on another to pin down prey.[1] Their skulls were rigid and strong for striking downward. A terror bird likely ate mostly smaller prey, and if it took on something big, it probably attacked with repeated, well-aimed strikes of its beak, darting in and out.[2]",
@@ -178,6 +193,21 @@
         "publisher": "U.S. National Park Service",
         "url": "https://www.nps.gov/subjects/bats/myth-busters.htm",
         "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Berserker": {
+    "description": "A Norse warrior who fought in a wild frenzy, said to feel no pain and to howl like a wolf in battle.[1]",
+    "lore": "The berserkers were Norse champions who went into battle in a frenzy. Sabine Baring-Gould took the name to mean bear-shirt, from the bear skins they wore over their armor, while others read it as bare-shirt, fighting without armor at all.[1] Some, called wolf-coats, wore wolf skins instead.[1]\n\nIn their rage they were believed to have the strength of the beasts they wore. People said no sword could cut them and no fire burn them, and only a club, breaking their bones, could stop them. Their eyes glared as if on fire, they ground their teeth and foamed at the mouth, they bit the rims of their shields, and they charged yelping like dogs and howling like wolves.[1] A berserker could ruin a farmer simply by challenging him to a duel, since in old Norway a man who refused a challenge forfeited all he owned to the challenger.[1]\n\nNot every berserker wanted the rage. The Vatnsdaela saga tells of Thorir, who was seized by fits against his will and begged his brother for help. His brother vowed to rescue a baby left out to die and raise it in the name of the one who made the sun. Thorir took the child in, and the fits never came back.[1]",
+    "origin": "history",
+    "sources": [
+      {
+        "title": "The Book of Were-Wolves",
+        "author": "Sabine Baring-Gould (1865)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/5324",
+        "license": "Public domain",
         "accessed": "2026-10-28"
       }
     ]
@@ -540,6 +570,29 @@
         "publisher": "Project Gutenberg",
         "url": "https://www.gutenberg.org/ebooks/15250",
         "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Druid": {
+    "description": "A priest, judge and teacher of the ancient Gauls and Britons, who learned sacred lore by heart and held the oak and mistletoe holy.[1][2]",
+    "lore": "Julius Caesar wrote that the druids of Gaul led the sacrifices, explained all matters of religion and settled almost every dispute, from murders to quarrels over inheritances and boundaries. Anyone who defied their judgment was barred from the sacrifices, the heaviest punishment they had, and everyone shunned him.[1] Once a year they gathered at a holy place in the land of the Carnutes, thought to be the center of Gaul. Their teaching was said to have come from Britain, and those who wanted to study it in depth went there.[1]\n\nDruids paid no taxes and did not go to war. Students spent as long as twenty years learning great numbers of verses by heart, because the druids would not allow their teachings to be written down. They taught that the soul does not die but passes into another body, and they studied the stars, the size of the world and the nature of the gods.[1]\n\nPliny the Elder wrote that nothing was more sacred to the druids than mistletoe growing on an oak. On the fifth day of the moon, a priest in a white robe climbed the tree and cut it with a golden sickle, while others caught it in a white cloak, and two white bulls were sacrificed beneath the branches.[2]",
+    "origin": "history",
+    "sources": [
+      {
+        "title": "\"De Bello Gallico\" and Other Commentaries",
+        "author": "Julius Caesar, translated by W. A. McDevitte",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/10657",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "The Natural History, book 16, chapter 95: Historical facts connected with the mistletoe",
+        "author": "Pliny the Elder, translated by John Bostock and H. T. Riley (1855)",
+        "publisher": "Perseus Digital Library, Tufts University",
+        "url": "https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.02.0137:book=16:chapter=95",
+        "license": "Public domain translation; Perseus edition CC BY-SA 3.0 US",
         "accessed": "2026-10-28"
       }
     ]
@@ -1273,6 +1326,21 @@
       }
     ]
   },
+  "Gladiator": {
+    "description": "A slave trained to fight other men for a crowd's entertainment, kept under guard in a gladiator school.[1]",
+    "lore": "The most famous gladiator of all was Spartacus. Plutarch tells how a man named Lentulus Batiates kept many gladiators, mostly Gauls and Thracians, shut up in his school at Capua, not for any crime but only through their master's cruelty, to fight one another. Two hundred of them planned to escape. When the plot was discovered, seventy-eight broke out armed with kitchen knives and spits, then seized a wagon full of gladiators' weapons. They chose Spartacus, a Thracian, as their leader, a brave man, Plutarch says, and wiser and gentler than his condition.[1] Trapped on a mountain with only one narrow way down, they twisted wild vines into ladders and climbed down the cliffs, then fell on the Romans from behind. Shepherds and herdsmen joined them, and they defeated army after army.[1]\n\nIn the end, Crassus brought Spartacus to battle. Before it began, Spartacus killed his own horse, saying that if he won he would have plenty of better ones, and if he lost he would need none. He fought his way toward Crassus himself and killed two centurions, until, deserted by those around him, he was surrounded and cut down.[1]",
+    "origin": "history",
+    "sources": [
+      {
+        "title": "Plutarch: Lives of the Noble Grecians and Romans",
+        "author": "Plutarch, edited by Arthur Hugh Clough",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/674",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Goat": {
     "description": "A sure-footed herd animal with hollow horns that sweep back or twist like corkscrews. Billy goats grow beards and carry a strong smell.[1]",
     "lore": "Goats have lived with people for a very long time, and there are many breeds, from small to large.[1] People keep them for milk, cheese, meat, wool and leather, and more people around the world drink goat's milk and eat goat meat than rely on cattle for them.[1]\n\nGoats are social and dislike being alone. Wild herds number from five to twenty, sometimes up to a hundred, and spend the day grazing.[1] Every herd has a pecking order, and the males settle theirs by butting heads.[1]\n\nCoyotes, dogs, mountain lions, foxes, eagles and bobcats all hunt goats. A goat's best defense is its herd, but it will also fight back with its horns.[1]",
@@ -1625,6 +1693,21 @@
       }
     ]
   },
+  "Knight": {
+    "description": "A warrior sworn to a code of honor: to show mercy, flee treason and help those in need.[1]",
+    "lore": "In Sir Thomas Malory's telling, King Arthur bound the knights of the Round Table with an oath. They were never to commit outrage or murder and always to flee treason. They were never to be cruel, and were to give mercy to anyone who asked for it, on pain of losing their honor and lands forever. They were always to help ladies and gentlewomen in need, on pain of death, and never to fight in a wrongful cause, whether for law or for worldly goods. Every year, at the feast of Pentecost, all the knights swore it again.[1]\n\nThe oath was sworn after Arthur's wedding feast, when three knights rode out on quests: Gawain after a white hart, Tor after a hound, and Pellinore after a lady carried off by a knight. On the way, Pellinore passed a young woman sitting by a well with a wounded knight in her arms. She begged him a hundred times for help, but he would not stop. The knight died, and she killed herself in grief. When Pellinore came back that way, he found her dead and wept that he could have saved her. He was told that, as his penance, the friend he trusted most would one day fail him when he was in the greatest danger of his life.[1]",
+    "origin": "history",
+    "sources": [
+      {
+        "title": "Le Morte d'Arthur, Volume 1",
+        "author": "Sir Thomas Malory",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/1251",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Kraken": {
     "description": "A sea monster so vast that its back is mistaken for a group of islands, with arms that could drag a warship under.[1]",
     "lore": "The legends of the northern seas told of a creature so large it looked more like an island than an animal.[1] Olaus Magnus wrote that fishermen once landed on its back and lit a fire there, and it sank beneath them and drowned them. Another tale said a bishop found it lying by the shore, took it for a rock, and said mass on it. The kraken politely waited until he was safely back on land before it sank.[1]\n\nIn the 1700s, the Norwegian bishop Eric Pontoppidan wrote down what fishermen told him. Far out at sea, where they expected deep water, their lines would sometimes find bottom at a fraction of the depth, and the fish would bite as fast as they could pull them in. That meant the kraken was lying below. If the water grew shallower still, they rowed away as fast as they could.[1] Soon its back would rise, more than a mile around, looking like a cluster of small islands covered in floating weed. Then its arms rose, as tall and thick as ships' masts, strong enough to pull the largest warship to the bottom. As it sank again, it left a whirlpool that dragged down everything nearby.[1]\n\nOther tales make the kraken a titan of the deep, which calls down lightning and storms and swallows its prey whole.",
@@ -1861,6 +1944,21 @@
       }
     ]
   },
+  "Mummies": {
+    "description": "A body preserved by ancient Egyptian embalmers, wrapped in linen bands and laid in a tomb.[1]",
+    "lore": "Herodotus described how the Egyptians embalmed their dead. When a man of standing died, the women of his household smeared their heads and faces with mud and went out through the city beating their breasts. Then the body went to the embalmers, a trade handed down in families.[1]\n\nThe embalmers showed the family painted wooden models of their three methods, each cheaper than the last. In the most costly, they drew out the brain through the nose with an iron hook, cut open the side with a sharp Ethiopian stone, removed the organs, washed the body with palm wine and spices, and filled it with myrrh and cassia. Then the body lay covered in natron for seventy days, never longer. Afterward it was washed and wrapped in bands of fine linen smeared with gum.[1] The family placed it in a wooden case shaped like a person and stood it upright against the wall of a tomb. The cheaper methods used cedar oil, which dissolved the organs, or simply a purge before the seventy days in natron.[1]\n\nLater tales raised the mummy from its tomb as one of the undead, its glare freezing the living with dread and its touch spreading a rotting curse.",
+    "origin": "history",
+    "sources": [
+      {
+        "title": "The History of Herodotus, Volume 1",
+        "author": "Herodotus, translated by G. C. Macaulay (1890)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/2707",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Night Hag": {
     "description": "A witch or spirit that sits on sleepers' chests in the night and brings them nightmares.[1]",
     "lore": "The English word hag once meant a witch, and the nightmare, the terror that comes on sleepers in the night, was blamed on witches. Someone tormented by bad nights is still called hag-ridden. The French word for a nightmare, cauchemar, comes from a word meaning to tread on.[1]\n\nIn Finland the nightmare was called the Presser. It looked like a maiden in white, so bright that it lit up the whole room. It made sleepers cry out in terror and harmed small children. A piece of steel or a broom under the pillow kept it away.[1]\n\nOther tales tell of night hags, fiends who take the shape of lovely women, slip into their victims' dreams night after night and carry a bag for the souls they steal.",
@@ -1992,6 +2090,21 @@
         "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
         "url": "https://animaldiversity.org/accounts/Pygocentrus_nattereri/",
         "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Pirates": {
+    "description": "A sea robber who attacks ships and coastal towns for plunder, under a black flag or none at all.[1]",
+    "lore": "Captain Charles Johnson's General History of the Pyrates, first published in 1724, told the lives of the pirates of the Caribbean and the American coast. None was more feared than Edward Teach, called Blackbeard.[1] His black beard grew wild and long, up to his eyes, and he twisted it into small tails with ribbons and wound them round his ears. In a fight he wore a sling over his shoulders with three pairs of pistols, and stuck lit matches under his hat, so that with his fierce eyes he looked like a fury from hell.[1]\n\nOnce, a little drunk at sea, he said, \"Let us make a hell of our own,\" and shut himself and a few men in the hold with pots of burning brimstone, until the others begged for air. Asked whether his wife knew where he had buried his money, he answered that nobody but himself and the Devil knew where it was.[1]\n\nIn 1718, Lieutenant Robert Maynard of the Royal Navy hunted him down. Blackbeard boarded Maynard's sloop through a cloud of smoke from his homemade grenades, and the two men fought hand to hand. Blackbeard took twenty-five wounds, five of them by shot, and fell dead while cocking another pistol.[1]",
+    "origin": "history",
+    "sources": [
+      {
+        "title": "A General History of the Pyrates",
+        "author": "Captain Charles Johnson (1724)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/40580",
+        "license": "Public domain",
         "accessed": "2026-10-28"
       }
     ]
