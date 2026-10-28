@@ -5,6 +5,7 @@ import type { Metadata } from 'next';
 import { getAllMonsters, getMonsterBySlug, getMonstersInGroup } from '@/app/lib/wiki';
 import { StatBlock } from '@/app/components/wiki/stat-block';
 import { MarkdownBody } from '@/app/components/wiki/markdown-body';
+import { pageMetadata } from '@/app/lib/pageMetadata';
 
 type Props = { params: Promise<{ slug: string }>; searchParams: Promise<{ from?: string; q?: string }> };
 
@@ -19,11 +20,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const monster = getMonsterBySlug(slug);
   if (!monster) return {};
 
-  return {
-    title: `${monster.name} | Fabled Campaigns Wiki`,
-    description: `${monster.size} ${monster.type}, CR ${monster.cr}. ${monster.alignment}.`,
-    alternates: { canonical: `/wiki/monsters/${monster.slug}` },
-  };
+  return pageMetadata(
+    `${monster.name} | Fabled Campaigns Wiki`,
+    `${monster.size} ${monster.type}, CR ${monster.cr}. ${monster.alignment}.`,
+    `/wiki/monsters/${monster.slug}`
+  );
 }
 
 export default async function MonsterPage({ params, searchParams }: Props) {
