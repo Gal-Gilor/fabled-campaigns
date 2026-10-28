@@ -18,7 +18,7 @@ const RARITY_COLORS: Record<MagicItemRarity, { background: string; color: string
   Uncommon: { background: '#dcfce7', color: '#15803d' },
   Rare: { background: '#dbeafe', color: '#2563eb' },
   'Very Rare': { background: '#f3e8ff', color: '#7e22ce' },
-  Legendary: { background: '#fef3c7', color: '#f59e0b' },
+  Legendary: { background: '#fef3c7', color: '#92400e' },
   Artifact: { background: '#fee2e2', color: '#dc2626' },
   Varies: { background: '#e2e8f0', color: '#475569' },
 };
