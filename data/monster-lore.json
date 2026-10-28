@@ -247,13 +247,28 @@
       }
     ]
   },
+  "Centaur": {
+    "description": "A creature with the head, arms and chest of a man joined to the body of a horse.[1]",
+    "lore": "The centaurs were wild, cloud-born creatures, men above and horses below.[1] Ovid tells of the wedding of Pirithous, king of the Lapiths, who invited the centaurs to his feast. Eurytus, the most savage of them, was inflamed by wine and by the sight of the bride, and he seized her by the hair, while the other centaurs grabbed whatever women they could. The feast became a battle between the centaurs and the Lapiths, and many died on both sides.[1]\n\nNot every centaur was a brute. Ovid describes young Cyllarus, as handsome as a statue in his human half, with a golden beard and hair to his shoulders, and a horse's body as fine as the man above it, blacker than pitch.[1]",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Metamorphoses of Ovid, Books VIII-XV",
+        "author": "Ovid, translated by Henry T. Riley (1851)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/26073",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Chimera": {
     "description": "A fire-breathing monster with three heads: a lion's in front, a goat's in the middle and a serpent's behind.[1]",
     "lore": "The Chimera was born of Echidna, the mother of monsters. It was huge, fast and strong, a creature to be feared, and it breathed out a blast of raging fire.[1]\n\nThe hero Bellerophon killed it with the help of the winged horse Pegasus, who carried him through the air as swiftly as the wind.[1]",
     "origin": "myth",
     "sources": [
       {
-        "title": "Theogony, in Hesiod, the Homeric Hymns, and Homerica",
+        "title": "Theogony and Works and Days, in Hesiod, the Homeric Hymns, and Homerica",
         "author": "Hesiod, translated by Hugh G. Evelyn-White (1914)",
         "publisher": "Project Gutenberg",
         "url": "https://www.gutenberg.org/ebooks/348",
@@ -302,6 +317,29 @@
         "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
         "url": "https://animaldiversity.org/accounts/Crocodylus_porosus/",
         "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Death Dog": {
+    "description": "A huge, two-headed hound.[2]",
+    "lore": "Orthus was the hound of Geryon, the three-bodied giant of the island of Erythia, and the first child Echidna bore to the monster Typhaon.[1] He had two heads.[2]\n\nHe kept watch over Geryon's red cattle until Heracles came to take them as his tenth labor. The dog rushed at the hero, and Heracles struck it dead with his club.[2]",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "Theogony and Works and Days, in Hesiod, the Homeric Hymns, and Homerica",
+        "author": "Hesiod, translated by Hugh G. Evelyn-White (1914)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/348",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "The Library, book 2, chapter 5, section 10",
+        "author": "Apollodorus, translated by Sir James George Frazer (1921)",
+        "publisher": "Perseus Digital Library, Tufts University",
+        "url": "https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0022:text=Library:book=2:chapter=5:section=10",
+        "license": "Public domain translation; Perseus edition CC BY-SA 3.0 US",
         "accessed": "2026-10-28"
       }
     ]
@@ -370,6 +408,21 @@
       }
     ]
   },
+  "Dryad": {
+    "description": "A nymph of the woods who dances with her sisters in the sacred groves, her life bound to a tree.[1]",
+    "lore": "Dryads are the nymphs of the woods. In Ovid's tale, the Dryads used to dance hand in hand around a vast, ancient oak in a grove sacred to the goddess Ceres, its trunk hung with garlands and with tokens of prayers that had been answered.[1]\n\nThe impious Erysichthon ordered the oak cut down. When his servants hesitated, he took the axe himself and killed a man who tried to stop him. As the blade bit, the oak shuddered and groaned, blood ran from the bark, and a voice inside cried that a nymph dear to Ceres was dying within it, and that his punishment was near.[1]\n\nThe other Dryads went to Ceres in mourning, and the goddess sent Famine to fill Erysichthon with a hunger that nothing could satisfy.[1] Some nymphs, the hamadryads, were said to live and die with their trees.[1]",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Metamorphoses of Ovid, Books VIII-XV",
+        "author": "Ovid, translated by Henry T. Riley (1851)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/26073",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Eagle": {
     "description": "A huge, dark brown bird of prey with long, broad wings and golden feathers on the back of its head and neck.[1]",
     "lore": "The golden eagle is the largest bird of prey in North America, with wings more than two meters across.[1] It hunts rabbits, hares, ground squirrels and marmots, and sometimes much larger prey: hoofed animals, coyotes, badgers, and geese and cranes taken in the air.[1] A pair often hunts together, one chasing the prey until it tires while the other swoops in for the kill.[1]\n\nIt usually flies at around 50 kilometers an hour but can pass 300 in a dive.[1] Golden eagles are mostly silent. Instead of calling, they defend their territory with a rolling, swooping flight along its edge.[1] Some live in one place all year, while those of the far north fly south for the winter.[1]",
@@ -417,6 +470,29 @@
         "publisher": "U.S. National Park Service (Rocky Mountain National Park)",
         "url": "https://www.nps.gov/romo/learn/nature/elk.htm",
         "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Erinyes": {
+    "description": "One of the dread goddesses of vengeance, born from the blood of the first sky god.[1][2]",
+    "lore": "When Cronus wounded his father, the Sky, the drops of blood fell on the Earth, and from them she bore the Erinyes, the Furies, along with the Giants.[1] Apollodorus names three of them: Alecto, Tisiphone and Megaera.[2] Hesiod warns of the fifth day of the month, when the Erinyes attended the birth of Oath, whom Strife bore to trouble those who break their word.[1]\n\nIn other tales the Erinyes serve in the ranks of the hells, armored warriors who wield withering swords and magic ropes to bind their prey.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "Theogony and Works and Days, in Hesiod, the Homeric Hymns, and Homerica",
+        "author": "Hesiod, translated by Hugh G. Evelyn-White (1914)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/348",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "The Library, book 1, chapter 1, section 4",
+        "author": "Apollodorus, translated by Sir James George Frazer (1921)",
+        "publisher": "Perseus Digital Library, Tufts University",
+        "url": "https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0022:text=Library:book=1:chapter=1:section=4",
+        "license": "Public domain translation; Perseus edition CC BY-SA 3.0 US",
         "accessed": "2026-10-28"
       }
     ]
@@ -902,6 +978,52 @@
       }
     ]
   },
+  "Griffon": {
+    "description": "A fierce beast with the long ears and hooked beak of a bird of prey, said to guard great hoards of gold.[1][2]",
+    "lore": "The Greeks heard of griffins from the far north. Herodotus wrote that a great store of gold lay in the north of Europe, and that the one-eyed Arimaspians stole it from the griffins that guarded it, though he doubted the tale himself.[1] The poet Aristeas, he says, placed the gold-guarding griffins beyond the land of the Arimaspians, and told of all these peoples forever at war with their neighbors.[1]\n\nPliny the Elder described griffins with long ears and hooked beaks, said to live in Ethiopia, and he counted them among fabulous creatures.[2]",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The History of Herodotus, Volume 1",
+        "author": "Herodotus, translated by G. C. Macaulay (1890)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/2707",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "The Natural History, book 10, chapter 70: Fabulous birds",
+        "author": "Pliny the Elder, translated by John Bostock and H. T. Riley (1855)",
+        "publisher": "Perseus Digital Library, Tufts University",
+        "url": "https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.02.0137:book=10:chapter=70",
+        "license": "Public domain translation; Perseus edition CC BY-SA 3.0 US",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Harpy": {
+    "description": "A winged woman, swift as the storm wind, who swoops down to snatch away food and leave the rest befouled.[1][2]",
+    "lore": "The Harpies were daughters of Thaumas and Electra. Hesiod names them Aello, Storm-swift, and Ocypetes, Swift-flier, and says they kept pace with the winds and the birds.[1]\n\nThe gods sent them to torment the blind seer Phineus. Whenever a meal was laid before him they swooped down from the sky, snatched most of it away, and left the rest so foul that no one could touch it.[2] The winged sons of the North Wind, sailing with the Argonauts, chased them through the air. Some say the Harpies died in the chase, and others that they swore never to trouble Phineus again.[2]\n\nLater tales give them a sweeter danger: a song that lures travelers close, after which their claws do the rest.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "Theogony and Works and Days, in Hesiod, the Homeric Hymns, and Homerica",
+        "author": "Hesiod, translated by Hugh G. Evelyn-White (1914)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/348",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "The Library, book 1, chapter 9, section 21",
+        "author": "Apollodorus, translated by Sir James George Frazer (1921)",
+        "publisher": "Perseus Digital Library, Tufts University",
+        "url": "https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0022:text=Library:book=1:chapter=9:section=21",
+        "license": "Public domain translation; Perseus edition CC BY-SA 3.0 US",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Hawk": {
     "description": "A bird of prey with a wingspan over a meter, a brown back, a pale belly and powerful claws.[1]",
     "lore": "Red-tailed hawks hunt mostly from a perch, watching for prey and dropping onto it to kill with their powerful claws.[1] Most of what they eat are small rodents, along with rabbits, reptiles and other birds.[1] They also soar over their land on clear days, watching for intruders.[1]\n\nA pair often stays together for years on the same territory and defends it hard. The female guards the nest, while the male drives intruders off the borders.[1] As with many birds of prey, the female is the larger of the two.[1]\n\nTheir cry is a harsh, screaming \"kee-eeee-arrr\", often compared to a steam whistle.[1]",
@@ -913,6 +1035,29 @@
         "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
         "url": "https://animaldiversity.org/accounts/Buteo_jamaicensis/",
         "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Hell Hound": {
+    "description": "A fearsome hound of the underworld that guards the gates of the dead.[1][2]",
+    "lore": "Cerberus was the hound of Hades, a child of Echidna and Typhaon. Hesiod calls him a monster not to be overcome, brazen-voiced, eating raw flesh, with fifty heads.[1] Apollodorus gives him three dog's heads, a dragon for a tail, and the heads of snakes along his back.[2]\n\nBringing him up from the underworld was the last labor of Heracles. Hades allowed it only if Heracles could master the dog without his weapons, so the hero wrapped his arms around its heads and held on, though the dragon in its tail bit him, until the beast gave in.[2]\n\nOther hounds of the underworld are said to run in packs and to breathe fire.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "Theogony and Works and Days, in Hesiod, the Homeric Hymns, and Homerica",
+        "author": "Hesiod, translated by Hugh G. Evelyn-White (1914)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/348",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "The Library, book 2, chapter 5, section 12",
+        "author": "Apollodorus, translated by Sir James George Frazer (1921)",
+        "publisher": "Perseus Digital Library, Tufts University",
+        "url": "https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0022:text=Library:book=2:chapter=5:section=12",
+        "license": "Public domain translation; Perseus edition CC BY-SA 3.0 US",
         "accessed": "2026-10-28"
       }
     ]
@@ -952,7 +1097,7 @@
     "origin": "myth",
     "sources": [
       {
-        "title": "Theogony, in Hesiod, the Homeric Hymns, and Homerica",
+        "title": "Theogony and Works and Days, in Hesiod, the Homeric Hymns, and Homerica",
         "author": "Hesiod, translated by Hugh G. Evelyn-White (1914)",
         "publisher": "Project Gutenberg",
         "url": "https://www.gutenberg.org/ebooks/348",
@@ -984,6 +1129,21 @@
       }
     ]
   },
+  "Iron Golem": {
+    "description": "A giant made of metal, forged to stand guard without ever tiring.[1]",
+    "lore": "Talos was a man of bronze who guarded the island of Crete. Some said he was the last of the Bronze Race of men, and others that the smith god Hephaestus made him and gave him to King Minos.[1] Three times a day he ran around the whole island, and when he saw the ship Argo coming close to shore, he pelted it with stones.[1]\n\nA single vein ran from his neck to his ankles, sealed with a bronze nail. The sorceress Medea brought about his death, either by driving him mad with drugs or by promising to make him immortal and then pulling out the nail, so that the ichor poured out of him.[1]\n\nLater makers built their guardians of iron. Such a golem fights with bladed arms and breathes poison, and fire only makes it stronger.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Library, book 1, chapter 9, section 26",
+        "author": "Apollodorus, translated by Sir James George Frazer (1921)",
+        "publisher": "Perseus Digital Library, Tufts University",
+        "url": "https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0022:text=Library:book=1:chapter=9:section=26",
+        "license": "Public domain translation; Perseus edition CC BY-SA 3.0 US",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Jackal": {
     "description": "A small wild dog with a pointed muzzle, tall pointed ears and a reddish-brown coat.[1]",
     "lore": "Jackals live almost anywhere, from open grassland and desert to the edges of towns.[1] They eat what they can get: insects, rodents, hares and small antelope, along with plants and scraps. They hunt alone, in pairs, or in packs when they go after bigger prey, and they wait at a lion's or leopard's kill to pick it over before the vultures finish it.[1]\n\nTheir ears and noses are sharp. A jackal on the hunt walks slowly with its ears pricked, and a startled jackal runs off, then circles back in a wide arc to catch the scent of whatever scared it.[1] Jackals are cunning and wary of people, and they turn aggressive only to defend their territory.[1]",
@@ -1009,6 +1169,21 @@
         "publisher": "NOAA Fisheries",
         "url": "https://www.fisheries.noaa.gov/species/killer-whale",
         "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Lamia": {
+    "description": "A serpent with a woman's mouth and a woman's voice, who can take the shape of a lovely woman.[1]",
+    "lore": "In John Keats's poem Lamia, the lamia is a serpent with brilliant, many-colored coils, a woman's mouth and eyes that weep at their own beauty. She was once a woman and longs to be one again.[1] She strikes a bargain with the god Hermes: she shows him the nymph he is searching for, and he gives her a woman's shape so she can go to Lycius, a young man of Corinth whom she loves.[1]\n\nThey live together in a hidden palace, until their wedding feast, when the old philosopher Apollonius stares at her and names her a serpent. With a scream she vanishes, and Lycius dies that same night.[1]\n\nOther tales make the lamia a creature of the hells, a clawed fiend that leaps on its prey and whose touch corrupts.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "Lamia",
+        "author": "John Keats (1820)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/2490",
+        "license": "Public domain",
         "accessed": "2026-10-28"
       }
     ]
@@ -1070,6 +1245,21 @@
       }
     ]
   },
+  "Manticore": {
+    "description": "A beast with a man's face and ears, a lion's body the color of blood and a tail ending in a sting.[1]",
+    "lore": "Pliny the Elder, drawing on the Greek writer Ctesias, described the mantichora of Ethiopia. It had a triple row of teeth that fitted together like the teeth of a comb, the face and ears of a man, and blue eyes. Its body was a lion's, the color of blood, and its tail ended in a sting like a scorpion's.[1]\n\nIts voice sounded like a flute and a trumpet together. It was astonishingly fast, and it was especially fond of human flesh.[1]\n\nLater travelers' tales give it a tail bristling with spikes, which it can fling at its prey from a distance.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Natural History, book 8, chapter 30: The lynx, the sphinx, the crocotta, and the monkey",
+        "author": "Pliny the Elder, translated by John Bostock and H. T. Riley (1855)",
+        "publisher": "Perseus Digital Library, Tufts University",
+        "url": "https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.02.0137:book=8:chapter=30",
+        "license": "Public domain translation; Perseus edition CC BY-SA 3.0 US",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Mastiff": {
     "description": "A large, powerful dog kept to guard people, homes and camps.[1][2]",
     "lore": "Dogs were the first animals people tamed. They descend from wolves, and one idea is that wolves drawn to human camps by the smell of meat and scraps began to guard those camps from predators and to help with the hunt.[1] Over time, dogs came in every shape and size, from tiny Chihuahuas to huge Saint Bernards.[1]\n\nBig dogs have long stood guard for soldiers too. On Guam in 1944, war dogs served as sentries and scouts. They sniffed out snipers and hidden mines, warned of ambushes and guarded camps at night, and Marines said they slept better knowing the dogs were watching.[2]",
@@ -1098,7 +1288,7 @@
     "origin": "myth",
     "sources": [
       {
-        "title": "Theogony, in Hesiod, the Homeric Hymns, and Homerica",
+        "title": "Theogony and Works and Days, in Hesiod, the Homeric Hymns, and Homerica",
         "author": "Hesiod, translated by Hugh G. Evelyn-White (1914)",
         "publisher": "Project Gutenberg",
         "url": "https://www.gutenberg.org/ebooks/348",
@@ -1111,6 +1301,44 @@
         "publisher": "Project Gutenberg",
         "url": "https://www.gutenberg.org/ebooks/21765",
         "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Merfolk": {
+    "description": "A being of the sea, human in shape above, with a body rough with scales.[1]",
+    "lore": "Pliny the Elder collected reports of the people of the sea. A delegation from Olisipo told the emperor Tiberius that a triton had been seen and heard in a cave, blowing a conch shell, and looking just as tritons are usually shown.[1]\n\nNereids were real too, Pliny wrote, though the human part of their bodies was rough all over with scales. One was seen dying on that same shore, and people far away heard its mournful cries, and a governor of Gaul wrote to the emperor Augustus that many nereids had been found dead on the beach.[1] Men of rank told Pliny they had seen a sea-man off Gades, human in every part, who climbed onto ships at night and weighed them down until they nearly sank.[1]",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Natural History, book 9, chapter 4: The forms of the tritons and nereids",
+        "author": "Pliny the Elder, translated by John Bostock and H. T. Riley (1855)",
+        "publisher": "Perseus Digital Library, Tufts University",
+        "url": "https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.02.0137:book=9:chapter=4",
+        "license": "Public domain translation; Perseus edition CC BY-SA 3.0 US",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Minotaur of Baphomet": {
+    "description": "A huge man with the head of a bull.[1]",
+    "lore": "When King Minos of Crete failed to sacrifice a bull to Poseidon, the god made the animal savage and filled the queen, Pasiphae, with desire for it. She bore the Minotaur, named Asterius, who had a bull's face on a man's body. Minos shut him away in the Labyrinth, a maze of winding passages built by the craftsman Daedalus.[1]\n\nAthens had to send people to Crete as tribute to the Minotaur, and the hero Theseus went with the third tribute. Ariadne, the daughter of Minos, fell in love with him, and on Daedalus's advice she gave him a ball of thread. Theseus tied it to the door and unwound it as he went in, found the Minotaur in the farthest part of the maze and killed it with his fists, then followed the thread back out.[2]\n\nOther tales tell of whole tribes of bull-headed warriors who charge with lowered horns and fight with great glaives.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Library, book 3, chapter 1, section 4",
+        "author": "Apollodorus, translated by Sir James George Frazer (1921)",
+        "publisher": "Perseus Digital Library, Tufts University",
+        "url": "https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0022:text=Library:book=3:chapter=1:section=4",
+        "license": "Public domain translation; Perseus edition CC BY-SA 3.0 US",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "The Library, Epitome, chapter 1, sections 7-9",
+        "author": "Apollodorus, translated by Sir James George Frazer (1921)",
+        "publisher": "Perseus Digital Library, Tufts University",
+        "url": "https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0022:text=Epitome:book=E:chapter=1:section=7",
+        "license": "Public domain translation; Perseus edition CC BY-SA 3.0 US",
         "accessed": "2026-10-28"
       }
     ]
@@ -1194,7 +1422,7 @@
     "origin": "myth",
     "sources": [
       {
-        "title": "Theogony, in Hesiod, the Homeric Hymns, and Homerica",
+        "title": "Theogony and Works and Days, in Hesiod, the Homeric Hymns, and Homerica",
         "author": "Hesiod, translated by Hugh G. Evelyn-White (1914)",
         "publisher": "Project Gutenberg",
         "url": "https://www.gutenberg.org/ebooks/348",
@@ -1414,6 +1642,29 @@
       }
     ]
   },
+  "Satyr": {
+    "description": "A wild man of the woods with red hair and a tail almost as large as a horse's.[1]",
+    "lore": "Satyrs are wild spirits of the countryside, and the old ones were called Sileni.[1] The traveler Pausanias heard from a sailor named Euphemus about the Satyr-islands, far out in a sea where ships no longer sailed. Their people were red-haired, with tails at their loins nearly as large as a horse's. They ran down to the ship without a word and laid hands on the women aboard, and the frightened sailors had to put to sea again.[1]\n\nThe satyr Marsyas once challenged the god Apollo to a contest of music, playing the flute. He lost, and Apollo flayed him alive for his pride. The fauns, the nymphs and his brother satyrs wept for him, and their tears became a river that bears his name.[2]",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "Pausanias' Description of Greece, Volume I",
+        "author": "Pausanias, translated by A. R. Shilleto (1886)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/68946",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "The Metamorphoses of Ovid, Books I-VII",
+        "author": "Ovid, translated by Henry T. Riley (1851)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/21765",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Scorpion": {
     "description": "A small, eight-legged hunter with grasping pincers and a long tail tipped with a venomous stinger.[1][2]",
     "lore": "Scorpions are close relatives of spiders. All of them carry venom, and they come out at night to hunt, using the stinger to kill prey or to defend themselves.[2] The bark scorpion of the American Southwest grabs insects with its pincers and stings them with its highly venomous tail.[1]\n\nUnder ultraviolet light scorpions glow, which makes them easy to find at night.[1][2] A female bark scorpion gives birth to live young and carries as many as 30 on her back for up to three weeks, until they shed their first skin.[1]\n\nA venomous sting doesn't always save a scorpion. Bats, mice, lizards, tarantulas and birds all eat bark scorpions.[1]",
@@ -1446,6 +1697,37 @@
         "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
         "url": "https://animaldiversity.org/accounts/Hippocampus/",
         "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Sphinxes": {
+    "description": "A winged lion with the face of a woman, who asks riddles and devours those who cannot answer.[2]",
+    "lore": "Hesiod names the Sphinx as a child of Echidna and the destroyer of the people of Thebes.[1] Apollodorus says the goddess Hera sent her. She had a woman's face, a lion's chest, feet and tail, and a bird's wings. She sat on a mountain above Thebes and asked the riddle she had learned from the Muses: what has one voice, yet goes on four feet, then two, then three? Whenever the Thebans failed to answer, she snatched one of them and ate him.[2]\n\nOedipus solved it. A man crawls on all fours as a baby, walks on two feet as an adult, and leans on a staff in old age. The Sphinx threw herself from the citadel.[2] In Egypt, Herodotus saw great statues of sphinxes with the heads of men.[3]\n\nOther tales tell of sphinxes as wise guardians sent by the gods, keepers of secret knowledge whose roar can shake the mind.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "Theogony and Works and Days, in Hesiod, the Homeric Hymns, and Homerica",
+        "author": "Hesiod, translated by Hugh G. Evelyn-White (1914)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/348",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "The Library, book 3, chapter 5, section 8",
+        "author": "Apollodorus, translated by Sir James George Frazer (1921)",
+        "publisher": "Perseus Digital Library, Tufts University",
+        "url": "https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0022:text=Library:book=3:chapter=5:section=8",
+        "license": "Public domain translation; Perseus edition CC BY-SA 3.0 US",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "The History of Herodotus, Volume 1",
+        "author": "Herodotus, translated by G. C. Macaulay (1890)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/2707",
+        "license": "Public domain",
         "accessed": "2026-10-28"
       }
     ]

@@ -53,7 +53,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Bulette | Monsters | 1 | original | Real-world origin: a plastic toy | |
 | Camel | Animals | 1 | animal |  | Yes |
 | Cat | Animals | 1 | animal |  | Yes |
-| Centaur | Monsters | 1 | myth | Greek myth | |
+| Centaur | Monsters | 1 | myth | Greek myth | Yes |
 | Chain Devil | Monsters | 1 | original |  | |
 | Chimera | Monsters | 1 | myth | Homer, Hesiod | Yes |
 | Chuul | Monsters | 1 | original |  | |
@@ -70,7 +70,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Crocodile | Animals | 1 | animal |  | Yes |
 | Cultists | Monsters | 2 | original | Generic role | |
 | Darkmantle | Monsters | 1 | original |  | |
-| Death Dog | Monsters | 1 | myth | Orthrus in Greek myth | |
+| Death Dog | Monsters | 1 | myth | Orthrus in Greek myth | Yes |
 | Deer | Animals | 1 | animal |  | Yes |
 | Deva | Monsters | 1 | original | Hindu and Buddhist myth (name only) | |
 | Dire Wolf | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
@@ -81,13 +81,13 @@ original. The lore can mention the myth as the source of the name, with a source
 | Dretch | Monsters | 1 | original |  | |
 | Drider | Monsters | 1 | original |  | |
 | Druid | Monsters | 1 | history | Caesar and Pliny on Celtic druids | |
-| Dryad | Monsters | 1 | myth | Greek myth | |
+| Dryad | Monsters | 1 | myth | Greek myth | Yes |
 | Eagle | Animals | 1 | animal |  | Yes |
 | Earth Elemental | Monsters | 1 | myth | Classical elements, Paracelsus | |
 | Efreeti | Monsters | 1 | myth | Arabian folklore, One Thousand and One Nights | |
 | Elephant | Animals | 1 | animal |  | Yes |
 | Elk | Animals | 1 | animal |  | Yes |
-| Erinyes | Monsters | 1 | myth | Greek myth (the Furies) | |
+| Erinyes | Monsters | 1 | myth | Greek myth (the Furies) | Yes |
 | Ettercap | Monsters | 1 | original |  | |
 | Ettin | Monsters | 1 | myth | English folklore (two-headed giants) | |
 | Fire Elemental | Monsters | 1 | myth | Classical elements, Paracelsus | |
@@ -142,14 +142,14 @@ original. The lore can mention the myth as the source of the name, with a source
 | Green Dragons | Monsters | 4 | original |  | |
 | Green Hag | Monsters | 1 | myth | English folklore (Jenny Greenteeth) | |
 | Grick | Monsters | 1 | original |  | |
-| Griffon | Monsters | 1 | myth | Greek and Near Eastern art, Pliny | |
+| Griffon | Monsters | 1 | myth | Greek and Near Eastern art, Pliny | Yes |
 | Grimlock | Monsters | 1 | original |  | |
 | Guardian Naga | Monsters | 1 | myth | Hindu and Buddhist myth | |
 | Guards | Monsters | 2 | original | Generic role | |
 | Half-Dragon | Monsters | 1 | original |  | |
-| Harpy | Monsters | 1 | myth | Hesiod, Virgil | |
+| Harpy | Monsters | 1 | myth | Hesiod, Virgil | Yes |
 | Hawk | Animals | 1 | animal |  | Yes |
-| Hell Hound | Monsters | 1 | myth | Black dog folklore, Cerberus | |
+| Hell Hound | Monsters | 1 | myth | Black dog folklore, Cerberus | Yes |
 | Hezrou | Monsters | 1 | original |  | |
 | Hill Giant | Monsters | 1 | myth | European folklore | |
 | Hippogriff | Monsters | 1 | myth | Ariosto, Orlando Furioso | |
@@ -164,13 +164,13 @@ original. The lore can mention the myth as the source of the name, with a source
 | Imp | Monsters | 1 | myth | European folklore | |
 | Incubus | Monsters | 1 | myth | Medieval demonology | |
 | Invisible Stalker | Monsters | 1 | original |  | |
-| Iron Golem | Monsters | 1 | myth | Talos in Greek myth (loose) | |
+| Iron Golem | Monsters | 1 | myth | Talos in Greek myth (loose) | Yes |
 | Jackal | Animals | 1 | animal |  | Yes |
 | Killer Whale | Animals | 1 | animal |  | Yes |
 | Knight | Monsters | 1 | history | Medieval knighthood | |
 | Kobold | Monsters | 1 | original | German folklore (name only; the folklore kobold is a house spirit) | |
 | Kraken | Monsters | 1 | myth | Scandinavian sailor folklore | |
-| Lamia | Monsters | 1 | myth | Greek myth | |
+| Lamia | Monsters | 1 | myth | Greek myth | Yes |
 | Lemure | Monsters | 1 | myth | Roman religion (lemures) | |
 | Lich | Monsters | 1 | original |  | |
 | Lion | Animals | 1 | animal |  | Yes |
@@ -178,15 +178,15 @@ original. The lore can mention the myth as the source of the name, with a source
 | Mages | Monsters | 2 | original | Generic role | |
 | Magmin | Monsters | 1 | original |  | |
 | Mammoth | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
-| Manticore | Monsters | 1 | myth | Ctesias via Pliny | |
+| Manticore | Monsters | 1 | myth | Ctesias via Pliny | Yes |
 | Marilith | Monsters | 1 | original |  | |
 | Mastiff | Animals | 1 | animal |  | Yes |
 | Medusa | Monsters | 1 | myth | Hesiod, Ovid | Yes |
 | Mephits | Monsters | 4 | original |  | |
-| Merfolk | Monsters | 1 | myth | Folklore worldwide | |
+| Merfolk | Monsters | 1 | myth | Folklore worldwide | Yes |
 | Merrow | Monsters | 1 | myth | Irish folklore | |
 | Mimic | Monsters | 1 | original |  | |
-| Minotaur of Baphomet | Monsters | 1 | myth | The Minotaur of Crete in Greek myth; Baphomet in medieval accusations against the Templars | |
+| Minotaur of Baphomet | Monsters | 1 | myth | The Minotaur of Crete in Greek myth; Baphomet in medieval accusations against the Templars | Yes |
 | Mule | Animals | 1 | animal |  | Yes |
 | Mummies | Monsters | 2 | history | Egyptian mummification; the walking mummy is fiction | |
 | Nalfeshnee | Monsters | 1 | original |  | |
@@ -229,7 +229,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Saber-Toothed Tiger | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
 | Sahuagin | Monsters | 1 | original |  | |
 | Salamander | Monsters | 1 | myth | Paracelsus | |
-| Satyr | Monsters | 1 | myth | Greek myth | |
+| Satyr | Monsters | 1 | myth | Greek myth | Yes |
 | Scorpion | Animals | 1 | animal |  | Yes |
 | Scout | Monsters | 1 | original | Generic role | |
 | Sea Hag | Monsters | 1 | original | Sea witch folklore (name only) | |
@@ -241,7 +241,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Skeletons | Monsters | 3 | original |  | |
 | Solar | Monsters | 1 | original |  | |
 | Specter | Monsters | 1 | original |  | |
-| Sphinxes | Monsters | 3 | myth | Egyptian and Greek myth | |
+| Sphinxes | Monsters | 3 | myth | Egyptian and Greek myth | Yes |
 | Spider | Animals | 1 | animal |  | Yes |
 | Spirit Naga | Monsters | 1 | myth | Hindu and Buddhist myth | |
 | Sprite | Monsters | 1 | myth | English folklore | |
