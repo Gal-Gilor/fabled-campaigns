@@ -1,11 +1,20 @@
 // app/components/wiki/monster-card.tsx
 import Link from 'next/link';
-import type { MonsterSummary } from '@/types/wiki';
+import { CATEGORY_PATHS } from '@/app/lib/wikiPaths';
+import type { MonsterGroupSummary } from '@/types/wiki';
 
-export function MonsterCard({ monster }: { monster: MonsterSummary }) {
+const badgeStyle = {
+  fontSize: '0.6875rem',
+  fontWeight: 700,
+  padding: '2px 6px',
+  borderRadius: '3px',
+};
+
+export function MonsterCard({ group }: { group: MonsterGroupSummary }) {
+  const count = group.memberNames.length;
   return (
     <Link
-      href={`/wiki/monsters/${monster.slug}`}
+      href={`/wiki/${CATEGORY_PATHS[group.category]}/${group.slug}`}
       style={{ textDecoration: 'none', display: 'block', height: '100%' }}
     >
       <div
@@ -27,22 +36,22 @@ export function MonsterCard({ monster }: { monster: MonsterSummary }) {
             margin: '0 0 0.375rem',
           }}
         >
-          {monster.name}
+          {group.name}
         </p>
         <p style={{ color: 'var(--neutral-600)', fontSize: '0.8125rem', margin: '0 0 0.5rem' }}>
-          {monster.size} {monster.type}
+          {group.size ? `${group.size} ${group.type}` : group.type}
         </p>
-        <span
-          style={{
-            background: 'var(--pale-gold)',
-            color: 'var(--accent-gold)',
-            fontSize: '0.6875rem',
-            fontWeight: 700,
-            padding: '2px 6px',
-            borderRadius: '3px',
-          }}
-        >
-          CR {monster.cr}
+        <span style={{ display: 'flex', flexWrap: 'wrap', gap: '0.375rem' }}>
+          <span style={{ ...badgeStyle, background: 'var(--pale-gold)', color: 'var(--accent-gold)' }}>
+            CR {group.crRange}
+          </span>
+          {count > 1 && (
+            <span
+              style={{ ...badgeStyle, background: 'var(--neutral-200)', color: 'var(--neutral-700)' }}
+            >
+              {count} stat blocks
+            </span>
+          )}
         </span>
       </div>
     </Link>

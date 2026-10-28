@@ -5,8 +5,13 @@ import {
   formatChallenge,
   formatModifier,
   getAllMonsters,
+  describeMonsterGroup,
+  formatCRRange,
   getMonsterBySlug,
-  getMonstersInGroup,
+  getMonsterGroupBySlug,
+  getMonsterGroupSummaries,
+  getMonsterGroups,
+  getMonsterHref,
   sortedCRs,
 } from './wiki';
 
@@ -55,9 +60,60 @@ test('sortedCRs orders fractions before whole numbers', () => {
   ]);
 });
 
-test('getMonstersInGroup orders members by CR', () => {
+test('a group page holds its members in CR order', () => {
   assert.deepEqual(
-    getMonstersInGroup('White Dragons').map((m) => m.name),
+    getMonsterGroupBySlug('Monster', 'white-dragons')!.members.map((m) => m.name),
     ['White Dragon Wyrmling', 'Young White Dragon', 'Adult White Dragon', 'Ancient White Dragon']
   );
+});
+
+test('group pages are looked up within their category', () => {
+  assert.equal(getMonsterGroupBySlug('Monster', 'wolf'), undefined);
+  assert.equal(getMonsterGroupBySlug('Animal', 'white-dragons'), undefined);
+  assert.equal(getMonsterGroupBySlug('Animal', 'wolf')!.members.length, 1);
+});
+
+test('no group mixes categories and group slugs are unique', () => {
+  const groups = [...getMonsterGroups('Monster'), ...getMonsterGroups('Animal')];
+  const slugs = groups.map((g) => g.slug);
+  assert.equal(new Set(slugs).size, slugs.length);
+  assert.equal(new Set(groups.map((g) => g.name)).size, groups.length);
+});
+
+test('group summaries list every member type and CR', () => {
+  const vampires = getMonsterGroupSummaries('Monster').find((g) => g.slug === 'vampires')!;
+  assert.deepEqual(vampires.creatureTypes, ['Humanoid', 'Undead']);
+  assert.equal(vampires.type, 'Humanoid or Undead');
+  assert.equal(vampires.crRange, '3–13');
+
+  const dragons = getMonsterGroupSummaries('Monster').find((g) => g.slug === 'white-dragons')!;
+  assert.equal(dragons.size, null);
+  assert.equal(dragons.type, 'Dragon (Chromatic)');
+  assert.deepEqual(dragons.crs, ['2', '6', '13', '20']);
+});
+
+test('formatCRRange shows one CR or the lowest and highest', () => {
+  assert.equal(formatCRRange(['1/4']), '1/4');
+  assert.equal(formatCRRange(['2', '6', '24']), '2–24');
+});
+
+test('describeMonsterGroup keeps the stat block line for a single member', () => {
+  assert.equal(
+    describeMonsterGroup(getMonsterGroupBySlug('Monster', 'aboleth')!),
+    'Large Aberration, CR 10. Lawful Evil.'
+  );
+  assert.match(
+    describeMonsterGroup(getMonsterGroupBySlug('Monster', 'bandits')!),
+    /^2 stat blocks: Bandit, Bandit Captain\. Humanoid, CR 1\/8–2\.$/
+  );
+});
+
+test('getMonsterHref links to the group page and the member section', () => {
+  assert.equal(getMonsterHref(getMonsterBySlug('wolf')!), '/wiki/animals/wolf');
+  assert.equal(
+    getMonsterHref(getMonsterBySlug('adult-white-dragon')!),
+    '/wiki/monsters/white-dragons#adult-white-dragon'
+  );
+  assert.equal(getMonsterHref(getMonsterBySlug('azer-sentinel')!), '/wiki/monsters/azer');
+  assert.equal(getMonsterHref(getMonsterBySlug('troll-limb')!), '/wiki/monsters/troll#troll-limb');
 });

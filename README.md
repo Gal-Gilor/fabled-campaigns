@@ -80,10 +80,13 @@ of the older messages. The full history stays in the database and in the UI.
 Public reference pages for SRD 5.2.1 content, no account required (see [SRD attribution](#srd-attribution)):
 
 - `/wiki/magic-items`: 270 magic items, filterable by name, type, and rarity.
-- `/wiki/monsters`: 330 stat blocks (235 monsters and 95 animals), filterable by name, category,
-  creature type, and challenge rating.
+- `/wiki/monsters`: 235 monster stat blocks on 177 pages, filterable by name, creature type, and
+  challenge rating.
+- `/wiki/animals`: 95 animal stat blocks, one page each, with the same filters.
 
-Every entry has its own statically generated page. The wiki can also be opened in a modal from
+Creature variants that share an SRD heading, such as the four White Dragons, share one page with a
+link to each stat block. The old one-page-per-stat-block URLs redirect to their section of that
+page. Every magic item has its own page. The wiki can also be opened in a modal from
 inside the app. All wiki pages are included in the sitemap.
 
 ### Planned

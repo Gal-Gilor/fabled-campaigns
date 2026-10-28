@@ -1,16 +1,28 @@
 // app/wiki/page.tsx
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { getAllMonsters, getAllMagicItems } from '@/app/lib/wiki';
+import { getAllMonsters, getAllMagicItems, getMonsterHref } from '@/app/lib/wiki';
 import type { Monster, MagicItem } from '@/types/wiki';
 import { pageMetadata } from '@/app/lib/pageMetadata';
 
 export const metadata: Metadata = pageMetadata(
   'Wiki | Fabled Campaigns',
-  'Browse 5e SRD monsters and magic items as reference cards. No account required.',
+  'Browse 5e SRD monsters, animals and magic items as reference cards. No account required.',
   '/wiki',
   '/opengraph-image'
 );
+
+const SECTIONS = [
+  { href: '/wiki/monsters', label: 'Monsters' },
+  { href: '/wiki/animals', label: 'Animals' },
+  { href: '/wiki/magic-items', label: 'Magic Items' },
+];
+
+// The search params go before a group page's #member anchor.
+function withSearchParams(href: string, query: string): string {
+  const [path, hash] = href.split('#');
+  return `${path}?from=search&q=${encodeURIComponent(query)}${hash ? `#${hash}` : ''}`;
+}
 
 type SearchResult =
   | { kind: 'monster'; item: Monster }
@@ -59,14 +71,14 @@ export default async function WikiPage({
         Wiki
       </h1>
       <p style={{ color: 'var(--neutral-600)', marginBottom: '2rem' }}>
-        Magic items and monsters from the System Reference Document 5.2.1.
+        Magic items, monsters and animals from the System Reference Document 5.2.1.
       </p>
 
       <form method="get" action="/wiki" style={{ marginBottom: '1.5rem' }}>
         <input
           name="search"
           defaultValue={query}
-          placeholder="Search monsters and magic items..."
+          placeholder="Search monsters, animals and magic items..."
           autoComplete="off"
           style={{
             width: '100%',
@@ -88,41 +100,25 @@ export default async function WikiPage({
           gap: '1rem',
         }}
       >
-        <Link href="/wiki/monsters" className="block h-full" style={{ textDecoration: 'none' }}>
-          <div
-            className="border border-neutral-200 hover:border-primary hover:shadow-md rounded-lg p-5 bg-white h-full box-border transition-all duration-150 cursor-pointer"
-            style={{ textAlign: 'center' }}
-          >
-            <h2
-              style={{
-                fontFamily: 'var(--font-cinzel), serif',
-                color: 'var(--neutral-900)',
-                margin: 0,
-                fontSize: '1.125rem',
-              }}
+        {SECTIONS.map(({ href, label }) => (
+          <Link key={href} href={href} className="block h-full" style={{ textDecoration: 'none' }}>
+            <div
+              className="border border-neutral-200 hover:border-primary hover:shadow-md rounded-lg p-5 bg-white h-full box-border transition-all duration-150 cursor-pointer"
+              style={{ textAlign: 'center' }}
             >
-              Monsters
-            </h2>
-          </div>
-        </Link>
-
-        <Link href="/wiki/magic-items" className="block h-full" style={{ textDecoration: 'none' }}>
-          <div
-            className="border border-neutral-200 hover:border-primary hover:shadow-md rounded-lg p-5 bg-white h-full box-border transition-all duration-150 cursor-pointer"
-            style={{ textAlign: 'center' }}
-          >
-            <h2
-              style={{
-                fontFamily: 'var(--font-cinzel), serif',
-                color: 'var(--neutral-900)',
-                margin: 0,
-                fontSize: '1.125rem',
-              }}
-            >
-              Magic Items
-            </h2>
-          </div>
-        </Link>
+              <h2
+                style={{
+                  fontFamily: 'var(--font-cinzel), serif',
+                  color: 'var(--neutral-900)',
+                  margin: 0,
+                  fontSize: '1.125rem',
+                }}
+              >
+                {label}
+              </h2>
+            </div>
+          </Link>
+        ))}
       </div>
 
       {query && (
@@ -143,10 +139,12 @@ export default async function WikiPage({
               }}
             >
               {results.map((r) => {
-                const href =
+                const href = withSearchParams(
                   r.kind === 'monster'
-                    ? `/wiki/monsters/${r.item.slug}?from=search&q=${encodeURIComponent(query)}`
-                    : `/wiki/magic-items/${r.item.slug}?from=search&q=${encodeURIComponent(query)}`;
+                    ? getMonsterHref(r.item)
+                    : `/wiki/magic-items/${r.item.slug}`,
+                  query
+                );
                 const badge = r.kind === 'monster' ? r.item.category : 'Magic Item';
                 const descriptor =
                   r.kind === 'monster'

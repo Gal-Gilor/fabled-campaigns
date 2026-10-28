@@ -24,8 +24,8 @@ export function SrdAttribution() {
         .
       </p>
       <p style={{ margin: '0.5rem 0 0' }}>
-        Entries are reformatted for this site, and some items are split into one page per
-        variant.
+        Entries are reformatted for this site. Some magic items are split into one page per
+        variant, and creature variants share one page.
       </p>
     </aside>
   );

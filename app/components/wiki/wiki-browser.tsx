@@ -38,11 +38,11 @@ export function WikiBrowser<T extends { slug: string }>({
       filters.every((filter) => {
         const param = searchParams.get(filter.key) ?? '';
         if (!param) return true;
-        const value = filter.getValue(item);
+        const values = [filter.getValue(item)].flat();
         if (filter.type === 'search') {
-          return value.toLowerCase().includes(param.toLowerCase());
+          return values.some((v) => v.toLowerCase().includes(param.toLowerCase()));
         }
-        return value === param || (filter.alwaysInclude?.(item) ?? false);
+        return values.includes(param) || (filter.alwaysInclude?.(item) ?? false);
       })
     );
   }, [items, filters, searchParams]);

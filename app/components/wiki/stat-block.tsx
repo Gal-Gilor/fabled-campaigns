@@ -33,7 +33,7 @@ export function StatBlock({ monster }: { monster: Monster }) {
         marginBottom: '1.5rem',
       }}
     >
-      <h1
+      <h2
         style={{
           fontFamily: 'var(--font-cinzel), serif',
           color: 'var(--neutral-900)',
@@ -42,7 +42,7 @@ export function StatBlock({ monster }: { monster: Monster }) {
         }}
       >
         {monster.name}
-      </h1>
+      </h2>
       <p
         style={{
           color: 'var(--neutral-600)',
