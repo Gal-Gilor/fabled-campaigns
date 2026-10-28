@@ -98,9 +98,8 @@ value works for the wiki pages.
   with its markers removed, for metadata and JSON-LD.
 - `app/components/wiki/monster-lore.tsx`: the description under the `h1`, a "Lore" section above
   the jump list, and after the stat blocks a numbered "Sources" list. Each source shows the
-  author or translator when known, the linked title, publisher, license and access date. A line
-  below says the text is original to Fabled Campaigns, and that listed sources were consulted for
-  facts and are not quoted. A group without an entry renders as before.
+  author or translator when known, the linked title, publisher, license and access date. Entries
+  without sources show no Sources section. A group without an entry renders as before.
 - `app/lib/loreRules.ts`: `loreErrors`, run on every entry by a data test, with its own tests in
   `loreRules.test.ts`. Its rules are below.
 
@@ -118,7 +117,7 @@ The data test enforces the rules marked (test).
   creature looks like and how it behaves. Lore is a few short paragraphs of Markdown.
 - Every `[n]` marker has a source, and every source is cited at least once (test).
 - `animal`, `myth` and `history` entries need at least one source (test). `original` entries need
-  none and say they were written for this site.
+  none.
 - Each source has a title, publisher, license, an `https` URL and an `accessed` date in
   `YYYY-MM-DD` form (test). Add the author or translator when the source names one.
 - No Wizards material. Nothing from the Monster Manual, D&D Beyond or any other Wizards product is
@@ -139,6 +138,10 @@ The data test enforces the rules marked (test).
 - Write about the creature the group names, directly. No framing such as "the real animal behind
   the giant octopus". Don't narrow a general name to one species: Mammoth covers all mammoths, not
   only the woolly mammoth.
+- Where the stat block clearly differs from the myth, a myth entry may end with one paragraph,
+  without a marker, saying the tales disagree and describing the creature as the stat block shows
+  it: size, type, traits and actions only, never Monster Manual descriptions or art. No entry
+  comments on which parts are original writing.
 - Text is in our own words. Before an entry ships, a person checks each fact against its source,
   that each link opens the cited page, and that no sentence closely follows a source's wording.
 

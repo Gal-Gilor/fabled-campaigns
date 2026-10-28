@@ -78,52 +78,41 @@ function formatAccessed(date: string): string {
   });
 }
 
-// The numbered list the citation markers point at, then a line saying the
-// text is the site's own.
+// The numbered list the citation markers point at.
 export function LoreSources({ lore }: { lore: MonsterLore }) {
-  const notice =
-    lore.sources.length > 0
-      ? 'Description and lore are original to Fabled Campaigns. Listed sources were consulted for facts and are not quoted.'
-      : 'Description and lore are original to Fabled Campaigns.';
+  if (lore.sources.length === 0) return null;
 
   return (
     <section style={{ marginTop: '1rem' }}>
-      {lore.sources.length > 0 && (
-        <>
-          <h2 style={headingStyle}>Sources</h2>
-          <ol
-            style={{
-              listStyle: 'decimal',
-              paddingLeft: '1.5rem',
-              marginBottom: '0.75rem',
-              color: 'var(--neutral-700)',
-            }}
+      <h2 style={headingStyle}>Sources</h2>
+      <ol
+        style={{
+          listStyle: 'decimal',
+          paddingLeft: '1.5rem',
+          marginBottom: '0.75rem',
+          color: 'var(--neutral-700)',
+        }}
+      >
+        {lore.sources.map((source, i) => (
+          <li
+            key={`${i}-${source.url}`}
+            id={`source-${i + 1}`}
+            style={{ marginBottom: '0.375rem', scrollMarginTop: '1rem', fontSize: '0.9375rem' }}
           >
-            {lore.sources.map((source, i) => (
-              <li
-                key={`${i}-${source.url}`}
-                id={`source-${i + 1}`}
-                style={{ marginBottom: '0.375rem', scrollMarginTop: '1rem', fontSize: '0.9375rem' }}
-              >
-                {source.author && `${source.author}, `}
-                <a
-                  href={source.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ color: 'var(--primary-blue)' }}
-                >
-                  {source.title}
-                </a>
-                {/[.?!]$/.test(source.title) ? ' ' : '. '}
-                {source.publisher}. {source.license}. Accessed {formatAccessed(source.accessed)}.
-              </li>
-            ))}
-          </ol>
-        </>
-      )}
-      <p style={{ color: 'var(--neutral-600)', fontSize: '0.875rem', fontStyle: 'italic' }}>
-        {notice}
-      </p>
+            {source.author && `${source.author}, `}
+            <a
+              href={source.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: 'var(--primary-blue)' }}
+            >
+              {source.title}
+            </a>
+            {/[.?!]$/.test(source.title) ? ' ' : '. '}
+            {source.publisher}. {source.license}. Accessed {formatAccessed(source.accessed)}.
+          </li>
+        ))}
+      </ol>
     </section>
   );
 }
