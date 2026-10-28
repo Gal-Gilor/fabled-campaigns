@@ -104,11 +104,11 @@ original. The lore can mention the myth as the source of the name, with a source
 | Ghoul | Monsters | 1 | myth | Arabian folklore | |
 | Giant Ape | Animals | 1 | animal | Fantasy version; facts from the real ape | |
 | Giant Badger | Animals | 1 | animal | Fantasy version; facts from the real badger | |
-| Giant Bat | Animals | 1 | animal | Fantasy version; facts from the real bat | |
-| Giant Boar | Animals | 1 | animal | Fantasy version; facts from the real boar | |
-| Giant Centipede | Animals | 1 | animal | Fantasy version; facts from the real centipede | |
+| Giant Bat | Animals | 1 | animal | Fantasy version; facts from the real bat | Yes |
+| Giant Boar | Animals | 1 | animal | Fantasy version; facts from the real boar | Yes |
+| Giant Centipede | Animals | 1 | animal | Fantasy version; facts from the real centipede | Yes |
 | Giant Constrictor Snake | Animals | 1 | animal | Fantasy version; facts from the real constrictor snake | Yes |
-| Giant Crab | Animals | 1 | animal | Fantasy version; facts from the real crab | |
+| Giant Crab | Animals | 1 | animal | Fantasy version; facts from the real crab | Yes |
 | Giant Crocodile | Animals | 1 | animal | Fantasy version; facts from the real crocodile | Yes |
 | Giant Eagle | Animals | 1 | animal | Fantasy version; facts from the real eagle | Yes |
 | Giant Elk | Animals | 1 | animal | Fantasy version; facts from the real elk | Yes |
@@ -118,18 +118,18 @@ original. The lore can mention the myth as the source of the name, with a source
 | Giant Hyena | Animals | 1 | animal | Fantasy version; facts from the real hyena | |
 | Giant Lizard | Animals | 1 | animal | Fantasy version; facts from the real lizard | Yes |
 | Giant Octopus | Animals | 1 | animal | Fantasy version; facts from the real octopus | Yes |
-| Giant Owl | Animals | 1 | animal | Fantasy version; facts from the real owl | |
-| Giant Rat | Animals | 1 | animal | Fantasy version; facts from the real rat | |
-| Giant Scorpion | Animals | 1 | animal | Fantasy version; facts from the real scorpion | |
-| Giant Seahorse | Animals | 1 | animal | Fantasy version; facts from the real seahorse | |
+| Giant Owl | Animals | 1 | animal | Fantasy version; facts from the real owl | Yes |
+| Giant Rat | Animals | 1 | animal | Fantasy version; facts from the real rat | Yes |
+| Giant Scorpion | Animals | 1 | animal | Fantasy version; facts from the real scorpion | Yes |
+| Giant Seahorse | Animals | 1 | animal | Fantasy version; facts from the real seahorse | Yes |
 | Giant Shark | Animals | 1 | animal | Fantasy version; facts from the real shark | Yes |
-| Giant Spider | Animals | 1 | animal | Fantasy version; facts from the real spider | |
+| Giant Spider | Animals | 1 | animal | Fantasy version; facts from the real spider | Yes |
 | Giant Toad | Animals | 1 | animal | Fantasy version; facts from the real toad | Yes |
 | Giant Venomous Snake | Animals | 1 | animal | Fantasy version; facts from the real venomous snake | Yes |
-| Giant Vulture | Animals | 1 | animal | Fantasy version; facts from the real vulture | |
+| Giant Vulture | Animals | 1 | animal | Fantasy version; facts from the real vulture | Yes |
 | Giant Wasp | Animals | 1 | animal | Fantasy version; facts from the real wasp | Yes |
 | Giant Weasel | Animals | 1 | animal | Fantasy version; facts from the real weasel | Yes |
-| Giant Wolf Spider | Animals | 1 | animal | Fantasy version; facts from the real wolf spider | |
+| Giant Wolf Spider | Animals | 1 | animal | Fantasy version; facts from the real wolf spider | Yes |
 | Gibbering Mouther | Monsters | 1 | original |  | |
 | Glabrezu | Monsters | 1 | original |  | |
 | Gladiator | Monsters | 1 | history | Roman games | |

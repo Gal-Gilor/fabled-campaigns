@@ -370,6 +370,51 @@
       }
     ]
   },
+  "Giant Bat": {
+    "description": "A huge bat with a fox-like face, long pointed ears and wings spanning a meter and a half.[1]",
+    "lore": "The large flying fox is one of the biggest bats in the world.[1] Flying foxes live in noisy colonies that can number in the thousands, roosting by day in tall trees above the forest, and their claws strip the bark and leaves from roost trees they use for years.[1]\n\nAt sunset they fly out to feed, some traveling 50 kilometers in a night, and they return at dawn.[1] Unlike most bats, they find their way by sight rather than by echolocation.[1] They eat fruit, flowers and nectar, slicing into fruit with their teeth and lapping up juice and nectar with long tongues, and a flying fox can eat half its own weight in fruit in a day.[1] They are silent in flight but loud while feeding and when they return to the roost.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Pteropus vampyrus (large flying fox)",
+        "author": "Kelsie Norton",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Pteropus_vampyrus/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Giant Boar": {
+    "description": "A massive, bristly, slate-gray hog with a broad head, big pointed ears and tusks that flare outward.[1]",
+    "lore": "The giant forest hog stands about a meter tall and nearly two meters long.[1] It keeps to dense thickets and forest near water and comes out into clearings and grassland to feed, mostly at night. It lives in groups of six to fourteen, led by a male.[1]\n\nUnlike other pigs, it can't root with its snout. It digs with its tusks for roots and minerals and otherwise grazes on grass and plants, eating carrion or eggs now and then.[1] It is shy and seldom seen, and much about it is still unknown.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Hylochoerus meinertzhageni (giant forest hog)",
+        "author": "Barbara Lundrigan",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Hylochoerus_meinertzhageni/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Giant Centipede": {
+    "description": "A long, flat, many-legged hunter with spiny back legs and a pair of venomous fangs in front.[1]",
+    "lore": "Giant centipedes live in the tropical forests of northern South America, hiding under rocks and in damp soil because they dry out easily.[1] They are fierce hunters. Their front legs are fangs that carry venom, and they eat crickets, worms, snails and roaches, and even lizards, toads and mice.[1]\n\nEach segment of the body carries one pair of legs, and the spiny rear legs help fend off attackers.[1] A mother guards her eggs and stays with her young until they can feed themselves.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Scolopendra gigantea (Amazonian giant centipede)",
+        "author": "Catherine Meshew",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Scolopendra_gigantea/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Giant Constrictor Snake": {
     "description": "An immense olive-green snake with dark oval spots, up to nine meters long and thirty centimeters thick.[1]",
     "lore": "The green anaconda is one of the largest snakes in the world. Females are far bigger than males and can weigh 250 kilograms.[1] It lives in the rivers, streams and flooded grasslands of northern South America and spends most of its time in the water, with its eyes and nose on top of its head so it can see and breathe while swimming.[1]\n\nIt has no venom. It seizes prey in its jaws and squeezes it in its coils until it can't breathe, then swallows it whole.[1] Young anacondas eat fish, birds and small mammals, while adults take deer, capybara, caimans and large birds, and a female will sometimes eat a male.[1] It finds prey by tasting the air with its tongue, by feeling vibrations, and with heat-sensing pits on its upper lip.[1]",
@@ -379,6 +424,21 @@
         "title": "Green anaconda",
         "publisher": "Smithsonian's National Zoo and Conservation Biology Institute",
         "url": "https://nationalzoo.si.edu/animals/green-anaconda",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Giant Crab": {
+    "description": "A crab with a pear-shaped shell and spindly legs so long that a big one measures nearly four meters from claw tip to claw tip.[1]",
+    "lore": "The Japanese spider crab is the largest arthropod alive. Its shell is only about 37 centimeters long, but its legs give it a reach of nearly four meters.[1] It lives on the sandy, rocky sea floor, usually 150 to 300 meters down, and moves into shallower water to spawn.[1]\n\nIt is a slow, calm scavenger that cannot swim. It crawls along the bottom picking at dead and rotting plants and animals, eats some kelp, and now and then catches small, slow animals.[1] Sailors once told tales of these crabs dragging men under the water to eat them.[1] Young spider crabs disguise themselves with sponges and seaweed, but adults are too big to need it.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Macrocheira kaempferi (Japanese spider crab)",
+        "author": "William Riebel",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Macrocheira_kaempferi/",
         "license": "All rights reserved",
         "accessed": "2026-10-28"
       }
@@ -472,6 +532,66 @@
       }
     ]
   },
+  "Giant Owl": {
+    "description": "The largest owl in the world, brown and tawny with prominent ear tufts and huge orange eyes.[1]",
+    "lore": "The Eurasian eagle-owl is the largest owl alive.[1] It lives in forests, deserts, mountains and farmland, and it prefers rocky country, especially for nesting.[1] It hunts mostly at night, taking prey in the air or on the ground, and its wings make almost no sound, so its prey rarely knows it is coming.[1]\n\nIt eats almost anything it can catch: rats, mice, voles and beetles, crows and ducks, other owls, and even foxes and young deer.[1] Eagle-owls live alone and defend their territories fiercely.[1] They are heard far more often than seen, and an eagle-owl can judge a rival's size and distance from the strength of its call.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Bubo bubo (Eurasian eagle-owl)",
+        "author": "Jessie Cantrell",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Bubo_bubo/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Giant Rat": {
+    "description": "A rat almost a meter long from nose to tail tip, with coarse brown fur, dark rings around its eyes and cheek pouches that stretch to hold great loads of food.[1]",
+    "lore": "The Gambian pouched rat is one of the giant pouched rats of Africa.[1] It can't bear the heat of the day, so it sleeps in tunnels or hollow trees and comes out at night to forage.[1]\n\nIt is a hoarder. It stuffs its cheek pouches with as much food as they will hold, from fruit, nuts and roots to termites and snails, and carries it home.[1] It screeches to communicate, and it sometimes moves into towns, where it can become a pest.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Cricetomys gambianus (Gambian pouched rat)",
+        "author": "Michael S. Joo",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Cricetomys_gambianus/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Giant Scorpion": {
+    "description": "A big, glossy black scorpion with two huge pincers and a long tail ending in a stinger.[1]",
+    "lore": "The emperor scorpion is one of the largest scorpions in the world, about 20 centimeters long.[1] It lives in hot, humid forests, burrowing under leaf litter, along stream banks and even in termite mounds, and termites are its main food.[1] It comes out only after dark. Its eyesight is very poor, so it senses its surroundings and its prey through hairs on its body and comb-like organs underneath.[1]\n\nA grown emperor scorpion rarely stings its prey. It tears it apart with its powerful pincers instead, and only the young rely on their stings.[1] For all its fierce looks it is timid, and it would rather flee than fight unless it is cornered.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Pandinus imperator (emperor scorpion)",
+        "author": "Cheryl Li and Sahil Parikh",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Pandinus_imperator/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Giant Seahorse": {
+    "description": "The largest seahorse, up to 35 centimeters long, with a long, toothless snout, eyes that move independently and a curling tail it uses to hold on.[1]",
+    "lore": "The pot-bellied seahorse is the largest seahorse known.[1] It lives in shallow coastal waters, in reefs, bays, harbors and rock pools, anchoring itself to plants, coral or sponges with its curling tail.[1] It is most active at dusk and at night, feeding on tiny shrimp and other small crustaceans.[1]\n\nThe male carries the young in a pouch on his belly. He gives birth at night, most often under a full moon.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Hippocampus abdominalis (pot-bellied seahorse)",
+        "author": "Natalie May",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Hippocampus_abdominalis/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Giant Shark": {
     "description": "A shark of colossal size, far bigger than any shark alive, with serrated teeth as long as a hand.[1]",
     "lore": "Megalodon, whose name means \"large tooth\", was the largest shark that ever lived and one of the largest fish of all time. It ruled the seas for nearly 20 million years and died out about 3.6 million years ago.[1] A recent study suggests it may have grown to more than 24 meters long, about four times the length of the biggest great white, and weighed up to 94 tonnes.[1]\n\nIt ate meat: most likely whales, large fish and other sharks. Fossil whale bones carry the cut marks of its teeth, and some still hold the tips of teeth that snapped off as it fed.[1] Its jaws may have opened nearly three and a half meters wide, enough to swallow two grown people side by side.[1]\n\nIts teeth reach nearly 18 centimeters long, more than three times the size of a great white's. Megalodon was long pictured as a giant great white, but it may have been a much slimmer shark.[1]",
@@ -482,6 +602,28 @@
         "author": "Josh Davis",
         "publisher": "Natural History Museum, London",
         "url": "https://www.nhm.ac.uk/discover/megalodon--the-truth-about-the-largest-shark-that-ever-lived.html",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Giant Spider": {
+    "description": "A huge, hairy, brown-black spider with legs spanning nearly 30 centimeters and fangs it strikes downward to stab its prey.[1][2]",
+    "lore": "The Goliath bird-eating tarantula is the heaviest spider in the world, and females can weigh about 100 grams.[2] It lives in silk-lined burrows in the rainforests of northern South America.[1] Despite its name it rarely eats birds. It feeds mostly on insects, with frogs, mice and other small animals now and then.[1][2] Its eyesight is poor, so it senses prey through vibrations picked up by sensitive hairs on its legs.[2]\n\nThreatened, it rubs its hairs together to make a hiss that can be heard about five meters away, rears up to show its fangs, and flicks stinging hairs from its abdomen at its attacker.[1][2]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Goliath bird-eating tarantula",
+        "publisher": "Smithsonian's National Zoo and Conservation Biology Institute",
+        "url": "https://nationalzoo.si.edu/animals/goliath-bird-eating-tarantula",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "The world's most extreme spiders",
+        "author": "Katie Spence",
+        "publisher": "Natural History Museum, London",
+        "url": "https://www.nhm.ac.uk/discover/the-worlds-most-extreme-spiders.html",
         "license": "All rights reserved",
         "accessed": "2026-10-28"
       }
@@ -517,6 +659,21 @@
       }
     ]
   },
+  "Giant Vulture": {
+    "description": "A huge black vulture with a bare head, a white collar of down and white patches on wings spanning more than three meters.[1]",
+    "lore": "The Andean condor has the longest wingspan of any land bird, more than three meters, and can weigh up to 15 kilograms.[1] It lives high in the Andes of South America, nesting and roosting on cliff ledges and in caves, and it rides the warm air rising off the cliffs to soar for hours with hardly a wingbeat, scanning the ground for carrion.[1]\n\nCondors find food by sight, while the smaller vultures that share their skies find it by smell. The two often feed together: the condor tears open the tough hide of a carcass, and the smaller vultures eat what it leaves.[1] Condors are thought to mate for life, and many may gather at a shared roost. Nearly two hundred have been seen together in Patagonia.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Vultur gryphus (Andean condor)",
+        "author": "Travis Kidd",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Vultur_gryphus/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Giant Wasp": {
     "description": "The largest hornet in the world, with queens more than five centimeters long and a venomous sting.[1]",
     "lore": "The Asian giant hornet is the largest hornet in the world.[1] It lives in colonies that nest underground, in holes it digs or takes over from small rodents, or in hollow trees.[1] Workers hunt beetles, mantises and caterpillars, and this is the only wasp known to stage group attacks on beehives and other wasps' nests. Twenty or thirty hornets can kill as many as 25,000 honeybees in a few hours.[1]\n\nThey mark a target hive with scent to call their nestmates to the attack, and they chew their prey into balls to carry home to their young.[1] When threatened they click their jaws as a warning before they sting. In Japan their stings kill an estimated 30 to 50 people a year.[1]",
@@ -543,6 +700,28 @@
         "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
         "url": "https://animaldiversity.org/accounts/Gulo_gulo/",
         "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Giant Wolf Spider": {
+    "description": "A big, hairy, dark gray spider with pale stripes down its back that hunts on the ground without a web.[1][2]",
+    "lore": "Wolf spiders don't spin webs to catch food. They hunt. The rabid wolf spider, one of the most common spiders in the United States, sits motionless watching for movement, then overpowers its prey. It eats crickets, grasshoppers, ants and even other spiders, and it is not easily scared off by bigger animals.[1] The Hawaiian wolf spider has been seen climbing brush and leaping off to catch insects in midair.[2]\n\nWolf spiders look after their young. A female Hawaiian wolf spider carries her spiderlings on her back for several weeks after they hatch.[2] The rabid wolf spider has a fearsome name and a bite many people dread, but it is harmless to people.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Rabidosa rabida (rabid wolf spider)",
+        "author": "Justin Scarborough",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Rabidosa_rabida/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Insects, Arachnids & Arthropods",
+        "publisher": "U.S. National Park Service (Haleakalā National Park)",
+        "url": "https://www.nps.gov/hale/learn/nature/insects-arachnids-arthropods.htm",
+        "license": "Public domain (U.S. government work)",
         "accessed": "2026-10-28"
       }
     ]
