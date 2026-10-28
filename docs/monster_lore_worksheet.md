@@ -33,7 +33,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Balor | Monsters | 1 | original | Irish myth (name only; Balor of the Evil Eye is a Fomorian king) | |
 | Bandits | Monsters | 2 | original | Generic role | |
 | Barbed Devil | Monsters | 1 | original |  | |
-| Basilisk | Monsters | 1 | myth | Pliny, Natural History | |
+| Basilisk | Monsters | 1 | myth | Pliny, Natural History | Yes |
 | Bat | Animals | 1 | animal |  | Yes |
 | Bearded Devil | Monsters | 1 | original |  | |
 | Behir | Monsters | 1 | original |  | |
@@ -55,7 +55,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Cat | Animals | 1 | animal |  | Yes |
 | Centaur | Monsters | 1 | myth | Greek myth | |
 | Chain Devil | Monsters | 1 | original |  | |
-| Chimera | Monsters | 1 | myth | Homer, Hesiod | |
+| Chimera | Monsters | 1 | myth | Homer, Hesiod | Yes |
 | Chuul | Monsters | 1 | original |  | |
 | Clay Golem | Monsters | 1 | myth | Jewish folklore (the Golem of Prague) | |
 | Cloaker | Monsters | 1 | original |  | |
@@ -158,7 +158,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Homunculus | Monsters | 1 | myth | Alchemy, Paracelsus | |
 | Horned Devil | Monsters | 1 | original |  | |
 | Hunter Shark | Animals | 1 | animal |  | Yes |
-| Hydra | Monsters | 1 | myth | Hesiod, the Labors of Heracles | |
+| Hydra | Monsters | 1 | myth | Hesiod, the Labors of Heracles | Yes |
 | Hyena | Animals | 1 | animal |  | Yes |
 | Ice Devil | Monsters | 1 | original |  | |
 | Imp | Monsters | 1 | myth | European folklore | |
@@ -181,7 +181,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Manticore | Monsters | 1 | myth | Ctesias via Pliny | |
 | Marilith | Monsters | 1 | original |  | |
 | Mastiff | Animals | 1 | animal |  | Yes |
-| Medusa | Monsters | 1 | myth | Hesiod, Ovid | |
+| Medusa | Monsters | 1 | myth | Hesiod, Ovid | Yes |
 | Mephits | Monsters | 4 | original |  | |
 | Merfolk | Monsters | 1 | myth | Folklore worldwide | |
 | Merrow | Monsters | 1 | myth | Irish folklore | |
@@ -201,7 +201,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Owl | Animals | 1 | animal |  | Yes |
 | Owlbear | Monsters | 1 | original | Real-world origin: a plastic toy | |
 | Panther | Animals | 1 | animal |  | Yes |
-| Pegasus | Monsters | 1 | myth | Hesiod, Ovid | |
+| Pegasus | Monsters | 1 | myth | Hesiod, Ovid | Yes |
 | Phase Spider | Monsters | 1 | original |  | |
 | Piranha | Animals | 1 | animal |  | Yes |
 | Pirates | Monsters | 2 | history | Historical piracy | |
@@ -264,7 +264,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Triceratops | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
 | Troll | Monsters | 2 | myth | Norse and Scandinavian folklore | |
 | Tyrannosaurus Rex | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
-| Unicorn | Monsters | 1 | myth | Ctesias, Pliny, medieval bestiaries | |
+| Unicorn | Monsters | 1 | myth | Ctesias, Pliny, medieval bestiaries | Yes |
 | Vampires | Monsters | 3 | myth | Eastern European folklore | |
 | Venomous Snake | Animals | 1 | animal |  | Yes |
 | Vrock | Monsters | 1 | original |  | |

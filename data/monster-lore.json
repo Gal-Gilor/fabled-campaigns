@@ -107,6 +107,21 @@
       }
     ]
   },
+  "Basilisk": {
+    "description": "A small serpent with a white mark on its head like a crown, so deadly that it withers plants and splits stones.[1]",
+    "lore": "Pliny the Elder wrote that the basilisk came from the province of Cyrene. It was no longer than twelve fingers, with a white spot on its head like a crown, and like the catoblepas it could kill with a look.[1] When it hissed, every other snake fled, and instead of crawling in coils it moved along with its body raised upright.[1]\n\nIt killed shrubs by touching them or even breathing on them, scorched the grass and broke stones.[1] People once believed that if a rider speared a basilisk, the poison would run up the spear and kill both the rider and his horse.[1]\n\nIts one weakness was the weasel. A weasel thrown into a basilisk's hole, easy to find by the blighted ground around it, killed the basilisk with its smell and died itself in the struggle.[1]",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Natural History, book 8, chapter 33: The serpents called basilisks",
+        "author": "Pliny the Elder, translated by John Bostock and H. T. Riley (1855)",
+        "publisher": "Perseus Digital Library, Tufts University",
+        "url": "https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.02.0137:book=8:chapter=33",
+        "license": "Public domain translation; Perseus edition CC BY-SA 3.0 US",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Bat": {
     "description": "A small flying mammal with wings of thin skin stretched between long finger bones, darting through the dusk after insects.[1]",
     "lore": "Bats are the only mammals that truly fly. A bat's wing is like a hand with long fingers and thin, flexible skin stretched between them, which makes bats nimble in the air.[1] At dawn and dusk they swoop and twist after insects, catching them in flight in near darkness.[1]\n\nWhen the cold drives the insects away, some bats hibernate and some fly to warmer places. In hibernation a bat's heart slows from hundreds of beats a minute to about ten, it may go minutes without a breath, and its body can cool to near freezing.[2] Some sleep this way for more than six months, waiting for the insects to return in spring.[2]\n\nBats are not blind. They see well, and some of the large fruit-eating bats see three times better than people.[3] Vampire bats are real: they live in Latin America and feed on the blood of cattle and other large animals, which often don't notice them.[3] For their size, bats live a long time, some up to 35 years.[3]",
@@ -211,6 +226,21 @@
         "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
         "url": "https://animaldiversity.org/accounts/Felis_catus/",
         "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Chimera": {
+    "description": "A fire-breathing monster with three heads: a lion's in front, a goat's in the middle and a serpent's behind.[1]",
+    "lore": "The Chimera was born of Echidna, the mother of monsters. It was huge, fast and strong, a creature to be feared, and it breathed out a blast of raging fire.[1]\n\nThe hero Bellerophon killed it with the help of the winged horse Pegasus, who carried him through the air as swiftly as the wind.[1]",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "Theogony, in Hesiod, the Homeric Hymns, and Homerica",
+        "author": "Hesiod, translated by Hugh G. Evelyn-White (1914)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/348",
+        "license": "Public domain",
         "accessed": "2026-10-28"
       }
     ]
@@ -856,6 +886,29 @@
       }
     ]
   },
+  "Hydra": {
+    "description": "A huge serpent with nine heads that grows two new heads for every one cut off.[2]",
+    "lore": "The Hydra of Lerna was a child of the monster Echidna, and the goddess Hera raised it out of anger at Heracles.[1] It lived in the swamp of Lerna and came out to ravage the cattle and the countryside. It had a huge body and nine heads, and eight of them could die, but the middle one was immortal.[2]\n\nKilling it was the second labor of Heracles. He drove it out of its den with burning arrows and seized it, but it coiled around his foot, and each head he smashed grew back as two. A giant crab came to the Hydra's aid and bit his foot.[2]\n\nHis companion Iolaus burned the stumps of the necks with torches so no new heads could grow, and Heracles cut off the immortal head and buried it under a heavy rock beside the road. He slit open the body and dipped his arrows in its gall.[2]",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "Theogony, in Hesiod, the Homeric Hymns, and Homerica",
+        "author": "Hesiod, translated by Hugh G. Evelyn-White (1914)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/348",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "The Library, book 2, chapter 5, section 2",
+        "author": "Apollodorus, translated by Sir James George Frazer (1921)",
+        "publisher": "Perseus Digital Library, Tufts University",
+        "url": "https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0022:text=Library:book=2:chapter=5:section=2",
+        "license": "Public domain translation; Perseus edition CC BY-SA 3.0 US",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Hyena": {
     "description": "A strongly built, spotted hunter with a massive neck, rounded ears, a back that slopes down from the shoulders and some of the strongest jaws of any mammal.[1]",
     "lore": "Hyenas are known as scavengers, but the spotted hyena does most of its own killing. In one study, seven of every ten meals were animals it had hunted itself.[1] It hunts in small groups, or larger ones for zebra, and eats almost anything, from wildebeest and buffalo to ostrich eggs, porcupines and termites.[1]\n\nSpotted hyenas live in clans of up to 80. Females rule: every female outranks every male, daughters stay in the clan for life, and males leave to join other clans, where they must wait their turn for rank.[1]\n\nThey are noisy. A whoop calls the clan together, a fast whoop rings out at a kill, and the famous giggle, the hyena's \"laugh\", comes from a hyena that is scared or excited, often while it is being chased.[1] Lions are their great rivals. The two often steal each other's kills, and their fights can end in death.[1]",
@@ -979,6 +1032,29 @@
       }
     ]
   },
+  "Medusa": {
+    "description": "A woman whose hair is a mass of living snakes and whose gaze turns anyone who meets it to stone.[2]",
+    "lore": "Medusa was one of the three Gorgons, sisters who lived beyond the ocean at the edge of the world, toward the land of night. Her sisters Stheno and Euryale could neither die nor grow old, but Medusa was mortal.[1]\n\nOvid tells that she was once a famous beauty, admired above all for her hair, until the god of the sea assaulted her in the temple of Minerva. The goddess punished Medusa by turning that hair into hideous snakes.[2] Around her lair stood men and beasts turned to stone by the sight of her.[2]\n\nThe hero Perseus found her by stealing the single eye shared by the two Gray Sisters. He looked at her only in the reflection of his bronze shield, and while Medusa and her snakes slept, he cut off her head.[2] From her neck sprang the winged horse Pegasus and the giant Chrysaor.[1][2] As Perseus flew home over the deserts of Libya, drops of her blood fell to the ground and became snakes, which is why, Ovid says, that land is full of them.[2]",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "Theogony, in Hesiod, the Homeric Hymns, and Homerica",
+        "author": "Hesiod, translated by Hugh G. Evelyn-White (1914)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/348",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "The Metamorphoses of Ovid, Books I-VII",
+        "author": "Ovid, translated by Henry T. Riley (1851)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/21765",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Mule": {
     "description": "A sturdy cross between a horse and a donkey, with long ears, small hooves and great endurance.[1]",
     "lore": "A mule is the offspring of a female horse and a male donkey. From the donkey it gets intelligence, long ears and small, sure-footed hooves, and from the horse a willing nature, endurance and strength.[1] George Washington bred mules at Mount Vernon from his best mares.[1]\n\nIn the 1800s mules were the \"engines\" of the Chesapeake and Ohio Canal, towing boats loaded with goods and people, and two to three thousand worked the canal each year.[1][2] Boat captains preferred them to horses. Mules cost less, fell sick and got hurt less often, had tougher skin and were less likely to stumble.[2] A team of two or three mules could tow a 140-ton boat for about eight hours, then rest in a stable on the boat while another team took over.[2] Canal workers named their mules and often treated them like pets.[2]",
@@ -1048,6 +1124,29 @@
         "publisher": "U.S. Fish and Wildlife Service",
         "url": "https://www.fws.gov/species/florida-panther-puma-concolor-coryi",
         "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Pegasus": {
+    "description": "A winged horse that sprang from the neck of the Gorgon Medusa when the hero Perseus cut off her head.[1]",
+    "lore": "Pegasus was born when Perseus beheaded Medusa. Hesiod says his name comes from the springs of the Ocean, near which he was born.[1] He left the earth for the home of the gods, and he lives in the house of Zeus and carries the god's thunder and lightning.[1]\n\nBefore that, he carried the hero Bellerophon, flying tirelessly over land and sea as fast as the wind, and together they killed the fire-breathing Chimera.[1]\n\nWhere his hoof struck Mount Helicon, the home of the Muses, a new spring burst from the rock, the spring called Hippocrene, and the goddess Minerva came to see it.[2]",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "Theogony, in Hesiod, the Homeric Hymns, and Homerica",
+        "author": "Hesiod, translated by Hugh G. Evelyn-White (1914)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/348",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "The Metamorphoses of Ovid, Books I-VII",
+        "author": "Ovid, translated by Henry T. Riley (1851)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/21765",
+        "license": "Public domain",
         "accessed": "2026-10-28"
       }
     ]
@@ -1478,6 +1577,21 @@
         "publisher": "Natural History Museum, London",
         "url": "https://www.nhm.ac.uk/discover/dino-directory/tyrannosaurus.html",
         "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Unicorn": {
+    "description": "A fierce, swift beast with a horse's body and a single long horn growing from the middle of its forehead.[1]",
+    "lore": "Ancient writers placed the one-horned beast in India. Pliny the Elder called it the monoceros, the \"one-horn\", and described it as very fierce, with the head of a stag, the feet of an elephant, the tail of a boar and the body of a horse.[1] It gave a deep lowing cry, and from the middle of its forehead grew a single black horn two cubits long.[1] It could not, he said, be taken alive.[1]",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Natural History, book 8, chapter 31: The terrestrial animals of India",
+        "author": "Pliny the Elder, translated by John Bostock and H. T. Riley (1855)",
+        "publisher": "Perseus Digital Library, Tufts University",
+        "url": "https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.02.0137:book=8:chapter=31",
+        "license": "Public domain translation; Perseus edition CC BY-SA 3.0 US",
         "accessed": "2026-10-28"
       }
     ]
