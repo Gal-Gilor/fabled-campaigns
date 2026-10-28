@@ -10,7 +10,7 @@ import { MonsterCard } from '@/app/components/wiki/monster-card';
 
 export const metadata: Metadata = pageMetadata(
   'Monsters | Fabled Campaigns Wiki',
-  'Browse D&D 5e SRD monsters and animals by category, creature type and challenge rating.',
+  'Browse 5e SRD monsters and animals by category, creature type and challenge rating.',
   '/wiki/monsters',
   '/opengraph-image'
 );

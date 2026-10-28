@@ -10,7 +10,7 @@ import { MagicItemCard } from '@/app/components/wiki/magic-item-card';
 
 export const metadata: Metadata = pageMetadata(
   'Magic Items | Fabled Campaigns Wiki',
-  'Browse D&D 5e SRD magic items by rarity and type.',
+  'Browse 5e SRD magic items by rarity and type.',
   '/wiki/magic-items',
   '/opengraph-image'
 );

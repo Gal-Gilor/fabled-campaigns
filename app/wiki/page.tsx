@@ -7,7 +7,7 @@ import { pageMetadata } from '@/app/lib/pageMetadata';
 
 export const metadata: Metadata = pageMetadata(
   'Wiki | Fabled Campaigns',
-  'Browse D&D 5e SRD monsters and magic items as reference cards. No account required.',
+  'Browse 5e SRD monsters and magic items as reference cards. No account required.',
   '/wiki',
   '/opengraph-image'
 );
@@ -59,7 +59,7 @@ export default async function WikiPage({
         Wiki
       </h1>
       <p style={{ color: 'var(--neutral-600)', marginBottom: '2rem' }}>
-        Magic items and monsters from the D&D 5e System Reference Document.
+        Magic items and monsters from the System Reference Document 5.2.1.
       </p>
 
       <form method="get" action="/wiki" style={{ marginBottom: '1.5rem' }}>

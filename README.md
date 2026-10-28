@@ -19,7 +19,7 @@ organized.
 
 ### Chat assistant
 
-A Gemini agent plays the role of a D&D 5e Dungeon Master. Replies stream into the chat. Anyone
+A Gemini agent plays the role of a fifth edition Game Master. Replies stream into the chat. Anyone
 can chat without an account. Signing in with Google saves sessions, collections, and maps.
 
 ### Encounter map generation
