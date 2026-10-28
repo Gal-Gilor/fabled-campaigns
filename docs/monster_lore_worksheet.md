@@ -39,15 +39,15 @@ original. The lore can mention the myth as the source of the name, with a source
 | Behir | Monsters | 1 | original |  | Yes |
 | Berserker | Monsters | 1 | history | Norse sagas | Yes |
 | Black Bear | Animals | 1 | animal |  | Yes |
-| Black Dragons | Monsters | 4 | original |  | |
+| Black Dragons | Monsters | 4 | original |  | Yes |
 | Black Pudding | Monsters | 1 | original |  | Yes |
 | Blink Dog | Monsters | 1 | original |  | Yes |
 | Blood Hawk | Animals | 1 | original | Invented for D&D; no real species | Yes |
-| Blue Dragons | Monsters | 4 | original |  | |
+| Blue Dragons | Monsters | 4 | original |  | Yes |
 | Boar | Animals | 1 | animal |  | Yes |
 | Bone Devil | Monsters | 1 | original |  | Yes |
-| Brass Dragons | Monsters | 4 | original |  | |
-| Bronze Dragons | Monsters | 4 | original |  | |
+| Brass Dragons | Monsters | 4 | original |  | Yes |
+| Bronze Dragons | Monsters | 4 | original |  | Yes |
 | Brown Bear | Animals | 1 | animal |  | Yes |
 | Bugbears | Monsters | 2 | myth | English folklore (bogeys) | Yes |
 | Bulette | Monsters | 1 | original | Real-world origin: a plastic toy | Yes |
@@ -63,7 +63,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Cockatrice | Monsters | 1 | myth | Medieval bestiaries | Yes |
 | Commoner | Monsters | 1 | original | Generic role | Yes |
 | Constrictor Snake | Animals | 1 | animal |  | Yes |
-| Copper Dragons | Monsters | 4 | original |  | |
+| Copper Dragons | Monsters | 4 | original |  | Yes |
 | Couatl | Monsters | 1 | myth | Aztec myth (Quetzalcoatl) | Yes |
 | Crab | Animals | 1 | animal |  | Yes |
 | Crawling Claw | Monsters | 1 | original |  | Yes |
@@ -136,10 +136,10 @@ original. The lore can mention the myth as the source of the name, with a source
 | Gnoll | Monsters | 1 | original | Lord Dunsany, gnoles (name only) | Yes |
 | Goat | Animals | 1 | animal |  | Yes |
 | Goblins | Monsters | 3 | myth | European folklore | Yes |
-| Gold Dragons | Monsters | 4 | original |  | |
+| Gold Dragons | Monsters | 4 | original |  | Yes |
 | Gorgon | Monsters | 1 | original | Greek myth (name only; the SRD gorgon is a metal bull) | Yes |
 | Gray Ooze | Monsters | 1 | original |  | Yes |
-| Green Dragons | Monsters | 4 | original |  | |
+| Green Dragons | Monsters | 4 | original |  | Yes |
 | Green Hag | Monsters | 1 | myth | English folklore (Jenny Greenteeth) | Yes |
 | Grick | Monsters | 1 | original |  | Yes |
 | Griffon | Monsters | 1 | myth | Greek and Near Eastern art, Pliny | Yes |
@@ -218,7 +218,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Rakshasa | Monsters | 1 | myth | Hindu epics | Yes |
 | Rat | Animals | 1 | animal |  | Yes |
 | Raven | Animals | 1 | animal |  | Yes |
-| Red Dragons | Monsters | 4 | original |  | |
+| Red Dragons | Monsters | 4 | original |  | Yes |
 | Reef Shark | Animals | 1 | animal |  | Yes |
 | Remorhaz | Monsters | 1 | original |  | Yes |
 | Rhinoceros | Animals | 1 | animal |  | Yes |
@@ -237,7 +237,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Shadow | Monsters | 1 | original |  | Yes |
 | Shambling Mound | Monsters | 1 | original |  | Yes |
 | Shield Guardian | Monsters | 1 | original |  | Yes |
-| Silver Dragons | Monsters | 4 | original |  | |
+| Silver Dragons | Monsters | 4 | original |  | Yes |
 | Skeletons | Monsters | 3 | original |  | Yes |
 | Solar | Monsters | 1 | original |  | Yes |
 | Specter | Monsters | 1 | original |  | Yes |
@@ -278,7 +278,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Wererat | Monsters | 1 | original |  | Yes |
 | Weretiger | Monsters | 1 | myth | South and Southeast Asian folklore | Yes |
 | Werewolf | Monsters | 1 | myth | European folklore, Ovid (Lycaon) | Yes |
-| White Dragons | Monsters | 4 | original |  | |
+| White Dragons | Monsters | 4 | original |  | Yes |
 | Wight | Monsters | 1 | myth | Norse draugr and haugbui | Yes |
 | Will-o'-Wisp | Monsters | 1 | myth | European folklore | Yes |
 | Winter Wolf | Monsters | 1 | original |  | Yes |

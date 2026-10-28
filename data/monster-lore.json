@@ -287,6 +287,12 @@
       }
     ]
   },
+  "Black Dragons": {
+    "description": "A cruel, black-scaled dragon that swims as well as it flies, spits a line of acid and calls clouds of stinging insects.",
+    "lore": "Black dragons are as much at home underwater as in the air. They lurk in deep, murky water with only their eyes above the surface, then burst out to seize their prey. A black dragon's breath is a stream of acid that eats through armor and flesh alike.\n\nOlder black dragons can call up swarms of biting insects, conjure arrows of acid and fill their enemies with terror. They enjoy fear, and they like to let a victim run before striking.\n\nPeople who live near a black dragon's waters learn to read the signs: dead fish floating belly up, reeds blackened and dissolved at the waterline, and silence where there should be frogs. Like all dragons, a black dragon grows for centuries, from a wyrmling no bigger than a large dog to an ancient beast that can darken a whole valley.",
+    "origin": "original",
+    "sources": []
+  },
   "Black Pudding": {
     "description": "A heaving mass of black, acidic slime that creeps along floors and ceilings and dissolves almost anything it touches.",
     "lore": "A black pudding looks like a pool of thick tar until it moves. It flows across stone, up walls and along ceilings, and it can squeeze through a crack no wider than a finger. Its body is acid, and it dissolves flesh, wood and metal alike.\n\nFighting one is a misery. Swords corrode as they strike it, and arrows dissolve as they hit. Worse, cutting a black pudding apart only makes more of them, each smaller piece crawling off on its own.\n\nOld tunnels where a black pudding has lived are strangely clean. The floors are smooth and bare, with no bones, no rust and no rot, because the pudding has eaten it all.",
@@ -302,6 +308,12 @@
   "Blood Hawk": {
     "description": "A lean hawk with rust-red feathers and a hooked beak that hunts in noisy flocks.",
     "lore": "Blood hawks nest on sea cliffs and high crags, and unlike most hawks they hunt together. A flock circles high over open ground, then drops all at once on a single animal, striking from every side until it falls.\n\nTheir name comes from the deep red of their feathers, though shepherds say it comes from what they leave behind. A flock that loses its fear of people will harass lone travelers and raid flocks of sheep and goats, and in some hill country a bounty is paid for every blood hawk killed.\n\nFalconers have tried to train them, with little success. A blood hawk will hunt for a handler, but only alongside others of its kind.",
+    "origin": "original",
+    "sources": []
+  },
+  "Blue Dragons": {
+    "description": "A proud, blue-scaled dragon that breathes a bolt of lightning, burrows into the ground to wait for prey and can turn invisible in flight.",
+    "lore": "Blue dragons breathe lightning, a crackling bolt that can strike a target far across open ground. They burrow into soft earth and sand and lie hidden until prey comes near, then burst out in a spray of grit.\n\nAn older blue dragon can vanish from sight while flying and shatter stone with a thunderous boom. Blue dragons are orderly and proud. They claim wide territories, set rules for the creatures that live in them and punish anyone who breaks those rules.\n\nTravelers in blue dragon country watch the weather closely. A blue dragon likes storms, and a thunderstorm on a clear day, with lightning striking the same hill again and again, means one is close.",
     "origin": "original",
     "sources": []
   },
@@ -323,6 +335,18 @@
   "Bone Devil": {
     "description": "A tall, gaunt devil with skin stretched over its bones, wings and a long tail ending in a venomous sting.",
     "lore": "A bone devil looks like a starved corpse, its skin pulled tight over a jutting skeleton. It flies on leathery wings and strikes with a scorpion-like tail, whose poison stops wounds from healing.\n\nBone devils are cold and patient hunters. A bone devil sent after a quarry will follow it for years, through cities and wildernesses, and it never forgets a face. Mortals who have angered the hells sometimes wake to find one perched outside the window.\n\nLike all devils, it cannot truly be killed outside the hells. Slay one in the mortal world and its body vanishes in a puff of sulfurous smoke, while the devil itself wakes again at home, whole and unforgiving.",
+    "origin": "original",
+    "sources": []
+  },
+  "Brass Dragons": {
+    "description": "A good-hearted, brass-scaled dragon that burrows in warm sand and breathes fire or a gas that puts its foes to sleep.",
+    "lore": "Brass dragons burrow into warm sand and dry earth to sleep, and their breath can be a line of fire or a cloud of gas that sends creatures into a deep sleep. A brass dragon would much rather put a foe to sleep than kill it. Older brass dragons can fling rays of fire and turn the ground beneath their enemies into scorching sand.\n\nBrass dragons can speak with animals and change the weather, and they use both gifts kindly. Herders in dry country tell of a brass dragon that brought rain to their valley in a drought year and asked for nothing but a song in return.\n\nA brass dragon keeps careful count of the favors it has done and the favors it is owed, and it does not forget either.",
+    "origin": "original",
+    "sources": []
+  },
+  "Bronze Dragons": {
+    "description": "A noble, bronze-scaled dragon of the sea, which breathes lightning or a blast of force that hurls enemies away.",
+    "lore": "Bronze dragons live along coasts and swim as easily as they fly. They breathe lightning, and they can also breathe a powerful blast that throws their enemies backward and knocks them down. Older bronze dragons can call down bolts of guiding light and burst the air with deafening thunder.\n\nBronze dragons are honorable and brave, with a strong sense of justice. They can talk with sea creatures and take the shape of a seal, a gull or a person, and they often visit coastal towns in disguise to see how the people there are treated.\n\nIn some fishing villages, the first fish of every season is left on a flat rock above the tide line, for the bronze dragon that may or may not be watching.",
     "origin": "original",
     "sources": []
   },
@@ -505,6 +529,12 @@
         "accessed": "2026-10-28"
       }
     ]
+  },
+  "Copper Dragons": {
+    "description": "A playful, copper-scaled dragon that climbs cliffs, breathes acid or a slowing gas, and uses magic that leaves its foes helpless with laughter.",
+    "lore": "Copper dragons are clever and full of mischief. They climb rocky cliffs and hillsides as easily as they fly, and their lairs are often high among the crags. A copper dragon's breath can be a stream of acid or a gas that makes its victims slow and clumsy.\n\nOlder copper dragons use strange magic. One spell fills a foe with uncontrollable giggles that ruin their aim, and another strikes straight into the mind. Copper dragons prefer to win fights with cleverness rather than strength, and they enjoy confusing their enemies.\n\nA copper dragon is good at heart, and it can heal terrible injuries and lift curses with its magic. Shepherds in copper dragon country say that a lost lamb often turns up safe on a high ledge where no lamb could have climbed.",
+    "origin": "original",
+    "sources": []
   },
   "Couatl": {
     "description": "A feathered serpent, a being of wisdom and goodness who brings peace and learning.[1]",
@@ -1557,6 +1587,12 @@
       }
     ]
   },
+  "Gold Dragons": {
+    "description": "A wise and powerful golden dragon that breathes fire or a weakening gas and can banish its enemies with a word.",
+    "lore": "Gold dragons are among the mightiest of all dragons, and among the most just. They swim as well as they fly, and their breath can be a blast of fire or a cloud of gas that saps the strength from those it touches. An older gold dragon can call down beams of guiding light and send an enemy away to a place outside the world for a time.\n\nGold dragons are patient, thoughtful and slow to act, but when they decide that something must be done, nothing can stop them. They oppose tyranny and cruelty wherever they find it.\n\nIn many lands, a golden scale is a sign of great luck. Some royal families claim that one of their ancestors was given such a scale by a gold dragon, and they keep it in their treasury to this day.",
+    "origin": "original",
+    "sources": []
+  },
   "Gorgon": {
     "description": "A huge, bull-like construct of overlapping metal plates, which charges with its horns and breathes a mist that turns flesh to stone.",
     "lore": "A gorgon looks like a great bull made of iron plates, with smoke curling from its nostrils. It was built, not born, though no one remembers by whom. Gorgons roam wild places and old ruins, and they attack anything that comes near.\n\nA gorgon charges headlong, goring its victims and trampling them when they fall. Worse is its breath, a choking mist that stiffens flesh and then turns it slowly to stone.\n\nThe land around a gorgon's haunt is full of statues: deer, wolves, shepherds and knights, frozen in mid-step. Some are said to have been there so long that moss covers their faces.",
@@ -1566,6 +1602,12 @@
   "Gray Ooze": {
     "description": "A slimy, gray puddle that looks like wet stone, which corrodes metal and lashes out at anything that touches it.",
     "lore": "Gray oozes lie in damp caves and sewers, looking like nothing more than wet rock or a puddle. When something steps close, the ooze lashes out, and its touch eats through flesh and metal.\n\nSwords and armor suffer badly against a gray ooze. A blade that strikes it pits and weakens, and armor touched by it can corrode through. Fire, cold and acid barely hurt it.\n\nOld miners say gray oozes grow wherever iron has been left to rust in the dark. Whether or not that is true, a pile of rusted tools in a damp corner is reason enough to walk around it.",
+    "origin": "original",
+    "sources": []
+  },
+  "Green Dragons": {
+    "description": "A cunning, green-scaled dragon that breathes clouds of poison gas and attacks the minds of its enemies.",
+    "lore": "Green dragons breathe a cloud of poison that withers plants and chokes anything that breathes it. They swim and fly well, and older green dragons can strike directly into a foe's mind and fill the air with a sickly mist that leaves their enemies weak and exposed.\n\nGreen dragons are cunning and patient, and they can bind a creature with a magical oath that it cannot break without suffering. A green dragon that spares a traveler may send them home under such an oath, to serve as its spy or messenger.\n\nWhere a green dragon lairs, the leaves turn yellow in midsummer and the birds fall silent.",
     "origin": "original",
     "sources": []
   },
@@ -2602,6 +2644,12 @@
       }
     ]
   },
+  "Red Dragons": {
+    "description": "A fearsome, red-scaled dragon that breathes a cone of fire and commands lesser creatures with the force of its will.",
+    "lore": "Red dragons are among the most feared of all dragons. Their breath is a roaring cone of fire hot enough to melt steel, and they climb mountains and cliffs as easily as they fly. An older red dragon can hurl rays of fire and command lesser creatures to obey it with a single word.\n\nRed dragons are proud, violent and greedy. They lair in high, rocky places and sleep on treasure taken from the towns they have burned.\n\nThe smoke from a red dragon's lair can be seen for miles. Whole kingdoms have paid tribute to keep a red dragon asleep, and many songs tell of the heroes who finally woke one up.",
+    "origin": "original",
+    "sources": []
+  },
   "Reef Shark": {
     "description": "A slender gray shark with a white belly, white tips on its fins and a short, broad snout.[1]",
     "lore": "Reef sharks live around tropical coral reefs, and each kind keeps to its own part of the reef. The blacktip reef shark keeps to the shallow coastal water, and the gray reef shark to the deep water off the reef edge.[1]\n\nBy day the whitetip reef shark rests in caves and deep cracks in the reef, often lying still on the bottom, which it can do because it pumps water over its gills without swimming. It returns to the same cave day after day for months.[1]\n\nAt night it changes. It becomes an aggressive hunter, thrashing through the reef for fish, sometimes together with other sharks, and it will wedge half its body into a crack to reach a fish hiding inside.[1] Whitetips are calm around divers but will fight spear fishers over a speared fish.[1]",
@@ -2826,6 +2874,12 @@
   "Shield Guardian": {
     "description": "A huge, magical construct bound to an amulet, which protects whoever wears it and can store a spell to release later.",
     "lore": "A shield guardian is a towering bodyguard of stone, metal and wood, built by powerful wizards. It is bound to an amulet, and whoever wears the amulet commands the guardian. It goes where it is called, follows orders given in any language and steps in front of attacks meant for its master.\n\nThe guardian can also hold a spell cast into it by the amulet's wearer and release it later on command. Its body mends itself as it fights, so it is very hard to stop.\n\nA shield guardian has no will of its own. If the amulet is stolen, the guardian serves the thief just as faithfully. Many wizards have been killed by their own guardians this way.",
+    "origin": "original",
+    "sources": []
+  },
+  "Silver Dragons": {
+    "description": "A noble, silver-scaled dragon that breathes freezing cold or a gas that leaves its foes paralyzed, and is friendly toward people.",
+    "lore": "Silver dragons fly through the high, cold places of the world. Their breath can be a blast of freezing cold or a cloud of gas that leaves their enemies frozen in place. Older silver dragons can hurl knives of ice and hold their foes still with a word.\n\nSilver dragons are kind and fair, and they can take the shape of a person or an animal. Some live among mortals in disguise for years, and they have a gift for magic that draws the truth from anyone who speaks near them.\n\nMany stories tell of a stranger who helped a village in its darkest hour and vanished the next morning, leaving behind a single silver scale.",
     "origin": "original",
     "sources": []
   },
@@ -3406,6 +3460,12 @@
         "accessed": "2026-10-28"
       }
     ]
+  },
+  "White Dragons": {
+    "description": "A savage, white-scaled dragon of ice and snow, which breathes freezing cold and moves easily across frozen ground.",
+    "lore": "White dragons live in the coldest places of the world. They burrow through snow, swim in icy water and climb frozen cliffs without slipping. Their breath is a blast of freezing cold, and older white dragons can freeze their enemies in place and fill them with terror.\n\nWhite dragons are driven by hunger, and they are deadly hunters. A white dragon can lie buried in a snowdrift for hours, and it bursts out in a spray of ice when prey walks over it.\n\nTravelers in white dragon country carry no bright colors and make no fires after dark. A white dragon is drawn to warmth and movement, and it can see both from very far away.",
+    "origin": "original",
+    "sources": []
   },
   "Wight": {
     "description": "One of the restless dead, who guards its treasure in a dark burial mound and fights anyone who breaks in.[1]",
