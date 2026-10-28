@@ -101,6 +101,34 @@
       }
     ]
   },
+  "Bat": {
+    "description": "A small flying mammal with wings of thin skin stretched between long finger bones, darting through the dusk after insects.[1]",
+    "lore": "Bats are the only mammals that truly fly. A bat's wing is like a hand with long fingers and thin, flexible skin stretched between them, which makes bats nimble in the air.[1] At dawn and dusk they swoop and twist after insects, catching them in flight in near darkness.[1]\n\nWhen the cold drives the insects away, some bats hibernate and some fly to warmer places. In hibernation a bat's heart slows from hundreds of beats a minute to about ten, it may go minutes without a breath, and its body can cool to near freezing.[2] Some sleep this way for more than six months, waiting for the insects to return in spring.[2]\n\nBats are not blind. They see well, and some of the large fruit-eating bats see three times better than people.[3] Vampire bats are real: they live in Latin America and feed on the blood of cattle and other large animals, which often don't notice them.[3] For their size, bats live a long time, some up to 35 years.[3]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "How Bats Fly",
+        "publisher": "U.S. National Park Service",
+        "url": "https://www.nps.gov/subjects/bats/how-bats-fly.htm",
+        "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Hibernate or Migrate",
+        "publisher": "U.S. National Park Service",
+        "url": "https://www.nps.gov/subjects/bats/hibernate-or-migrate.htm",
+        "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Myth Busters",
+        "publisher": "U.S. National Park Service",
+        "url": "https://www.nps.gov/subjects/bats/myth-busters.htm",
+        "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Black Bear": {
     "description": "A shy forest bear, usually black with a pale muzzle, though some are brown, cinnamon, blond or even creamy white.[1]",
     "lore": "Black bears live in thick woods and rough country across North America. Despite their size they eat mostly plants: grass in spring, berries in summer, and nuts, acorns and fruit in fall, when they put on fat for the winter.[1] Insects make up most of the meat they eat, and they take larger animals only when the chance comes.[1]\n\nThey are most active at dawn and dusk, and they spend the winter in dens, coming out in spring thin and hungry.[1] Bears that find people's food or garbage are drawn to it, and that is behind most trouble between black bears and people.[1]\n\nBlack bears are clever and curious, with a keen nose and a remarkable sense of direction.[1] They are usually timid around people, and a mother with cubs is far less likely to attack than a grizzly mother.[1]",
@@ -171,6 +199,35 @@
         "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
         "url": "https://animaldiversity.org/accounts/Felis_catus/",
         "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Constrictor Snake": {
+    "description": "A heavy-bodied snake with no venom that kills by wrapping its prey in its coils and squeezing.[1]",
+    "lore": "The boa constrictor is famous for its size, though other snakes grow far larger, and most are two to three meters long.[1] It hunts mostly from ambush, often hanging from a branch and striking fast at whatever passes below. It eats mainly small mammals, including bats, and birds, but it will take any animal it can catch and fit in its mouth.[1]\n\nA boa has no venom. It wraps its prey in its coils and squeezes until the animal can no longer breathe.[1] Boas live alone and are active at night or at dusk, though they bask in the sun when it is cool.[1] When a boa is about to shed its skin, its eyes turn cloudy and it often stays still until the old skin comes off.[1] Threatened, it bites.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Boa constrictor (boa constrictor)",
+        "author": "Laurel Lindemann",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Boa_constrictor/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Crab": {
+    "description": "A hard-shelled crustacean that grows by shedding its shell and growing a new one.[1]",
+    "lore": "The blue crab of the Atlantic coast has a Latin name that means \"beautiful savory swimmer\".[1] It eats almost anything: clams, oysters, mussels, smaller crustaceans, fresh dead fish, rotting plants and animals, and smaller blue crabs.[1] Large fish, herons and sea turtles hunt it in turn.[1]\n\nA crab grows by molting: it sheds its hard shell, and for a short time after it is soft.[1] A male guards his mate by cradling her for days, and he stays with her after mating until her new shell hardens. A female can carry more than three million eggs.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Blue Crab",
+        "publisher": "NOAA Fisheries",
+        "url": "https://www.fisheries.noaa.gov/species/blue-crab",
+        "license": "Public domain (U.S. government work)",
         "accessed": "2026-10-28"
       }
     ]
@@ -276,6 +333,21 @@
       }
     ]
   },
+  "Frog": {
+    "description": "A big green or brown frog with long, fully webbed hind feet, a wide mouth and large round eardrums behind its eyes.[1]",
+    "lore": "Bullfrogs are the largest true frogs in North America.[1] They hunt by sitting still and waiting, sometimes for a long time, until something comes close, then snatch it with a flick of the tongue.[1] They eat almost anything they can swallow: insects, worms, crayfish, snakes, other frogs and tadpoles, and on rare occasions even bats. They will eat their own kind without hesitation.[1]\n\nA male's deep \"jug-o-rum\" can be heard more than a kilometer away.[1] When the weather turns cold, a bullfrog buries itself in the mud and hibernates in a small hollow until spring.[1] Herons, turtles, water snakes, raccoons and kingfishers all hunt bullfrogs, and people catch them for frog legs.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Lithobates catesbeianus (American bullfrog)",
+        "author": "Sandra Bruening",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Lithobates_catesbeianus/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Giant Octopus": {
     "description": "An octopus grown far past natural size that hides by changing the color and texture of its skin, then seizes prey with eight suckered arms.[1]",
     "lore": "The giant octopus spends most of its life alone in a den under a boulder or in a crack in the rock, sometimes staying hidden for weeks. It comes out only to hunt, to mate or to flee.[1] It carries its catch home to eat, and the broken shells of clams and crabs pile up outside the entrance.[1]\n\nIt hunts by sight, stalking or chasing its prey or lying in wait, and it can change the color and even the texture of its skin to blend in.[1] Every sucker on its arms can feel and taste what it touches.[1] When attacked, it fights back with its arms, then shoots away and leaves a cloud of ink behind.[1]\n\nIt is a clever animal. It finds its way by landmarks, uses objects as tools and learns by watching, and octopuses kept in captivity are known for escaping their tanks.[1] A mother guards her eggs in the den and does not leave them even to eat. She dies before they hatch or soon after.[1]",
@@ -332,6 +404,20 @@
         "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
         "url": "https://animaldiversity.org/accounts/Hippopotamus_amphibius/",
         "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Hunter Shark": {
+    "description": "A large, torpedo-shaped shark, dark gray above and white below, with broad, saw-edged triangular teeth.[1]",
+    "lore": "The great white shark is the best known of the big hunting sharks. It lives in temperate and subtropical seas around the world and sits at the top of the food chain.[1] It can grow to about six meters long and weigh more than 1,800 kilograms.[1] Young sharks eat fish, rays and squid. Larger ones gather around seal and sea lion colonies to hunt, and sometimes feed on dead whales.[1]\n\nThe white shark is partly warm-blooded. It keeps its body warmer than the water around it, which lets it hunt hard in cool seas.[1] It grows slowly and does not breed until it is about 26 to 33 years old, and estimates of its lifespan run from 30 to more than 70 years.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "White Shark",
+        "publisher": "NOAA Fisheries",
+        "url": "https://www.fisheries.noaa.gov/species/white-shark",
+        "license": "Public domain (U.S. government work)",
         "accessed": "2026-10-28"
       }
     ]
@@ -416,6 +502,21 @@
       }
     ]
   },
+  "Octopus": {
+    "description": "A soft-bodied sea animal with eight sucker-lined arms and no shell, able to change its color and shape to vanish against the seabed.[1]",
+    "lore": "Octopuses are clever. They learn, and they can tell things apart by sight, touch and taste.[1] The common octopus keeps a hidden home in a hole or crack in the rocks, and it often blocks the entrance with shells and stones it has gathered.[1]\n\nFew animals hide as well. An octopus can change its color, its skin texture and its posture to blend in with almost any surface.[1] It hunts snails and clams.[1] Newly hatched octopuses drift and hunt among the plankton for weeks before they settle on the sea floor.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Octopus vulgaris (common octopus)",
+        "author": "Robin J. Case",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Octopus_vulgaris/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Owl": {
     "description": "A big owl with tufts of feathers like horns, a round face, forward-facing eyes and a white patch at the throat.[1]",
     "lore": "Great horned owls hunt at night and find their way and their prey in the dark, even in thick forest.[1] They watch from a perch, then swoop down, catching prey on the wing if they have to, and they screech loudly as they strike.[1] They eat rabbits, voles and other rodents, and near water they catch fish, frogs, crabs and reptiles.[1]\n\nThese owls live alone except when nesting, and they stay in the same area all year.[1] Their deep \"hoo-hoo hoooo hoo-hoo\" marks their territory and can be heard for kilometers, and fights over territory can be deadly.[1] Some owls have no territory of their own and wander through the lands of others.[1]",
@@ -449,6 +550,21 @@
         "publisher": "U.S. Fish and Wildlife Service",
         "url": "https://www.fws.gov/species/florida-panther-puma-concolor-coryi",
         "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Piranha": {
+    "description": "A river fish with a silver-gray back, a reddish-orange belly and black and reddish-orange fins.[1]",
+    "lore": "The red-bellied piranha lives in the rivers of South America east of the Andes, including the Amazon and the Paraná-Paraguay.[1] Groups of 20 to 30 lie in wait among water plants and ambush prey that comes near. They also chase prey down and scavenge.[1] Small piranhas hunt by day, while the larger ones feed at dawn and in the late afternoon and evening.[1]\n\nThey eat whole fish and pieces of fish, fins, scales, insects, snails and plants.[1] The red-bellied piranha is counted among the more dangerous and aggressive piranhas, and it has bitten people.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Pygocentrus nattereri (red-bellied piranha)",
+        "author": "Brian Putz",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Pygocentrus_nattereri/",
+        "license": "All rights reserved",
         "accessed": "2026-10-28"
       }
     ]
@@ -592,6 +708,21 @@
         "author": "James Ashworth",
         "publisher": "Natural History Museum, London",
         "url": "https://www.nhm.ac.uk/discover/news/2025/december/sabre-toothed-tiger-sense-smell-reconstructed-skull-scans.html",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Seahorse": {
+    "description": "A small fish with a horse-like head set at a right angle to its body and a body armored with bony rings.[1]",
+    "lore": "Seahorses spend most of their lives in a small patch of seagrass or coral, holding on and watching for food.[1] They hunt by sight, mostly by day, and when a small shrimp or fish comes close they suck it into their snouts.[1] Some can change color to hide or to court a mate.[1]\n\nSeahorse pairs often stay together season after season. The female passes her eggs to the male, who carries them in a pouch until they hatch.[1] Some seahorses travel far by clinging to floating mats of seaweed.[1] They are small, and many animals eat them, from fish, turtles and seabirds to crabs and shrimp.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Hippocampus (seahorses)",
+        "author": "Trang Nguyen",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Hippocampus/",
         "license": "All rights reserved",
         "accessed": "2026-10-28"
       }

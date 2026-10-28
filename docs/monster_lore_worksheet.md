@@ -34,7 +34,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Bandits | Monsters | 2 | original | Generic role | |
 | Barbed Devil | Monsters | 1 | original |  | |
 | Basilisk | Monsters | 1 | myth | Pliny, Natural History | |
-| Bat | Animals | 1 | animal |  | |
+| Bat | Animals | 1 | animal |  | Yes |
 | Bearded Devil | Monsters | 1 | original |  | |
 | Behir | Monsters | 1 | original |  | |
 | Berserker | Monsters | 1 | history | Norse sagas | |
@@ -62,10 +62,10 @@ original. The lore can mention the myth as the source of the name, with a source
 | Cloud Giant | Monsters | 1 | myth | Jack and the Beanstalk | |
 | Cockatrice | Monsters | 1 | myth | Medieval bestiaries | |
 | Commoner | Monsters | 1 | original | Generic role | |
-| Constrictor Snake | Animals | 1 | animal |  | |
+| Constrictor Snake | Animals | 1 | animal |  | Yes |
 | Copper Dragons | Monsters | 4 | original |  | |
 | Couatl | Monsters | 1 | myth | Aztec myth (Quetzalcoatl) | |
-| Crab | Animals | 1 | animal |  | |
+| Crab | Animals | 1 | animal |  | Yes |
 | Crawling Claw | Monsters | 1 | original |  | |
 | Crocodile | Animals | 1 | animal |  | Yes |
 | Cultists | Monsters | 2 | original | Generic role | |
@@ -94,7 +94,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Fire Giant | Monsters | 1 | myth | Norse myth (Muspelheim) | |
 | Flesh Golem | Monsters | 1 | myth | Mary Shelley, Frankenstein (1818, public domain) | |
 | Flying Snake | Animals | 1 | animal |  | |
-| Frog | Animals | 1 | animal |  | |
+| Frog | Animals | 1 | animal |  | Yes |
 | Frost Giant | Monsters | 1 | myth | Norse myth (jotnar) | |
 | Fungi | Monsters | 2 | original |  | |
 | Gargoyle | Monsters | 1 | myth | Medieval church architecture and folklore | |
@@ -157,7 +157,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Hobgoblins | Monsters | 2 | myth | English folklore | |
 | Homunculus | Monsters | 1 | myth | Alchemy, Paracelsus | |
 | Horned Devil | Monsters | 1 | original |  | |
-| Hunter Shark | Animals | 1 | animal |  | |
+| Hunter Shark | Animals | 1 | animal |  | Yes |
 | Hydra | Monsters | 1 | myth | Hesiod, the Labors of Heracles | |
 | Hyena | Animals | 1 | animal |  | Yes |
 | Ice Devil | Monsters | 1 | original |  | |
@@ -194,7 +194,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Nightmare | Monsters | 1 | original | The mare of folklore (name only) | |
 | Noble | Monsters | 1 | original | Generic role | |
 | Ochre Jelly | Monsters | 1 | original |  | |
-| Octopus | Animals | 1 | animal |  | |
+| Octopus | Animals | 1 | animal |  | Yes |
 | Ogre | Monsters | 1 | myth | Perrault and other fairy tales | |
 | Oni | Monsters | 1 | myth | Japanese folklore | |
 | Otyugh | Monsters | 1 | original |  | |
@@ -203,7 +203,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Panther | Animals | 1 | animal |  | Yes |
 | Pegasus | Monsters | 1 | myth | Hesiod, Ovid | |
 | Phase Spider | Monsters | 1 | original |  | |
-| Piranha | Animals | 1 | animal |  | |
+| Piranha | Animals | 1 | animal |  | Yes |
 | Pirates | Monsters | 2 | history | Historical piracy | |
 | Pit Fiend | Monsters | 1 | original |  | |
 | Planetar | Monsters | 1 | original |  | |
@@ -233,7 +233,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Scorpion | Animals | 1 | animal |  | |
 | Scout | Monsters | 1 | original | Generic role | |
 | Sea Hag | Monsters | 1 | original | Sea witch folklore (name only) | |
-| Seahorse | Animals | 1 | animal |  | |
+| Seahorse | Animals | 1 | animal |  | Yes |
 | Shadow | Monsters | 1 | original |  | |
 | Shambling Mound | Monsters | 1 | original |  | |
 | Shield Guardian | Monsters | 1 | original |  | |
