@@ -3,7 +3,7 @@ import type { MetadataRoute } from 'next';
 import { getAllMagicItems, getMonsterGroups } from '@/app/lib/wiki';
 import { CATEGORY_PATHS } from '@/app/lib/wikiPaths';
 
-const BASE_URL = 'https://fabledcampaigns.com';
+const BASE_URL = 'https://www.fabledcampaigns.com';
 
 // No lastModified: stamping every URL with the build time tells Google all
 // pages changed on each deploy, which teaches it to ignore the field.

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://fabledcampaigns.com/sitemap.xml
+Sitemap: https://www.fabledcampaigns.com/sitemap.xml

@@ -9,7 +9,7 @@ import { MarkdownBody } from './markdown-body';
 import { LoreBody, LoreDescription, LoreSources } from './monster-lore';
 import type { MonsterCategory, MonsterGroup } from '@/types/wiki';
 
-const BASE_URL = 'https://fabledcampaigns.com';
+const BASE_URL = 'https://www.fabledcampaigns.com';
 
 export const CATEGORY_LABELS: Record<MonsterCategory, string> = {
   Monster: 'Monsters',
