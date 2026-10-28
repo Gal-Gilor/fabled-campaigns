@@ -8,7 +8,7 @@ first:
 2. Each group has one page holding every member's stat block. The four White Dragons share
    `/wiki/monsters/white-dragons`.
 
-Both are built, and so is the lore display (see Built). Writing the entries is next (see Lore
+Both are built, and so is the lore display (see Built). Every group has a lore entry (see Lore
 content).
 
 `data/monsters.json` is unchanged. It is regenerated in roll-to-quest and never edited here (see
@@ -93,7 +93,7 @@ value works for the wiki pages.
 
 - `types/wiki.ts`: `LoreOrigin` (`animal`, `myth`, `history`, `original`), `LoreSource` and
   `MonsterLore`.
-- `data/monster-lore.json`: `Record<group, MonsterLore>`, empty until the first batch.
+- `data/monster-lore.json`: `Record<group, MonsterLore>`, one entry per group.
 - `app/lib/wiki.ts`: `getAllLore` and `getLore`. `describeMonsterGroup` returns the description,
   with its markers removed, for metadata and JSON-LD.
 - `app/components/wiki/monster-lore.tsx`: the description under the `h1`, a "Lore" section above
@@ -105,9 +105,10 @@ value works for the wiki pages.
 
 ## Lore content
 
-`docs/monster_lore_worksheet.md` lists the 272 groups with their origin: 95 animal, 75 myth, 7
-history and 95 original. Entries ship in batches, one PR each, in this order: animals, myth,
-history, original. Mark each row done as its entry merges.
+`docs/monster_lore_worksheet.md` lists the 272 groups with their origin: 93 animal, 75 myth, 7
+history and 97 original. All 272 entries are written, in the order animals, myth, history,
+original, and every row is marked done. Before an entry ships, a person still checks it against
+the rules below.
 
 ### Entry rules
 

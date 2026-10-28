@@ -57,7 +57,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Chain Devil | Monsters | 1 | original |  | Yes |
 | Chimera | Monsters | 1 | myth | Homer, Hesiod | Yes |
 | Chuul | Monsters | 1 | original |  | Yes |
-| Clay Golem | Monsters | 1 | myth | Jewish folklore (the Golem of Prague) | |
+| Clay Golem | Monsters | 1 | myth | Jewish folklore (the Golem of Prague) | Yes |
 | Cloaker | Monsters | 1 | original |  | Yes |
 | Cloud Giant | Monsters | 1 | myth | Jack and the Beanstalk | Yes |
 | Cockatrice | Monsters | 1 | myth | Medieval bestiaries | Yes |

@@ -473,6 +473,29 @@
     "origin": "original",
     "sources": []
   },
+  "Clay Golem": {
+    "description": "A figure shaped from earth and given life by holy words, strong and obedient but unable to speak.[1]",
+    "lore": "The Talmud tells that the scholar Rava, by combining the letters of the holy names recorded in the Book of Creation, once made a man and sent him to Rabbi Zera. Rabbi Zera spoke to him, but the man could not answer. Seeing this, the rabbi said he had been made by magic and told him to return to his dust.[1] Two other scholars studied the Book of Creation together every Sabbath eve until they could create a calf, which they ate.[1]\n\nJewish legend also tells how the first man was made. God took dust from all four corners of the earth, red, black, white and green, and formed Adam from it. For one hour of that first day, Adam was a shape without a soul, complete enough to stand upright, until the soul was breathed into it.[2]\n\nOther tales tell of clay golems, huge figures of hardened clay that obey their makers, shrug off most magic and can fly into a destructive rage when badly hurt.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "Hebraic Literature; Translations from the Talmud, Midrashim and Kabbala",
+        "author": "Edited by Maurice H. Harris",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/14368",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "The Legends of the Jews, Volume 1",
+        "author": "Louis Ginzberg, translated by Henrietta Szold",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/1493",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Cloaker": {
     "description": "A creature that looks like a dark leather cloak until it unfurls, wraps around its victim and bites with a hidden mouth.",
     "lore": "Cloakers live in caves and ruins and hate bright light. At rest, a cloaker hangs like an old cloak or lies flat in shadow, perfectly still. When prey comes close, it spreads its wide body, wraps itself around the victim's head and shoulders and bites with the teeth on its underside, while its whiplike tail lashes anyone who tries to help.\n\nIts moan fills listeners with dread, and it can make copies of itself appear, so that its prey strikes at shadows. A party carrying bright torches is far safer than one creeping in the dark.\n\nCloakers can speak and are cleverer than they look. Some trade information with travelers in exchange for leaving their caves in peace.",
