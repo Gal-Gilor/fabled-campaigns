@@ -64,10 +64,27 @@
     ]
   },
   "Axe Beak": {
-    "description": "A tall, flightless bird with powerful legs, stubby wings and a massive hooked beak shaped like an axe blade.",
-    "lore": "Axe beaks stalk open grassland and scrub, running down their prey on long, powerful legs. Over a short distance they can outpace a horse, and they kill with a chopping blow of the beak.\n\nThey nest on the ground in loose colonies, and the parents guard the eggs fiercely. A traveler who blunders into a nesting ground is chased off by a flock of screeching, stamping birds.\n\nTheir eggs are as big as a man's head and much prized, and egg hunters say the trick is to take one and run, since an axe beak gives up the chase long before it gives up its temper.",
-    "origin": "original",
-    "sources": []
+    "description": "A tall, flightless hunting bird with powerful running legs, shrunken wings and a large skull with a hooked beak.[1][2]",
+    "lore": "The terror birds were giant flightless hunters, counted among the dominant predators of ancient South America. There were at least 18 kinds, from small to gigantic, and nothing alive today is quite like them.[1][2] Their wings had shrunk and their bodies were heavy, and they lived entirely on the ground.[1]\n\nFossil footprints about eight million years old show they were built for running. They carried their weight on one thick main toe and probably used a long, raised claw on another to pin down prey.[1] Their skulls were rigid and strong for striking downward. A terror bird likely ate mostly smaller prey, and if it took on something big, it probably attacked with repeated, well-aimed strikes of its beak, darting in and out.[2]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "First terror bird footprints reveal functionally didactyl posture",
+        "author": "Ricardo N. Melchor and others (2023)",
+        "publisher": "Scientific Reports, via PubMed Central",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10542783/",
+        "license": "CC BY 4.0",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Mechanical Analysis of Feeding Behavior in the Extinct “Terror Bird” Andalgalornis steulleti (Gruiformes: Phorusrhacidae)",
+        "author": "Federico J. Degrange and others (2010)",
+        "publisher": "PLoS ONE, via PubMed Central",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2923598/",
+        "license": "CC BY 4.0",
+        "accessed": "2026-10-28"
+      }
+    ]
   },
   "Baboon": {
     "description": "A large monkey that lives on the ground, with a long tail and olive-gray fur. Males are nearly twice the size of females, with heavy manes and long fangs.[1]",
@@ -442,10 +459,19 @@
     ]
   },
   "Giant Ape": {
-    "description": "An ape as tall as a house, with shaggy dark fur, long powerful arms and a heavy brow over watchful eyes.",
-    "lore": "Giant apes keep to the deepest forests and the mountain jungles where few people travel. A troop is small, a few females and their young around a single great male, and it moves slowly through its range, stripping fruit trees and pulling up bamboo as it goes.\n\nThey are slow to anger. A giant ape that meets travelers will usually watch them from the trees and let them pass. Pressed too close, the male rises to his full height and roars, and if that does not drive the intruders off, he charges.\n\nForest villages tell of giant apes that remember a kindness or a wrong for years, and of hunters who tried to take a young ape and never came home.",
-    "origin": "original",
-    "sources": []
+    "description": "A huge, heavy ape about three meters tall, with massive jaws and great grinding teeth.[1]",
+    "lore": "Gigantopithecus was the largest primate that ever lived, standing about three meters tall and weighing 200 to 300 kilograms.[1] It lived in the forests of southern China for some two million years, and almost everything known about it comes from four jawbones and nearly two thousand teeth found in caves.[1] Its huge teeth suggest it ate plants, chewing tough, fibrous food and plenty of fruit.[1]\n\nIt thrived while the land was a mix of forest and grass. Between about 295,000 and 215,000 years ago the seasons grew harsher and the forests thinned out. An ancient orangutan living alongside it changed its diet and survived, but Gigantopithecus could not adapt, and its numbers dwindled until it died out.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "The demise of the giant ape Gigantopithecus blacki",
+        "author": "Yingqi Zhang and others (2024)",
+        "publisher": "Nature, via PubMed Central",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10794149/",
+        "license": "CC BY 4.0",
+        "accessed": "2026-10-28"
+      }
+    ]
   },
   "Giant Badger": {
     "description": "A badger the size of a bear, low and broad, with a striped face and long claws that can dig through packed earth.",
@@ -572,10 +598,27 @@
     ]
   },
   "Giant Fire Beetle": {
-    "description": "A beetle the size of a small dog, with a hard reddish shell and patches on its back that give off a steady orange glow.",
-    "lore": "Giant fire beetles live in caves, old mines and the dark undergrowth of deep forests, where their glow is often the only light. They brighten when they feed or are disturbed and dim to a faint ember when they rest.\n\nThey are scavengers more than hunters, eating fungus, rotting wood and dead animals, but their jaws are strong enough to take a finger. Many gather where food is plentiful, and a cave lit by their slow-moving glow is a sign that something large died there not long ago.\n\nMiners sometimes keep a fire beetle in a cage as a lantern that needs no flame and cannot set the timbers alight.",
-    "origin": "original",
-    "sources": []
+    "description": "A large beetle that glows with a steady yellowish-green light from patches on its body.[1]",
+    "lore": "Some click beetles make their own light, as fireflies do. Depending on the kind, their glowing organs sit on the back just behind the head, on the belly, or in both places.[1] The Caribbean click beetle Ignelater luminosus has lanterns in both places, and its light comes from almost the same chemistry that fireflies use. Even so, click beetles and fireflies seem to have learned to glow separately.[2]\n\nA glowing click beetle discovered in the forests of Yunnan, China, in 2017 gives off a steady yellowish-green light from its belly while it flies, raising its abdomen to show the glow. Researchers found it by searching the dark forest for flashes at night.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Sinopyrophorinae, a new subfamily of Elateridae (Coleoptera, Elateroidea) with the first record of a luminous click beetle in Asia and evidence for multiple origins of bioluminescence in Elateridae",
+        "author": "Wen-Xuan Bi and others (2019)",
+        "publisher": "ZooKeys, via PubMed Central",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6656784/",
+        "license": "CC BY 4.0",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Firefly genomes illuminate parallel origins of bioluminescence in beetles",
+        "author": "Timothy R. Fallon and others (2018)",
+        "publisher": "eLife, via PubMed Central",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6191289/",
+        "license": "CC BY 4.0",
+        "accessed": "2026-10-28"
+      }
+    ]
   },
   "Giant Frog": {
     "description": "A huge, flat, greenish-brown frog with webbed feet and eyes almost as wide as a coin.[1]",
@@ -599,10 +642,27 @@
     "sources": []
   },
   "Giant Hyena": {
-    "description": "A hyena the size of a pony, with a sloping back, a massive head and jaws that crush the thickest bones.",
-    "lore": "Giant hyenas roam dry plains and broken hills in clans led by the largest females. They hunt in packs and run their prey to exhaustion, and they drive other hunters off their kills by sheer numbers and noise.\n\nTheir jaws crack open the bones that other scavengers leave behind, so little is left where a clan has fed. Their whooping calls and cackling laughter carry far at night, and travelers who hear them build up their fires.\n\nPlains folk say giant hyenas follow armies and sickness, waiting for the dead, and a clan gathering near a town is taken as a bad sign.",
-    "origin": "original",
-    "sources": []
+    "description": "A massive, short-faced hyena weighing more than a hundred kilograms, with jaws made for cracking bones.[2]",
+    "lore": "Pachycrocuta, the giant short-faced hyena, roamed Europe more than a million years ago.[1][2] It lived off the kills of saber-toothed cats and other big hunters, either scavenging what they left or stealing their prey outright.[1]\n\nThe remains of one of its dens, at Venta Micena in Spain, show how it fed. Each hyena seems to have foraged alone. It pulled carcasses apart, carried the marrow-rich leg bones back to its den and cracked them open there.[2] Early humans may have competed with giant hyenas for the same carcasses.[1]\n\nWhen the saber-toothed cats it depended on died out in Europe, the giant hyena seems to have disappeared with them.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Computer simulation of scavenging by hominins and giant hyenas in the late Early Pleistocene",
+        "author": "Jesús Rodríguez and others (2023)",
+        "publisher": "Scientific Reports, via PubMed Central",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10539305/",
+        "license": "CC BY 4.0",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Déjà vu: a reappraisal of the taphonomy of quarry VM4 of the Early Pleistocene site of Venta Micena (Baza Basin, SE Spain)",
+        "author": "Paul Palmqvist and others (2022)",
+        "publisher": "Scientific Reports, via PubMed Central",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8758678/",
+        "license": "CC BY 4.0",
+        "accessed": "2026-10-28"
+      }
+    ]
   },
   "Giant Lizard": {
     "description": "A huge, stone-colored lizard with a long tail, sturdy legs, a strong neck and a yellow forked tongue.[1]",

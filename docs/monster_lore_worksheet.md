@@ -6,10 +6,10 @@ are not sources. Mark a row done when its entry is merged into `data/monster-lor
 
 | Origin | Groups | Sources |
 |---|---|---|
-| animal | 89 | Required: zoos, wildlife agencies, universities, natural history museums |
+| animal | 93 | Required: zoos, wildlife agencies, universities, natural history museums |
 | myth | 75 | Required: the original texts in a named translation, then other reliable sites |
 | history | 7 | Required: museums, universities, primary texts |
-| original | 101 | None needed. Written for this site. |
+| original | 97 | None needed. Written for this site. |
 
 Rows marked "name only" share a name with a myth but not the creature, so their origin is
 original. The lore can mention the myth as the source of the name, with a source for that line.
@@ -26,7 +26,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Archelon | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
 | Assassin | Monsters | 1 | history | The medieval Nizari Ismailis | |
 | Awakened Plants | Monsters | 2 | original |  | |
-| Axe Beak | Monsters | 1 | original | No reachable source; written as original lore | Yes |
+| Axe Beak | Monsters | 1 | animal | Fantasy version; facts from the extinct terror birds | Yes |
 | Azer | Monsters | 1 | original |  | |
 | Baboon | Animals | 1 | animal |  | Yes |
 | Badger | Animals | 1 | animal |  | Yes |
@@ -102,7 +102,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Ghast | Monsters | 1 | original | Avoid Lovecraft's ghasts until their copyright status is checked | |
 | Ghost | Monsters | 1 | myth | Folklore worldwide | |
 | Ghoul | Monsters | 1 | myth | Arabian folklore | |
-| Giant Ape | Animals | 1 | original | No reachable source; written as original lore | Yes |
+| Giant Ape | Animals | 1 | animal | Fantasy version; facts from Gigantopithecus | Yes |
 | Giant Badger | Animals | 1 | original | No reachable source; written as original lore | Yes |
 | Giant Bat | Animals | 1 | animal | Fantasy version; facts from the real bat | Yes |
 | Giant Boar | Animals | 1 | animal | Fantasy version; facts from the real boar | Yes |
@@ -112,10 +112,10 @@ original. The lore can mention the myth as the source of the name, with a source
 | Giant Crocodile | Animals | 1 | animal | Fantasy version; facts from the real crocodile | Yes |
 | Giant Eagle | Animals | 1 | animal | Fantasy version; facts from the real eagle | Yes |
 | Giant Elk | Animals | 1 | animal | Fantasy version; facts from the real elk | Yes |
-| Giant Fire Beetle | Animals | 1 | original | No reachable source; written as original lore | Yes |
+| Giant Fire Beetle | Animals | 1 | animal | Fantasy version; facts from glowing click beetles | Yes |
 | Giant Frog | Animals | 1 | animal | Fantasy version; facts from the real frog | Yes |
 | Giant Goat | Animals | 1 | original | No reachable source; written as original lore | Yes |
-| Giant Hyena | Animals | 1 | original | No reachable source; written as original lore | Yes |
+| Giant Hyena | Animals | 1 | animal | Fantasy version; facts from the extinct giant hyena Pachycrocuta | Yes |
 | Giant Lizard | Animals | 1 | animal | Fantasy version; facts from the real lizard | Yes |
 | Giant Octopus | Animals | 1 | animal | Fantasy version; facts from the real octopus | Yes |
 | Giant Owl | Animals | 1 | animal | Fantasy version; facts from the real owl | Yes |
