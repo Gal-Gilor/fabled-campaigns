@@ -394,6 +394,21 @@
       }
     ]
   },
+  "Djinni": {
+    "description": "A spirit made of smokeless fire, able to take any shape, from a snake or a cat to a giant, and to vanish into the air at will.[1]",
+    "lore": "In Arab belief, the jinn were made of smokeless fire, thousands of years before the first human. Like people, they eat, drink, have children and die, and some of them are believers while others are not.[1] Their chief home is the mountains of Qaf, which ring the whole earth, but they also haunt wells, baths, ruined houses, markets, crossroads, rivers and the sea.[1]\n\nThe jinn can appear as snakes, dogs, cats or people, sometimes of human size and sometimes enormous. Good jinn are usually dazzlingly handsome and evil ones hideous. They can turn invisible, sink into the ground or pass through a solid wall.[1] A whirlwind that lifts a pillar of sand across the desert was thought to be an evil jinni in flight, and people would cry out \"Iron!\" to drive it off, since the jinn dread that metal.[1]\n\nOther tales make the djinni a spirit of wind and storm, who rides the whirlwind, strikes with lightning and thunder, and may grant a wish to a mortal who asks it.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Thousand and One Nights, Volume I",
+        "author": "Translated by Edward William Lane, edited by Edward Stanley Poole",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/34206",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Draft Horse": {
     "description": "A strong, deep-chested working horse bred to pull wagons, plows and farm machines.[1][2][3]",
     "lore": "Before tractors, farms and ranches ran on the strength of horses. They pulled plows and carriages, and their manure fed the fields.[3] At Grant-Kohrs Ranch in Montana, Belgian draft horses were bred from purebred bloodlines from the late 1920s, and Belgian and Percheron teams still pull threshing equipment and hay wagons there.[1]\n\nHaying was one of their great tasks. With horse-drawn mowers and rakes, prairie grass was cut, dried, raked and stacked, so there would be enough hay to feed the animals through the winter.[2]",
@@ -449,6 +464,29 @@
         "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
         "url": "https://animaldiversity.org/accounts/Aquila_chrysaetos/",
         "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Efreeti": {
+    "description": "A huge and powerful evil spirit of fire, which can pour out of a sealed bottle as smoke and grow until its head touches the clouds.[1]",
+    "lore": "Of all the jinn, the efreet is one of the most powerful and wicked. Fire runs through its veins instead of blood, and a mortal wound sets that fire loose to burn its body to ashes.[1]\n\nIn the tale of the fisherman, a poor man pulls up a brass bottle in his net, its lead stopper stamped with the seal of King Solomon. When he pries it open, smoke pours out and spreads across the sky, then gathers into an efreet whose head is in the clouds while its feet stand on the ground. Its head is like a dome, its hands like winnowing forks, its legs like masts, its mouth like a cave and its eyes like lamps.[1]\n\nThe efreet had been shut away for rebelling. In its first centuries in the bottle it vowed to make its rescuer rich, then to give him all the treasure in the world, then to make him a king. When no one came, it swore instead to kill whoever let it out.[2] The fisherman saved himself by doubting aloud that so huge a creature could ever have fit in the bottle. The efreet turned to smoke to prove it, and the fisherman slammed the lid back on.[2]",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Thousand and One Nights, Volume I",
+        "author": "Translated by Edward William Lane, edited by Edward Stanley Poole",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/34206",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "The Arabian Nights Entertainments",
+        "author": "Edited by Andrew Lang (1898)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/128",
+        "license": "Public domain",
         "accessed": "2026-10-28"
       }
     ]
@@ -589,6 +627,21 @@
         "author": "Snorri Sturluson, translated by Rasmus B. Anderson (1879)",
         "publisher": "Project Gutenberg",
         "url": "https://www.gutenberg.org/ebooks/18947",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Ghoul": {
+    "description": "A demon of lonely places that haunts graveyards, feeds on the dead and lures lone travelers to their deaths.[1]",
+    "lore": "In Arab belief, the ghoul is one of the lesser jinn, an evil spirit that eats people. It can take the shape of an animal, a human being or something monstrous. Ghouls haunt burial grounds and other lonely spots, where they feed on corpses and kill and devour anyone unlucky enough to cross their path.[1]\n\nSome said the ghoul lives alone in the desert, part human and part beast. It appears at night to someone traveling alone, who takes it for a fellow traveler, and leads them off the road.[1] Another story says that evil spirits caught listening at the edge of heaven are struck by shooting stars, and those that fall onto land become ghouls. 'Omar, one of the Prophet's companions, was said to have seen one on a journey to Syria, before he became a Muslim, and struck it with his sword.[1] Properly, the name belongs to the female. The male was given a name of his own.[1]\n\nOther tales make the ghoul one of the undead, a corpse-eater whose claws can freeze a living victim in place.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Thousand and One Nights, Volume I",
+        "author": "Translated by Edward William Lane, edited by Edward Stanley Poole",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/34206",
         "license": "Public domain",
         "accessed": "2026-10-28"
       }
@@ -1061,6 +1114,21 @@
       }
     ]
   },
+  "Guardian Naga": {
+    "description": "A great serpent of good heart, wise and devoted to virtue, who keeps watch over the world.[1]",
+    "lore": "In the Mahabharata, the nagas are the serpent children of the sage Kasyapa. The eldest, Sesha, could not bear his brothers, who were wicked and jealous. He left them to live alone in holy places, eating nothing but air, until his body withered from his hard devotions.[1]\n\nBrahma, the grandfather of all creation, offered him a boon. Sesha asked only that his heart might always delight in virtue. Pleased, Brahma gave him a task: the earth was unsteady, with all its mountains, forests and seas, and Sesha was to hold it still.[1] The earth opened a crack for him, and the great serpent went down beneath it and held it up on his head. He lives there still, alone, under the name Ananta.[1]\n\nOther tales tell of guardian nagas who watch over holy places, spit blinding venom at intruders and come back to life days after they are slain.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Mahabharata of Krishna-Dwaipayana Vyasa, Volume 1",
+        "author": "Translated by Kisari Mohan Ganguli",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/15474",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Harpy": {
     "description": "A winged woman, swift as the storm wind, who swoops down to snatch away food and leave the rest befouled.[1][2]",
     "lore": "The Harpies were daughters of Thaumas and Electra. Hesiod names them Aello, Storm-swift, and Ocypetes, Swift-flier, and says they kept pace with the winds and the birds.[1]\n\nThe gods sent them to torment the blind seer Phineus. Whenever a meal was laid before him they swooped down from the sky, snatched most of it away, and left the rest so foul that no one could touch it.[2] The winged sons of the North Wind, sailing with the Argonauts, chased them through the air. Some say the Harpies died in the chase, and others that they swore never to trouble Phineus again.[2]\n\nLater tales give them a sweeter danger: a song that lures travelers close, after which their claws do the rest.",
@@ -1132,6 +1200,21 @@
         "author": "Collected by Joseph Jacobs (1890)",
         "publisher": "Project Gutenberg",
         "url": "https://www.gutenberg.org/ebooks/7439",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Hippogriff": {
+    "description": "A winged steed born of a griffin and a mare, with an eagle's head, wings and forelegs on a horse's body.[1]",
+    "lore": "In Ariosto's Orlando Furioso, the hippogryph is a real creature, not a trick of magic. Its father was a griffin and its mother a mare. It has its father's wings, beak, crest and front feet, and the rest of its body is a horse's. Such creatures are rare, and they are bred in the far northern mountains beyond the frozen sea.[1]\n\nThe wizard Atlantes drew one from its home with enchantments and trained it in a month to take saddle and bit, and to perform every move of a trained horse, on the ground and in the air.[1] When the warrior maiden Bradamant defeated the wizard, the hippogryph would not let her catch it. It hopped away a little at a time until the knight Rogero climbed on its back, and then it carried him off so high that he could no longer tell plains from mountains.[1] It flew faster than Jupiter's eagle, and Ariosto doubted that even a lightning bolt was quicker.[1]",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "Orlando Furioso",
+        "author": "Ludovico Ariosto, translated by William Stewart Rose",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/615",
         "license": "Public domain",
         "accessed": "2026-10-28"
       }
@@ -1395,6 +1478,21 @@
       }
     ]
   },
+  "Merrow": {
+    "description": "A sea creature of Irish folklore with a fish's tail. The men have green hair, green teeth and pig's eyes, while the women are beautiful.[1]",
+    "lore": "Merrows live off the wilder coasts of Ireland, and fishermen hate to see them because they bring storms. The male merrow has green hair and teeth, pig's eyes and a red nose, but the women are beautiful despite their fish tails and the little webs between their fingers.[1] Sometimes they come ashore as small hornless cows. In their true shape they wear a red feathered cap, and a merrow whose cap is stolen cannot go back under the waves.[1]\n\nIn the tale of the Soul Cages, a fisherman named Jack Dogherty became friends with an old merrow called Coomara, who had green hair, long green teeth, a red nose, pig's eyes, a fish's tail, scaly legs and short arms like fins. He wore a cocked hat that let him travel under the sea.[1] In his house beneath the waves, Coomara showed Jack a row of what looked like lobster pots. In them he kept the souls of drowned sailors, which he caught as they rose from wrecks during storms.[1] Jack got the merrow drunk on poteen, took the hat, dove down to the house and turned up every pot. Each soul gave a little chirp as it flew free.[1]\n\nOther tales tell of merrows as huge, savage sea brutes that bite, claw and drag their prey close with harpoons.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "Fairy and Folk Tales of the Irish Peasantry",
+        "author": "Edited by W. B. Yeats",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/33887",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Minotaur of Baphomet": {
     "description": "A huge man with the head of a bull.[1]",
     "lore": "When King Minos of Crete failed to sacrifice a bull to Poseidon, the god made the animal savage and filled the queen, Pasiphae, with desire for it. She bore the Minotaur, named Asterius, who had a bull's face on a man's body. Minos shut him away in the Labyrinth, a maze of winding passages built by the craftsman Daedalus.[1]\n\nAthens had to send people to Crete as tribute to the Minotaur, and the hero Theseus went with the third tribute. Ariadne, the daughter of Minos, fell in love with him, and on Daedalus's advice she gave him a ball of thread. Theseus tied it to the door and unwound it as he went in, found the Minotaur in the farthest part of the maze and killed it with his fists, then followed the thread back out.[2]\n\nOther tales tell of whole tribes of bull-headed warriors who charge with lowered horns and fight with great glaives.",
@@ -1464,6 +1562,21 @@
         "author": "Charles Perrault, translated by Charles Welsh",
         "publisher": "Project Gutenberg",
         "url": "https://www.gutenberg.org/ebooks/17208",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Oni": {
+    "description": "A huge, horned demon with wild red hair, who raids villages, eats people and carries off captives.[1]",
+    "lore": "In the tale of Momotaro, the boy born from a peach, a band of demons lived in a castle on an island far out to sea. They raided the land, killing and robbing, and ate the people they caught.[1] They had horns on their foreheads and shocks of red hair, they wore tiger-skin trousers and they fought with great iron bars. Momotaro sailed to their island with a dog, a monkey and a pheasant, slipped through a back door with the help of two captive noblewomen, and beat the demons until their chief begged for mercy.[1]\n\nAnother ogre haunted the Gate of Rashomon in Kyoto, seizing anyone who passed. The warrior Watanabe cut off its arm, which was hairy and as thick as a tree trunk, and locked it in an iron-bound box. One night an old woman came to his house, claiming to be his childhood nurse, and begged to see the arm. The moment he opened the box, she seized it, turned back into the towering ogre and burst through the roof into the clouds.[1]\n\nOther tales give oni even more magic: they fly, turn invisible, heal as they fight and fill their enemies with terror.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "Japanese Fairy Tales",
+        "author": "Yei Theodora Ozaki (1908)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/4018",
         "license": "Public domain",
         "accessed": "2026-10-28"
       }
@@ -1626,6 +1739,21 @@
       }
     ]
   },
+  "Rakshasa": {
+    "description": "A demon of the night that eats human flesh, ruins holy rites with sorcery and can take any shape it pleases.[1]",
+    "lore": "In the Ramayana, the rakshasas are fiends who roam by night and eat people. They swoop down on holy men to ruin their rites with sorcery, sometimes pouring blood from the sky.[1] Their king, Ravana, has ten heads and twenty arms. He rules from Lanka, a city on an island in the ocean, and rides a flying chariot pulled by goblin-faced asses.[1]\n\nRavana wanted Sita, the wife of the hero Rama. He sent the rakshasa Maricha, who took the shape of a marvelous deer, with sapphire-tipped antlers and a hide that shone with jewels. Sita begged Rama to catch it alive, or to bring her its golden hide, and the deer drew him far into the forest. When Rama's arrow finally struck, Maricha threw off the deer's shape and cried out for help in Rama's own voice, drawing Rama's brother away too.[1] Then Ravana came to Sita disguised as a wandering holy man, named himself king of the rakshasas, and carried her off.[1]\n\nOther tales say a rakshasa's touch carries a curse that robs its victims of rest, and that hardly any spell can harm it.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Rámáyan of Válmíki, Translated into English Verse",
+        "author": "Valmiki, translated by Ralph T. H. Griffith (1870-1874)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/24869",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Rat": {
     "description": "A large, coarse-furred rodent with bald ears and a long, bald tail.[1]",
     "lore": "Wherever people go, rats follow. The brown rat started out in the forests of Asia and now lives in nearly every port city in the world, in sewers, dumps, basements and fields.[1] It eats almost anything, especially what people throw away, and it also takes chicks, mice, birds and lizards. Rats by the sea have been seen catching fish with their paws.[1]\n\nRats come out at dusk and at night to dig burrows, forage and build nests. They swim well and learn quickly, remembering their way through tangled sewers and tunnels.[1] Smell is their sharpest sense, and they can feel their way through total darkness with their whiskers and paws.[1]\n\nFew animals have done people more harm. Rat fleas and lice carry plague, typhus and other diseases, and rat-borne disease is thought to have killed more people in the last thousand years than all wars together.[1]",
@@ -1705,6 +1833,21 @@
         "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
         "url": "https://animaldiversity.org/accounts/Equus_caballus/",
         "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Roc": {
+    "description": "A bird so huge that it blots out the sun as it flies, and carries off elephants to feed its young.[1]",
+    "lore": "On his second voyage, Sindbad the sailor fell asleep on an island and woke to find his ship gone. He came upon a great white dome, perfectly smooth, at least fifty paces around. As the sun set, the sky went dark as a huge bird came down to settle on it, and Sindbad realized the dome was an egg. The bird's foot was as thick as a tree trunk.[1] He tied himself to it with his turban, and at dawn the roc carried him so high he lost sight of the earth, then dropped into a valley strewn with diamonds and full of enormous snakes. The roc seized one of the snakes in its beak and flew away.[1]\n\nSindbad also tells how the roc carries off a rhinoceros and the elephant speared on its horn together, to feed its young.[1]\n\nOn his fifth voyage, his companions broke open a roc's egg that was about to hatch and roasted the chick. The parents came back screaming, then returned with huge rocks in their claws. One rock missed the ship and split the sea. The other smashed the ship to pieces.[1]",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Arabian Nights Entertainments",
+        "author": "Edited by Andrew Lang (1898)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/128",
+        "license": "Public domain",
         "accessed": "2026-10-28"
       }
     ]
@@ -1839,6 +1982,21 @@
         "publisher": "U.S. National Park Service (Fort Matanzas National Monument)",
         "url": "https://www.nps.gov/foma/learn/nature/spider.htm",
         "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Spirit Naga": {
+    "description": "A cunning serpent lord who can take other shapes to reach a victim, then strikes with deadly venom.[1]",
+    "lore": "In the Mahabharata, Takshaka is a king of the serpents and a master of disguise. When the young sage Utanka was carrying a pair of earrings for his teacher's wife, a naked beggar kept appearing and vanishing along the road. The moment Utanka set the earrings down, the beggar snatched them and ran. When Utanka caught him, the thief became Takshaka again and slipped into a hole in the ground that led to the land of the serpents.[1]\n\nLater, Takshaka was sent to kill King Parikshit, who had been cursed to die of snakebite. The king hid away, guarded by charms and medicines against poison. So Takshaka sent serpents disguised as holy men to bring him gifts of fruit, and hid himself inside one fruit as a tiny copper-colored insect. As the sun set, the king thought the danger had passed. He picked up the insect, said it might as well be Takshaka and bite him, and set it on his neck. Takshaka took his true form, coiled around the king's neck with a roar and bit him.[1]\n\nOther tales tell of spirit nagas, wicked serpents steeped in dark magic, which rise again days after they are killed.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Mahabharata of Krishna-Dwaipayana Vyasa, Volume 1",
+        "author": "Translated by Kisari Mohan Ganguli",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/15474",
+        "license": "Public domain",
         "accessed": "2026-10-28"
       }
     ]
@@ -2073,6 +2231,21 @@
       }
     ]
   },
+  "Vampires": {
+    "description": "A corpse that rises from the grave to drink the blood of the living, who waste away and die.[1]",
+    "lore": "Augustin Calmet collected reports from Hungary of dead people, called vampires, who sucked the blood of the living. The victims grew thin and weak, while the corpses swelled with so much blood that it oozed from them.[1]\n\nOne of the best-known cases was a man named Arnald Paul, who was crushed by a falling hay wagon. He had once told people he had been tormented by a vampire and had cured himself by eating earth from its grave. Thirty days after his death, four people died suddenly. When his body was dug up after forty days, it was red and full of fresh blood, and his hair, nails and beard had grown.[1] A sharp stake was driven through his heart, and he gave a terrible shriek as if he were alive. His head was cut off and his body burned, and the same was done to his four victims.[1] Five years later, seventeen more people in the village died within three months. One young woman woke screaming in the night that a man dead for nine weeks had nearly strangled her in her sleep. She died three days later.[1]\n\nOther tales make the vampire a cunning master of the night. It can become a bat or a cloud of mist, charm the living into giving up their blood and climb walls like a spider, but it cannot enter a home uninvited, and sunlight and running water destroy it.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Phantom World; or, The Philosophy of Spirits, Apparitions, &c.",
+        "author": "Augustin Calmet, with a preface and notes by Henry Christmas (1850)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/29412",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Venomous Snake": {
     "description": "A heavy-bodied snake with a broad, diamond-shaped head, slit pupils and a rattle at the tip of its tail.[1]",
     "lore": "Venomous snakes make venom in glands in their heads and deliver it through a bite with needle-like fangs. Vipers and cobras inject it through hollow teeth.[2] Snakes first evolved venom to hunt, and some use it in defense as well.[2]\n\nThe rattlesnake is a pit viper. Its long, curved fangs fold back against the roof of its mouth and swing forward when it strikes, and it controls how much venom it injects.[1] Heat-sensing pits between its eyes and nostrils help it find warm-blooded prey, and its flicking tongue carries scent to an organ in the roof of its mouth.[1][2]\n\nA rattlesnake's rattle is made of the segments left each time it sheds its skin. Shaken by the muscles at the base of the tail, the segments buzz against each other as a warning, though a rattlesnake does not always rattle before it strikes.[1]",
@@ -2146,6 +2319,59 @@
       }
     ]
   },
+  "Werebear": {
+    "description": "A person who takes the shape of a huge bear, through a curse or by sending out their spirit while the body sleeps.[1]",
+    "lore": "The saga of King Hrolf Kraki tells of Bjorn, a prince of northern Norway who loved Bera, a farmer's daughter. When he refused the love of his stepmother, the queen, she struck him with a wolf-skin glove and cursed him to become a wild bear that could eat only his father's sheep.[1] A huge gray bear began killing the king's flocks. Bera followed it to a cave, where it became Bjorn again. He was a bear by day and a man by night.[1]\n\nThe hunters came for him, as he knew they would. He killed all their dogs and tore apart one man before he was brought down. Before he died, he told Bera to ask the king for whatever lay under the bear's left foreleg, and there she found the ring he had left her.[1]\n\nIn the same saga, the champion Bodvar Bjarki fights as a huge bear against the enemies who surround his king's hall, while his human body lies by the fire inside.[1]",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Book of Were-Wolves",
+        "author": "Sabine Baring-Gould (1865)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/5324",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Weretiger": {
+    "description": "A person who can take the shape of a tiger, often by secret magic, to hunt by night.[1]",
+    "lore": "Malay folk belief held that some people could become tigers at will, and that the gift belonged to a few people of one small region of Sumatra who practiced the occult arts.[1] People told of a man with gold-plated teeth who was killed while in tiger form, and the same gold was found in the dead tiger's mouth. Another man was caught naked in a tiger trap and had to pay for the buffaloes he had killed in the shape of a beast.[1] Travelers who stayed the night might leave their clothes and packs in a thicket, and a tiger would come out of it. Chickens would vanish in the night, and the next day one of the guests would fall sick and cough up feathers.[1]\n\nThe Malays also told of ghost tigers, which could be known by one foot smaller than the others. No weapon could harm them, but they did no harm to people, and they guarded sacred places.[1]",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "Malay Magic",
+        "author": "Walter William Skeat (1900)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/47873",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Werewolf": {
+    "description": "A person who becomes a savage wolf, through a curse, through witchcraft or by putting on a wolf's skin.[1][2]",
+    "lore": "In Ovid's tale, Lycaon, a cruel king of Arcadia, tested whether a guest was truly the god Jupiter by serving him human flesh. Jupiter brought the house down in flames. Lycaon fled into the countryside and tried to speak, but could only howl. His clothes became fur and his arms became legs. He turned on the sheep, still hungry for blood, and he kept the same gray hair, wild face and glaring eyes as before.[1]\n\nIn the saga of the Volsungs, Sigmund and his young son Sinfjotli found two men asleep in a house, with wolf skins hanging above them. The men were under a spell, and only every tenth day could they come out of the skins. Sigmund and Sinfjotli put the skins on and could not take them off. They howled like wolves, and the wolves' nature came over them.[2] In a Scandinavian tale, a woodcutter named Lasse forgot his prayers one morning and was turned into a wolf by a witch. Years later his wife found a wolf watching her sadly on the pantry steps. She said that if she knew it was her Lasse she would give it meat, and the wolf skin fell away.[2] A Danish werewolf was freed when his wife, who had struck it with her apron, saw the torn cloth in his teeth and cried out what he was.[2]\n\nIn other tales the curse spreads through the werewolf's bite, and anyone it wounds may become a werewolf too.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Metamorphoses of Ovid, Books I-VII",
+        "author": "Ovid, translated by Henry T. Riley (1851)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/21765",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "The Book of Were-Wolves",
+        "author": "Sabine Baring-Gould (1865)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/5324",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Wight": {
     "description": "One of the restless dead, who guards its treasure in a dark burial mound and fights anyone who breaks in.[1]",
     "lore": "In the saga of Grettir the Strong, a flame burned at night above a burial mound on Haramsey, an island off the coast of Norway. It belonged to Karr the Old, who had been buried there and had since haunted the island so badly that every other landowner had been driven away.[1] Grettir dug into the mound. Inside, in the dark and the stench, he found horse bones and a dead man sitting in a high chair over heaps of gold and silver. As he carried the treasure out, the barrow-dweller seized him, and they wrestled in the dark until the dead man fell. Grettir cut off his head and laid it at his thigh, the old way to keep a ghost from walking.[1]\n\nThe shepherd Glam was harder to put down. After his death he would not lie quiet. He rode the house roofs at night until they nearly broke, and people who saw him fainted or lost their minds. When Grettir finally threw him down, Glam's eyes glared up in the moonlight, and he cursed Grettir to see those eyes forever and to dread being alone.[1]\n\nOther tales arm the wight with sword and bow and give it a touch that drains the life from the living. Sunlight weakens it.",
@@ -2193,6 +2419,21 @@
         "author": "Snorri Sturluson, translated by Rasmus B. Anderson (1879)",
         "publisher": "Project Gutenberg",
         "url": "https://www.gutenberg.org/ebooks/18947",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Zombies": {
+    "description": "In the folklore of Martinique, a night-terror that can take any shape, from a woman fourteen feet tall to a three-legged horse.[1]",
+    "lore": "On Martinique in the Caribbean, people told Lafcadio Hearn that a zombi is something that \"makes disorder at night.\" It is not one of the dead. The dead stay in the graveyard, except on All Souls' Night, while the zombi goes everywhere.[1]\n\nIf a woman fourteen feet tall walked into a locked room at midnight, that would be a zombi. So would a dog five feet tall, or a horse with only three legs. The strange noises no one can explain at night are zombis too.[1] A traveler on the high road at night may see a great fire filling the road ahead, which moves farther away the closer they come. Those who follow such fires are led into chasms.[1] One story told of a madman who brought a stray child home at midnight. As his sister stared, the child grew taller and taller, and when the neighbors came running, it was gone. Some believed zombis could show themselves even at noon.[1]\n\nOther tales make zombies the walking dead themselves: corpses raised by magic, slow and mindless, that keep coming after wounds that should have finished them.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "Two Years in the French West Indies",
+        "author": "Lafcadio Hearn",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/6381",
         "license": "Public domain",
         "accessed": "2026-10-28"
       }
