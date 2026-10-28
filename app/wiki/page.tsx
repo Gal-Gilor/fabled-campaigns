@@ -59,7 +59,7 @@ export default async function WikiPage({
         Wiki
       </h1>
       <p style={{ color: 'var(--neutral-600)', marginBottom: '2rem' }}>
-        Magic items and monsters from the D&D 5e System Reference Document..
+        Magic items and monsters from the D&D 5e System Reference Document.
       </p>
 
       <form method="get" action="/wiki" style={{ marginBottom: '1.5rem' }}>
