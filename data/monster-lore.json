@@ -1,1 +1,103 @@
-{}
+{
+  "Giant Octopus": {
+    "description": "An octopus grown far past natural size that hides by changing the color and texture of its skin, then seizes prey with eight suckered arms.[1]",
+    "lore": "The real animal behind the giant octopus is the giant Pacific octopus, the largest octopus species. It lives across the North Pacific, from Japan to Alaska's Aleutian Islands and south to Baja California, in tide pools and in water as deep as 1,500 meters.[1] It is usually reddish, but it can change both its color and the texture of its skin to hide or when threatened.[1]\n\nIt lives alone in a den under a boulder or in a rock crevice, sometimes for weeks, and goes out only to hunt, mate or escape danger.[1] It carries clams, crabs, fish and squid back to the den to eat, and the leftover shells pile up at the entrance.[1] When chased, it jets away and leaves a cloud of ink behind to cover its escape.[1]\n\nThe suckers on its arms can both feel and taste.[1] The species is known for its intelligence. It navigates by landmarks, uses objects as tools and learns by watching, and captive octopuses have a reputation for escaping their tanks.[1] A female lays tens of thousands of eggs in her den and guards them without leaving even to eat, and she dies while they develop or soon after they hatch.[1] In the wild, the species lives about four and a half to five years.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Enteroctopus dofleini (giant Pacific octopus)",
+        "author": "Colleen Hartis",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Enteroctopus_dofleini/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Mammoth": {
+    "description": "A shaggy elephant with long spiral tusks, small ears, a domed head and a back that slopes down from high shoulders to a short tail.[1]",
+    "lore": "The woolly mammoth came after about ten earlier mammoth species. The mammoth line split from the ancestors of today's elephants in Africa about seven million years ago.[1] The woolly mammoth itself evolved in northeast Siberia roughly 800,000 to 600,000 years ago, then spread west across Eurasia and east into North America.[1]\n\nIts thick, dark brown coat suited a cold climate, but it did not live in endless snow. Mammoths needed plenty of plants to eat and lived mostly in places without deep snow cover.[1] Its tusks curved in a spiral, where a living elephant's tusks bend in a simple arc.[1]\n\nWoolly mammoths were still widespread 20,000 years ago. Within the next 10,000 years, only small groups were left on islands off Siberia and Alaska, and by 4,000 years ago the species was extinct.[2]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Were all mammoths woolly?",
+        "author": "Emily Osterloff",
+        "publisher": "Natural History Museum, London",
+        "url": "https://www.nhm.ac.uk/discover/were-all-mammoths-woolly.html",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "The last of the mammoths",
+        "publisher": "Natural History Museum, London",
+        "url": "https://www.nhm.ac.uk/discover/last-mammoths.html",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Swarm of Bats": {
+    "description": "Hundreds of bats that roost together by day in caves, mines and hollow trees, then fill the night air as they hunt by sound.[1][2]",
+    "lore": "More than 1,300 species of bats live around the world, more than any other group of mammals except rodents.[1] By day they rest in caves, mines, trees, rock crevices and under bridges, out of reach of predators. Many crowd together in one place, either to raise young in a maternity colony or to sleep through the winter in a hibernaculum.[1]\n\nBats find their way and their food by echolocation. They call at pitches too high for human ears and listen for the echoes. When a bat closes in on an insect, it speeds its calls into a rapid buzz to pin down where its prey is.[2] Every species has its own pattern of calls.[2]\n\nSome bats eat insects, others prefer fruit or pollen, and a few catch fish. Most have a single pup a year, and some live as long as 35 years.[3]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Where Bats Live",
+        "publisher": "U.S. National Park Service",
+        "url": "https://www.nps.gov/subjects/bats/where-bats-live.htm",
+        "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Echolocation",
+        "publisher": "U.S. National Park Service",
+        "url": "https://www.nps.gov/subjects/bats/echolocation.htm",
+        "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "All About Bats",
+        "publisher": "U.S. National Park Service",
+        "url": "https://www.nps.gov/subjects/bats/all-about-bats.htm",
+        "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Tyrannosaurus Rex": {
+    "description": "A two-legged predator about 12 meters long, with a massive skull, small arms and saw-edged teeth strong enough to crush bone.[1]",
+    "lore": "Tyrannosaurus rex lived at the end of the age of dinosaurs, 68 to 66 million years ago, in what is now Canada and the United States. Its name means \"tyrant lizard king\".[1] A typical adult stood 3.5 to 4 meters tall at the hip and weighed 5 to 7 tonnes, and the largest known individuals passed 8 tonnes.[1]\n\nIts 60 teeth, some up to 20 centimeters long, gave it the strongest bite of any known land animal, three to five times as strong as a lion's.[1] It bit through bone and swallowed it: bone fragments turn up in its fossilized dung, and its tooth marks appear on Triceratops and Edmontosaurus fossils.[1] Much of its brain was given over to smell, which let it track both living prey and carcasses over long distances.[1]\n\nIts small arms are still debated. They may have helped it stand up after a fall, grip food while it was young, or hold a partner during mating.[1] Fossil skin shows scales, and there is no direct evidence that it had feathers.[1] An adult's top speed is estimated at about 22 kilometers an hour.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Tyrannosaurus",
+        "publisher": "Natural History Museum, London",
+        "url": "https://www.nhm.ac.uk/discover/dino-directory/tyrannosaurus.html",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Wolf": {
+    "description": "A lean wild dog with a coat anywhere from gray to brown, black or white, that hunts in family packs able to kill a moose or a bison.[1]",
+    "lore": "The gray wolf is the largest wild member of the dog family. Males can weigh up to about 80 kilograms and reach about two meters from nose to tail tip.[1] Wolves once ranged over more of the Northern Hemisphere than almost any other land mammal, in every kind of habitat except tropical forest.[1]\n\nA pack is a family: a breeding pair and their young, usually five to eight wolves, though packs of more than 30 have been recorded. The pair leads hunts and teaches the young, and a wolf may leave around two years of age to find a mate and start its own pack.[1] A pack holds and defends a territory of anywhere from 130 to 13,000 square kilometers. Wolves can travel up to 200 kilometers in a day and sprint at 55 to 70 kilometers an hour.[2]\n\nA howl carries about ten kilometers. Wolves howl to gather the pack, to start a hunt, to warn off other packs and to guide a lost wolf home.[1] Folklore has long cast the wolf as an animal to fear, and that fear still shapes how people treat wolves today.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Gray wolf",
+        "publisher": "Smithsonian's National Zoo and Conservation Biology Institute",
+        "url": "https://nationalzoo.si.edu/animals/gray-wolf",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Canis lupus (gray wolf)",
+        "author": "Julia Smith",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Canis_lupus/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  }
+}

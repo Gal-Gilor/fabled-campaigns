@@ -117,7 +117,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Giant Goat | Animals | 1 | animal | Fantasy version; facts from the real goat | |
 | Giant Hyena | Animals | 1 | animal | Fantasy version; facts from the real hyena | |
 | Giant Lizard | Animals | 1 | animal | Fantasy version; facts from the real lizard | |
-| Giant Octopus | Animals | 1 | animal | Fantasy version; facts from the real octopus | |
+| Giant Octopus | Animals | 1 | animal | Fantasy version; facts from the real octopus | Yes |
 | Giant Owl | Animals | 1 | animal | Fantasy version; facts from the real owl | |
 | Giant Rat | Animals | 1 | animal | Fantasy version; facts from the real rat | |
 | Giant Scorpion | Animals | 1 | animal | Fantasy version; facts from the real scorpion | |
@@ -177,7 +177,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Lizard | Animals | 1 | animal |  | |
 | Mages | Monsters | 2 | original | Generic role | |
 | Magmin | Monsters | 1 | original |  | |
-| Mammoth | Animals | 1 | animal | Extinct: cite natural history museums | |
+| Mammoth | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
 | Manticore | Monsters | 1 | myth | Ctesias via Pliny | |
 | Marilith | Monsters | 1 | original |  | |
 | Mastiff | Animals | 1 | animal |  | |
@@ -251,7 +251,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Stone Golem | Monsters | 1 | original |  | |
 | Storm Giant | Monsters | 1 | myth | Norse and Greek myth (loose) | |
 | Succubus | Monsters | 1 | myth | Medieval demonology | |
-| Swarm of Bats | Animals | 1 | animal | Fantasy version; facts from the real bats | |
+| Swarm of Bats | Animals | 1 | animal | Fantasy version; facts from the real bats | Yes |
 | Swarm of Insects | Animals | 1 | animal | Fantasy version; facts from the real insects | |
 | Swarm of Piranhas | Animals | 1 | animal | Fantasy version; facts from the real piranhas | |
 | Swarm of Rats | Animals | 1 | animal | Fantasy version; facts from the real rats | |
@@ -263,7 +263,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Treant | Monsters | 1 | original | Tree spirits are common in folklore, but avoid Tolkien's Ents, which are under copyright | |
 | Triceratops | Animals | 1 | animal | Extinct: cite natural history museums | |
 | Troll | Monsters | 2 | myth | Norse and Scandinavian folklore | |
-| Tyrannosaurus Rex | Animals | 1 | animal | Extinct: cite natural history museums | |
+| Tyrannosaurus Rex | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
 | Unicorn | Monsters | 1 | myth | Ctesias, Pliny, medieval bestiaries | |
 | Vampires | Monsters | 3 | myth | Eastern European folklore | |
 | Venomous Snake | Animals | 1 | animal |  | |
@@ -282,7 +282,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Wight | Monsters | 1 | myth | Norse draugr and haugbui | |
 | Will-o'-Wisp | Monsters | 1 | myth | European folklore | |
 | Winter Wolf | Monsters | 1 | original |  | |
-| Wolf | Animals | 1 | animal |  | |
+| Wolf | Animals | 1 | animal |  | Yes |
 | Worg | Monsters | 1 | myth | Norse vargr | |
 | Wraith | Monsters | 1 | myth | Scottish folklore | |
 | Wyvern | Monsters | 1 | myth | Heraldry | |

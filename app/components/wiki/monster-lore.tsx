@@ -114,7 +114,8 @@ export function LoreSources({ lore }: { lore: MonsterLore }) {
                 >
                   {source.title}
                 </a>
-                . {source.publisher}. {source.license}. Accessed {formatAccessed(source.accessed)}.
+                {/[.?!]$/.test(source.title) ? ' ' : '. '}
+                {source.publisher}. {source.license}. Accessed {formatAccessed(source.accessed)}.
               </li>
             ))}
           </ol>
