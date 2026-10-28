@@ -96,6 +96,33 @@ export type MonsterGroupSummary = {
   memberNames: string[];
 };
 
+// Where a group's lore comes from, which decides whether it needs sources.
+export type LoreOrigin = 'animal' | 'myth' | 'history' | 'original';
+
+export type LoreSource = {
+  title: string;
+  // Author or translator, when the source names one.
+  author?: string;
+  publisher: string;
+  url: string;
+  // The source's own license, e.g. 'CC BY-SA 3.0' or 'Public domain'.
+  // Sources are cited for facts, never quoted.
+  license: string;
+  // YYYY-MM-DD
+  accessed: string;
+};
+
+// Written once per SRD group. A marker like [1] in the description or lore
+// cites sources[0].
+export type MonsterLore = {
+  // One or two sentences: appearance and behavior.
+  description: string;
+  // Markdown, a few short paragraphs.
+  lore: string;
+  origin: LoreOrigin;
+  sources: LoreSource[];
+};
+
 export type FilterConfig<T> =
   | {
       key: string;

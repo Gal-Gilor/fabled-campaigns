@@ -8,7 +8,8 @@ first:
 2. Each group has one page holding every member's stat block. The four White Dragons share
    `/wiki/monsters/white-dragons`.
 
-Both are built (see Built). Lore is next (see Remaining).
+Both are built, and so is the lore display (see Built). Writing the entries is next (see Lore
+content).
 
 `data/monsters.json` is unchanged. It is regenerated in roll-to-quest and never edited here (see
 `monsters_data_plan.md`). The chosen frontend needs no new field: `category`, `group` and `slug`
@@ -35,7 +36,7 @@ cards and filters match on any member.
 
 ## Decisions
 
-Decisions 1 to 4 were picked from mockups of each option. 5 to 7 are still recommendations.
+All confirmed. 1 to 4, 8 and 9 were picked from mockups of each option.
 
 | # | Question | Decision |
 |---|---|---|
@@ -43,9 +44,11 @@ Decisions 1 to 4 were picked from mockups of each option. 5 to 7 are still recom
 | 2 | Group page layout | Stacked stat blocks. Order: title, description, lore, a jump list of the stat blocks with their CR, the stat blocks, then sources. Lore comes before anything about the stat blocks. |
 | 3 | Address of a single-member group | The group's address, for every group: `/wiki/monsters/azer`, with `azer-sentinel` redirecting there. |
 | 4 | Group page titles | SRD group names as printed ("Troll", "Crawling Claw"). |
-| 5 | Where lore lives (recommended) | Here, in `data/monster-lore.json`, keyed by `group`. Lore is original writing for this site, and this repo is "All Rights Reserved". roll-to-quest declares Apache 2.0, so lore written there would be free for anyone to reuse. |
-| 6 | General lore or one campaign world (recommended) | General and setting-neutral. Each user brings their own world through the campaign lore field. D&D-original monsters get original setting-neutral lore. |
-| 7 | Search results on `/wiki` | One result per stat block, linking to its group page and anchor. Built. |
+| 5 | Where lore lives | Here, in `data/monster-lore.json`, keyed by `group`. Lore is original writing for this site, and this repo is "All Rights Reserved". |
+| 6 | General lore or one campaign world | General and setting-neutral. Each user brings their own world through the campaign lore field. |
+| 7 | Search results on `/wiki` | One result per stat block, linking to its group page and anchor. |
+| 8 | How sources are cited | Numbered markers like `[1]` in the description and lore, linking to a numbered Sources list after the stat blocks. |
+| 9 | Descriptions on browse cards | No. Cards keep the name, type and CR range. |
 
 ## Built
 
@@ -86,82 +89,60 @@ Checked with `npm test`, `npx tsc --noEmit`, `npm run lint` (no new warnings), `
 `npx next build` needs `DATABASE_URL` and `DATABASE_URL_UNPOOLED` set, though any placeholder
 value works for the wiki pages.
 
-## Remaining
+### Lore display
 
-### Lore data and rendering
+- `types/wiki.ts`: `LoreOrigin` (`animal`, `myth`, `history`, `original`), `LoreSource` and
+  `MonsterLore`.
+- `data/monster-lore.json`: `Record<group, MonsterLore>`, empty until the first batch.
+- `app/lib/wiki.ts`: `getAllLore` and `getLore`. `describeMonsterGroup` returns the description,
+  with its markers removed, for metadata and JSON-LD.
+- `app/components/wiki/monster-lore.tsx`: the description under the `h1`, a "Lore" section above
+  the jump list, and after the stat blocks a numbered "Sources" list. Each source shows the
+  author or translator when known, the linked title, publisher, license and access date. A line
+  below says the text is original to Fabled Campaigns, and that listed sources were consulted for
+  facts and are not quoted. A group without an entry renders as before.
+- `app/lib/loreRules.ts`: `loreErrors`, run on every entry by a data test, with its own tests in
+  `loreRules.test.ts`. Its rules are below.
 
-Waits on decisions 5 and 6.
+## Lore content
 
-`types/wiki.ts`:
+`docs/monster_lore_worksheet.md` lists the 272 groups with their origin: 95 animal, 75 myth, 7
+history and 95 original. Entries ship in batches, one PR each, in this order: animals, myth,
+history, original. Mark each row done as its entry merges.
 
-```ts
-export type LoreOrigin = 'animal' | 'myth' | 'original';
+### Entry rules
 
-export type LoreSource = {
-  title: string;
-  url: string;
-  publisher: string;
-  // The source's own license, e.g. 'CC BY-SA 4.0' or 'Public domain'.
-  // Sources are cited, never copied.
-  license: string;
-  accessed: string; // YYYY-MM-DD
-};
+The data test enforces the rules marked (test).
 
-export type MonsterLore = {
-  // One or two sentences: appearance and behavior.
-  description: string;
-  // Markdown, a few short paragraphs.
-  lore: string;
-  origin: LoreOrigin;
-  sources: LoreSource[];
-};
-```
+- One description per group: one or two sentences, at most 250 characters (test), on what the
+  creature looks like and how it behaves. Lore is a few short paragraphs of Markdown.
+- Every `[n]` marker has a source, and every source is cited at least once (test).
+- `animal`, `myth` and `history` entries need at least one source (test). `original` entries need
+  none and say they were written for this site.
+- Each source has a title, publisher, license, an `https` URL and an `accessed` date in
+  `YYYY-MM-DD` form (test). Add the author or translator when the source names one.
+- No Wizards material. Nothing from the Monster Manual, D&D Beyond or any other Wizards product is
+  copied, paraphrased or cited. The SRD is credited only by the footer attribution, for the stat
+  blocks. `original` lore is invented, not a summary of Wizards' version.
+- Blocked sites (test): wikipedia.org (not used for research either), wizards.com,
+  dndbeyond.com, and forgottenrealms.fandom.com. Other D&D wikis on Fandom retell Wizards' books
+  too; add them to `BLOCKED_SOURCE_HOSTS` when found.
+- Other Fandom wikis, such as mythology wikis, can be cited for facts. Their text is CC BY-SA, so
+  it is cited and linked but never copied.
+- Animals: zoos, wildlife agencies, universities and natural history museums. Fantasy versions
+  ("Giant Wasp") take their facts from the real animal.
+- Myth: the original text in a named public-domain translation (Perseus, Project Gutenberg, the
+  Internet Archive), then other reliable sites.
+- Text is in our own words. Before an entry ships, a person checks each fact against its source,
+  that each link opens the cited page, and that no sentence closely follows a source's wording.
 
-- `data/monster-lore.json`: `Record<group, MonsterLore>`, filled in batches (see Lore content).
-- `app/lib/wiki.ts`: `getLore(group): MonsterLore | undefined`.
-- `MonsterGroupPage`: the description under the `h1`, then the lore through `MarkdownBody`, both
-  above the jump list. After the stat blocks, a "Sources" list: the title linked to `url`, then
-  publisher, license and access date. Below it, one line: "Description and lore are original to
-  Fabled Campaigns. Listed sources were consulted for facts and are not quoted." A group without
-  an entry renders as it does now.
-- `describeMonsterGroup` returns the lore description when there is one, for metadata and JSON-LD.
+### Network access
 
-Tests:
-
-- Every lore key is an existing `group`. This fails when roll-to-quest renames a group.
-- Every entry has a non-empty `description` and `lore`, and an `origin` from the list.
-- Every source has an `https://` URL, a license and an `accessed` date in `YYYY-MM-DD` form.
-- `animal` and `myth` entries have at least one source. `original` entries may have none.
-
-No coverage test while entries ship in batches.
-
-### Lore content
-
-Separate PRs, each adding a batch of entries.
-
-1. Worksheet. `docs/monster_lore_worksheet.md` lists the 272 groups with a proposed `origin`. The
-   95 Animal groups are `animal`. The 5 non-Beast animals (Giant Eagle, Giant Elk, Giant Owl,
-   Flying Snake, Giant Vulture) are giant versions of real species, so their facts come from the
-   base animal. The 177 Monster groups are sorted by hand into `myth` (Medusa, Minotaur, Griffon,
-   Kraken, Djinni, Werewolf, Vampires, Banshee and similar) and `original` (Aboleth, Otyugh, Rust
-   Monster, Owlbear, Gelatinous Cube, Bulette and similar).
-2. Source search. A script queries the Wikipedia and Wikidata APIs with each `animal` and `myth`
-   group name and writes candidate links to the worksheet for review. It writes no lore.
-3. Batches in order of available sources: animals, then myth, then original. A draft can be
-   written by an agent from the reviewed links. Before an entry ships, a person checks the facts
-   and that no sentence closely follows a single source.
-
-Rules for every entry:
-
-- Never copy or closely paraphrase the Monster Manual, D&D Beyond or any other Wizards text. For
-  `original` groups, invent lore instead of summarizing theirs.
-- Wikipedia and Fandom wikis (including the Forgotten Realms Wiki) are CC BY-SA. Cite them for
-  facts and do not adapt their wording. Fandom pages often contain text copied from the books.
-- Public-domain originals (Ovid, Hesiod and Pliny through Perseus, Wikisource or Project
-  Gutenberg; translations published before about 1930) can be cited directly.
-- For `original` groups, the SRD is cited for mechanics only, by the existing attribution. A
-  documented real-world origin can be cited, such as the plastic toys behind the owlbear and the
-  rust monster.
+This cloud environment blocks the source sites. Before research can start, the environment's
+Network access settings need these domains allowed (or a broader access level): nationalzoo.si.edu,
+www.nps.gov, www.fws.gov, www.fisheries.noaa.gov, animaldiversity.org, www.nhm.ac.uk,
+www.amnh.org, naturalhistory.si.edu, www.perseus.tufts.edu, www.gutenberg.org, archive.org and
+fandom.com.
 
 ## Out of scope
 

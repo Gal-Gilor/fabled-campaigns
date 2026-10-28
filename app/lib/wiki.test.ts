@@ -7,6 +7,7 @@ import {
   getAllMonsters,
   describeMonsterGroup,
   formatCRRange,
+  getAllLore,
   getMonsterBySlug,
   getMonsterGroupBySlug,
   getMonsterGroupSummaries,
@@ -14,6 +15,7 @@ import {
   getMonsterHref,
   sortedCRs,
 } from './wiki';
+import { loreErrors } from './loreRules';
 
 // Mirrors WIKI_MONSTER_KEYS in roll-to-quest tests/wiki/test_models.py.
 const MONSTER_KEYS = [
@@ -116,4 +118,9 @@ test('getMonsterHref links to the group page and the member section', () => {
   );
   assert.equal(getMonsterHref(getMonsterBySlug('azer-sentinel')!), '/wiki/monsters/azer');
   assert.equal(getMonsterHref(getMonsterBySlug('troll-limb')!), '/wiki/monsters/troll#troll-limb');
+});
+
+test('every lore entry follows the lore rules', () => {
+  const groups = new Set(getAllMonsters().map((m) => m.group));
+  assert.deepEqual(loreErrors(getAllLore(), groups), []);
 });

@@ -1,11 +1,12 @@
 // app/components/wiki/monster-group-page.tsx
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { describeMonsterGroup } from '@/app/lib/wiki';
+import { describeMonsterGroup, getLore } from '@/app/lib/wiki';
 import { CATEGORY_PATHS } from '@/app/lib/wikiPaths';
 import { pageMetadata } from '@/app/lib/pageMetadata';
 import { StatBlock } from './stat-block';
 import { MarkdownBody } from './markdown-body';
+import { LoreBody, LoreDescription, LoreSources } from './monster-lore';
 import type { MonsterCategory, MonsterGroup } from '@/types/wiki';
 
 const BASE_URL = 'https://fabledcampaigns.com';
@@ -29,13 +30,15 @@ export function monsterGroupMetadata(group: MonsterGroup): Metadata {
 
 type Props = { group: MonsterGroup; from?: string; q?: string };
 
-// One page per SRD group: the group name, then a link to each stat block when
-// there are several, then the stat blocks in CR order.
+// One page per SRD group: the group name, its description and lore when
+// written, a link to each stat block when there are several, the stat blocks
+// in CR order, then the lore's sources.
 export function MonsterGroupPage({ group, from, q }: Props) {
   const listHref = `/wiki/${CATEGORY_PATHS[group.category]}`;
   const backHref =
     from === 'search' ? `/wiki${q ? `?search=${encodeURIComponent(q)}` : ''}` : listHref;
   const hasVariants = group.members.length > 1;
+  const lore = getLore(group.name);
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -81,6 +84,9 @@ export function MonsterGroupPage({ group, from, q }: Props) {
           {group.name}
         </h1>
 
+        {lore && <LoreDescription lore={lore} />}
+        {lore && <LoreBody lore={lore} />}
+
         {hasVariants && (
           <nav aria-label="Stat blocks on this page" style={{ marginBottom: '1.5rem' }}>
             <ul
@@ -122,6 +128,8 @@ export function MonsterGroupPage({ group, from, q }: Props) {
             <MarkdownBody content={m.body} />
           </section>
         ))}
+
+        {lore && <LoreSources lore={lore} />}
 
         <nav style={{ borderTop: '1px solid var(--neutral-200)', marginTop: '2rem', paddingTop: '1.5rem' }}>
           <Link
