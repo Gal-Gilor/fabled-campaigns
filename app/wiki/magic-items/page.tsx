@@ -4,14 +4,16 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { getMagicItemSummaries, sortedRarities } from '@/app/lib/wiki';
 import { MagicItemsBrowser } from './magic-items-browser';
+import { pageMetadata } from '@/app/lib/pageMetadata';
 import { CardGrid } from '@/app/components/wiki/card-grid';
 import { MagicItemCard } from '@/app/components/wiki/magic-item-card';
 
-export const metadata: Metadata = {
-  title: 'Magic Items | Fabled Campaigns Wiki',
-  description: 'Browse D&D 5e SRD magic items by rarity and type.',
-  alternates: { canonical: '/wiki/magic-items' },
-};
+export const metadata: Metadata = pageMetadata(
+  'Magic Items | Fabled Campaigns Wiki',
+  'Browse D&D 5e SRD magic items by rarity and type.',
+  '/wiki/magic-items',
+  '/opengraph-image'
+);
 
 export default function MagicItemsPage() {
   const items = getMagicItemSummaries();

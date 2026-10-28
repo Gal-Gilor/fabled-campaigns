@@ -1,6 +1,6 @@
 # Fabled Campaigns
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?logo=vercel&logoColor=white)](https://www.fabledcampaigns.com)
+[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?logo=vercel&logoColor=white)](https://fabledcampaigns.com)
 [![License: All Rights Reserved](https://img.shields.io/badge/License-All%20Rights%20Reserved-red.svg)](LICENSE)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D20.9.0-brightgreen)](https://nodejs.org/)
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org/)
@@ -13,7 +13,7 @@ An AI Dungeon Master assistant for tabletop RPGs. You describe what you need in 
 narrates scenes, generates and edits encounter maps, and keeps sessions and homebrew campaigns
 organized.
 
-[Visit www.fabledcampaigns.com](https://www.fabledcampaigns.com)
+[Visit fabledcampaigns.com](https://fabledcampaigns.com) or browse the [SRD wiki](https://fabledcampaigns.com/wiki).
 
 ## Features
 

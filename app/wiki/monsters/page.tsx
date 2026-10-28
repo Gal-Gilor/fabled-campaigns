@@ -4,15 +4,16 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { getMonsterSummaries, sortedCRs } from '@/app/lib/wiki';
 import { MonstersBrowser } from './monsters-browser';
+import { pageMetadata } from '@/app/lib/pageMetadata';
 import { CardGrid } from '@/app/components/wiki/card-grid';
 import { MonsterCard } from '@/app/components/wiki/monster-card';
 
-export const metadata: Metadata = {
-  title: 'Monsters | Fabled Campaigns Wiki',
-  description:
-    'Browse D&D 5e SRD monsters and animals by category, creature type and challenge rating.',
-  alternates: { canonical: '/wiki/monsters' },
-};
+export const metadata: Metadata = pageMetadata(
+  'Monsters | Fabled Campaigns Wiki',
+  'Browse D&D 5e SRD monsters and animals by category, creature type and challenge rating.',
+  '/wiki/monsters',
+  '/opengraph-image'
+);
 
 export default function MonstersPage() {
   const monsters = getMonsterSummaries();

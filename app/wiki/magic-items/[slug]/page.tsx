@@ -4,6 +4,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { getAllMagicItems, getMagicItemBySlug } from '@/app/lib/wiki';
 import { MarkdownBody } from '@/app/components/wiki/markdown-body';
+import { pageMetadata } from '@/app/lib/pageMetadata';
 
 type Props = { params: Promise<{ slug: string }>; searchParams: Promise<{ from?: string; q?: string }> };
 
@@ -24,11 +25,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       : ', requires attunement'
     : '';
 
-  return {
-    title: `${item.name} | Fabled Campaigns Wiki`,
-    description: `${item.rarity} ${item.itemType}${attunement}.`,
-    alternates: { canonical: `/wiki/magic-items/${item.slug}` },
-  };
+  return pageMetadata(
+    `${item.name} | Fabled Campaigns Wiki`,
+    `${item.rarity} ${item.itemType}${attunement}.`,
+    `/wiki/magic-items/${item.slug}`
+  );
 }
 
 export default async function MagicItemPage({ params, searchParams }: Props) {
