@@ -93,7 +93,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Fire Elemental | Monsters | 1 | myth | Classical elements, Paracelsus | |
 | Fire Giant | Monsters | 1 | myth | Norse myth (Muspelheim) | |
 | Flesh Golem | Monsters | 1 | myth | Mary Shelley, Frankenstein (1818, public domain) | |
-| Flying Snake | Animals | 1 | animal |  | |
+| Flying Snake | Animals | 1 | animal |  | Yes |
 | Frog | Animals | 1 | animal |  | Yes |
 | Frost Giant | Monsters | 1 | myth | Norse myth (jotnar) | |
 | Fungi | Monsters | 2 | original |  | |
@@ -174,7 +174,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Lemure | Monsters | 1 | myth | Roman religion (lemures) | |
 | Lich | Monsters | 1 | original |  | |
 | Lion | Animals | 1 | animal |  | Yes |
-| Lizard | Animals | 1 | animal |  | |
+| Lizard | Animals | 1 | animal |  | Yes |
 | Mages | Monsters | 2 | original | Generic role | |
 | Magmin | Monsters | 1 | original |  | |
 | Mammoth | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
@@ -219,7 +219,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Rat | Animals | 1 | animal |  | Yes |
 | Raven | Animals | 1 | animal |  | Yes |
 | Red Dragons | Monsters | 4 | original |  | |
-| Reef Shark | Animals | 1 | animal |  | |
+| Reef Shark | Animals | 1 | animal |  | Yes |
 | Remorhaz | Monsters | 1 | original |  | |
 | Rhinoceros | Animals | 1 | animal |  | Yes |
 | Riding Horse | Animals | 1 | animal |  | |
@@ -230,7 +230,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Sahuagin | Monsters | 1 | original |  | |
 | Salamander | Monsters | 1 | myth | Paracelsus | |
 | Satyr | Monsters | 1 | myth | Greek myth | |
-| Scorpion | Animals | 1 | animal |  | |
+| Scorpion | Animals | 1 | animal |  | Yes |
 | Scout | Monsters | 1 | original | Generic role | |
 | Sea Hag | Monsters | 1 | original | Sea witch folklore (name only) | |
 | Seahorse | Animals | 1 | animal |  | Yes |
@@ -242,7 +242,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Solar | Monsters | 1 | original |  | |
 | Specter | Monsters | 1 | original |  | |
 | Sphinxes | Monsters | 3 | myth | Egyptian and Greek myth | |
-| Spider | Animals | 1 | animal |  | |
+| Spider | Animals | 1 | animal |  | Yes |
 | Spirit Naga | Monsters | 1 | myth | Hindu and Buddhist myth | |
 | Sprite | Monsters | 1 | myth | English folklore | |
 | Spy | Monsters | 1 | original | Generic role | |
@@ -253,10 +253,10 @@ original. The lore can mention the myth as the source of the name, with a source
 | Succubus | Monsters | 1 | myth | Medieval demonology | |
 | Swarm of Bats | Animals | 1 | animal | Fantasy version; facts from the real bats | Yes |
 | Swarm of Insects | Animals | 1 | animal | Fantasy version; facts from the real insects | |
-| Swarm of Piranhas | Animals | 1 | animal | Fantasy version; facts from the real piranhas | |
-| Swarm of Rats | Animals | 1 | animal | Fantasy version; facts from the real rats | |
-| Swarm of Ravens | Animals | 1 | animal | Fantasy version; facts from the real ravens | |
-| Swarm of Venomous Snakes | Animals | 1 | animal | Fantasy version; facts from the real venomous snakes | |
+| Swarm of Piranhas | Animals | 1 | animal | Fantasy version; facts from the real piranhas | Yes |
+| Swarm of Rats | Animals | 1 | animal | Fantasy version; facts from the real rats | Yes |
+| Swarm of Ravens | Animals | 1 | animal | Fantasy version; facts from the real ravens | Yes |
+| Swarm of Venomous Snakes | Animals | 1 | animal | Fantasy version; facts from the real venomous snakes | Yes |
 | Tarrasque | Monsters | 1 | myth | French legend of the Tarasque | |
 | Tiger | Animals | 1 | animal |  | Yes |
 | Toughs | Monsters | 2 | original | Generic role | |
@@ -266,7 +266,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Tyrannosaurus Rex | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
 | Unicorn | Monsters | 1 | myth | Ctesias, Pliny, medieval bestiaries | |
 | Vampires | Monsters | 3 | myth | Eastern European folklore | |
-| Venomous Snake | Animals | 1 | animal |  | |
+| Venomous Snake | Animals | 1 | animal |  | Yes |
 | Vrock | Monsters | 1 | original |  | |
 | Vulture | Animals | 1 | animal |  | Yes |
 | Warhorse | Animals | 1 | animal |  | |

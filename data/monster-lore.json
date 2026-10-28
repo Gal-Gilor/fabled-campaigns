@@ -333,6 +333,28 @@
       }
     ]
   },
+  "Flying Snake": {
+    "description": "A slender tree snake that launches itself from high branches and glides through the air with its body flattened.[1][2]",
+    "lore": "Flying snakes live in the forests of South and Southeast Asia. They don't truly fly, but they glide.[2] The paradise tree snake flings itself from the treetops, flattens and stiffens its body into an S-shape, and ripples as it falls to stay steady.[1][2]\n\nBy twisting its body it can turn in midair and steer toward a landing. Glides of more than 20 meters have been measured, and some snakes have been reported landing on branches about a hundred meters away.[1][2]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Fantastic flyers: 10 animals that fly in surprising ways",
+        "author": "Jay Sullivan",
+        "publisher": "Natural History Museum, London",
+        "url": "https://www.nhm.ac.uk/discover/fantastic-flyers-animals-that-fly-in-surprising-ways.html",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "How Do Snakes Move Without Legs?",
+        "publisher": "Smithsonian's National Zoo and Conservation Biology Institute",
+        "url": "https://nationalzoo.si.edu/news/news/how-do-snakes-move-without-legs",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Frog": {
     "description": "A big green or brown frog with long, fully webbed hind feet, a wide mouth and large round eardrums behind its eyes.[1]",
     "lore": "Bullfrogs are the largest true frogs in North America.[1] They hunt by sitting still and waiting, sometimes for a long time, until something comes close, then snatch it with a flick of the tongue.[1] They eat almost anything they can swallow: insects, worms, crayfish, snakes, other frogs and tadpoles, and on rare occasions even bats. They will eat their own kind without hesitation.[1]\n\nA male's deep \"jug-o-rum\" can be heard more than a kilometer away.[1] When the weather turns cold, a bullfrog buries itself in the mud and hibernates in a small hollow until spring.[1] Herons, turtles, water snakes, raccoons and kingfishers all hunt bullfrogs, and people catch them for frog legs.[1]",
@@ -476,6 +498,27 @@
         "publisher": "Smithsonian's National Zoo and Conservation Biology Institute",
         "url": "https://nationalzoo.si.edu/animals/lion",
         "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Lizard": {
+    "description": "A small, quick reptile with scaly skin, four legs and a long tail, often seen basking on a sun-warmed rock.[1]",
+    "lore": "Lizards are cold-blooded and take their heat from the sun, which costs them little and leaves more energy for hunting and raising young. They cannot pant or sweat, though, so in great heat they must find shade.[2] They hunt insects, spiders, scorpions and even other lizards, and in winter they tuck themselves away in dens until it warms up.[1][2]\n\nA lizard bobbing up and down on a rock as if doing push-ups is defending its territory or courting a mate, and some show bright colors in the mating season.[1] Collared lizards can rise up and run on their hind legs to get away fast.[2]\n\nMany lizards can drop their tails to escape a predator. The lost tail keeps wriggling to distract the attacker, and the lizard grows a new one, though that costs it a lot of energy.[1][2] Some kinds of whiptail lizard are all female and reproduce without males.[2]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Lizards",
+        "publisher": "U.S. National Park Service (Colorado National Monument)",
+        "url": "https://www.nps.gov/colm/learn/nature/lizards.htm",
+        "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Reptiles",
+        "publisher": "U.S. National Park Service (Petrified Forest National Park)",
+        "url": "https://www.nps.gov/pefo/learn/nature/reptiles.htm",
+        "license": "Public domain (U.S. government work)",
         "accessed": "2026-10-28"
       }
     ]
@@ -667,6 +710,21 @@
       }
     ]
   },
+  "Reef Shark": {
+    "description": "A slender gray shark with a white belly, white tips on its fins and a short, broad snout.[1]",
+    "lore": "Reef sharks live around tropical coral reefs, and each kind keeps to its own part of the reef. The blacktip reef shark keeps to the shallow coastal water, and the gray reef shark to the deep water off the reef edge.[1]\n\nBy day the whitetip reef shark rests in caves and deep cracks in the reef, often lying still on the bottom, which it can do because it pumps water over its gills without swimming. It returns to the same cave day after day for months.[1]\n\nAt night it changes. It becomes an aggressive hunter, thrashing through the reef for fish, sometimes together with other sharks, and it will wedge half its body into a crack to reach a fish hiding inside.[1] Whitetips are calm around divers but will fight spear fishers over a speared fish.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Triaenodon obesus (whitetip reef shark)",
+        "author": "Andrew Feldkamp",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Triaenodon_obesus/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Rhinoceros": {
     "description": "A massive, short-legged beast with thick, wrinkled skin like riveted armor and one or two solid horns on its snout.[1]",
     "lore": "There are five kinds of rhinoceros: three in south-central Asia and two in Africa south of the Sahara. They live in grassland, scrub and dense forest, never far from water they can reach each day.[1] Their horns are not bone but solid, packed keratin.[1]\n\nThe black rhino of Africa mostly keeps to itself. It feeds in the morning and evening and rests through the heat of the day, rolling in mud to stay cool.[2] It browses on twigs, shrubs and small trees, gripping them with its grasping upper lip, and knocks branches down with its horn to reach higher ones.[2]\n\nBlack rhinos see poorly, only 25 to 30 meters, and rely on their noses.[2] A startled black rhino runs off snorting, then often turns back out of curiosity and charges whatever scared it. These charges look dangerous but rarely end badly.[2] Rhinos leave their dung in shared piles, which tells other rhinos who has passed and how recently.[2]",
@@ -713,6 +771,27 @@
       }
     ]
   },
+  "Scorpion": {
+    "description": "A small, eight-legged hunter with grasping pincers and a long tail tipped with a venomous stinger.[1][2]",
+    "lore": "Scorpions are close relatives of spiders. All of them carry venom, and they come out at night to hunt, using the stinger to kill prey or to defend themselves.[2] The bark scorpion of the American Southwest grabs insects with its pincers and stings them with its highly venomous tail.[1]\n\nUnder ultraviolet light scorpions glow, which makes them easy to find at night.[1][2] A female bark scorpion gives birth to live young and carries as many as 30 on her back for up to three weeks, until they shed their first skin.[1]\n\nA venomous sting doesn't always save a scorpion. Bats, mice, lizards, tarantulas and birds all eat bark scorpions.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Arizona Bark Scorpion",
+        "publisher": "U.S. National Park Service",
+        "url": "https://www.nps.gov/articles/bark-scorpion.htm",
+        "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Insects, Spiders, Centipedes, Millipedes",
+        "publisher": "U.S. National Park Service (Mojave National Preserve)",
+        "url": "https://www.nps.gov/moja/learn/nature/insects.htm",
+        "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Seahorse": {
     "description": "A small fish with a horse-like head set at a right angle to its body and a body armored with bony rings.[1]",
     "lore": "Seahorses spend most of their lives in a small patch of seagrass or coral, holding on and watching for food.[1] They hunt by sight, mostly by day, and when a small shrimp or fish comes close they suck it into their snouts.[1] Some can change color to hide or to court a mate.[1]\n\nSeahorse pairs often stay together season after season. The female passes her eggs to the male, who carries them in a pouch until they hatch.[1] Some seahorses travel far by clinging to floating mats of seaweed.[1] They are small, and many animals eat them, from fish, turtles and seabirds to crabs and shrimp.[1]",
@@ -724,6 +803,27 @@
         "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
         "url": "https://animaldiversity.org/accounts/Hippocampus/",
         "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Spider": {
+    "description": "An eight-legged hunter with fangs and venom that spins silk, sometimes into great wheel-shaped webs.[1][2]",
+    "lore": "All spiders make silk, the strongest natural material known, but not all of them spin webs. Some stalk their prey or ambush it from hiding. Spiders also use silk for signal lines, nurseries and egg cases, and baby spiders float on silk threads to travel long distances on the wind.[1]\n\nSpiders can't eat solid food. They use venom and digestive juices to turn their prey to liquid, then suck it up.[1] Every spider has fangs and venom, but most can't hurt people, because their venom is too weak or their fangs too small to break the skin.[1]\n\nThe golden silk spider of the southeastern United States spins a round web up to a meter across, held up by strong, non-sticky yellow strands and filled with very sticky ones.[2] The female is many times the size of the male, and after mating she kills and eats him, using the meal to make her eggs.[2]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Insects, Spiders, Centipedes, Millipedes",
+        "publisher": "U.S. National Park Service (Mojave National Preserve)",
+        "url": "https://www.nps.gov/moja/learn/nature/insects.htm",
+        "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Spider",
+        "publisher": "U.S. National Park Service (Fort Matanzas National Monument)",
+        "url": "https://www.nps.gov/foma/learn/nature/spider.htm",
+        "license": "Public domain (U.S. government work)",
         "accessed": "2026-10-28"
       }
     ]
@@ -751,6 +851,85 @@
         "title": "All About Bats",
         "publisher": "U.S. National Park Service",
         "url": "https://www.nps.gov/subjects/bats/all-about-bats.htm",
+        "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Swarm of Piranhas": {
+    "description": "A school of twenty or more piranhas, each with interlocking, razor-sharp triangular teeth hidden behind thick lips.[1]",
+    "lore": "Red-bellied piranhas travel in schools of 20 or more through the rivers of the Amazon basin.[1] Their jaws are short and powerful, with triangular teeth that lock together like shears. Yet in the wild much of what they eat is fins nipped from the tails of larger fish, along with bits of flesh, small fish, insects and ripe fruit.[1]\n\nTheir fearsome name comes largely from Theodore Roosevelt, who wrote of watching piranhas tear apart a cow in South America. In fact the fish had been netted and starved first, which drove them into a frenzy when the cow was pushed into the water.[2] Piranhas usually attack like that only when they are very hungry or defending their nests.[2]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Red-bellied piranha",
+        "publisher": "Smithsonian's National Zoo and Conservation Biology Institute",
+        "url": "https://nationalzoo.si.edu/animals/red-bellied-piranha",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "New species of vegetarian piranha named after Lord of the Rings villain Sauron",
+        "author": "James Ashworth",
+        "publisher": "Natural History Museum, London",
+        "url": "https://www.nhm.ac.uk/discover/news/2024/june/new-species-vegetarian-piranha-named-after-lord-of-the-rings-villain-sauron.html",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Swarm of Rats": {
+    "description": "A crowd of rats with big ears and tails longer than their bodies.[1]",
+    "lore": "The black rat, also called the ship rat or roof rat, came from India and has been carried by people to every continent. It thrives in ports and on ships, which is why it is most common along coasts.[1] It climbs well and nests high up, in the top floors of buildings or in trees.[1]\n\nBlack rats live in groups of several males and females, and they come out mostly at night.[1] They eat grain, fruit and other plants, and insects when they must, and they spoil far more food than they eat by fouling what they leave behind.[1]\n\nThe black rat is best known for its part in spreading the bubonic plague, which killed millions in the Middle Ages. Its fleas carry many diseases that can harm people and animals.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Rattus rattus (black rat)",
+        "author": "Heather Gillespie",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Rattus_rattus/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Swarm of Ravens": {
+    "description": "A noisy flock of big, glossy black birds with heavy bills and wings spanning more than a meter.[1]",
+    "lore": "Ravens are social birds and sometimes gather in flocks of up to a hundred.[1] They have a wide range of calls, from the yell of a hungry nestling to the sharp keck-keck-keck alarm given when a hawk flies over, which may let them share a great deal of information.[1]\n\nThey are clever and quick to take advantage of people. Ravens have been seen playing with sticks and passing stones to each other, and in the California deserts their numbers have soared where people leave food behind.[1] In Yellowstone, some have learned to unzip and unsnap packs.[2]\n\nRavens follow wolves on the hunt to feed at their kills, since they cannot tear open thick hides on their own.[2] Native American stories have long told of the raven as a mischievous, clever animal.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Ravens",
+        "publisher": "U.S. National Park Service",
+        "url": "https://www.nps.gov/articles/ravens.htm",
+        "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Raven",
+        "publisher": "U.S. National Park Service (Yellowstone National Park)",
+        "url": "https://www.nps.gov/yell/learn/nature/raven.htm",
+        "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Swarm of Venomous Snakes": {
+    "description": "A tangle of rattlesnakes gathered together in a rocky den, rattles buzzing.[1][2]",
+    "lore": "Rattlesnakes spend the winter together. They gather in dens that reach below the frost line, sometimes in large groups and sometimes alongside other kinds of snakes, and they return to the same den year after year.[1] In some places the dens are in rock outcrops that face the sun.[2]\n\nIn spring they come out to bask, and most then spread out to hunt mice, rats, ground squirrels, birds and lizards. Pregnant females stay near the den, basking often, and give birth to live young in September.[2] By late September the snakes have gathered back at the den, and they crawl underground for another winter.[2]\n\nCornered, a rattlesnake coils and rattles a warning, but it does not always rattle before it strikes.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Prairie Rattlesnake",
+        "publisher": "U.S. National Park Service (Bighorn Canyon National Recreation Area)",
+        "url": "https://www.nps.gov/bica/learn/nature/prairie-rattlesnake.htm",
+        "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Rattlesnakes",
+        "publisher": "U.S. National Park Service (Great Basin National Park)",
+        "url": "https://www.nps.gov/grba/learn/nature/rattlesnakes.htm",
         "license": "Public domain (U.S. government work)",
         "accessed": "2026-10-28"
       }
@@ -793,6 +972,28 @@
         "title": "Tyrannosaurus",
         "publisher": "Natural History Museum, London",
         "url": "https://www.nhm.ac.uk/discover/dino-directory/tyrannosaurus.html",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Venomous Snake": {
+    "description": "A heavy-bodied snake with a broad, diamond-shaped head, slit pupils and a rattle at the tip of its tail.[1]",
+    "lore": "Venomous snakes make venom in glands in their heads and deliver it through a bite with needle-like fangs. Vipers and cobras inject it through hollow teeth.[2] Snakes first evolved venom to hunt, and some use it in defense as well.[2]\n\nThe rattlesnake is a pit viper. Its long, curved fangs fold back against the roof of its mouth and swing forward when it strikes, and it controls how much venom it injects.[1] Heat-sensing pits between its eyes and nostrils help it find warm-blooded prey, and its flicking tongue carries scent to an organ in the roof of its mouth.[1][2]\n\nA rattlesnake's rattle is made of the segments left each time it sheds its skin. Shaken by the muscles at the base of the tail, the segments buzz against each other as a warning, though a rattlesnake does not always rattle before it strikes.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Prairie Rattlesnake",
+        "publisher": "U.S. National Park Service (Bighorn Canyon National Recreation Area)",
+        "url": "https://www.nps.gov/bica/learn/nature/prairie-rattlesnake.htm",
+        "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Snakes: Super senses, stretchy jaws and deadly venom",
+        "author": "Emily Osterloff",
+        "publisher": "Natural History Museum, London",
+        "url": "https://www.nhm.ac.uk/discover/snakes-senses-stretchy-jaws-deadly-venom.html",
         "license": "All rights reserved",
         "accessed": "2026-10-28"
       }
