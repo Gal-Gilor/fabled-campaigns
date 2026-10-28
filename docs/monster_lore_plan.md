@@ -133,6 +133,9 @@ The data test enforces the rules marked (test).
   ("Giant Wasp") take their facts from the real animal.
 - Myth: the original text in a named public-domain translation (Perseus, Project Gutenberg, the
   Internet Archive), then other reliable sites.
+- Write for players and GMs, not as a science text: how the creature lives, hunts and behaves,
+  what it looks like, and how people have seen it. Use a number only when it helps picture the
+  creature.
 - Write about the creature the group names, directly. No framing such as "the real animal behind
   the giant octopus". Don't narrow a general name to one species: Mammoth covers all mammoths, not
   only the woolly mammoth.
