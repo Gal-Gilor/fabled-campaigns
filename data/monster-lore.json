@@ -78,6 +78,29 @@
       }
     ]
   },
+  "Badger": {
+    "description": "A low, flat-bodied digger with short, powerful legs and a face striped black and white.[1][2]",
+    "lore": "Badgers are built for digging. The American badger tunnels through soil at speed with its powerful front legs, and it hunts by digging out gophers, ground squirrels, prairie dogs and other burrowing animals. It also eats birds, lizards, insects and even honeycomb.[1] American badgers live alone and come out mostly at night. They don't truly hibernate, but in winter they spend long spells in a deep sleep in their dens, coming out on warm days.[1]\n\nThe Eurasian badger is more sociable and lives in family groups, though each badger forages alone. Earthworms are its main food.[2] Badgers growl when threatened and wail when attacked.[2]\n\nBadgers are known for their fierce temper, and apart from people, grown badgers have few enemies.[1][2]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Taxidea taxus (American badger)",
+        "author": "Nancy Shefferly",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Taxidea_taxus/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Meles meles (Eurasian badger)",
+        "author": "Annie Wang",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Meles_meles/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Black Bear": {
     "description": "A shy forest bear, usually black with a pale muzzle, though some are brown, cinnamon, blond or even creamy white.[1]",
     "lore": "Black bears live in thick woods and rough country across North America. Despite their size they eat mostly plants: grass in spring, berries in summer, and nuts, acorns and fruit in fall, when they put on fat for the winter.[1] Insects make up most of the meat they eat, and they take larger animals only when the chance comes.[1]\n\nThey are most active at dawn and dusk, and they spend the winter in dens, coming out in spring thin and hungry.[1] Bears that find people's food or garbage are drawn to it, and that is behind most trouble between black bears and people.[1]\n\nBlack bears are clever and curious, with a keen nose and a remarkable sense of direction.[1] They are usually timid around people, and a mother with cubs is far less likely to attack than a grizzly mother.[1]",
@@ -88,6 +111,21 @@
         "author": "Tanya Dewey and Christine Kronk",
         "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
         "url": "https://animaldiversity.org/accounts/Ursus_americanus/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Boar": {
+    "description": "A wild pig with a thick, coarse coat, often with a ridge of long bristles down its back, and a long snout made for rooting.[1]",
+    "lore": "Wild boars live in groups called sounders, made up of several sows and their young. Grown males mostly live alone and join the groups to mate.[1] They eat mostly plants, such as nuts, fruit, roots and crops, but also eggs, worms, insects, small rodents and carrion, and now and then a lamb or calf.[1]\n\nThey forage mostly in the evening and at night. On hot days they lie in the shade and wallow in water and mud, which cools them and keeps insects off.[1] Their sense of smell is keen. They growl when angry and squeal when excited.[1]\n\nPiglets are born with striped coats that hide them in the undergrowth.[1] Boars can do great damage to farmland, and people are their main hunters.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Sus scrofa (wild boar)",
+        "author": "Kristin Wickline",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Sus_scrofa/",
         "license": "All rights reserved",
         "accessed": "2026-10-28"
       }
@@ -108,6 +146,35 @@
       }
     ]
   },
+  "Camel": {
+    "description": "A tall desert animal with a long curved neck, a fatty hump, thick lips for eating thorny plants and broad, padded feet for walking on sand.[1]",
+    "lore": "The dromedary, the one-humped camel, is built for the desert. Its hump is a store of fat for hard times, and it shrinks and leans to one side when the camel goes hungry.[1] A double row of eyelashes keeps out blowing sand, and the camel saves water in many ways, including not sweating as the day heats up.[1]\n\nCamels eat thorny plants, dry grass, saltbush and almost anything else that grows in the desert, taking only a few leaves from each plant as they go. They spend long hours grazing and as long again chewing the cud.[1]\n\nThey live in small family groups of a male and several females with their young.[1] They are mostly calm, but rutting males fight. When camels quarrel, they shove each other, snap without biting, and sometimes throw up their cud when hurt or excited.[1] People use them to carry loads and for milk, meat, wool and leather, and camels have made it possible to live in some of the driest lands.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Camelus dromedarius (dromedary)",
+        "author": "Robert Naumann",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Camelus_dromedarius/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Cat": {
+    "description": "A small, agile hunter with soft fur, sharp claws, keen ears and long whiskers.[1]",
+    "lore": "Cats probably descend from African wild cats or Asian desert cats, and they live almost wherever people do.[1] There are more than a hundred breeds, but they all share much the same shape and size.[1]\n\nA cat marks its ground by rubbing against things, scratching with its claws and spraying, each of which leaves scent behind.[1] It purrs when content, meows, and growls, hisses or spits when upset. Its ears can swivel to face forward, back or anywhere between.[1]\n\nCats are meat-eaters, and like all cats they kill with a bite to the back of the neck.[1] Cats gone wild hunt mice and birds, and in some places they have badly reduced the number of wild birds.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Felis catus (domestic cat)",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Felis_catus/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Crocodile": {
     "description": "A long, armored reptile with powerful jaws that lies almost hidden in the water until it lunges.[1]",
     "lore": "Crocodiles hunt from ambush. The saltwater crocodile, the largest reptile alive, waits in the water with only its nostrils, eyes and part of its back showing, then lunges at prey that comes close. It usually kills with one snap of its jaws and drags its catch under the water.[1]\n\nA young crocodile eats insects, frogs, crabs and small fish. A grown one takes turtles, snakes, birds, wild boar, monkeys and even buffalo.[1] Big males reach six or seven meters long, while females rarely pass three.[1]\n\nThe saltwater crocodile is counted among the cleverest reptiles. It communicates with barks, hisses and coughs, and newborns call out as they hatch.[1] A female buries 40 to 60 eggs in a mound of plants and mud.[1] Males guard stretches of river fiercely and drive rivals out to sea.[1]",
@@ -118,6 +185,20 @@
         "author": "Erin Wayman",
         "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
         "url": "https://animaldiversity.org/accounts/Crocodylus_porosus/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Deer": {
+    "description": "A slender, quick deer with a reddish summer coat that turns grayer in winter. Its white tail flashes as it bounds away.[1]",
+    "lore": "The white-tailed deer is one of the shyest deer. When startled it bounds off through tangled woods at nearly 50 kilometers an hour, waving its white tail from side to side.[1] It swims well too, and takes to streams and lakes to escape predators or biting insects.[1]\n\nDeer feed mainly around dawn and dusk, on buds, twigs, shrubs and whatever else grows where they live, from maple and birch in eastern forests to cactus in the desert.[1] They keep to small home ranges and wear paths by using the same routes again and again.[1]\n\nThey see and hear well but trust their noses most to warn them of danger.[1] They talk with grunts, wheezes and bleats, and a disturbed deer gives a sharp whistle or snort. Glands on their feet and legs leave scent for other deer to read.[1] Wolves, mountain lions, bears, jaguars, coyotes and people all hunt them.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Odocoileus virginianus (white-tailed deer)",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Odocoileus_virginianus/",
         "license": "All rights reserved",
         "accessed": "2026-10-28"
       }
@@ -144,6 +225,21 @@
       }
     ]
   },
+  "Eagle": {
+    "description": "A huge, dark brown bird of prey with long, broad wings and golden feathers on the back of its head and neck.[1]",
+    "lore": "The golden eagle is the largest bird of prey in North America, with wings more than two meters across.[1] It hunts rabbits, hares, ground squirrels and marmots, and sometimes much larger prey: hoofed animals, coyotes, badgers, and geese and cranes taken in the air.[1] A pair often hunts together, one chasing the prey until it tires while the other swoops in for the kill.[1]\n\nIt usually flies at around 50 kilometers an hour but can pass 300 in a dive.[1] Golden eagles are mostly silent. Instead of calling, they defend their territory with a rolling, swooping flight along its edge.[1] Some live in one place all year, while those of the far north fly south for the winter.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Aquila chrysaetos (golden eagle)",
+        "author": "Kari Kirschbaum",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Aquila_chrysaetos/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Elephant": {
     "description": "The largest animal on land, with thick gray skin, great flapping ears, ivory tusks and a long trunk strong enough to lift heavy loads.[1]",
     "lore": "Elephants are the largest animals living on land.[1] Their trunk is nose and upper lip joined into one, with no bone in it, and they use it to smell, touch, drink, feed, dust themselves, lift, push and fight.[1] Their tusks are long front teeth of ivory, used to dig for water and roots, strip bark, rescue calves and fight.[1]\n\nElephants live in herds of related females and their young. Among African elephants a matriarch leads the herd, while Asian herds have no single leader.[1] Young males leave the herd between eight and thirteen years old and spend more and more time alone as they age.[1] They eat leaves, fruit, grass, bark and roots, and they will push over a whole tree to get at its bark or roots.[2]\n\nElephants call to each other with rumbles too low for people to hear, which other elephants can pick up more than three kilometers away.[1] They are clever and learn much of what they do rather than being born knowing it.[1] Grown elephants have no enemies except people.[1]",
@@ -166,6 +262,20 @@
       }
     ]
   },
+  "Elk": {
+    "description": "One of the largest deer, with a dark brown mane, a light brown body and a pale rump. Bulls carry wide antlers of solid bone.[1]",
+    "lore": "Elk live in herds that can grow to a few hundred, mostly cows, calves and young bulls. Older bulls keep to themselves or travel in small groups until the fall.[1] Herds move with the seasons, climbing to high meadows in summer and coming down to lower valleys for the winter.[1]\n\nA bull grows new antlers every spring, as fast as two and a half centimeters a day, and drops them every winter. A grown bull's antlers can weigh 18 kilograms.[1]\n\nIn autumn, bulls compete for cows. They fight less than they show off, displaying their antlers, necks and bodies and giving off a strong, musky smell.[1] Above all they bugle: a deep call that climbs to a high squeal and ends in grunts, echoing through the autumn nights to warn off rivals.[1] In early summer, cows are fiercely protective of their spotted calves.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Elk",
+        "publisher": "U.S. National Park Service (Rocky Mountain National Park)",
+        "url": "https://www.nps.gov/romo/learn/nature/elk.htm",
+        "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Giant Octopus": {
     "description": "An octopus grown far past natural size that hides by changing the color and texture of its skin, then seizes prey with eight suckered arms.[1]",
     "lore": "The giant octopus spends most of its life alone in a den under a boulder or in a crack in the rock, sometimes staying hidden for weeks. It comes out only to hunt, to mate or to flee.[1] It carries its catch home to eat, and the broken shells of clams and crabs pile up outside the entrance.[1]\n\nIt hunts by sight, stalking or chasing its prey or lying in wait, and it can change the color and even the texture of its skin to blend in.[1] Every sucker on its arms can feel and taste what it touches.[1] When attacked, it fights back with its arms, then shoots away and leaves a cloud of ink behind.[1]\n\nIt is a clever animal. It finds its way by landmarks, uses objects as tools and learns by watching, and octopuses kept in captivity are known for escaping their tanks.[1] A mother guards her eggs in the den and does not leave them even to eat. She dies before they hatch or soon after.[1]",
@@ -176,6 +286,36 @@
         "author": "Colleen Hartis",
         "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
         "url": "https://animaldiversity.org/accounts/Enteroctopus_dofleini/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Goat": {
+    "description": "A sure-footed herd animal with hollow horns that sweep back or twist like corkscrews. Billy goats grow beards and carry a strong smell.[1]",
+    "lore": "Goats have lived with people for a very long time, and there are many breeds, from small to large.[1] People keep them for milk, cheese, meat, wool and leather, and more people around the world drink goat's milk and eat goat meat than rely on cattle for them.[1]\n\nGoats are social and dislike being alone. Wild herds number from five to twenty, sometimes up to a hundred, and spend the day grazing.[1] Every herd has a pecking order, and the males settle theirs by butting heads.[1]\n\nCoyotes, dogs, mountain lions, foxes, eagles and bobcats all hunt goats. A goat's best defense is its herd, but it will also fight back with its horns.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Capra hircus (domestic goat)",
+        "author": "Adam Mileski",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Capra_hircus/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Hawk": {
+    "description": "A bird of prey with a wingspan over a meter, a brown back, a pale belly and powerful claws.[1]",
+    "lore": "Red-tailed hawks hunt mostly from a perch, watching for prey and dropping onto it to kill with their powerful claws.[1] Most of what they eat are small rodents, along with rabbits, reptiles and other birds.[1] They also soar over their land on clear days, watching for intruders.[1]\n\nA pair often stays together for years on the same territory and defends it hard. The female guards the nest, while the male drives intruders off the borders.[1] As with many birds of prey, the female is the larger of the two.[1]\n\nTheir cry is a harsh, screaming \"kee-eeee-arrr\", often compared to a steam whistle.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Buteo jamaicensis (red-tailed hawk)",
+        "author": "Tanya Dewey",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Buteo_jamaicensis/",
         "license": "All rights reserved",
         "accessed": "2026-10-28"
       }
@@ -276,6 +416,21 @@
       }
     ]
   },
+  "Owl": {
+    "description": "A big owl with tufts of feathers like horns, a round face, forward-facing eyes and a white patch at the throat.[1]",
+    "lore": "Great horned owls hunt at night and find their way and their prey in the dark, even in thick forest.[1] They watch from a perch, then swoop down, catching prey on the wing if they have to, and they screech loudly as they strike.[1] They eat rabbits, voles and other rodents, and near water they catch fish, frogs, crabs and reptiles.[1]\n\nThese owls live alone except when nesting, and they stay in the same area all year.[1] Their deep \"hoo-hoo hoooo hoo-hoo\" marks their territory and can be heard for kilometers, and fights over territory can be deadly.[1] Some owls have no territory of their own and wander through the lands of others.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Bubo virginianus (great horned owl)",
+        "author": "Drew Dietrich",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Bubo_virginianus/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Panther": {
     "description": "A sleek, powerful big cat that hunts by stealth. Depending on where it lives, its coat may be spotted, plain tawny or solid black.[1][2]",
     "lore": "Panther is a name given to more than one big cat. A black panther is a leopard born with black fur, most often in humid forests.[1] In Florida, the panther is the local puma, a long-tailed cat with plain brown or rusty fur.[2]\n\nThe leopard hunts alone, mostly at night. It creeps low until it is a few meters from its prey, then pounces, and if the pounce misses it rarely gives chase.[1] It can take prey up to ten times its own weight, and it often carries the kill up into a tree to eat in peace.[1]\n\nLeopards are at home in trees and climb down head first. They mark their land with scent and claw marks, and they announce themselves with a hoarse, rasping cough repeated again and again.[1]",
@@ -361,6 +516,36 @@
         "author": "Alison Groom",
         "publisher": "Natural History Museum, London",
         "url": "https://www.nhm.ac.uk/discover/meet-the-monsters-of-the-jurassic-seas.html",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Rat": {
+    "description": "A large, coarse-furred rodent with bald ears and a long, bald tail.[1]",
+    "lore": "Wherever people go, rats follow. The brown rat started out in the forests of Asia and now lives in nearly every port city in the world, in sewers, dumps, basements and fields.[1] It eats almost anything, especially what people throw away, and it also takes chicks, mice, birds and lizards. Rats by the sea have been seen catching fish with their paws.[1]\n\nRats come out at dusk and at night to dig burrows, forage and build nests. They swim well and learn quickly, remembering their way through tangled sewers and tunnels.[1] Smell is their sharpest sense, and they can feel their way through total darkness with their whiskers and paws.[1]\n\nFew animals have done people more harm. Rat fleas and lice carry plague, typhus and other diseases, and rat-borne disease is thought to have killed more people in the last thousand years than all wars together.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Rattus norvegicus (brown rat)",
+        "author": "David Armitage",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Rattus_norvegicus/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Raven": {
+    "description": "A large, all-black bird with a heavy beak, a wedge-shaped tail and shaggy feathers at its throat.[1]",
+    "lore": "Ravens are the largest of the songbirds and among the cleverest of birds, able to work out new answers to problems they have never met.[1] They are mostly scavengers, drawn to carrion, but they eat almost anything: insects, frogs, small mammals, birds, grain, acorns and fruit.[1]\n\nThey are talkers. Scientists have counted between 15 and 33 kinds of calls, from alarms to chase calls to calls that claim territory, and the shaggy throat feathers play a part in how ravens deal with each other.[1] Most ravens live alone or in pairs, but they gather where food is plentiful, and young birds roost together.[1] Ravens soar and glide more than most crows, and their harsh croak gives them away.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Corvus corax (common raven)",
+        "author": "Tanya Dewey",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Corvus_corax/",
         "license": "All rights reserved",
         "accessed": "2026-10-28"
       }
@@ -477,6 +662,36 @@
         "title": "Tyrannosaurus",
         "publisher": "Natural History Museum, London",
         "url": "https://www.nhm.ac.uk/discover/dino-directory/tyrannosaurus.html",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Vulture": {
+    "description": "A big, brownish-black bird with a bare head and neck that feeds on carrion.[1]",
+    "lore": "Vultures eat the dead. The turkey vulture finds carcasses by smell as well as sight, which makes it one of the few birds in the world that relies heavily on its nose, and black vultures follow it to its finds.[1] It eats roadkill, dead livestock and wild carrion, and it prefers fresh carcasses.[1]\n\nTurkey vultures roost together, sometimes several hundred to a roost, but each searches for food alone by day.[1] They have little in the way of a voice: mostly grunts, hisses and barks to warn off predators.[1] Those in colder lands fly south for the winter.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Cathartes aura (turkey vulture)",
+        "author": "Adam Farmer",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Cathartes_aura/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Weasel": {
+    "description": "A tiny, long, slender hunter with short legs, round ears and dark eyes. In the far north its brown coat turns pure white for winter.[1]",
+    "lore": "The least weasel is the smallest meat-eater in the world, yet weasels are known for killing prey much bigger than themselves and hiding what they don't eat.[1] It lives almost entirely on mice and voles, and it hunts them by smell, following them into their tunnels underground.[1]\n\nWeasels live alone, and the males are bullies: a dominant male threatens and viciously attacks lesser males, which run off squealing.[1] Weasels bark, hiss, chirp, squeal and trill.[1]\n\nOwls, hawks, eagles and larger weasels all hunt them. A weasel defends itself by blending in or by screeching and biting.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Mustela nivalis (least weasel)",
+        "author": "Gina Campbell",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Mustela_nivalis/",
         "license": "All rights reserved",
         "accessed": "2026-10-28"
       }

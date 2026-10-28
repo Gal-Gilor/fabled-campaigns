@@ -29,7 +29,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Axe Beak | Monsters | 1 | animal | Fantasy version; facts from the extinct terror birds | |
 | Azer | Monsters | 1 | original |  | |
 | Baboon | Animals | 1 | animal |  | Yes |
-| Badger | Animals | 1 | animal |  | |
+| Badger | Animals | 1 | animal |  | Yes |
 | Balor | Monsters | 1 | original | Irish myth (name only; Balor of the Evil Eye is a Fomorian king) | |
 | Bandits | Monsters | 2 | original | Generic role | |
 | Barbed Devil | Monsters | 1 | original |  | |
@@ -44,15 +44,15 @@ original. The lore can mention the myth as the source of the name, with a source
 | Blink Dog | Monsters | 1 | original |  | |
 | Blood Hawk | Animals | 1 | original | Invented for D&D; no real species | |
 | Blue Dragons | Monsters | 4 | original |  | |
-| Boar | Animals | 1 | animal |  | |
+| Boar | Animals | 1 | animal |  | Yes |
 | Bone Devil | Monsters | 1 | original |  | |
 | Brass Dragons | Monsters | 4 | original |  | |
 | Bronze Dragons | Monsters | 4 | original |  | |
 | Brown Bear | Animals | 1 | animal |  | Yes |
 | Bugbears | Monsters | 2 | myth | English folklore (bogeys) | |
 | Bulette | Monsters | 1 | original | Real-world origin: a plastic toy | |
-| Camel | Animals | 1 | animal |  | |
-| Cat | Animals | 1 | animal |  | |
+| Camel | Animals | 1 | animal |  | Yes |
+| Cat | Animals | 1 | animal |  | Yes |
 | Centaur | Monsters | 1 | myth | Greek myth | |
 | Chain Devil | Monsters | 1 | original |  | |
 | Chimera | Monsters | 1 | myth | Homer, Hesiod | |
@@ -71,7 +71,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Cultists | Monsters | 2 | original | Generic role | |
 | Darkmantle | Monsters | 1 | original |  | |
 | Death Dog | Monsters | 1 | myth | Orthrus in Greek myth | |
-| Deer | Animals | 1 | animal |  | |
+| Deer | Animals | 1 | animal |  | Yes |
 | Deva | Monsters | 1 | original | Hindu and Buddhist myth (name only) | |
 | Dire Wolf | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
 | Djinni | Monsters | 1 | myth | Arabian folklore, One Thousand and One Nights | |
@@ -82,11 +82,11 @@ original. The lore can mention the myth as the source of the name, with a source
 | Drider | Monsters | 1 | original |  | |
 | Druid | Monsters | 1 | history | Caesar and Pliny on Celtic druids | |
 | Dryad | Monsters | 1 | myth | Greek myth | |
-| Eagle | Animals | 1 | animal |  | |
+| Eagle | Animals | 1 | animal |  | Yes |
 | Earth Elemental | Monsters | 1 | myth | Classical elements, Paracelsus | |
 | Efreeti | Monsters | 1 | myth | Arabian folklore, One Thousand and One Nights | |
 | Elephant | Animals | 1 | animal |  | Yes |
-| Elk | Animals | 1 | animal |  | |
+| Elk | Animals | 1 | animal |  | Yes |
 | Erinyes | Monsters | 1 | myth | Greek myth (the Furies) | |
 | Ettercap | Monsters | 1 | original |  | |
 | Ettin | Monsters | 1 | myth | English folklore (two-headed giants) | |
@@ -134,7 +134,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Glabrezu | Monsters | 1 | original |  | |
 | Gladiator | Monsters | 1 | history | Roman games | |
 | Gnoll | Monsters | 1 | original | Lord Dunsany, gnoles (name only) | |
-| Goat | Animals | 1 | animal |  | |
+| Goat | Animals | 1 | animal |  | Yes |
 | Goblins | Monsters | 3 | myth | European folklore | |
 | Gold Dragons | Monsters | 4 | original |  | |
 | Gorgon | Monsters | 1 | original | Greek myth (name only; the SRD gorgon is a metal bull) | |
@@ -148,7 +148,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Guards | Monsters | 2 | original | Generic role | |
 | Half-Dragon | Monsters | 1 | original |  | |
 | Harpy | Monsters | 1 | myth | Hesiod, Virgil | |
-| Hawk | Animals | 1 | animal |  | |
+| Hawk | Animals | 1 | animal |  | Yes |
 | Hell Hound | Monsters | 1 | myth | Black dog folklore, Cerberus | |
 | Hezrou | Monsters | 1 | original |  | |
 | Hill Giant | Monsters | 1 | myth | European folklore | |
@@ -198,7 +198,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Ogre | Monsters | 1 | myth | Perrault and other fairy tales | |
 | Oni | Monsters | 1 | myth | Japanese folklore | |
 | Otyugh | Monsters | 1 | original |  | |
-| Owl | Animals | 1 | animal |  | |
+| Owl | Animals | 1 | animal |  | Yes |
 | Owlbear | Monsters | 1 | original | Real-world origin: a plastic toy | |
 | Panther | Animals | 1 | animal |  | Yes |
 | Pegasus | Monsters | 1 | myth | Hesiod, Ovid | |
@@ -216,8 +216,8 @@ original. The lore can mention the myth as the source of the name, with a source
 | Purple Worm | Monsters | 1 | original |  | |
 | Quasit | Monsters | 1 | original |  | |
 | Rakshasa | Monsters | 1 | myth | Hindu epics | |
-| Rat | Animals | 1 | animal |  | |
-| Raven | Animals | 1 | animal |  | |
+| Rat | Animals | 1 | animal |  | Yes |
+| Raven | Animals | 1 | animal |  | Yes |
 | Red Dragons | Monsters | 4 | original |  | |
 | Reef Shark | Animals | 1 | animal |  | |
 | Remorhaz | Monsters | 1 | original |  | |
@@ -268,11 +268,11 @@ original. The lore can mention the myth as the source of the name, with a source
 | Vampires | Monsters | 3 | myth | Eastern European folklore | |
 | Venomous Snake | Animals | 1 | animal |  | |
 | Vrock | Monsters | 1 | original |  | |
-| Vulture | Animals | 1 | animal |  | |
+| Vulture | Animals | 1 | animal |  | Yes |
 | Warhorse | Animals | 1 | animal |  | |
 | Warriors | Monsters | 2 | original | Generic role | |
 | Water Elemental | Monsters | 1 | myth | Classical elements, Paracelsus | |
-| Weasel | Animals | 1 | animal |  | |
+| Weasel | Animals | 1 | animal |  | Yes |
 | Werebear | Monsters | 1 | myth | Norse folklore | |
 | Wereboar | Monsters | 1 | original |  | |
 | Wererat | Monsters | 1 | original |  | |
