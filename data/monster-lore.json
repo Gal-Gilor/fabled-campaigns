@@ -63,6 +63,12 @@
       }
     ]
   },
+  "Axe Beak": {
+    "description": "A tall, flightless bird with powerful legs, stubby wings and a massive hooked beak shaped like an axe blade.",
+    "lore": "Axe beaks stalk open grassland and scrub, running down their prey on long, powerful legs. Over a short distance they can outpace a horse, and they kill with a chopping blow of the beak.\n\nThey nest on the ground in loose colonies, and the parents guard the eggs fiercely. A traveler who blunders into a nesting ground is chased off by a flock of screeching, stamping birds.\n\nTheir eggs are as big as a man's head and much prized, and egg hunters say the trick is to take one and run, since an axe beak gives up the chase long before it gives up its temper.",
+    "origin": "original",
+    "sources": []
+  },
   "Baboon": {
     "description": "A large monkey that lives on the ground, with a long tail and olive-gray fur. Males are nearly twice the size of females, with heavy manes and long fangs.[1]",
     "lore": "Baboons live in big troops that travel, feed and sleep together. Each evening the troop has to reach a safe place to sleep, up in the trees or on rocks and cliffs.[1] Young males leave the troop they were born in and have to win a place among the males of a new one.[1]\n\nThey eat almost anything: fruit, seeds, flowers, roots, insects, eggs and small animals. They can live on grass for long stretches, which lets them survive in dry country.[1]\n\nBaboons say a lot without sound. A hard stare is a threat, made sharper by the differently colored fur around the eyes, and a wide yawn that shows off the fangs is another warning.[1] When a leopard comes near, baboons will mob it, often with the grown males leading the attack.[1]",
@@ -143,6 +149,12 @@
         "accessed": "2026-10-28"
       }
     ]
+  },
+  "Blood Hawk": {
+    "description": "A lean hawk with rust-red feathers and a hooked beak that hunts in noisy flocks.",
+    "lore": "Blood hawks nest on sea cliffs and high crags, and unlike most hawks they hunt together. A flock circles high over open ground, then drops all at once on a single animal, striking from every side until it falls.\n\nTheir name comes from the deep red of their feathers, though shepherds say it comes from what they leave behind. A flock that loses its fear of people will harass lone travelers and raid flocks of sheep and goats, and in some hill country a bounty is paid for every blood hawk killed.\n\nFalconers have tried to train them, with little success. A blood hawk will hunt for a handler, but only alongside others of its kind.",
+    "origin": "original",
+    "sources": []
   },
   "Boar": {
     "description": "A wild pig with a thick, coarse coat, often with a ridge of long bristles down its back, and a long snout made for rooting.[1]",
@@ -282,6 +294,35 @@
       }
     ]
   },
+  "Draft Horse": {
+    "description": "A strong, deep-chested working horse bred to pull wagons, plows and farm machines.[1][2][3]",
+    "lore": "Before tractors, farms and ranches ran on the strength of horses. They pulled plows and carriages, and their manure fed the fields.[3] At Grant-Kohrs Ranch in Montana, Belgian draft horses were bred from purebred bloodlines from the late 1920s, and Belgian and Percheron teams still pull threshing equipment and hay wagons there.[1]\n\nHaying was one of their great tasks. With horse-drawn mowers and rakes, prairie grass was cut, dried, raked and stacked, so there would be enough hay to feed the animals through the winter.[2]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Ranching at Grant-Kohrs National Historic Site",
+        "publisher": "U.S. National Park Service",
+        "url": "https://www.nps.gov/articles/000/grant-kohrs-landscape-ranching-history.htm",
+        "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Draft Horses Make Hay While the Sun Shines at Tallgrass Prairie National Preserve",
+        "publisher": "U.S. National Park Service (Tallgrass Prairie National Preserve)",
+        "url": "https://www.nps.gov/tapr/learn/news/draft-horses-make-hay-while-the-sun-shines-at-tallgrass-prairie-national-preserve.htm",
+        "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Equus caballus (horse)",
+        "author": "Christopher Clement",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Equus_caballus/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Eagle": {
     "description": "A huge, dark brown bird of prey with long, broad wings and golden feathers on the back of its head and neck.[1]",
     "lore": "The golden eagle is the largest bird of prey in North America, with wings more than two meters across.[1] It hunts rabbits, hares, ground squirrels and marmots, and sometimes much larger prey: hoofed animals, coyotes, badgers, and geese and cranes taken in the air.[1] A pair often hunts together, one chasing the prey until it tires while the other swoops in for the kill.[1]\n\nIt usually flies at around 50 kilometers an hour but can pass 300 in a dive.[1] Golden eagles are mostly silent. Instead of calling, they defend their territory with a rolling, swooping flight along its edge.[1] Some live in one place all year, while those of the far north fly south for the winter.[1]",
@@ -369,6 +410,18 @@
         "accessed": "2026-10-28"
       }
     ]
+  },
+  "Giant Ape": {
+    "description": "An ape as tall as a house, with shaggy dark fur, long powerful arms and a heavy brow over watchful eyes.",
+    "lore": "Giant apes keep to the deepest forests and the mountain jungles where few people travel. A troop is small, a few females and their young around a single great male, and it moves slowly through its range, stripping fruit trees and pulling up bamboo as it goes.\n\nThey are slow to anger. A giant ape that meets travelers will usually watch them from the trees and let them pass. Pressed too close, the male rises to his full height and roars, and if that does not drive the intruders off, he charges.\n\nForest villages tell of giant apes that remember a kindness or a wrong for years, and of hunters who tried to take a young ape and never came home.",
+    "origin": "original",
+    "sources": []
+  },
+  "Giant Badger": {
+    "description": "A badger the size of a bear, low and broad, with a striped face and long claws that can dig through packed earth.",
+    "lore": "Giant badgers dig. A single one can carve out a burrow large enough for a person to walk upright, with side chambers for sleeping and storing food, and an old burrow may be used for generations until the hillside above it is riddled with tunnels.\n\nThey hunt by night, digging other burrowing animals out of the ground, and when food is scarce they break into cellars and grain pits. Farmers know them by the fresh mounds of earth they leave behind.\n\nA giant badger would rather dig away than fight, but it does not back down when cornered. Its temper is famous, and it keeps fighting long after wiser animals would have fled.",
+    "origin": "original",
+    "sources": []
   },
   "Giant Bat": {
     "description": "A huge bat with a fox-like face, long pointed ears and wings spanning a meter and a half.[1]",
@@ -488,6 +541,12 @@
       }
     ]
   },
+  "Giant Fire Beetle": {
+    "description": "A beetle the size of a small dog, with a hard reddish shell and patches on its back that give off a steady orange glow.",
+    "lore": "Giant fire beetles live in caves, old mines and the dark undergrowth of deep forests, where their glow is often the only light. They brighten when they feed or are disturbed and dim to a faint ember when they rest.\n\nThey are scavengers more than hunters, eating fungus, rotting wood and dead animals, but their jaws are strong enough to take a finger. Many gather where food is plentiful, and a cave lit by their slow-moving glow is a sign that something large died there not long ago.\n\nMiners sometimes keep a fire beetle in a cage as a lantern that needs no flame and cannot set the timbers alight.",
+    "origin": "original",
+    "sources": []
+  },
   "Giant Frog": {
     "description": "A huge, flat, greenish-brown frog with webbed feet and eyes almost as wide as a coin.[1]",
     "lore": "The goliath frog is the largest frog on Earth, more than 30 centimeters long and over three kilograms.[1] It lives by fast rivers and waterfalls in warm, wet rainforest.[1]\n\nIt hunts at night along the rivers, eating insects, crabs, fish, snails, small mammals and other frogs.[1] Young goliath frogs spend most of their time underwater, while older ones bask on rocks, where their mottled skin blends with the wet moss.[1] Its tadpoles eat only one water plant, which grows near waterfalls and streams.[1]",
@@ -502,6 +561,18 @@
         "accessed": "2026-10-28"
       }
     ]
+  },
+  "Giant Goat": {
+    "description": "A goat as big as a horse, with thick shaggy hair, a long beard and heavy curling horns.",
+    "lore": "Giant goats live on high, rocky slopes where little else can climb. They leap across gaps and balance on ledges no wider than a hand, grazing on the tough grasses and shrubs that grow between the stones.\n\nEach herd follows an old female who knows the safe paths and the hidden springs. In autumn the males fight for the herd, rearing up and crashing their horns together with a crack that echoes across the valleys.\n\nMountain folk tame them as mounts and pack animals for paths that no horse could take. A giant goat does not forget rough handling, though, and an unkind rider tends to end up in a snowbank.",
+    "origin": "original",
+    "sources": []
+  },
+  "Giant Hyena": {
+    "description": "A hyena the size of a pony, with a sloping back, a massive head and jaws that crush the thickest bones.",
+    "lore": "Giant hyenas roam dry plains and broken hills in clans led by the largest females. They hunt in packs and run their prey to exhaustion, and they drive other hunters off their kills by sheer numbers and noise.\n\nTheir jaws crack open the bones that other scavengers leave behind, so little is left where a clan has fed. Their whooping calls and cackling laughter carry far at night, and travelers who hear them build up their fires.\n\nPlains folk say giant hyenas follow armies and sickness, waiting for the dead, and a clan gathering near a town is taken as a bad sign.",
+    "origin": "original",
+    "sources": []
   },
   "Giant Lizard": {
     "description": "A huge, stone-colored lizard with a long tail, sturdy legs, a strong neck and a yellow forked tongue.[1]",
@@ -886,6 +957,49 @@
       }
     ]
   },
+  "Mastiff": {
+    "description": "A large, powerful dog kept to guard people, homes and camps.[1][2]",
+    "lore": "Dogs were the first animals people tamed. They descend from wolves, and one idea is that wolves drawn to human camps by the smell of meat and scraps began to guard those camps from predators and to help with the hunt.[1] Over time, dogs came in every shape and size, from tiny Chihuahuas to huge Saint Bernards.[1]\n\nBig dogs have long stood guard for soldiers too. On Guam in 1944, war dogs served as sentries and scouts. They sniffed out snipers and hidden mines, warned of ambushes and guarded camps at night, and Marines said they slept better knowing the dogs were watching.[2]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Wolves to woofs: The story of our oldest companions",
+        "author": "Katie Spence",
+        "publisher": "Natural History Museum, London",
+        "url": "https://www.nhm.ac.uk/discover/wolves-to-woofs-the-story-of-our-oldest-companions.html",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "War Dogs in the Battle of Guam",
+        "publisher": "U.S. National Park Service",
+        "url": "https://www.nps.gov/articles/000/war-dogs-battle-of-guam.htm",
+        "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Mule": {
+    "description": "A sturdy cross between a horse and a donkey, with long ears, small hooves and great endurance.[1]",
+    "lore": "A mule is the offspring of a female horse and a male donkey. From the donkey it gets intelligence, long ears and small, sure-footed hooves, and from the horse a willing nature, endurance and strength.[1] George Washington bred mules at Mount Vernon from his best mares.[1]\n\nIn the 1800s mules were the \"engines\" of the Chesapeake and Ohio Canal, towing boats loaded with goods and people, and two to three thousand worked the canal each year.[1][2] Boat captains preferred them to horses. Mules cost less, fell sick and got hurt less often, had tougher skin and were less likely to stumble.[2] A team of two or three mules could tow a 140-ton boat for about eight hours, then rest in a stable on the boat while another team took over.[2] Canal workers named their mules and often treated them like pets.[2]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Mules and the Canal",
+        "publisher": "U.S. National Park Service (Chesapeake & Ohio Canal National Historical Park)",
+        "url": "https://www.nps.gov/choh/learn/historyculture/mules.htm",
+        "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Engines of the Canal",
+        "publisher": "U.S. National Park Service (Chesapeake & Ohio Canal National Historical Park)",
+        "url": "https://www.nps.gov/choh/learn/historyculture/mule-history.htm",
+        "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Octopus": {
     "description": "A soft-bodied sea animal with eight sucker-lined arms and no shell, able to change its color and shape to vanish against the seabed.[1]",
     "lore": "Octopuses are clever. They learn, and they can tell things apart by sight, touch and taste.[1] The common octopus keeps a hidden home in a hole or crack in the rocks, and it often blocks the entrance with shells and stones it has gathered.[1]\n\nFew animals hide as well. An octopus can change its color, its skin texture and its posture to blend in with almost any surface.[1] It hunts snails and clams.[1] Newly hatched octopuses drift and hunt among the plankton for weeks before they settle on the sea floor.[1]",
@@ -998,6 +1112,20 @@
       }
     ]
   },
+  "Pony": {
+    "description": "A sturdy, hardy horse, tough enough to live on poor food through heat and storms.[1]",
+    "lore": "The wild ponies of Assateague Island, off the coast of Maryland and Virginia, are really feral horses, descended from domestic stock. They are probably the descendants of horses that mainland owners left on the island in the late 1600s to avoid fencing laws and livestock taxes, though local legend says they came ashore from a shipwreck.[1]\n\nThey live in bands of two to twelve, each with its own range, and they survive scorching heat, storms, swarms of mosquitoes and poor food. On buggy days they go down to the beach to escape the flies.[1] Every July the Virginia herd is swum across to Chincoteague Island for Pony Penning, and most of the young foals are sold at auction, a festival made famous by the book Misty of Chincoteague.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Assateague's Wild Horses",
+        "publisher": "U.S. National Park Service (Assateague Island National Seashore)",
+        "url": "https://www.nps.gov/asis/learn/nature/horses.htm",
+        "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Pteranodon": {
     "description": "A large flying reptile with wings of skin stretched from one long finger to its ankles, and a long, toothless beak.[1]",
     "lore": "Pteranodon was a pterosaur, one of the flying reptiles. Pterosaurs are often called flying dinosaurs, but they were a group of reptiles of their own.[1] Each wing was a thin sheet of skin held up by one hugely long finger and reaching back to the ankle, while the other fingers stayed free as a hand.[1]\n\nPteranodon had no teeth, yet its fossils have been found with fish in their stomachs. It probably swooped down to the water and snatched fish from the surface, as some seabirds do.[1][2] Large pterosaurs may have flown like albatrosses, riding air currents over long distances and flapping only now and then.[1]",
@@ -1084,6 +1212,21 @@
         "author": "Jennifer Kurnit",
         "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
         "url": "https://animaldiversity.org/accounts/Diceros_bicornis/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Riding Horse": {
+    "description": "A quick horse with long, slender legs, a long neck, a flowing mane and a long tail, bred to carry a rider.[1]",
+    "lore": "Horses are herd animals. In the wild they live in bands, usually several mares and one or more stallions with their young, and every band has its own order of rank.[1]\n\nThey rely mostly on their eyes, and their long, upright ears catch sounds. Whiskers on the muzzle and cheeks let them feel what is close.[1] People have depended on horses for a very long time: to carry riders and goods, to pull plows and carriages, in war and in sport.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Equus caballus (horse)",
+        "author": "Christopher Clement",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Equus_caballus/",
         "license": "All rights reserved",
         "accessed": "2026-10-28"
       }
@@ -1192,6 +1335,27 @@
         "title": "All About Bats",
         "publisher": "U.S. National Park Service",
         "url": "https://www.nps.gov/subjects/bats/all-about-bats.htm",
+        "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Swarm of Insects": {
+    "description": "A mass of insects rising together in a cloud.[1]",
+    "lore": "Insects outnumber every other kind of animal. Around 90,000 kinds have been described in the United States and Canada alone, and there may be tens of millions of species of insects and their relatives worldwide.[2] Every insect has six legs and a body in three parts: head, thorax and abdomen.[2]\n\nSome insects appear in vast numbers all at once. Mayflies spend up to a year as young in the water, under rocks and rotting plants, then emerge together in huge numbers to breed, and a winged adult may live only a couple of hours.[1] Grasshoppers, also called locusts, fill meadows with their \"singing\", made by snapping their wings in flight or rubbing their legs against their wings.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Field Guide to Insects",
+        "publisher": "U.S. National Park Service (Amistad National Recreation Area)",
+        "url": "https://www.nps.gov/amis/learn/nature/insects2.htm",
+        "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Insects, Spiders, Centipedes, Millipedes",
+        "publisher": "U.S. National Park Service (Mojave National Preserve)",
+        "url": "https://www.nps.gov/moja/learn/nature/insects.htm",
         "license": "Public domain (U.S. government work)",
         "accessed": "2026-10-28"
       }
@@ -1351,6 +1515,27 @@
         "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
         "url": "https://animaldiversity.org/accounts/Cathartes_aura/",
         "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Warhorse": {
+    "description": "A strong, steady horse trained to carry a rider into battle.[2]",
+    "lore": "Armies once ran on horses. Some three million horses and mules served in the American Civil War, and about half of them died.[1] They pulled cannons and supply wagons and carried the wounded and the cavalry, and a battery of six guns needed 120 horses.[1] Few died from enemy fire. Most were worked to death or died of disease, often short of proper food, and a cavalry horse needed more than five times as much food each day as the soldier who rode it.[1]\n\nA cavalry trooper's horse could decide whether a mission succeeded, and a trooper would nearly always see to his horse before himself.[2] In the 7th Cavalry, each company rode horses of a single color.[2] At the Little Bighorn, all the horses of the five companies that rode with Custer died except one, Comanche, who was wounded several times and survived.[2]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Horses and Mules",
+        "publisher": "U.S. National Park Service (Stones River National Battlefield)",
+        "url": "https://www.nps.gov/stri/cw-horses-and-mule.htm",
+        "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Custer's Cavalry Horses at the Little Bighorn",
+        "publisher": "U.S. National Park Service (Little Bighorn Battlefield National Monument)",
+        "url": "https://www.nps.gov/libi/learn/historyculture/custer-s-cavalry-horses-at-the-little-bighorn.htm",
+        "license": "Public domain (U.S. government work)",
         "accessed": "2026-10-28"
       }
     ]

@@ -6,10 +6,10 @@ are not sources. Mark a row done when its entry is merged into `data/monster-lor
 
 | Origin | Groups | Sources |
 |---|---|---|
-| animal | 95 | Required: zoos, wildlife agencies, universities, natural history museums |
+| animal | 89 | Required: zoos, wildlife agencies, universities, natural history museums |
 | myth | 75 | Required: the original texts in a named translation, then other reliable sites |
 | history | 7 | Required: museums, universities, primary texts |
-| original | 95 | None needed. Written for this site. |
+| original | 101 | None needed. Written for this site. |
 
 Rows marked "name only" share a name with a myth but not the creature, so their origin is
 original. The lore can mention the myth as the source of the name, with a source for that line.
@@ -26,7 +26,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Archelon | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
 | Assassin | Monsters | 1 | history | The medieval Nizari Ismailis | |
 | Awakened Plants | Monsters | 2 | original |  | |
-| Axe Beak | Monsters | 1 | animal | Fantasy version; facts from the extinct terror birds | |
+| Axe Beak | Monsters | 1 | original | No reachable source; written as original lore | Yes |
 | Azer | Monsters | 1 | original |  | |
 | Baboon | Animals | 1 | animal |  | Yes |
 | Badger | Animals | 1 | animal |  | Yes |
@@ -42,7 +42,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Black Dragons | Monsters | 4 | original |  | |
 | Black Pudding | Monsters | 1 | original |  | |
 | Blink Dog | Monsters | 1 | original |  | |
-| Blood Hawk | Animals | 1 | original | Invented for D&D; no real species | |
+| Blood Hawk | Animals | 1 | original | Invented for D&D; no real species | Yes |
 | Blue Dragons | Monsters | 4 | original |  | |
 | Boar | Animals | 1 | animal |  | Yes |
 | Bone Devil | Monsters | 1 | original |  | |
@@ -76,7 +76,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Dire Wolf | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
 | Djinni | Monsters | 1 | myth | Arabian folklore, One Thousand and One Nights | |
 | Doppelganger | Monsters | 1 | myth | German folklore | |
-| Draft Horse | Animals | 1 | animal |  | |
+| Draft Horse | Animals | 1 | animal |  | Yes |
 | Dragon Turtle | Monsters | 1 | myth | Chinese myth (Ao, Bixi) | |
 | Dretch | Monsters | 1 | original |  | |
 | Drider | Monsters | 1 | original |  | |
@@ -102,8 +102,8 @@ original. The lore can mention the myth as the source of the name, with a source
 | Ghast | Monsters | 1 | original | Avoid Lovecraft's ghasts until their copyright status is checked | |
 | Ghost | Monsters | 1 | myth | Folklore worldwide | |
 | Ghoul | Monsters | 1 | myth | Arabian folklore | |
-| Giant Ape | Animals | 1 | animal | Fantasy version; facts from the real ape | |
-| Giant Badger | Animals | 1 | animal | Fantasy version; facts from the real badger | |
+| Giant Ape | Animals | 1 | original | No reachable source; written as original lore | Yes |
+| Giant Badger | Animals | 1 | original | No reachable source; written as original lore | Yes |
 | Giant Bat | Animals | 1 | animal | Fantasy version; facts from the real bat | Yes |
 | Giant Boar | Animals | 1 | animal | Fantasy version; facts from the real boar | Yes |
 | Giant Centipede | Animals | 1 | animal | Fantasy version; facts from the real centipede | Yes |
@@ -112,10 +112,10 @@ original. The lore can mention the myth as the source of the name, with a source
 | Giant Crocodile | Animals | 1 | animal | Fantasy version; facts from the real crocodile | Yes |
 | Giant Eagle | Animals | 1 | animal | Fantasy version; facts from the real eagle | Yes |
 | Giant Elk | Animals | 1 | animal | Fantasy version; facts from the real elk | Yes |
-| Giant Fire Beetle | Animals | 1 | animal | Fantasy version; facts from the real fire beetle | |
+| Giant Fire Beetle | Animals | 1 | original | No reachable source; written as original lore | Yes |
 | Giant Frog | Animals | 1 | animal | Fantasy version; facts from the real frog | Yes |
-| Giant Goat | Animals | 1 | animal | Fantasy version; facts from the real goat | |
-| Giant Hyena | Animals | 1 | animal | Fantasy version; facts from the real hyena | |
+| Giant Goat | Animals | 1 | original | No reachable source; written as original lore | Yes |
+| Giant Hyena | Animals | 1 | original | No reachable source; written as original lore | Yes |
 | Giant Lizard | Animals | 1 | animal | Fantasy version; facts from the real lizard | Yes |
 | Giant Octopus | Animals | 1 | animal | Fantasy version; facts from the real octopus | Yes |
 | Giant Owl | Animals | 1 | animal | Fantasy version; facts from the real owl | Yes |
@@ -180,14 +180,14 @@ original. The lore can mention the myth as the source of the name, with a source
 | Mammoth | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
 | Manticore | Monsters | 1 | myth | Ctesias via Pliny | |
 | Marilith | Monsters | 1 | original |  | |
-| Mastiff | Animals | 1 | animal |  | |
+| Mastiff | Animals | 1 | animal |  | Yes |
 | Medusa | Monsters | 1 | myth | Hesiod, Ovid | |
 | Mephits | Monsters | 4 | original |  | |
 | Merfolk | Monsters | 1 | myth | Folklore worldwide | |
 | Merrow | Monsters | 1 | myth | Irish folklore | |
 | Mimic | Monsters | 1 | original |  | |
 | Minotaur of Baphomet | Monsters | 1 | myth | The Minotaur of Crete in Greek myth; Baphomet in medieval accusations against the Templars | |
-| Mule | Animals | 1 | animal |  | |
+| Mule | Animals | 1 | animal |  | Yes |
 | Mummies | Monsters | 2 | history | Egyptian mummification; the walking mummy is fiction | |
 | Nalfeshnee | Monsters | 1 | original |  | |
 | Night Hag | Monsters | 1 | myth | Old Hag folklore | |
@@ -209,7 +209,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Planetar | Monsters | 1 | original |  | |
 | Plesiosaurus | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
 | Polar Bear | Animals | 1 | animal |  | Yes |
-| Pony | Animals | 1 | animal |  | |
+| Pony | Animals | 1 | animal |  | Yes |
 | Priests | Monsters | 2 | original | Generic role | |
 | Pseudodragon | Monsters | 1 | original |  | |
 | Pteranodon | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
@@ -222,7 +222,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Reef Shark | Animals | 1 | animal |  | Yes |
 | Remorhaz | Monsters | 1 | original |  | |
 | Rhinoceros | Animals | 1 | animal |  | Yes |
-| Riding Horse | Animals | 1 | animal |  | |
+| Riding Horse | Animals | 1 | animal |  | Yes |
 | Roc | Monsters | 1 | myth | One Thousand and One Nights, Marco Polo | |
 | Roper | Monsters | 1 | original |  | |
 | Rust Monster | Monsters | 1 | original | Real-world origin: a plastic toy | |
@@ -252,7 +252,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Storm Giant | Monsters | 1 | myth | Norse and Greek myth (loose) | |
 | Succubus | Monsters | 1 | myth | Medieval demonology | |
 | Swarm of Bats | Animals | 1 | animal | Fantasy version; facts from the real bats | Yes |
-| Swarm of Insects | Animals | 1 | animal | Fantasy version; facts from the real insects | |
+| Swarm of Insects | Animals | 1 | animal | Fantasy version; facts from the real insects | Yes |
 | Swarm of Piranhas | Animals | 1 | animal | Fantasy version; facts from the real piranhas | Yes |
 | Swarm of Rats | Animals | 1 | animal | Fantasy version; facts from the real rats | Yes |
 | Swarm of Ravens | Animals | 1 | animal | Fantasy version; facts from the real ravens | Yes |
@@ -269,7 +269,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Venomous Snake | Animals | 1 | animal |  | Yes |
 | Vrock | Monsters | 1 | original |  | |
 | Vulture | Animals | 1 | animal |  | Yes |
-| Warhorse | Animals | 1 | animal |  | |
+| Warhorse | Animals | 1 | animal |  | Yes |
 | Warriors | Monsters | 2 | original | Generic role | |
 | Water Elemental | Monsters | 1 | myth | Classical elements, Paracelsus | |
 | Weasel | Animals | 1 | animal |  | Yes |
