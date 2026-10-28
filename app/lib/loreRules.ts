@@ -69,6 +69,10 @@ export function loreErrors(entries: Record<string, MonsterLore>, groups: Set<str
     for (const n of cited) {
       if (n < 1 || n > entry.sources.length) fail(`[${n}] has no matching source`);
     }
+    // A Set keeps first-appearance order, so the Sources list reads 1, 2, 3 down the page.
+    if ([...cited].some((n, i) => n !== i + 1)) {
+      fail('markers must first appear in order [1], [2], ...');
+    }
     entry.sources.forEach((_, i) => {
       if (!cited.has(i + 1)) fail(`source ${i + 1} is never cited`);
     });

@@ -58,6 +58,15 @@ test('every marker needs a source and every source needs a marker', () => {
   ]);
 });
 
+test('markers first appear in source order', () => {
+  const twoSources = { sources: [source, source], lore: 'First.[1] Second.[2] Again.[1]' };
+  assert.deepEqual(loreErrors({ Wolf: entry(twoSources) }, GROUPS), []);
+  const secondFirst = entry({ ...twoSources, description: 'Test.[2]' });
+  assert.deepEqual(loreErrors({ Wolf: secondFirst }, GROUPS), [
+    'Wolf: markers must first appear in order [1], [2], ...',
+  ]);
+});
+
 test('sources need complete fields and an allowed https link', () => {
   const bad = (overrides: Partial<typeof source>) =>
     loreErrors({ Wolf: entry({ sources: [{ ...source, ...overrides }] }) }, GROUPS);

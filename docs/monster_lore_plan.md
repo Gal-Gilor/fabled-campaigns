@@ -116,7 +116,8 @@ The data test enforces the rules marked (test).
 
 - One description per group: one or two sentences, at most 250 characters (test), on what the
   creature looks like and how it behaves. Lore is a few short paragraphs of Markdown.
-- Every `[n]` marker has a source, and every source is cited at least once (test).
+- Every `[n]` marker has a source, and every source is cited at least once (test). Markers first
+  appear in order, `[1]` before `[2]`, so the Sources list reads down the page (test).
 - `animal`, `myth` and `history` entries need at least one source (test). `original` entries need
   none.
 - Each source has a title, publisher, license, an `https` URL and an `accessed` date in
