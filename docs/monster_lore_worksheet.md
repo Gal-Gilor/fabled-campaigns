@@ -22,13 +22,13 @@ original. The lore can mention the myth as the source of the name, with a source
 | Animated Objects | Monsters | 3 | original |  | |
 | Ankheg | Monsters | 1 | original |  | |
 | Ankylosaurus | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
-| Ape | Animals | 1 | animal |  | |
+| Ape | Animals | 1 | animal |  | Yes |
 | Archelon | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
 | Assassin | Monsters | 1 | history | The medieval Nizari Ismailis | |
 | Awakened Plants | Monsters | 2 | original |  | |
 | Axe Beak | Monsters | 1 | animal | Fantasy version; facts from the extinct terror birds | |
 | Azer | Monsters | 1 | original |  | |
-| Baboon | Animals | 1 | animal |  | |
+| Baboon | Animals | 1 | animal |  | Yes |
 | Badger | Animals | 1 | animal |  | |
 | Balor | Monsters | 1 | original | Irish myth (name only; Balor of the Evil Eye is a Fomorian king) | |
 | Bandits | Monsters | 2 | original | Generic role | |
@@ -67,7 +67,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Couatl | Monsters | 1 | myth | Aztec myth (Quetzalcoatl) | |
 | Crab | Animals | 1 | animal |  | |
 | Crawling Claw | Monsters | 1 | original |  | |
-| Crocodile | Animals | 1 | animal |  | |
+| Crocodile | Animals | 1 | animal |  | Yes |
 | Cultists | Monsters | 2 | original | Generic role | |
 | Darkmantle | Monsters | 1 | original |  | |
 | Death Dog | Monsters | 1 | myth | Orthrus in Greek myth | |
@@ -85,7 +85,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Eagle | Animals | 1 | animal |  | |
 | Earth Elemental | Monsters | 1 | myth | Classical elements, Paracelsus | |
 | Efreeti | Monsters | 1 | myth | Arabian folklore, One Thousand and One Nights | |
-| Elephant | Animals | 1 | animal |  | |
+| Elephant | Animals | 1 | animal |  | Yes |
 | Elk | Animals | 1 | animal |  | |
 | Erinyes | Monsters | 1 | myth | Greek myth (the Furies) | |
 | Ettercap | Monsters | 1 | original |  | |
@@ -153,20 +153,20 @@ original. The lore can mention the myth as the source of the name, with a source
 | Hezrou | Monsters | 1 | original |  | |
 | Hill Giant | Monsters | 1 | myth | European folklore | |
 | Hippogriff | Monsters | 1 | myth | Ariosto, Orlando Furioso | |
-| Hippopotamus | Animals | 1 | animal |  | |
+| Hippopotamus | Animals | 1 | animal |  | Yes |
 | Hobgoblins | Monsters | 2 | myth | English folklore | |
 | Homunculus | Monsters | 1 | myth | Alchemy, Paracelsus | |
 | Horned Devil | Monsters | 1 | original |  | |
 | Hunter Shark | Animals | 1 | animal |  | |
 | Hydra | Monsters | 1 | myth | Hesiod, the Labors of Heracles | |
-| Hyena | Animals | 1 | animal |  | |
+| Hyena | Animals | 1 | animal |  | Yes |
 | Ice Devil | Monsters | 1 | original |  | |
 | Imp | Monsters | 1 | myth | European folklore | |
 | Incubus | Monsters | 1 | myth | Medieval demonology | |
 | Invisible Stalker | Monsters | 1 | original |  | |
 | Iron Golem | Monsters | 1 | myth | Talos in Greek myth (loose) | |
-| Jackal | Animals | 1 | animal |  | |
-| Killer Whale | Animals | 1 | animal |  | |
+| Jackal | Animals | 1 | animal |  | Yes |
+| Killer Whale | Animals | 1 | animal |  | Yes |
 | Knight | Monsters | 1 | history | Medieval knighthood | |
 | Kobold | Monsters | 1 | original | German folklore (name only; the folklore kobold is a house spirit) | |
 | Kraken | Monsters | 1 | myth | Scandinavian sailor folklore | |
@@ -200,7 +200,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Otyugh | Monsters | 1 | original |  | |
 | Owl | Animals | 1 | animal |  | |
 | Owlbear | Monsters | 1 | original | Real-world origin: a plastic toy | |
-| Panther | Animals | 1 | animal |  | |
+| Panther | Animals | 1 | animal |  | Yes |
 | Pegasus | Monsters | 1 | myth | Hesiod, Ovid | |
 | Phase Spider | Monsters | 1 | original |  | |
 | Piranha | Animals | 1 | animal |  | |
@@ -221,7 +221,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Red Dragons | Monsters | 4 | original |  | |
 | Reef Shark | Animals | 1 | animal |  | |
 | Remorhaz | Monsters | 1 | original |  | |
-| Rhinoceros | Animals | 1 | animal |  | |
+| Rhinoceros | Animals | 1 | animal |  | Yes |
 | Riding Horse | Animals | 1 | animal |  | |
 | Roc | Monsters | 1 | myth | One Thousand and One Nights, Marco Polo | |
 | Roper | Monsters | 1 | original |  | |

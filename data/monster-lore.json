@@ -27,6 +27,27 @@
       }
     ]
   },
+  "Ape": {
+    "description": "A large, tailless primate with long arms, strong grasping hands and a heavy jaw.[1][2]",
+    "lore": "Gorillas are the largest of the great apes. A grown male can weigh more than 200 kilograms, stand nearly two meters tall and reach almost two and a half meters from hand to hand.[1] Gorillas spend most of their time on the ground and walk on their knuckles. They are mostly quiet but can scream, bark and roar, and scientists have counted 22 different calls.[1] Older males grow a saddle of silver hair across the back.[1]\n\nOrangutans live high in the forests of Sumatra and Borneo. They are the largest animals that live in trees, with arms much longer than their legs and hands and feet made for grasping, and they are slow and awkward on the ground.[2] They live more alone than other apes. A grown male has big cheek pads and a throat sac that makes his long call boom through the forest for a kilometer or more.[2] Some groups of orangutans make sounds that others don't, habits passed on like local customs.[2]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Western lowland gorilla",
+        "publisher": "Smithsonian's National Zoo and Conservation Biology Institute",
+        "url": "https://nationalzoo.si.edu/animals/western-lowland-gorilla",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Orangutan",
+        "publisher": "Smithsonian's National Zoo and Conservation Biology Institute",
+        "url": "https://nationalzoo.si.edu/animals/orangutan",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Archelon": {
     "description": "A sea turtle more than four meters long, with large, flat front flippers, a broad, shallow shell and a hooked beak.[1]",
     "lore": "Archelon is the largest turtle known to have lived. It swam the warm, shallow seas of the late Cretaceous, about 80 to 74 million years ago, and the biggest one found weighed two to three tonnes.[1] Its shell was more of a frame than solid armor.[1]\n\nIt lived in the shallow sea that once cut through the middle of North America, alongside mosasaurs, plesiosaurs, sharks and huge fish.[1] Its hooked beak points to a strong bite. When attacked, it may have struck back with its flippers and beak or used its shell as a shield, though not always with success: bones of turtles like it have been found in the stomachs of mosasaurs.[1]\n\nLike sea turtles today, Archelon probably laid its eggs on beaches.[1]",
@@ -37,6 +58,21 @@
         "author": "Hayley Dunning",
         "publisher": "Natural History Museum, London",
         "url": "https://www.nhm.ac.uk/discover/giant-prehistoric-turtles.html",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Baboon": {
+    "description": "A large monkey that lives on the ground, with a long tail and olive-gray fur. Males are nearly twice the size of females, with heavy manes and long fangs.[1]",
+    "lore": "Baboons live in big troops that travel, feed and sleep together. Each evening the troop has to reach a safe place to sleep, up in the trees or on rocks and cliffs.[1] Young males leave the troop they were born in and have to win a place among the males of a new one.[1]\n\nThey eat almost anything: fruit, seeds, flowers, roots, insects, eggs and small animals. They can live on grass for long stretches, which lets them survive in dry country.[1]\n\nBaboons say a lot without sound. A hard stare is a threat, made sharper by the differently colored fur around the eyes, and a wide yawn that shows off the fangs is another warning.[1] When a leopard comes near, baboons will mob it, often with the grown males leading the attack.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Papio anubis (anubis baboon)",
+        "author": "Nancy Shefferly",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Papio_anubis/",
         "license": "All rights reserved",
         "accessed": "2026-10-28"
       }
@@ -72,6 +108,21 @@
       }
     ]
   },
+  "Crocodile": {
+    "description": "A long, armored reptile with powerful jaws that lies almost hidden in the water until it lunges.[1]",
+    "lore": "Crocodiles hunt from ambush. The saltwater crocodile, the largest reptile alive, waits in the water with only its nostrils, eyes and part of its back showing, then lunges at prey that comes close. It usually kills with one snap of its jaws and drags its catch under the water.[1]\n\nA young crocodile eats insects, frogs, crabs and small fish. A grown one takes turtles, snakes, birds, wild boar, monkeys and even buffalo.[1] Big males reach six or seven meters long, while females rarely pass three.[1]\n\nThe saltwater crocodile is counted among the cleverest reptiles. It communicates with barks, hisses and coughs, and newborns call out as they hatch.[1] A female buries 40 to 60 eggs in a mound of plants and mud.[1] Males guard stretches of river fiercely and drive rivals out to sea.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Crocodylus porosus (saltwater crocodile)",
+        "author": "Erin Wayman",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Crocodylus_porosus/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Dire Wolf": {
     "description": "A wolf heavier and more muscular than any wolf alive today, with a big head, powerful jaws and large, strong teeth.[1][2]",
     "lore": "Dire wolves hunted across the Americas during the last ice age, from Alaska down into South America, in grasslands, open woods and wetlands alike. Their Latin name means \"terrible wolf\".[1] They stood about as tall as a gray wolf but were around a quarter heavier, with much larger heads and a stronger bite.[2]\n\nThey probably hunted in packs, and thousands of their fossils have been dug from the tar pits of Rancho La Brea in Los Angeles.[1] Horses were their main prey, along with bison, giant ground sloths and camels.[1][2] Many of their teeth are broken, a sign that they fought over carcasses and chewed bone, and when food ran short they may have stolen kills from saber-toothed cats.[1][2]\n\nDespite the name, dire wolves were not close kin to gray wolves. The two lines split millions of years ago and only came to look alike because they lived alike.[1][2] When the great ice age animals died out, dire wolves struggled to compete with gray wolves for smaller prey, and they disappeared about 10,000 years ago.[1][2]",
@@ -93,6 +144,28 @@
       }
     ]
   },
+  "Elephant": {
+    "description": "The largest animal on land, with thick gray skin, great flapping ears, ivory tusks and a long trunk strong enough to lift heavy loads.[1]",
+    "lore": "Elephants are the largest animals living on land.[1] Their trunk is nose and upper lip joined into one, with no bone in it, and they use it to smell, touch, drink, feed, dust themselves, lift, push and fight.[1] Their tusks are long front teeth of ivory, used to dig for water and roots, strip bark, rescue calves and fight.[1]\n\nElephants live in herds of related females and their young. Among African elephants a matriarch leads the herd, while Asian herds have no single leader.[1] Young males leave the herd between eight and thirteen years old and spend more and more time alone as they age.[1] They eat leaves, fruit, grass, bark and roots, and they will push over a whole tree to get at its bark or roots.[2]\n\nElephants call to each other with rumbles too low for people to hear, which other elephants can pick up more than three kilometers away.[1] They are clever and learn much of what they do rather than being born knowing it.[1] Grown elephants have no enemies except people.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Asian elephant",
+        "publisher": "Smithsonian's National Zoo and Conservation Biology Institute",
+        "url": "https://nationalzoo.si.edu/animals/asian-elephant",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Loxodonta africana (African bush elephant)",
+        "author": "Meghan Howard",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Loxodonta_africana/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Giant Octopus": {
     "description": "An octopus grown far past natural size that hides by changing the color and texture of its skin, then seizes prey with eight suckered arms.[1]",
     "lore": "The giant octopus spends most of its life alone in a den under a boulder or in a crack in the rock, sometimes staying hidden for weeks. It comes out only to hunt, to mate or to flee.[1] It carries its catch home to eat, and the broken shells of clams and crabs pile up outside the entrance.[1]\n\nIt hunts by sight, stalking or chasing its prey or lying in wait, and it can change the color and even the texture of its skin to blend in.[1] Every sucker on its arms can feel and taste what it touches.[1] When attacked, it fights back with its arms, then shoots away and leaves a cloud of ink behind.[1]\n\nIt is a clever animal. It finds its way by landmarks, uses objects as tools and learns by watching, and octopuses kept in captivity are known for escaping their tanks.[1] A mother guards her eggs in the den and does not leave them even to eat. She dies before they hatch or soon after.[1]",
@@ -104,6 +177,65 @@
         "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
         "url": "https://animaldiversity.org/accounts/Enteroctopus_dofleini/",
         "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Hippopotamus": {
+    "description": "A huge, barrel-shaped animal with thin purple-gray skin, short legs and a wide mouth armed with tusks.[1]",
+    "lore": "Hippos spend their days in rivers, lakes and swamps, resting in herds of 20 to 100 in water deep enough to cover them, often with their heads on each other's backs.[1] At dusk they come ashore and follow their own worn paths to graze, spending four or five hours a night pulling up grass with lips half a meter wide.[1]\n\nThey look clumsy but are not. A hippo can run at 30 kilometers an hour on land, and in shallow water it pushes along the bottom with its short, powerful legs.[1] Its skin oozes an oily red fluid, once thought to be blood mixed with sweat, which works as a sunscreen and keeps germs at bay.[1]\n\nHippos are loud. Their honking calls carry through the air and the water at the same time, the only mammal calls known to do so.[1] Bulls fight for rank by yawning to show their teeth, roaring, clashing jaws and tusks, and flinging dung with their swinging tails.[1] Apart from people, a grown hippo has no predators.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Hippopotamus amphibius (hippopotamus)",
+        "author": "Kassandra Mason",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Hippopotamus_amphibius/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Hyena": {
+    "description": "A strongly built, spotted hunter with a massive neck, rounded ears, a back that slopes down from the shoulders and some of the strongest jaws of any mammal.[1]",
+    "lore": "Hyenas are known as scavengers, but the spotted hyena does most of its own killing. In one study, seven of every ten meals were animals it had hunted itself.[1] It hunts in small groups, or larger ones for zebra, and eats almost anything, from wildebeest and buffalo to ostrich eggs, porcupines and termites.[1]\n\nSpotted hyenas live in clans of up to 80. Females rule: every female outranks every male, daughters stay in the clan for life, and males leave to join other clans, where they must wait their turn for rank.[1]\n\nThey are noisy. A whoop calls the clan together, a fast whoop rings out at a kill, and the famous giggle, the hyena's \"laugh\", comes from a hyena that is scared or excited, often while it is being chased.[1] Lions are their great rivals. The two often steal each other's kills, and their fights can end in death.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Crocuta crocuta (spotted hyena)",
+        "author": "Jason Law",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Crocuta_crocuta/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Jackal": {
+    "description": "A small wild dog with a pointed muzzle, tall pointed ears and a reddish-brown coat.[1]",
+    "lore": "Jackals live almost anywhere, from open grassland and desert to the edges of towns.[1] They eat what they can get: insects, rodents, hares and small antelope, along with plants and scraps. They hunt alone, in pairs, or in packs when they go after bigger prey, and they wait at a lion's or leopard's kill to pick it over before the vultures finish it.[1]\n\nTheir ears and noses are sharp. A jackal on the hunt walks slowly with its ears pricked, and a startled jackal runs off, then circles back in a wide arc to catch the scent of whatever scared it.[1] Jackals are cunning and wary of people, and they turn aggressive only to defend their territory.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Canis mesomelas (black-backed jackal)",
+        "author": "Benjamin Fishman",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Canis_mesomelas/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Killer Whale": {
+    "description": "A large black-and-white whale with white patches by its eyes. Grown males carry a tall fin on their backs.[1]",
+    "lore": "The killer whale, or orca, is the largest member of the dolphin family and the top predator in the sea. It lives in every ocean, in open water and along coasts.[1]\n\nOrcas live in family groups called pods, built around mothers and their relatives, usually from a few to 20 or more whales, and most stay close to their family all their lives.[1] They talk with clicks, whistles and pulsed calls. Each population has its own calls, which the young learn from their elders, and the calls work like family badges.[1]\n\nWhat an orca eats depends on what its group has learned to hunt. Off the northwest coast of North America, one kind eats almost nothing but salmon, while another, in the same waters, hunts seals and other sea mammals. They often hunt as a team.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Killer Whale",
+        "publisher": "NOAA Fisheries",
+        "url": "https://www.fisheries.noaa.gov/species/killer-whale",
+        "license": "Public domain (U.S. government work)",
         "accessed": "2026-10-28"
       }
     ]
@@ -140,6 +272,28 @@
         "publisher": "Natural History Museum, London",
         "url": "https://www.nhm.ac.uk/discover/last-mammoths.html",
         "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Panther": {
+    "description": "A sleek, powerful big cat that hunts by stealth. Depending on where it lives, its coat may be spotted, plain tawny or solid black.[1][2]",
+    "lore": "Panther is a name given to more than one big cat. A black panther is a leopard born with black fur, most often in humid forests.[1] In Florida, the panther is the local puma, a long-tailed cat with plain brown or rusty fur.[2]\n\nThe leopard hunts alone, mostly at night. It creeps low until it is a few meters from its prey, then pounces, and if the pounce misses it rarely gives chase.[1] It can take prey up to ten times its own weight, and it often carries the kill up into a tree to eat in peace.[1]\n\nLeopards are at home in trees and climb down head first. They mark their land with scent and claw marks, and they announce themselves with a hoarse, rasping cough repeated again and again.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Panthera pardus (leopard)",
+        "author": "Ashley Hunt",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Panthera_pardus/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Florida panther (Puma concolor coryi)",
+        "publisher": "U.S. Fish and Wildlife Service",
+        "url": "https://www.fws.gov/species/florida-panther-puma-concolor-coryi",
+        "license": "Public domain (U.S. government work)",
         "accessed": "2026-10-28"
       }
     ]
@@ -207,6 +361,29 @@
         "author": "Alison Groom",
         "publisher": "Natural History Museum, London",
         "url": "https://www.nhm.ac.uk/discover/meet-the-monsters-of-the-jurassic-seas.html",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Rhinoceros": {
+    "description": "A massive, short-legged beast with thick, wrinkled skin like riveted armor and one or two solid horns on its snout.[1]",
+    "lore": "There are five kinds of rhinoceros: three in south-central Asia and two in Africa south of the Sahara. They live in grassland, scrub and dense forest, never far from water they can reach each day.[1] Their horns are not bone but solid, packed keratin.[1]\n\nThe black rhino of Africa mostly keeps to itself. It feeds in the morning and evening and rests through the heat of the day, rolling in mud to stay cool.[2] It browses on twigs, shrubs and small trees, gripping them with its grasping upper lip, and knocks branches down with its horn to reach higher ones.[2]\n\nBlack rhinos see poorly, only 25 to 30 meters, and rely on their noses.[2] A startled black rhino runs off snorting, then often turns back out of curiosity and charges whatever scared it. These charges look dangerous but rarely end badly.[2] Rhinos leave their dung in shared piles, which tells other rhinos who has passed and how recently.[2]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Rhinocerotidae (rhinoceroses)",
+        "author": "Liz Ballenger and Phil Myers",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Rhinocerotidae/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Diceros bicornis (black rhinoceros)",
+        "author": "Jennifer Kurnit",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Diceros_bicornis/",
         "license": "All rights reserved",
         "accessed": "2026-10-28"
       }
