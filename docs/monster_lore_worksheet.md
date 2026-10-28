@@ -17,7 +17,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Group | Section | Stat blocks | Origin | Notes | Done |
 |---|---|---|---|---|---|
 | Aboleth | Monsters | 1 | original |  | |
-| Air Elemental | Monsters | 1 | myth | Classical elements, Paracelsus | |
+| Air Elemental | Monsters | 1 | myth | Classical elements, Paracelsus | Yes |
 | Allosaurus | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
 | Animated Objects | Monsters | 3 | original |  | |
 | Ankheg | Monsters | 1 | original |  | |
@@ -49,7 +49,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Brass Dragons | Monsters | 4 | original |  | |
 | Bronze Dragons | Monsters | 4 | original |  | |
 | Brown Bear | Animals | 1 | animal |  | Yes |
-| Bugbears | Monsters | 2 | myth | English folklore (bogeys) | |
+| Bugbears | Monsters | 2 | myth | English folklore (bogeys) | Yes |
 | Bulette | Monsters | 1 | original | Real-world origin: a plastic toy | |
 | Camel | Animals | 1 | animal |  | Yes |
 | Cat | Animals | 1 | animal |  | Yes |
@@ -83,14 +83,14 @@ original. The lore can mention the myth as the source of the name, with a source
 | Druid | Monsters | 1 | history | Caesar and Pliny on Celtic druids | |
 | Dryad | Monsters | 1 | myth | Greek myth | Yes |
 | Eagle | Animals | 1 | animal |  | Yes |
-| Earth Elemental | Monsters | 1 | myth | Classical elements, Paracelsus | |
+| Earth Elemental | Monsters | 1 | myth | Classical elements, Paracelsus | Yes |
 | Efreeti | Monsters | 1 | myth | Arabian folklore, One Thousand and One Nights | Yes |
 | Elephant | Animals | 1 | animal |  | Yes |
 | Elk | Animals | 1 | animal |  | Yes |
 | Erinyes | Monsters | 1 | myth | Greek myth (the Furies) | Yes |
 | Ettercap | Monsters | 1 | original |  | |
 | Ettin | Monsters | 1 | myth | English folklore (two-headed giants) | Yes |
-| Fire Elemental | Monsters | 1 | myth | Classical elements, Paracelsus | |
+| Fire Elemental | Monsters | 1 | myth | Classical elements, Paracelsus | Yes |
 | Fire Giant | Monsters | 1 | myth | Norse myth (Muspelheim) | Yes |
 | Flesh Golem | Monsters | 1 | myth | Mary Shelley, Frankenstein (1818, public domain) | Yes |
 | Flying Snake | Animals | 1 | animal |  | Yes |
@@ -155,13 +155,13 @@ original. The lore can mention the myth as the source of the name, with a source
 | Hippogriff | Monsters | 1 | myth | Ariosto, Orlando Furioso | Yes |
 | Hippopotamus | Animals | 1 | animal |  | Yes |
 | Hobgoblins | Monsters | 2 | myth | English folklore | Yes |
-| Homunculus | Monsters | 1 | myth | Alchemy, Paracelsus | |
+| Homunculus | Monsters | 1 | myth | Alchemy, Paracelsus | Yes |
 | Horned Devil | Monsters | 1 | original |  | |
 | Hunter Shark | Animals | 1 | animal |  | Yes |
 | Hydra | Monsters | 1 | myth | Hesiod, the Labors of Heracles | Yes |
 | Hyena | Animals | 1 | animal |  | Yes |
 | Ice Devil | Monsters | 1 | original |  | |
-| Imp | Monsters | 1 | myth | European folklore | |
+| Imp | Monsters | 1 | myth | European folklore | Yes |
 | Incubus | Monsters | 1 | myth | Medieval demonology | Yes |
 | Invisible Stalker | Monsters | 1 | original |  | |
 | Iron Golem | Monsters | 1 | myth | Talos in Greek myth (loose) | Yes |
@@ -171,7 +171,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Kobold | Monsters | 1 | original | German folklore (name only; the folklore kobold is a house spirit) | |
 | Kraken | Monsters | 1 | myth | Scandinavian sailor folklore | Yes |
 | Lamia | Monsters | 1 | myth | Greek myth | Yes |
-| Lemure | Monsters | 1 | myth | Roman religion (lemures) | |
+| Lemure | Monsters | 1 | myth | Roman religion (lemures) | Yes |
 | Lich | Monsters | 1 | original |  | |
 | Lion | Animals | 1 | animal |  | Yes |
 | Lizard | Animals | 1 | animal |  | Yes |
@@ -228,7 +228,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Rust Monster | Monsters | 1 | original | Real-world origin: a plastic toy | |
 | Saber-Toothed Tiger | Animals | 1 | animal | Extinct: cite natural history museums | Yes |
 | Sahuagin | Monsters | 1 | original |  | |
-| Salamander | Monsters | 1 | myth | Paracelsus | |
+| Salamander | Monsters | 1 | myth | Paracelsus | Yes |
 | Satyr | Monsters | 1 | myth | Greek myth | Yes |
 | Scorpion | Animals | 1 | animal |  | Yes |
 | Scout | Monsters | 1 | original | Generic role | |
@@ -244,7 +244,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Sphinxes | Monsters | 3 | myth | Egyptian and Greek myth | Yes |
 | Spider | Animals | 1 | animal |  | Yes |
 | Spirit Naga | Monsters | 1 | myth | Hindu and Buddhist myth | Yes |
-| Sprite | Monsters | 1 | myth | English folklore | |
+| Sprite | Monsters | 1 | myth | English folklore | Yes |
 | Spy | Monsters | 1 | original | Generic role | |
 | Stirge | Monsters | 1 | original |  | |
 | Stone Giant | Monsters | 1 | myth | European folklore | Yes |
@@ -257,7 +257,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Swarm of Rats | Animals | 1 | animal | Fantasy version; facts from the real rats | Yes |
 | Swarm of Ravens | Animals | 1 | animal | Fantasy version; facts from the real ravens | Yes |
 | Swarm of Venomous Snakes | Animals | 1 | animal | Fantasy version; facts from the real venomous snakes | Yes |
-| Tarrasque | Monsters | 1 | myth | French legend of the Tarasque | |
+| Tarrasque | Monsters | 1 | myth | French legend of the Tarasque | Yes |
 | Tiger | Animals | 1 | animal |  | Yes |
 | Toughs | Monsters | 2 | original | Generic role | |
 | Treant | Monsters | 1 | original | Tree spirits are common in folklore, but avoid Tolkien's Ents, which are under copyright | |
@@ -271,7 +271,7 @@ original. The lore can mention the myth as the source of the name, with a source
 | Vulture | Animals | 1 | animal |  | Yes |
 | Warhorse | Animals | 1 | animal |  | Yes |
 | Warriors | Monsters | 2 | original | Generic role | |
-| Water Elemental | Monsters | 1 | myth | Classical elements, Paracelsus | |
+| Water Elemental | Monsters | 1 | myth | Classical elements, Paracelsus | Yes |
 | Weasel | Animals | 1 | animal |  | Yes |
 | Werebear | Monsters | 1 | myth | Norse folklore | Yes |
 | Wereboar | Monsters | 1 | original |  | |

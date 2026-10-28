@@ -1,4 +1,19 @@
 {
+  "Air Elemental": {
+    "description": "A spirit of the air, in the old belief that every element has spirits of its own. Those of the air were the gentlest of all.[1]",
+    "lore": "Followers of the Rosicrucian teaching, which Alexander Pope knew from a French book called Le Comte de Gabalis, held that each of the four elements is home to its own spirits: sylphs in the air, gnomes in the earth, nymphs in the water and salamanders in fire.[1] Of these, the sylphs of the air were said to be the best natured.[1]\n\nIn Pope's poem The Rape of the Lock, the spirits of the air each have their tasks. The purest play in the bright upper air, and some steer the planets on their courses. Others, less refined, chase shooting stars by moonlight, drink up the mists, dip their wings in the rainbow, brew up storms over the winter sea, or let gentle rain fall on the fields.[1]\n\nOther tales describe the air elemental as the wind itself given life, a howling whirlwind that can slip through the narrowest crack and fling its foes to the ground.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Rape of the Lock, and Other Poems",
+        "author": "Alexander Pope",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/9800",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Allosaurus": {
     "description": "A large two-legged hunter with dagger-like, saw-edged teeth, three-fingered hands and small horns above its eyes.[1]",
     "lore": "Allosaurus was one of the top hunters of North America in the Late Jurassic, tens of millions of years before Tyrannosaurus. It preyed on the plant-eating dinosaurs around it, and Stegosaurus fossils carry its bite marks.[1]\n\nIt also fed on the giant long-necked sauropods, though no one knows whether it attacked them alive or ate them after they died. It may even have torn meat from a living giant without killing it, leaving the animal to heal.[1]\n\nSeveral Allosaurus have been found buried together, and some bear bite marks from their own kind. Whether they hunted in packs is unknown, but they likely competed and fought.[1] No one is sure what the small horns over its eyes were for. They may have helped Allosaurus recognize each other, served as a display for mates, or shaded its eyes from the sun.[1]",
@@ -214,6 +229,37 @@
         "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
         "url": "https://animaldiversity.org/accounts/Ursus_arctos/",
         "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Bugbears": {
+    "description": "A frightening goblin that nursemaids once used to scare children into behaving.[1][2]",
+    "lore": "The word bugbear comes from bug, which Thomas Keightley traced back through Puck to Pouke, an old English name for an evil spirit. Bugaboo and bugleboo come from the same root.[1] The Welsh word bwg has been linked with bug, bugbear and hobgoblin, and with the Lancashire boggart.[2]\n\nIn 1584, Reginald Scot remembered how the maids in his childhood had terrified him with tales of an ugly devil with horns on its head, fire in its mouth and a tail behind, eyes as big as basins, fangs like a dog's, claws like a bear's and a roaring voice like a lion's. They frightened children with a long list of such bugbears, from hags and elves to the Man-in-the-Oak, until, he wrote, people were afraid of their own shadows.[3]\n\nOther tales make bugbears a hairy, hulking goblin people who strike from ambush and drag off the victims they seize.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Fairy Mythology",
+        "author": "Thomas Keightley",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/41006",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Traditions, Superstitions and Folk-lore",
+        "author": "Charles Hardwick",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/39934",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Letters on Demonology and Witchcraft",
+        "author": "Sir Walter Scott",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/14461",
+        "license": "Public domain",
         "accessed": "2026-10-28"
       }
     ]
@@ -528,6 +574,29 @@
       }
     ]
   },
+  "Earth Elemental": {
+    "description": "A spirit of the earth, in the old belief that gnomes live underground, love mischief and haunt the mines.[1][2]",
+    "lore": "Followers of the Rosicrucian teaching, which Alexander Pope knew from a French book called Le Comte de Gabalis, held that each of the four elements is home to its own spirits: sylphs in the air, gnomes in the earth, nymphs in the water and salamanders in fire.[1] The gnomes of the earth, Pope wrote, delight in mischief.[1] In his poem, a woman who was a stern prude in life sinks down after death to become a gnome, still roaming the earth in search of mischief.[1]\n\nThe kobolds were said to be a kind of gnome that haunted dark, lonely places, above all the mines. They seemed to copy the miners' work, and sometimes they spoiled it for fun. Neglected or insulted, they turned spiteful, but they could also protect the people they favored. When a miner struck a rich vein of ore, people said the spirits of the mine had led him to it.[2]\n\nOther tales describe the earth elemental as living stone and soil, a hulking shape that glides through rock as a fish swims through water and can batter down walls.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Rape of the Lock, and Other Poems",
+        "author": "Alexander Pope",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/9800",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Letters on Demonology and Witchcraft",
+        "author": "Sir Walter Scott",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/14461",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Efreeti": {
     "description": "A huge and powerful evil spirit of fire, which can pour out of a sealed bottle as smoke and grow until its head touches the clouds.[1]",
     "lore": "Of all the jinn, the efreet is one of the most powerful and wicked. Fire runs through its veins instead of blood, and a mortal wound sets that fire loose to burn its body to ashes.[1]\n\nIn the tale of the fisherman, a poor man pulls up a brass bottle in his net, its lead stopper stamped with the seal of King Solomon. When he pries it open, smoke pours out and spreads across the sky, then gathers into an efreet whose head is in the clouds while its feet stand on the ground. Its head is like a dome, its hands like winnowing forks, its legs like masts, its mouth like a cave and its eyes like lamps.[1]\n\nThe efreet had been shut away for rebelling. In its first centuries in the bottle it vowed to make its rescuer rich, then to give him all the treasure in the world, then to make him a king. When no one came, it swore instead to kill whoever let it out.[2] The fisherman saved himself by doubting aloud that so huge a creature could ever have fit in the bottle. The efreet turned to smoke to prove it, and the fisherman slammed the lid back on.[2]",
@@ -620,6 +689,29 @@
         "author": "Collected by Joseph Jacobs (1890)",
         "publisher": "Project Gutenberg",
         "url": "https://www.gutenberg.org/ebooks/7439",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Fire Elemental": {
+    "description": "A spirit of fire, in the old belief that every element has spirits of its own. Those of fire were called salamanders.[1]",
+    "lore": "Followers of the Rosicrucian teaching, which Alexander Pope knew from a French book called Le Comte de Gabalis, held that each of the four elements is home to its own spirits: sylphs in the air, gnomes in the earth, nymphs in the water and salamanders in fire.[1]\n\nIn Pope's playful version, the souls of women return after death to the element that suits them, and the spirits of fiery, quarrelsome women rise up in flame and take a salamander's name.[1]\n\nAstrologers once claimed they could bind a fairy, a sylph or a salamander inside a ring, a mirror or a stone and make it appear and answer questions. The astrologer never looked himself. A child acted as the seer. The mathematician John Dee kept such a stone, and his seer, a man named Kelly, was said to have deceived him about the spirits in it.[2]\n\nOther tales describe the fire elemental as a living blaze, a shape of flame that sets alight everything it touches, and which water can harm.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Rape of the Lock, and Other Poems",
+        "author": "Alexander Pope",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/9800",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "Letters on Demonology and Witchcraft",
+        "author": "Sir Walter Scott",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/14461",
         "license": "Public domain",
         "accessed": "2026-10-28"
       }
@@ -1393,6 +1485,20 @@
       }
     ]
   },
+  "Homunculus": {
+    "description": "A magical gallows mannikin that serves the one who owns it, said to grow at the foot of a gallows.[1]",
+    "lore": "Near Magdeburg in Germany, people told of the Alraun, or gallows mannikin. When a man from a long line of thieves was hanged, a hideous plant with broad dark leaves and a single yellow flower sprang up at the foot of the gallows. Whoever owned it would never lack money again.[1]\n\nPulling it up was deadly. It shrieked from the ground, demons howled around it, thunder and lightning broke out, and many who tried were found torn to pieces. The safe way was to go at midnight on the first Friday of the month, with wax in your ears and a starving black dog. You dug around the plant, tied it to the dog's tail and threw meat. The dog leapt for the meat, pulled up the root and fell dead.[1]\n\nAt home, the Alraun was washed in red wine, wrapped in silk and kept in a chest with three locks. Once a month it would answer one question about the future or grant one favor. A gold piece left beside it overnight was doubled by morning.[1]\n\nOther tales make the homunculus a tiny winged servant made by a wizard's art, with a poisonous bite, which shares its maker's thoughts.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "Folk-lore and Legends: German",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/27499",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Hunter Shark": {
     "description": "A large, torpedo-shaped shark, dark gray above and white below, with broad, saw-edged triangular teeth.[1]",
     "lore": "The great white shark is the best known of the big hunting sharks. It lives in temperate and subtropical seas around the world and sits at the top of the food chain.[1] It can grow to about six meters long and weigh more than 1,800 kilograms.[1] Young sharks eat fish, rays and squid. Larger ones gather around seal and sea lion colonies to hunt, and sometimes feed on dead whales.[1]\n\nThe white shark is partly warm-blooded. It keeps its body warmer than the water around it, which lets it hunt hard in cool seas.[1] It grows slowly and does not breed until it is about 26 to 33 years old, and estimates of its lifespan run from 30 to more than 70 years.[1]",
@@ -1441,6 +1547,21 @@
         "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
         "url": "https://animaldiversity.org/accounts/Crocuta_crocuta/",
         "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Imp": {
+    "description": "A small demon in the shape of an animal, said to serve a witch as her familiar.[1]",
+    "lore": "In 1647, the witch-finder Matthew Hopkins published his account of the witch trials in Essex, in which his accusations had sent many people to the gallows. He claimed that after one accused woman had been kept from sleep for several nights, she called her imps by name, and that the ten people in the room saw them come.[1]\n\nThe first, Holt, came in like a white kitten. Jarmara came like a fat spaniel with no legs. Vinegar Tom looked like a long-legged greyhound with the head of an ox and broad eyes. When Hopkins ordered it away, it turned into a headless child of four, ran round the house several times and vanished at the door.[1] Sack and Sugar looked like a black rabbit, and Newes like a polecat. She went on to name the imps of other women, such as Pyewacket, Grizzel and Greedigut.[1]\n\nOther tales describe imps as tiny winged devils that can become a rat, a raven or a spider, turn invisible and strike with a poisoned sting.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Discovery of Witches",
+        "author": "Matthew Hopkins (1647)",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/14015",
+        "license": "Public domain",
         "accessed": "2026-10-28"
       }
     ]
@@ -1529,6 +1650,21 @@
         "author": "John Keats (1820)",
         "publisher": "Project Gutenberg",
         "url": "https://www.gutenberg.org/ebooks/2490",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Lemure": {
+    "description": "A restless, hostile spirit of the dead that the Romans drove out of their homes each May.[1]",
+    "lore": "The Romans thought of lemures as wandering ghosts, the angry spirits of the dead who had not been properly buried or cared for, quite unlike the peaceful ancestors honored at the festival of the dead in February.[1] On three nights in May, during the festival called the Lemuria, they had to be driven out of the house.[1]\n\nThe poet Ovid described how it was done. At midnight the father of the family rose, barefoot, washed his hands and made a sign with his fingers to keep the ghosts away. He walked through the house with black beans in his mouth, spitting them out behind him without looking back, and said nine times, \"With these I redeem me and mine.\" The ghosts followed and gathered up the beans unseen. Then he washed again, clashed brass vessels together, and nine times told the ghosts of his fathers to go. Only then did he look round.[1]\n\nOther tales make lemures the lowest of devils, shapeless, mindless lumps of flesh that ooze foul slime and rise again after they are slain.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Roman Festivals of the Period of the Republic",
+        "author": "W. Warde Fowler",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/59007",
         "license": "Public domain",
         "accessed": "2026-10-28"
       }
@@ -2078,6 +2214,29 @@
       }
     ]
   },
+  "Salamander": {
+    "description": "A lizard-like creature with a starry body, said to be so cold that it puts out fire at a touch.[1]",
+    "lore": "Pliny the Elder described the salamander as an animal shaped like a lizard, its body covered with star-like spots. It comes out only in heavy rain and vanishes as soon as the weather turns fine. It is so cold, he wrote, that it puts out fire just by touching it, as ice would. It spits a milky liquid, and wherever this touches a person's skin, the hair falls out.[1]\n\nLater occult writers gave the salamander's name to the spirits of fire, as they named sylphs for the air and gnomes for the earth.[2]\n\nOther tales make the salamander a great serpent-bodied creature of living flame, which wields a burning spear and scorches everyone around it.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Natural History, book 10, chapter 86: Salamanders",
+        "author": "Pliny the Elder, translated by John Bostock and H. T. Riley (1855)",
+        "publisher": "Perseus Digital Library, Tufts University",
+        "url": "https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.02.0137:book=10:chapter=86",
+        "license": "Public domain translation; Perseus edition CC BY-SA 3.0 US",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "The Rape of the Lock, and Other Poems",
+        "author": "Alexander Pope",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/9800",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Satyr": {
     "description": "A wild man of the woods with red hair and a tail almost as large as a horse's.[1]",
     "lore": "Satyrs are wild spirits of the countryside, and the old ones were called Sileni.[1] The traveler Pausanias heard from a sailor named Euphemus about the Satyr-islands, far out in a sea where ships no longer sailed. Their people were red-haired, with tails at their loins nearly as large as a horse's. They ran down to the ship without a word and laid hands on the women aboard, and the frightened sailors had to put to sea again.[1]\n\nThe satyr Marsyas once challenged the god Apollo to a contest of music, playing the flute. He lost, and Apollo flayed him alive for his pride. The fauns, the nymphs and his brother satyrs wept for him, and their tears became a river that bears his name.[2]",
@@ -2199,6 +2358,21 @@
         "author": "Translated by Kisari Mohan Ganguli",
         "publisher": "Project Gutenberg",
         "url": "https://www.gutenberg.org/ebooks/15474",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Sprite": {
+    "description": "A tiny winged spirit with a body almost too fine to see, which guards the people it watches over.[1]",
+    "lore": "In Alexander Pope's poem The Rape of the Lock, a crowd of tiny airy spirits watch over a young woman named Belinda. As her boat glides down the river, they gather around its sails. Some spread insect wings to the sun. Their bodies are transparent, too fine for mortal eyes, half dissolved in light, and their thin clothes and wings shimmer with colors that change every time they move.[1] Their leader, Ariel, stands on the mast with purple wings and an azure wand and gives each one a charge: one her fan, one her earrings, one her watch, one her lock of hair.[1]\n\nThey cannot save her lock. When a young lord closes his scissors on it, one devoted spirit throws itself between the blades and is cut in two, though its airy body soon joins back together.[1]\n\nOther tales describe sprites as tiny fairy warriors with needle-thin swords and bows, who can turn invisible and see straight into a person's heart.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Rape of the Lock, and Other Poems",
+        "author": "Alexander Pope",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/9800",
         "license": "Public domain",
         "accessed": "2026-10-28"
       }
@@ -2377,6 +2551,21 @@
       }
     ]
   },
+  "Tarrasque": {
+    "description": "A huge, ravaging monster from the south of France, with the head of a dragon and a body like an alligator's.[1]",
+    "lore": "The Tarasque was a monster that ravaged the countryside around Tarascon in Provence and carried off children. Saint Martha came to Tarascon to tame it.[1]\n\nIn the legend, she did it with kindness alone. She led the monster through the streets on a silken cord, with a light shining around her head, and it followed her as quietly as a lamb while the crowds cheered. Mona Caird described it as a huge hybrid with the body of an alligator, legs like a grand piano's, the head of a dragon and a showy, curling tail. It never harmed the country around Tarascon again.[1] One scholar argued that Martha was a Christian form of an older Phoenician goddess of sailors, whose symbols were a ship and a dragon.[1]\n\nOther tales make the tarrasque a titan of destruction, so vast it shakes the ground as it walks, with a shell that turns spells back on those who cast them, and a mouth that can swallow its prey whole.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "Romantic Cities of Provence",
+        "author": "Mona Caird",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/56442",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Tiger": {
     "description": "A huge cat with a reddish-orange coat, bold black stripes and a white belly. No two tigers have the same stripes.[1]",
     "lore": "Tigers hunt alone, mostly at night. A tiger lies in wait where its stripes hide it, then pounces, drags its prey to the ground and kills it with a bite to the neck.[1] Deer and wild boar are its main prey, but tigers also take monkeys, buffalo, bears, leopards and even crocodiles. They swim well and have been seen hunting in water.[1] A tiger hunts about once a week and can eat as much as 34 kilograms in a night.[1]\n\nTigers guard their land fiercely. They mark it with scent and claw marks on trees, and they roar, grunt and chuff to keep track of each other.[1] Cubs stay with their mother until they can hunt for themselves and leave at two or three years old to find land of their own.[1]\n\nTigers once lived across much of Asia, from the lands around the Caspian Sea to eastern Asia. They now hold only a small part of that range, in South and Southeast Asia, China and the Russian Far East.[1]",
@@ -2518,6 +2707,29 @@
         "publisher": "U.S. National Park Service (Little Bighorn Battlefield National Monument)",
         "url": "https://www.nps.gov/libi/learn/historyculture/custer-s-cavalry-horses-at-the-little-bighorn.htm",
         "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Water Elemental": {
+    "description": "A spirit of the water, in the old belief that nymphs and river spirits live in every lake, stream and sea.[1][2]",
+    "lore": "Followers of the Rosicrucian teaching, which Alexander Pope knew from a French book called Le Comte de Gabalis, held that each of the four elements is home to its own spirits: sylphs in the air, gnomes in the earth, nymphs in the water and salamanders in fire.[1] In Pope's poem, gentle, yielding souls glide away to the water after death to live among the nymphs.[1]\n\nIn the north, every river had its spirit, the neck. On summer nights it might sit on the water as a pretty little boy with golden ringlets and a red cap, or as a handsome young man who was a horse below the waterline, or as an old man wringing the water from his long beard. It played a golden harp whose music moved all of nature.[2] People out on the water carried steel to bind its power, laying a knife in the bottom of the boat.[2]\n\nIn one Swedish tale, two boys told a weeping neck that it would never be saved. When their father, the parish priest, sent them back to comfort it, the neck took up its harp and played sweetly until long after sunset.[2]\n\nOther tales describe the water elemental as a living wave, which crashes over its foes and drags them under.",
+    "origin": "myth",
+    "sources": [
+      {
+        "title": "The Rape of the Lock, and Other Poems",
+        "author": "Alexander Pope",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/9800",
+        "license": "Public domain",
+        "accessed": "2026-10-28"
+      },
+      {
+        "title": "The Fairy Mythology",
+        "author": "Thomas Keightley",
+        "publisher": "Project Gutenberg",
+        "url": "https://www.gutenberg.org/ebooks/41006",
+        "license": "Public domain",
         "accessed": "2026-10-28"
       }
     ]
