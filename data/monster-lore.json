@@ -184,9 +184,21 @@
       }
     ]
   },
+  "Balor": {
+    "description": "A towering demon wreathed in fire, armed with a whip of flame and a sword of lightning, which explodes when it dies.",
+    "lore": "A balor is one of the mightiest of demons, a winged giant whose body burns so hot that the air shimmers around it. It fights with a whip of fire that can reach across a hall and drag a victim into its flames, and with a blade that crackles with lightning. It can vanish in a flash and appear elsewhere, bringing another demon with it.\n\nThe ground where a balor has walked stays scorched for years, and grass will not grow in its footprints. Those who summon one rarely live to send it back.\n\nEven killing a balor is dangerous. As it dies, its body bursts apart in a blast of fire and raw force that can destroy everyone standing near it. Like all demons, it cannot truly be killed outside the abyss. Slay one in the mortal world and its body melts into stinking ichor, while the demon itself rises again in the abyss, whole and hungry for revenge.",
+    "origin": "original",
+    "sources": []
+  },
   "Bandits": {
     "description": "An outlaw who robs travelers on lonely roads, often as part of a gang led by a hardened captain.",
     "lore": "Wherever trade roads cross empty country, bandits wait for travelers. Most are desperate people: deserters, debtors, runaways and farmers driven off their land. They hide in forests and hills, ambush merchants and pilgrims, and vanish before any soldiers arrive.\n\nA band usually follows a captain who has survived longer than the rest, someone quick with a blade and willing to do what the others will not. A good captain knows which caravans to rob and which to let pass, and which local lords can be paid to look the other way.\n\nSome bandits become heroes in village songs, robbing the rich and sharing with the poor. Most are simply dangerous, and the roads they haunt grow quiet as honest travelers stay away.",
+    "origin": "original",
+    "sources": []
+  },
+  "Barbed Devil": {
+    "description": "A lean devil covered in sharp spines, which climbs walls, hurls fire and holds its prey in a crushing, spiked embrace.",
+    "lore": "Every inch of a barbed devil's body bristles with hooked spines. It seizes its victims in its claws and pulls them close, so that its barbs tear them every moment they struggle, and anyone who tries to wrestle it bleeds just as badly. From a distance it hurls gouts of fire.\n\nBarbed devils are stalkers. They scale walls and cliffs with ease and follow their prey across rooftops, flinging fire down from above before dropping to finish the job up close.\n\nLike all devils, it cannot truly be killed outside the hells. Slay one in the mortal world and its body vanishes in a puff of sulfurous smoke, while the devil itself wakes again at home, whole and unforgiving.",
     "origin": "original",
     "sources": []
   },
@@ -232,6 +244,12 @@
         "accessed": "2026-10-28"
       }
     ]
+  },
+  "Bearded Devil": {
+    "description": "A fierce devil with a writhing, venomous beard, which fights with a jagged glaive that leaves wounds that will not close.",
+    "lore": "A bearded devil is a foot soldier of the hells. It carries a cruel saw-edged glaive, and the wounds it cuts keep bleeding long after the blow. Its beard is a mass of living, poisoned spines, and anyone stung by it cannot heal until the poison fades.\n\nBearded devils are quarrelsome and proud, always eager to prove themselves to stronger devils. Because they are among the weaker devils, they are often the first that summoners meet, and summoners learn quickly that a bearded devil keeps every bargain to the letter and no further.\n\nLike all devils, it cannot truly be killed outside the hells. Slay one in the mortal world and its body vanishes in a puff of sulfurous smoke, while the devil itself wakes again at home, whole and unforgiving.",
+    "origin": "original",
+    "sources": []
   },
   "Behir": {
     "description": "A long, many-legged serpent whose scales crackle with static, which climbs cliffs, crushes prey in its coils and breathes lightning.",
@@ -301,6 +319,12 @@
         "accessed": "2026-10-28"
       }
     ]
+  },
+  "Bone Devil": {
+    "description": "A tall, gaunt devil with skin stretched over its bones, wings and a long tail ending in a venomous sting.",
+    "lore": "A bone devil looks like a starved corpse, its skin pulled tight over a jutting skeleton. It flies on leathery wings and strikes with a scorpion-like tail, whose poison stops wounds from healing.\n\nBone devils are cold and patient hunters. A bone devil sent after a quarry will follow it for years, through cities and wildernesses, and it never forgets a face. Mortals who have angered the hells sometimes wake to find one perched outside the window.\n\nLike all devils, it cannot truly be killed outside the hells. Slay one in the mortal world and its body vanishes in a puff of sulfurous smoke, while the devil itself wakes again at home, whole and unforgiving.",
+    "origin": "original",
+    "sources": []
   },
   "Brown Bear": {
     "description": "A huge bear with fur from cream to nearly black. In the Rocky Mountains, white-tipped hairs give it a grizzled look, which is where the grizzly bear gets its name.[1]",
@@ -397,6 +421,12 @@
         "accessed": "2026-10-28"
       }
     ]
+  },
+  "Chain Devil": {
+    "description": "A devil wrapped in hooked chains, which it whips at its foes and wraps around them, and whose gaze can freeze the bravest with fear.",
+    "lore": "A chain devil wears its weapons. Chains wind around its body, ending in hooks and blades, and it lashes them out to wrap around its victims and hold them fast. It can also call up chains of fire from nowhere to bind anyone it can see.\n\nIts stare is just as dangerous. Those who meet its eyes may freeze in terror, unable to move as the chains come for them. Swords, arrows and clubs barely mark it, so those who fight a chain devil should bring magic.\n\nLike all devils, it cannot truly be killed outside the hells. Slay one in the mortal world and its body vanishes in a puff of sulfurous smoke, while the devil itself wakes again at home, whole and unforgiving.",
+    "origin": "original",
+    "sources": []
   },
   "Chimera": {
     "description": "A fire-breathing monster with three heads: a lion's in front, a goat's in the middle and a serpent's behind.[1]",
@@ -575,6 +605,12 @@
       }
     ]
   },
+  "Deva": {
+    "description": "An angel who travels among mortals as a messenger and guide, healing the sick and lifting curses.",
+    "lore": "Devas are the angels most likely to walk among mortals. They carry messages from the gods, guide heroes, protect the faithful and fight evil wherever they find it. A deva can take the form of a person or an animal when it wishes, and some have spent years living quietly in a village before revealing what they are.\n\nIn battle, a deva wields a holy mace that burns with radiant light. It can heal wounds, cure disease, lift curses and even raise the dead, and it gives this help freely to those who deserve it.\n\nAn angel killed in the mortal world is not truly gone. Its body vanishes, and it wakes again in the heavens.",
+    "origin": "original",
+    "sources": []
+  },
   "Dire Wolf": {
     "description": "A wolf heavier and more muscular than any wolf alive today, with a big head, powerful jaws and large, strong teeth.[1][2]",
     "lore": "Dire wolves hunted across the Americas during the last ice age, from Alaska down into South America, in grasslands, open woods and wetlands alike. Their Latin name means \"terrible wolf\".[1] They stood about as tall as a gray wolf but were around a quarter heavier, with much larger heads and a stronger bite.[2]\n\nThey probably hunted in packs, and thousands of their fossils have been dug from the tar pits of Rancho La Brea in Los Angeles.[1] Horses were their main prey, along with bison, giant ground sloths and camels.[1][2] Many of their teeth are broken, a sign that they fought over carcasses and chewed bone, and when food ran short they may have stolen kills from saber-toothed cats.[1][2]\n\nDespite the name, dire wolves were not close kin to gray wolves. The two lines split millions of years ago and only came to look alike because they lived alike.[1][2] When the great ice age animals died out, dire wolves struggled to compete with gray wolves for smaller prey, and they disappeared about 10,000 years ago.[1][2]",
@@ -669,6 +705,12 @@
         "accessed": "2026-10-28"
       }
     ]
+  },
+  "Dretch": {
+    "description": "A small, pot-bellied demon with clawed hands, which can release a choking cloud of foul gas.",
+    "lore": "Dretches are the lowliest of demons, squat, flabby creatures that stink of rot. They are slow and stupid and have little power of their own, but they gather in crowds, and a mob of dretches can overwhelm an unwary fighter.\n\nOnce a day, a dretch can belch out a cloud of foul gas that leaves those nearby retching and staggering. Other demons treat dretches as fodder and drive them ahead into battle.\n\nLike all demons, it cannot truly be killed outside the abyss. Slay one in the mortal world and its body melts into stinking ichor, while the demon itself rises again in the abyss, whole and hungry for revenge.",
+    "origin": "original",
+    "sources": []
   },
   "Druid": {
     "description": "A priest, judge and teacher of the ancient Gauls and Britons, who learned sacred lore by heart and held the oak and mistletoe holy.[1][2]",
@@ -1440,6 +1482,12 @@
       }
     ]
   },
+  "Glabrezu": {
+    "description": "A huge demon with great crab-like pincers, which sees through every illusion and uses magic to stun, confuse and blind its foes.",
+    "lore": "A glabrezu is a brute and a spellcaster at once. It can seize a person in one of its huge pincers and crush them, or fill a room with darkness, tear away magical protections and leave its enemies reeling in confusion. A single word from it can stun a hero where they stand.\n\nNo illusion or disguise fools a glabrezu. It sees things as they truly are, and it takes particular pleasure in hunting wizards who believe their magic will keep them safe.\n\nLike all demons, it cannot truly be killed outside the abyss. Slay one in the mortal world and its body melts into stinking ichor, while the demon itself rises again in the abyss, whole and hungry for revenge.",
+    "origin": "original",
+    "sources": []
+  },
   "Gladiator": {
     "description": "A slave trained to fight other men for a crowd's entertainment, kept under guard in a gladiator school.[1]",
     "lore": "The most famous gladiator of all was Spartacus. Plutarch tells how a man named Lentulus Batiates kept many gladiators, mostly Gauls and Thracians, shut up in his school at Capua, not for any crime but only through their master's cruelty, to fight one another. Two hundred of them planned to escape. When the plot was discovered, seventy-eight broke out armed with kitchen knives and spits, then seized a wagon full of gladiators' weapons. They chose Spartacus, a Thracian, as their leader, a brave man, Plutarch says, and wiser and gentler than his condition.[1] Trapped on a mountain with only one narrow way down, they twisted wild vines into ladders and climbed down the cliffs, then fell on the Romans from behind. Shepherds and herdsmen joined them, and they defeated army after army.[1]\n\nIn the end, Crassus brought Spartacus to battle. Before it began, Spartacus killed his own horse, saying that if he won he would have plenty of better ones, and if he lost he would need none. He fought his way toward Crassus himself and killed two centurions, until, deserted by those around him, he was surrounded and cut down.[1]",
@@ -1613,6 +1661,12 @@
       }
     ]
   },
+  "Hezrou": {
+    "description": "A squat, hulking demon with a toad-like body, which leaps on its foes and gives off a stench that sickens anyone near it.",
+    "lore": "A hezrou smells so foul that those near it gag and stagger. It springs across a battlefield in great leaps, landing among its enemies and tearing at them with poisoned claws.\n\nHezrous are stronger and smarter than they look, and they enjoy a fight for its own sake. Marsh folk say that where a hezrou has passed, the frogs fall silent and the water turns black.\n\nLike all demons, it cannot truly be killed outside the abyss. Slay one in the mortal world and its body melts into stinking ichor, while the demon itself rises again in the abyss, whole and hungry for revenge.",
+    "origin": "original",
+    "sources": []
+  },
   "Hill Giant": {
     "description": "A huge, grim giant who lives in a cave and wades out to steal cattle, sheep and pigs from the farms around it.[1]",
     "lore": "In the days of King Arthur, the giant Cormoran lived in a cave on the Mount of Cornwall. He stood eighteen feet tall, with a fierce, grim face, and every town nearby lived in terror of him. When he was hungry he waded across to the mainland, and people fled their houses as he came. He carried off half a dozen oxen at once on his back and hung sheep and pigs from his belt.[1]\n\nThe magistrates promised the giant's treasure to whoever could kill him. A farmer's son named Jack crossed to the Mount one winter evening and dug a deep pit through the night and covered it with straw and earth. At dawn he blew a horn. The angry giant charged out of his cave, swearing to broil Jack for breakfast, and fell into the pit, where Jack killed him with a blow of his pickaxe. Jack was called the Giant-Killer from then on, and another giant, Blunderbore, swore revenge on him.[1]",
@@ -1687,6 +1741,12 @@
       }
     ]
   },
+  "Horned Devil": {
+    "description": "A huge, winged devil with great horns, which fights with a burning fork and a tail that leaves bleeding wounds.",
+    "lore": "A horned devil is a winged terror that swoops down on its foes with a great two-pronged fork that sears where it strikes. It hurls fire from the air, and its tail lashes out to leave wounds that keep bleeding until they are healed by magic.\n\nHorned devils are the hells' shock troops, sent where a battle must be won quickly. They despise weakness, in mortals and in other devils alike.\n\nLike all devils, it cannot truly be killed outside the hells. Slay one in the mortal world and its body vanishes in a puff of sulfurous smoke, while the devil itself wakes again at home, whole and unforgiving.",
+    "origin": "original",
+    "sources": []
+  },
   "Hunter Shark": {
     "description": "A large, torpedo-shaped shark, dark gray above and white below, with broad, saw-edged triangular teeth.[1]",
     "lore": "The great white shark is the best known of the big hunting sharks. It lives in temperate and subtropical seas around the world and sits at the top of the food chain.[1] It can grow to about six meters long and weigh more than 1,800 kilograms.[1] Young sharks eat fish, rays and squid. Larger ones gather around seal and sea lion colonies to hunt, and sometimes feed on dead whales.[1]\n\nThe white shark is partly warm-blooded. It keeps its body warmer than the water around it, which lets it hunt hard in cool seas.[1] It grows slowly and does not breed until it is about 26 to 33 years old, and estimates of its lifespan run from 30 to more than 70 years.[1]",
@@ -1738,6 +1798,12 @@
         "accessed": "2026-10-28"
       }
     ]
+  },
+  "Ice Devil": {
+    "description": "A towering devil rimed in frost, from the frozen depths of the hells, which fights with a spear of ice and raises walls of freezing cold.",
+    "lore": "Not all of the hells burn. In the coldest of them live the ice devils, huge beings whose bodies are always crusted with frost. An ice devil's spear leaves its victims numb and slow, and its tail strikes with killing cold. It can raise a wall of ice in an instant, splitting its enemies or sealing them in.\n\nIce devils are cold in temper too. They speak slowly, never lose their patience and never forget an insult. They sense everything around them without needing light, so darkness is no hiding place.\n\nLike all devils, it cannot truly be killed outside the hells. Slay one in the mortal world and its body vanishes in a puff of sulfurous smoke, while the devil itself wakes again at home, whole and unforgiving.",
+    "origin": "original",
+    "sources": []
   },
   "Imp": {
     "description": "A small demon in the shape of an animal, said to serve a witch as her familiar.[1]",
@@ -1945,6 +2011,12 @@
       }
     ]
   },
+  "Marilith": {
+    "description": "A demon with the body of a great serpent, many arms and many blades, which can strike and parry from every side at once.",
+    "lore": "A marilith is a deadly fighter with a serpent's body. Each of its six arms holds a blade, and it can block a blow and answer it in the same breath. Its coils crush anyone it wraps them around, and it can vanish and reappear across a battlefield in an instant.\n\nThe blades of a marilith drain the life from those they cut. It is said that a marilith never forgets a fighter who has scratched it, and that it will seek that warrior out again for the pleasure of a rematch.\n\nLike all demons, it cannot truly be killed outside the abyss. Slay one in the mortal world and its body melts into stinking ichor, while the demon itself rises again in the abyss, whole and hungry for revenge.",
+    "origin": "original",
+    "sources": []
+  },
   "Mastiff": {
     "description": "A large, powerful dog kept to guard people, homes and camps.[1][2]",
     "lore": "Dogs were the first animals people tamed. They descend from wolves, and one idea is that wolves drawn to human camps by the smell of meat and scraps began to guard those camps from predators and to help with the hunt.[1] Over time, dogs came in every shape and size, from tiny Chihuahuas to huge Saint Bernards.[1]\n\nBig dogs have long stood guard for soldiers too. On Guam in 1944, war dogs served as sentries and scouts. They sniffed out snipers and hidden mines, warned of ambushes and guarded camps at night, and Marines said they slept better knowing the dogs were watching.[2]",
@@ -2078,6 +2150,12 @@
         "accessed": "2026-10-28"
       }
     ]
+  },
+  "Nalfeshnee": {
+    "description": "A bloated, hideous demon with tiny wings, which floods the minds around it with horror and appears right beside anyone who tries to flee.",
+    "lore": "A nalfeshnee is grotesquely fat, yet it flies on wings far too small to carry it. Its real power is fear. It sends out waves of horror that leave its enemies screaming and running, and then it appears beside them as they flee, tearing at them with its claws.\n\nNalfeshnees are cunning, and they enjoy terror more than killing. A nalfeshnee will let a victim run, again and again, appearing beside them each time they think they have escaped.\n\nLike all demons, it cannot truly be killed outside the abyss. Slay one in the mortal world and its body melts into stinking ichor, while the demon itself rises again in the abyss, whole and hungry for revenge.",
+    "origin": "original",
+    "sources": []
   },
   "Night Hag": {
     "description": "A witch or spirit that sits on sleepers' chests in the night and brings them nightmares.[1]",
@@ -2229,6 +2307,18 @@
       }
     ]
   },
+  "Pit Fiend": {
+    "description": "A huge, winged devil of terrible power, wreathed in fear, which fights with a fiery mace and casts storms of hellfire.",
+    "lore": "Pit fiends stand near the top of the hells. A pit fiend is a towering, winged devil with a poisonous bite, claws that wither flesh and a mace that burns with hellfire. It can rain fireballs on its enemies and hold them frozen in place. An aura of dread surrounds it, and lesser creatures fall back from it in terror.\n\nPit fiends are ancient, patient and very clever, and they plot over centuries. In many tales, a pit fiend sits at the end of a long chain of bargains, the true master behind the lesser devil who made the deal.\n\nLike all devils, it cannot truly be killed outside the hells. Slay one in the mortal world and its body vanishes in a puff of sulfurous smoke, while the devil itself wakes again at home, whole and unforgiving.",
+    "origin": "original",
+    "sources": []
+  },
+  "Planetar": {
+    "description": "A mighty, winged angel who serves as a warrior of the gods, wielding a radiant sword and hearing every lie spoken to it.",
+    "lore": "Planetars are the soldiers and champions of the heavens. When the gods send an army, planetars lead it, and when a single great evil must be destroyed, a planetar may be sent alone.\n\nA planetar carries a sword of radiant light and can call down holy fire on its enemies. It knows at once when it hears a lie, so mortals who deal with one are wise to speak plainly.\n\nPlanetars are not gentle. They are patient with honest mistakes but merciless toward evil. Those who summon one for a selfish reason may regret it.",
+    "origin": "original",
+    "sources": []
+  },
   "Plesiosaurus": {
     "description": "A sea reptile with a long neck, a small head and four wing-shaped flippers that drove it through the water.[1]",
     "lore": "Plesiosaurs were reptiles of the open sea that lived while dinosaurs ruled the land, though they were only distant relatives of the dinosaurs.[1] Plesiosaurus itself was about 3.5 meters long and ate small prey such as fish and crustaceans. Its relatives grew as long as 12 meters, and some had necks longer than their bodies.[1][2]\n\nThey swam with four flippers, timing the strokes of the front and back pairs for extra push, and they could not come ashore, so they gave birth to live young at sea.[1] They swallowed stones, which may have helped them break up food or stay steady in the water. Their long necks were stiffer than a swan's and may have helped them sneak up on prey.[1]\n\nPlesiosaurs lasted more than 140 million years and died out with the dinosaurs.[1][2] Mary Anning found the first nearly complete Plesiosaurus skeleton on the south coast of England in 1823, and plesiosaurs later inspired the legend of the Loch Ness Monster.[1]",
@@ -2310,6 +2400,12 @@
         "accessed": "2026-10-28"
       }
     ]
+  },
+  "Quasit": {
+    "description": "A tiny demon that can turn into a bat, a centipede or a toad, turn invisible and fill its victims with fear.",
+    "lore": "Quasits are small, spiteful demons with poisoned claws. They can take the shape of a bat, a centipede or a toad, or turn invisible altogether, which makes them perfect spies and messengers.\n\nA quasit loves cruelty but hates danger. It whispers lies, spoils food, frightens children and runs at the first sign of a real fight. When cornered, it fills its enemy with terror and slips away while they cower.",
+    "origin": "original",
+    "sources": []
   },
   "Rakshasa": {
     "description": "A demon of the night that eats human flesh, ruins holy rites with sorcery and can take any shape it pleases.[1]",
@@ -2528,6 +2624,12 @@
         "accessed": "2026-10-28"
       }
     ]
+  },
+  "Solar": {
+    "description": "The greatest of angels, a radiant being with a sword that flies to its target and a bow that can slay with a single arrow.",
+    "lore": "Solars stand closest to the gods. Few mortals ever see one, and those who do never forget it. A solar shines so brightly that its gaze alone can blind, and it can vanish and reappear in a burst of searing light.\n\nIts sword flies from its hand to strike foes far away and returns on its own. Its bow can kill a lesser creature with one arrow from across a battlefield. When a solar goes to war, it is because the gods themselves have decided that something must end.\n\nLike all angels, a solar knows when it hears a lie. It also heals and lifts curses, and it never refuses this help to those in true need.",
+    "origin": "original",
+    "sources": []
   },
   "Sphinxes": {
     "description": "A winged lion with the face of a woman, who asks riddles and devours those who cannot answer.[2]",
@@ -2907,6 +3009,12 @@
         "accessed": "2026-10-28"
       }
     ]
+  },
+  "Vrock": {
+    "description": "A large, feathered demon with a piercing screech, which flies over battlefields and releases clouds of poisonous spores.",
+    "lore": "Vrocks circle over battlefields in flocks, shrieking. When they dive, they shred their prey with poisoned talons, and their screech can leave enemies stunned and helpless. They can also shake out a cloud of spores that poisons everyone around them.\n\nVrocks are cruel and greedy for destruction. After a battle they stay behind long after others have gone, picking through the wreckage and screeching at one another over the spoils.\n\nLike all demons, it cannot truly be killed outside the abyss. Slay one in the mortal world and its body melts into stinking ichor, while the demon itself rises again in the abyss, whole and hungry for revenge.",
+    "origin": "original",
+    "sources": []
   },
   "Vulture": {
     "description": "A big, brownish-black bird with a bare head and neck that feeds on carrion.[1]",
