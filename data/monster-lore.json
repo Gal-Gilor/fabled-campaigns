@@ -370,6 +370,93 @@
       }
     ]
   },
+  "Giant Constrictor Snake": {
+    "description": "An immense olive-green snake with dark oval spots, up to nine meters long and thirty centimeters thick.[1]",
+    "lore": "The green anaconda is one of the largest snakes in the world. Females are far bigger than males and can weigh 250 kilograms.[1] It lives in the rivers, streams and flooded grasslands of northern South America and spends most of its time in the water, with its eyes and nose on top of its head so it can see and breathe while swimming.[1]\n\nIt has no venom. It seizes prey in its jaws and squeezes it in its coils until it can't breathe, then swallows it whole.[1] Young anacondas eat fish, birds and small mammals, while adults take deer, capybara, caimans and large birds, and a female will sometimes eat a male.[1] It finds prey by tasting the air with its tongue, by feeling vibrations, and with heat-sensing pits on its upper lip.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Green anaconda",
+        "publisher": "Smithsonian's National Zoo and Conservation Biology Institute",
+        "url": "https://nationalzoo.si.edu/animals/green-anaconda",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Giant Crocodile": {
+    "description": "A crocodile twelve to fifteen meters long, with jaws lined with teeth as long as a hand.[1]",
+    "lore": "Deinosuchus, the \"super-croc\", was among the largest crocodiles ever known. Its fossils have been found in Big Bend National Park in Texas, where it lived in swamps in the age of dinosaurs.[1]\n\nIt probably hunted the way crocodiles do today, lying submerged near the shore and seizing large dinosaurs as they fed among the plants.[1] Dinosaur bones from the same rocks are heavily damaged and covered in its bite marks.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "\"Super-Croc\"",
+        "publisher": "U.S. National Park Service (Big Bend National Park)",
+        "url": "https://www.nps.gov/bibe/learn/nature/deinosuchus.htm",
+        "license": "Public domain (U.S. government work)",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Giant Eagle": {
+    "description": "An eagle of enormous size with huge talons, strong enough to bring down prey many times its own weight.[1]",
+    "lore": "Haast's eagle was the largest eagle known. It weighed about 15 kilograms and lived in New Zealand until around 700 years ago.[1] It hunted moa, giant flightless birds that could stand four meters tall and weigh hundreds of kilograms, prey no other bird of prey has had to face.[1]\n\nIt struck a moa down with its huge talons, then killed it with its beak. The prey was far too heavy to carry off, so the eagle ate it where it fell, feeding on its insides like a vulture.[1] Its head was vulture-like while its feet were those of an eagle, a mix that puzzled scientists for centuries, and it has been called \"the flying tiger\".[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "The world's largest eagle hunted unlike any other bird of prey",
+        "author": "James Ashworth",
+        "publisher": "Natural History Museum, London",
+        "url": "https://www.nhm.ac.uk/discover/news/2021/december/worlds-largest-eagle-hunted-unlike-any-other-bird-of-prey.html",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Giant Elk": {
+    "description": "A deer as tall as a doorway at the shoulder, with a hump over its shoulders and vast antlers up to three and a half meters across.[1]",
+    "lore": "The giant deer, often called the Irish elk, lived across Europe for hundreds of thousands of years and died out about 8,000 years ago, probably as the climate changed.[1] People painted it on cave walls in what is now southern France more than 20,000 years ago.[1] Despite its name it was not an elk, and its closest living relative is the fallow deer.[1]\n\nThe males' antlers could reach three and a half meters across. They were hard to carry and took a great deal of food to grow, and each spring the males shed them and grew a new pair over the summer.[1] Thick skulls, sturdy necks and a muscular hump over the shoulders helped them bear the weight.[1]\n\nThe antlers were for winning mates. In autumn the males likely gathered to roar, parade side by side and lock antlers, while the females looked on and chose.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "The Irish elk: when and why did this giant deer go extinct and what did it look like?",
+        "author": "Beth Askham and Lisa Hendry",
+        "publisher": "Natural History Museum, London",
+        "url": "https://www.nhm.ac.uk/discover/irish-elk-giant-deer.html",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Giant Frog": {
+    "description": "A huge, flat, greenish-brown frog with webbed feet and eyes almost as wide as a coin.[1]",
+    "lore": "The goliath frog is the largest frog on Earth, more than 30 centimeters long and over three kilograms.[1] It lives by fast rivers and waterfalls in warm, wet rainforest.[1]\n\nIt hunts at night along the rivers, eating insects, crabs, fish, snails, small mammals and other frogs.[1] Young goliath frogs spend most of their time underwater, while older ones bask on rocks, where their mottled skin blends with the wet moss.[1] Its tadpoles eat only one water plant, which grows near waterfalls and streams.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Conraua goliath (goliath frog)",
+        "author": "Sunaina Khandelwal",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Conraua_goliath/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Giant Lizard": {
+    "description": "A huge, stone-colored lizard with a long tail, sturdy legs, a strong neck and a yellow forked tongue.[1]",
+    "lore": "The Komodo dragon is the largest lizard alive. Most weigh about 70 kilograms, and the biggest on record was more than three meters long.[1] It lives only on a few Indonesian islands, including Komodo and Flores.[1]\n\nIt eats almost any meat, from rodents to water buffalo, and deer are its favorite. It hunts by stealth, waiting for hours beside a game trail before it attacks.[1] Its bite is venomous, and venom and bacteria in its saliva kill bitten prey within a few days.[1] Its jaws open unusually wide and its stomach stretches, so a grown dragon can eat up to 80 percent of its own weight in one meal.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Komodo dragon",
+        "publisher": "Smithsonian's National Zoo and Conservation Biology Institute",
+        "url": "https://nationalzoo.si.edu/animals/komodo-dragon",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
   "Giant Octopus": {
     "description": "An octopus grown far past natural size that hides by changing the color and texture of its skin, then seizes prey with eight suckered arms.[1]",
     "lore": "The giant octopus spends most of its life alone in a den under a boulder or in a crack in the rock, sometimes staying hidden for weeks. It comes out only to hunt, to mate or to flee.[1] It carries its catch home to eat, and the broken shells of clams and crabs pile up outside the entrance.[1]\n\nIt hunts by sight, stalking or chasing its prey or lying in wait, and it can change the color and even the texture of its skin to blend in.[1] Every sucker on its arms can feel and taste what it touches.[1] When attacked, it fights back with its arms, then shoots away and leaves a cloud of ink behind.[1]\n\nIt is a clever animal. It finds its way by landmarks, uses objects as tools and learns by watching, and octopuses kept in captivity are known for escaping their tanks.[1] A mother guards her eggs in the den and does not leave them even to eat. She dies before they hatch or soon after.[1]",
@@ -380,6 +467,81 @@
         "author": "Colleen Hartis",
         "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
         "url": "https://animaldiversity.org/accounts/Enteroctopus_dofleini/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Giant Shark": {
+    "description": "A shark of colossal size, far bigger than any shark alive, with serrated teeth as long as a hand.[1]",
+    "lore": "Megalodon, whose name means \"large tooth\", was the largest shark that ever lived and one of the largest fish of all time. It ruled the seas for nearly 20 million years and died out about 3.6 million years ago.[1] A recent study suggests it may have grown to more than 24 meters long, about four times the length of the biggest great white, and weighed up to 94 tonnes.[1]\n\nIt ate meat: most likely whales, large fish and other sharks. Fossil whale bones carry the cut marks of its teeth, and some still hold the tips of teeth that snapped off as it fed.[1] Its jaws may have opened nearly three and a half meters wide, enough to swallow two grown people side by side.[1]\n\nIts teeth reach nearly 18 centimeters long, more than three times the size of a great white's. Megalodon was long pictured as a giant great white, but it may have been a much slimmer shark.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Megalodon: The truth about the largest shark that ever lived",
+        "author": "Josh Davis",
+        "publisher": "Natural History Museum, London",
+        "url": "https://www.nhm.ac.uk/discover/megalodon--the-truth-about-the-largest-shark-that-ever-lived.html",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Giant Toad": {
+    "description": "A big, warty, olive-brown toad with huge poison glands behind its eyes and a bony ridge over its snout.[1]",
+    "lore": "The cane toad is a big tropical toad that hunts at night, eating ants, beetles and other insects along with snails, crabs, plants and even pet food left outside.[1] When threatened it oozes a thick white poison from the glands on its back, which can sicken or kill an animal that bites it.[1]\n\nPeople carried the cane toad around the world in the hope that it would eat pests in sugar cane fields, and it is now the most widely introduced amphibian of all. It did not control the pests and has become a pest itself, eating and outcompeting native frogs and poisoning the animals that try to eat it.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Rhinella marina (cane toad)",
+        "author": "Ryan Hilgris",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Rhinella_marina/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Giant Venomous Snake": {
+    "description": "A very long snake, yellow, green, brown or black with pale bands, that can rear up a meter off the ground to face a threat.[1]",
+    "lore": "The king cobra usually grows three to four meters long and can reach more than five.[1] It hunts by day and eats mostly other snakes, including rat snakes and pythons up to three meters long. Some king cobras eat only one kind of snake and refuse anything else.[1]\n\nIts venom is a powerful nerve poison that can kill quickly by stopping breathing.[1] Even so, a king cobra usually tries to escape unless it is cornered. In a threat display it rears up about a meter and can follow its enemy while upright.[1]\n\nNesting females are the exception. A female piles plant matter into a nest where the heat of the rotting leaves keeps her eggs warm, and she may attack without warning.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Ophiophagus hannah (king cobra)",
+        "author": "Diana Young",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Ophiophagus_hannah/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Giant Wasp": {
+    "description": "The largest hornet in the world, with queens more than five centimeters long and a venomous sting.[1]",
+    "lore": "The Asian giant hornet is the largest hornet in the world.[1] It lives in colonies that nest underground, in holes it digs or takes over from small rodents, or in hollow trees.[1] Workers hunt beetles, mantises and caterpillars, and this is the only wasp known to stage group attacks on beehives and other wasps' nests. Twenty or thirty hornets can kill as many as 25,000 honeybees in a few hours.[1]\n\nThey mark a target hive with scent to call their nestmates to the attack, and they chew their prey into balls to carry home to their young.[1] When threatened they click their jaws as a warning before they sting. In Japan their stings kill an estimated 30 to 50 people a year.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Vespa mandarinia (Asian giant hornet)",
+        "author": "Zach Barth and Thomas Kearns",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Vespa_mandarinia/",
+        "license": "All rights reserved",
+        "accessed": "2026-10-28"
+      }
+    ]
+  },
+  "Giant Weasel": {
+    "description": "A heavy, powerful member of the weasel family with short legs, broad clawed paws and a fierce temper.[1]",
+    "lore": "The wolverine is one of the largest members of the weasel family, weighing up to 30 kilograms.[1] It lives alone and guards its territory, marking it and its hidden food stores with a strong scent.[1]\n\nIt eats anything from eggs to moose. When deep snow leaves a deer or reindeer stranded, a wolverine can bring down prey five times its size, running over the snow on its broad, padded paws at more than 48 kilometers an hour.[1] It also scavenges, finding carrion with its keen nose.[1]\n\nWolverines are fierce enough to stand off wolves and mountain lions many times their size.[1] They raid trappers' lines and break into cabins and food stores, eating what they can and spraying the rest with their scent, and they can bite into cans with their sharp teeth.[1]",
+    "origin": "animal",
+    "sources": [
+      {
+        "title": "Gulo gulo (wolverine)",
+        "author": "Liz Ballenger",
+        "publisher": "Animal Diversity Web, University of Michigan Museum of Zoology",
+        "url": "https://animaldiversity.org/accounts/Gulo_gulo/",
         "license": "All rights reserved",
         "accessed": "2026-10-28"
       }
