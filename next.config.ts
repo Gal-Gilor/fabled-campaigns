@@ -1,4 +1,7 @@
 import type { NextConfig } from "next";
+import monsters from "./data/monsters.json";
+import { legacyMonsterRedirects } from "./app/lib/wikiPaths";
+import type { Monster } from "./types/wiki";
 
 const nextConfig: NextConfig = {
   serverExternalPackages: ['better-sqlite3'],
@@ -12,6 +15,8 @@ const nextConfig: NextConfig = {
         destination: 'https://fabledcampaigns.com/:path*',
         permanent: true,
       },
+      // Creature pages are one per group, and animals moved to /wiki/animals.
+      ...legacyMonsterRedirects(monsters as Monster[]),
     ];
   },
 };

@@ -1,118 +1,25 @@
 // app/wiki/monsters/[slug]/page.tsx
 import { notFound } from 'next/navigation';
-import Link from 'next/link';
 import type { Metadata } from 'next';
-import { getAllMonsters, getMonsterBySlug, getMonstersInGroup } from '@/app/lib/wiki';
-import { StatBlock } from '@/app/components/wiki/stat-block';
-import { MarkdownBody } from '@/app/components/wiki/markdown-body';
-import { pageMetadata } from '@/app/lib/pageMetadata';
+import { getMonsterGroupBySlug, getMonsterGroups } from '@/app/lib/wiki';
+import { MonsterGroupPage, monsterGroupMetadata } from '@/app/components/wiki/monster-group-page';
 
 type Props = { params: Promise<{ slug: string }>; searchParams: Promise<{ from?: string; q?: string }> };
 
-const BASE_URL = 'https://fabledcampaigns.com';
-
 export function generateStaticParams() {
-  return getAllMonsters().map((m) => ({ slug: m.slug }));
+  return getMonsterGroups('Monster').map((g) => ({ slug: g.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const monster = getMonsterBySlug(slug);
-  if (!monster) return {};
-
-  return pageMetadata(
-    `${monster.name} | Fabled Campaigns Wiki`,
-    `${monster.size} ${monster.type}, CR ${monster.cr}. ${monster.alignment}.`,
-    `/wiki/monsters/${monster.slug}`
-  );
+  const group = getMonsterGroupBySlug('Monster', slug);
+  return group ? monsterGroupMetadata(group) : {};
 }
 
 export default async function MonsterPage({ params, searchParams }: Props) {
   const { slug } = await params;
   const { from, q } = await searchParams;
-  const backHref =
-    from === 'search' ? `/wiki${q ? `?search=${encodeURIComponent(q)}` : ''}` : '/wiki/monsters';
-  const monster = getMonsterBySlug(slug);
-  if (!monster) notFound();
-  const relatives = getMonstersInGroup(monster.group).filter((m) => m.slug !== monster.slug);
-
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'WebPage',
-    name: monster.name,
-    description: `${monster.size} ${monster.type}, CR ${monster.cr}. ${monster.alignment}.`,
-    url: `${BASE_URL}/wiki/monsters/${monster.slug}`,
-  };
-
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <main style={{ maxWidth: '48rem', margin: '0 auto', padding: '2rem 1.5rem' }}>
-        <nav
-          style={{
-            marginBottom: '1.5rem',
-            fontSize: '0.875rem',
-            color: 'var(--neutral-600)',
-          }}
-        >
-          <Link href="/wiki" style={{ color: 'var(--primary-blue)' }}>
-            Wiki
-          </Link>
-          {' / '}
-          <Link href="/wiki/monsters" style={{ color: 'var(--primary-blue)' }}>
-            Monsters
-          </Link>
-          {' / '}
-          {monster.name}
-        </nav>
-
-        <StatBlock monster={monster} />
-        <MarkdownBody content={monster.body} />
-        {relatives.length > 0 && (
-          <section>
-            <h2
-              style={{
-                fontFamily: 'var(--font-cinzel), serif',
-                color: 'var(--neutral-900)',
-                fontSize: '1.125rem',
-                fontWeight: 600,
-                marginTop: '1.5rem',
-                marginBottom: '0.5rem',
-              }}
-            >
-              {monster.group}
-            </h2>
-            <ul style={{ paddingLeft: '1.5rem', margin: 0 }}>
-              {relatives.map((m) => (
-                <li key={m.slug} style={{ marginBottom: '0.25rem' }}>
-                  <Link href={`/wiki/monsters/${m.slug}`} style={{ color: 'var(--primary-blue)' }}>
-                    {m.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
-        <nav style={{ borderTop: '1px solid var(--neutral-200)', marginTop: '2rem', paddingTop: '1.5rem' }}>
-          <Link
-            href={backHref}
-            className="inline-block border border-neutral-200 hover:border-primary hover:shadow-md bg-white transition-all duration-150"
-            style={{
-              padding: '0.625rem 2rem',
-              borderRadius: '0.5rem',
-              color: 'var(--neutral-700)',
-              fontSize: '0.9375rem',
-              fontWeight: 500,
-              textDecoration: 'none',
-            }}
-          >
-            Back
-          </Link>
-        </nav>
-      </main>
-    </>
-  );
+  const group = getMonsterGroupBySlug('Monster', slug);
+  if (!group) notFound();
+  return <MonsterGroupPage group={group} from={from} q={q} />;
 }

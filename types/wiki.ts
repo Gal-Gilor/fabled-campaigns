@@ -69,25 +69,46 @@ export type Monster = {
   body: string;
 };
 
+// One page per SRD group, e.g. the four White Dragons. `name` is the group
+// heading as printed; `members` are sorted by CR.
+export type MonsterGroup = {
+  slug: string;
+  name: string;
+  category: MonsterCategory;
+  members: Monster[];
+};
+
 // Browse/listing views only read the card and filter fields. Pass this lighter
 // shape to the client to keep the payload small.
-export type MonsterSummary = Pick<
-  Monster,
-  'slug' | 'name' | 'category' | 'size' | 'type' | 'creatureType' | 'cr'
->;
+export type MonsterGroupSummary = {
+  slug: string;
+  name: string;
+  category: MonsterCategory;
+  // Shared by every member, else null.
+  size: string | null;
+  // The printed type when every member shares it, else the base types joined with ' or '.
+  type: string;
+  creatureTypes: string[];
+  // Distinct member CRs, ascending.
+  crs: string[];
+  // '2' or '2–20'.
+  crRange: string;
+  memberNames: string[];
+};
 
 export type FilterConfig<T> =
   | {
       key: string;
       label: string;
       type: 'search';
-      getValue: (item: T) => string;
+      // An array matches when any of its values matches.
+      getValue: (item: T) => string | string[];
     }
   | {
       key: string;
       label: string;
       type: 'select';
-      getValue: (item: T) => string;
+      getValue: (item: T) => string | string[];
       options: string[];
       // When provided, an item that satisfies this predicate matches the filter
       // regardless of the selected option (e.g. 'Varies' rarity items always show).

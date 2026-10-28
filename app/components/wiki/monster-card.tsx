@@ -1,11 +1,12 @@
 // app/components/wiki/monster-card.tsx
 import Link from 'next/link';
-import type { MonsterSummary } from '@/types/wiki';
+import { CATEGORY_PATHS } from '@/app/lib/wikiPaths';
+import type { MonsterGroupSummary } from '@/types/wiki';
 
-export function MonsterCard({ monster }: { monster: MonsterSummary }) {
+export function MonsterCard({ group }: { group: MonsterGroupSummary }) {
   return (
     <Link
-      href={`/wiki/monsters/${monster.slug}`}
+      href={`/wiki/${CATEGORY_PATHS[group.category]}/${group.slug}`}
       style={{ textDecoration: 'none', display: 'block', height: '100%' }}
     >
       <div
@@ -27,10 +28,10 @@ export function MonsterCard({ monster }: { monster: MonsterSummary }) {
             margin: '0 0 0.375rem',
           }}
         >
-          {monster.name}
+          {group.name}
         </p>
         <p style={{ color: 'var(--neutral-600)', fontSize: '0.8125rem', margin: '0 0 0.5rem' }}>
-          {monster.size} {monster.type}
+          {group.size ? `${group.size} ${group.type}` : group.type}
         </p>
         <span
           style={{
@@ -42,7 +43,7 @@ export function MonsterCard({ monster }: { monster: MonsterSummary }) {
             borderRadius: '3px',
           }}
         >
-          CR {monster.cr}
+          CR {group.crRange}
         </span>
       </div>
     </Link>

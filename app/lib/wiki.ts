@@ -1,9 +1,12 @@
 // app/lib/wiki.ts
 import monstersData from '@/data/monsters.json';
 import magicItemsData from '@/data/magic-items.json';
+import { monsterHref, slugify } from './wikiPaths';
 import type {
   Monster,
-  MonsterSummary,
+  MonsterCategory,
+  MonsterGroup,
+  MonsterGroupSummary,
   MagicItem,
   MagicItemRarity,
   MagicItemSummary,
@@ -15,20 +18,6 @@ export function getAllMonsters(): Monster[] {
 
 export function getMonsterBySlug(slug: string): Monster | undefined {
   return getAllMonsters().find((m) => m.slug === slug);
-}
-
-// Card and filter fields for listing/browse views, so the stat blocks
-// aren't serialized into the client bundle.
-export function getMonsterSummaries(): MonsterSummary[] {
-  return getAllMonsters().map(({ slug, name, category, size, type, creatureType, cr }) => ({
-    slug,
-    name,
-    category,
-    size,
-    type,
-    creatureType,
-    cr,
-  }));
 }
 
 export function getAllMagicItems(): MagicItem[] {
@@ -58,11 +47,79 @@ export function sortedCRs(monsters: Pick<Monster, 'cr'>[]): string[] {
   return unique.sort((a, b) => crToNumber(a) - crToNumber(b));
 }
 
-// Group members ordered by CR, so 'White Dragons' reads Wyrmling to Ancient.
-export function getMonstersInGroup(group: string): Monster[] {
-  return getAllMonsters()
-    .filter((m) => m.group === group)
-    .sort((a, b) => crToNumber(a.cr) - crToNumber(b.cr) || a.name.localeCompare(b.name));
+function compareByCR(a: Monster, b: Monster): number {
+  return crToNumber(a.cr) - crToNumber(b.cr) || a.name.localeCompare(b.name);
+}
+
+// Members are ordered by CR, so 'White Dragons' reads Wyrmling to Ancient.
+export function getMonsterGroups(category: MonsterCategory): MonsterGroup[] {
+  const members = new Map<string, Monster[]>();
+  for (const m of getAllMonsters()) {
+    if (m.category !== category) continue;
+    members.set(m.group, [...(members.get(m.group) ?? []), m]);
+  }
+  return [...members]
+    .map(([name, list]) => ({
+      slug: slugify(name),
+      name,
+      category,
+      members: list.sort(compareByCR),
+    }))
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
+
+export function getMonsterGroupBySlug(
+  category: MonsterCategory,
+  slug: string
+): MonsterGroup | undefined {
+  return getMonsterGroups(category).find((g) => g.slug === slug);
+}
+
+export function formatCRRange(crs: string[]): string {
+  return crs.length > 1 ? `${crs[0]}–${crs[crs.length - 1]}` : crs[0];
+}
+
+function summarizeGroup({ slug, name, category, members }: MonsterGroup): MonsterGroupSummary {
+  const sizes = new Set(members.map((m) => m.size));
+  const types = new Set(members.map((m) => m.type));
+  const creatureTypes = [...new Set(members.map((m) => m.creatureType))].sort();
+  const crs = [...new Set(members.map((m) => m.cr))];
+  return {
+    slug,
+    name,
+    category,
+    size: sizes.size === 1 ? members[0].size : null,
+    type: types.size === 1 ? members[0].type : creatureTypes.join(' or '),
+    creatureTypes,
+    crs,
+    crRange: formatCRRange(crs),
+    memberNames: members.map((m) => m.name),
+  };
+}
+
+// Card and filter fields for listing/browse views, so the stat blocks
+// aren't serialized into the client bundle.
+export function getMonsterGroupSummaries(category: MonsterCategory): MonsterGroupSummary[] {
+  return getMonsterGroups(category).map(summarizeGroup);
+}
+
+// One line for page metadata: the stat block line for a single member, else
+// the member names, shared type and CR range.
+export function describeMonsterGroup(group: MonsterGroup): string {
+  if (group.members.length === 1) {
+    const [m] = group.members;
+    return `${m.size} ${m.type}, CR ${m.cr}. ${m.alignment}.`;
+  }
+  const { memberNames, type, crRange } = summarizeGroup(group);
+  return `${memberNames.length} stat blocks: ${memberNames.join(', ')}. ${type}, CR ${crRange}.`;
+}
+
+const groupSizes = new Map<string, number>();
+for (const m of getAllMonsters()) groupSizes.set(m.group, (groupSizes.get(m.group) ?? 0) + 1);
+
+// Link to the record's section on its group page.
+export function getMonsterHref(m: Pick<Monster, 'slug' | 'group' | 'category'>): string {
+  return monsterHref(m, groupSizes.get(m.group) ?? 1);
 }
 
 export function abilityModifier(score: number): number {

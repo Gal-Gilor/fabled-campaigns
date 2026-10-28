@@ -1,5 +1,7 @@
 // app/lib/wikiOgImage.tsx
 import { ImageResponse } from 'next/og';
+import { formatCRRange } from './wiki';
+import type { MonsterGroup } from '@/types/wiki';
 
 export type OgBadge = { label: string; background: string; color: string };
 
@@ -63,4 +65,35 @@ export function wikiOgImage({ kind, name, subtitle, badges }: Props) {
     ),
     { width: 1200, height: 630 }
   );
+}
+
+const GROUP_BADGE = { background: 'rgba(255, 255, 255, 0.14)', color: '#ffffff' };
+
+// A single stat block keeps its CR, AC and HP badges; a group of several shows
+// the CR range and how many stat blocks the page holds.
+export function monsterGroupOgImage(group: MonsterGroup) {
+  const { members } = group;
+  if (members.length === 1) {
+    const [m] = members;
+    // hp is printed as '315 (42d8 + 126)'; the card shows the average only.
+    return wikiOgImage({
+      kind: group.category,
+      name: group.name,
+      subtitle: `${m.size} ${m.type} · ${m.alignment}`,
+      badges: [
+        { label: `CR ${m.cr}`, ...GROUP_BADGE },
+        { label: `AC ${m.ac}`, ...GROUP_BADGE },
+        { label: `HP ${m.hp.split(' ')[0]}`, ...GROUP_BADGE },
+      ],
+    });
+  }
+  return wikiOgImage({
+    kind: group.category,
+    name: group.name,
+    subtitle: [...new Set(members.map((m) => m.type))].join(' · '),
+    badges: [
+      { label: `CR ${formatCRRange([...new Set(members.map((m) => m.cr))])}`, ...GROUP_BADGE },
+      { label: `${members.length} stat blocks`, ...GROUP_BADGE },
+    ],
+  });
 }

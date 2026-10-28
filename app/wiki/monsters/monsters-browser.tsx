@@ -2,33 +2,27 @@
 
 import { WikiBrowser } from '@/app/components/wiki/wiki-browser';
 import { MonsterCard } from '@/app/components/wiki/monster-card';
-import type { MonsterSummary, FilterConfig } from '@/types/wiki';
+import type { MonsterGroupSummary, FilterConfig } from '@/types/wiki';
 
 type Props = {
-  monsters: MonsterSummary[];
+  groups: MonsterGroupSummary[];
   types: string[];
   crs: string[];
 };
 
-export function MonstersBrowser({ monsters, types, crs }: Props) {
-  const filters: FilterConfig<MonsterSummary>[] = [
-    { key: 'name', label: 'Name', type: 'search', getValue: (m) => m.name },
-    {
-      key: 'category',
-      label: 'Category',
-      type: 'select',
-      getValue: (m) => m.category,
-      options: ['Monster', 'Animal'],
-    },
-    { key: 'type', label: 'Type', type: 'select', getValue: (m) => m.creatureType, options: types },
-    { key: 'cr', label: 'CR', type: 'select', getValue: (m) => m.cr, options: crs },
+// Each card is a group, so filters match when any member matches.
+export function MonstersBrowser({ groups, types, crs }: Props) {
+  const filters: FilterConfig<MonsterGroupSummary>[] = [
+    { key: 'name', label: 'Name', type: 'search', getValue: (g) => [g.name, ...g.memberNames] },
+    { key: 'type', label: 'Type', type: 'select', getValue: (g) => g.creatureTypes, options: types },
+    { key: 'cr', label: 'CR', type: 'select', getValue: (g) => g.crs, options: crs },
   ];
 
   return (
     <WikiBrowser
-      items={monsters}
+      items={groups}
       filters={filters}
-      renderCard={(monster) => <MonsterCard monster={monster} />}
+      renderCard={(group) => <MonsterCard group={group} />}
     />
   );
 }
