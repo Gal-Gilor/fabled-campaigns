@@ -1,12 +1,15 @@
 // app/lib/wiki.ts
 import monstersData from '@/data/monsters.json';
+import loreData from '@/data/monster-lore.json';
 import magicItemsData from '@/data/magic-items.json';
 import { monsterHref, slugify } from './wikiPaths';
+import { stripCitations } from './loreRules';
 import type {
   Monster,
   MonsterCategory,
   MonsterGroup,
   MonsterGroupSummary,
+  MonsterLore,
   MagicItem,
   MagicItemRarity,
   MagicItemSummary,
@@ -18,6 +21,15 @@ export function getAllMonsters(): Monster[] {
 
 export function getMonsterBySlug(slug: string): Monster | undefined {
   return getAllMonsters().find((m) => m.slug === slug);
+}
+
+// Keyed by SRD group name. Groups without an entry have no lore yet.
+export function getAllLore(): Record<string, MonsterLore> {
+  return loreData as Record<string, MonsterLore>;
+}
+
+export function getLore(group: string): MonsterLore | undefined {
+  return getAllLore()[group];
 }
 
 export function getAllMagicItems(): MagicItem[] {
@@ -103,9 +115,12 @@ export function getMonsterGroupSummaries(category: MonsterCategory): MonsterGrou
   return getMonsterGroups(category).map(summarizeGroup);
 }
 
-// One line for page metadata: the stat block line for a single member, else
-// the member names, shared type and CR range.
+// One line for page metadata: the lore description when there is one, else
+// the stat block line for a single member, else the member names, shared type
+// and CR range.
 export function describeMonsterGroup(group: MonsterGroup): string {
+  const lore = getLore(group.name);
+  if (lore) return stripCitations(lore.description);
   if (group.members.length === 1) {
     const [m] = group.members;
     return `${m.size} ${m.type}, CR ${m.cr}. ${m.alignment}.`;

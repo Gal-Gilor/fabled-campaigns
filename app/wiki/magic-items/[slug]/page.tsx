@@ -8,7 +8,7 @@ import { pageMetadata } from '@/app/lib/pageMetadata';
 
 type Props = { params: Promise<{ slug: string }>; searchParams: Promise<{ from?: string; q?: string }> };
 
-const BASE_URL = 'https://fabledcampaigns.com';
+const BASE_URL = 'https://www.fabledcampaigns.com';
 
 export function generateStaticParams() {
   return getAllMagicItems().map((item) => ({ slug: item.slug }));

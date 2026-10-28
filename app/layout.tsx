@@ -18,7 +18,7 @@ const roboto = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://fabledcampaigns.com"),
+  metadataBase: new URL("https://www.fabledcampaigns.com"),
   title: "Fabled Campaigns",
   description:
     "Your AI Game Master guide. Manage sessions, homebrew campaigns, encounters, characters, and roll to quest.",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     description:
       "Your AI Game Master guide. Manage sessions, homebrew campaigns, encounters, characters, and roll to quest.",
     siteName: "Fabled Campaigns",
-    url: "https://fabledcampaigns.com",
+    url: "https://www.fabledcampaigns.com",
     type: "website",
   },
   twitter: {
