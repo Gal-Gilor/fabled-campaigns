@@ -1,10 +1,11 @@
 // app/components/wiki/monster-group-page.tsx
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { describeMonsterGroup, getLore } from '@/app/lib/wiki';
+import { describeMonsterGroup, getLore, variantLabels } from '@/app/lib/wiki';
 import { CATEGORY_PATHS } from '@/app/lib/wikiPaths';
 import { pageMetadata } from '@/app/lib/pageMetadata';
 import { StatBlock } from './stat-block';
+import { VariantNav } from './variant-nav';
 import { MarkdownBody } from './markdown-body';
 import { LoreBody, LoreDescription, LoreSources } from './monster-lore';
 import type { MonsterCategory, MonsterGroup } from '@/types/wiki';
@@ -31,13 +32,14 @@ export function monsterGroupMetadata(group: MonsterGroup): Metadata {
 type Props = { group: MonsterGroup; from?: string; q?: string };
 
 // One page per SRD group: the group name, its description and lore when
-// written, a link to each stat block when there are several, the stat blocks
-// in CR order, then the lore's sources.
+// written, a sticky bar linking each stat block when there are several, the
+// stat blocks in CR order, then the lore's sources.
 export function MonsterGroupPage({ group, from, q }: Props) {
   const listHref = `/wiki/${CATEGORY_PATHS[group.category]}`;
   const backHref =
     from === 'search' ? `/wiki${q ? `?search=${encodeURIComponent(q)}` : ''}` : listHref;
   const hasVariants = group.members.length > 1;
+  const labels = variantLabels(group.members.map((m) => m.name));
   const lore = getLore(group.name);
 
   const jsonLd = {
@@ -87,47 +89,26 @@ export function MonsterGroupPage({ group, from, q }: Props) {
         {lore && <LoreDescription lore={lore} />}
         {lore && <LoreBody lore={lore} />}
 
-        {hasVariants && (
-          <nav aria-label="Stat blocks on this page" style={{ marginBottom: '1.5rem' }}>
-            <ul
-              style={{
-                listStyle: 'none',
-                margin: 0,
-                padding: 0,
-                display: 'flex',
-                flexWrap: 'wrap',
-                gap: '0.5rem',
-              }}
-            >
-              {group.members.map((m) => (
-                <li key={m.slug}>
-                  <a
-                    href={`#${m.slug}`}
-                    style={{
-                      display: 'inline-block',
-                      padding: '0.25rem 0.75rem',
-                      border: '1px solid var(--neutral-200)',
-                      borderRadius: '999px',
-                      background: '#fff',
-                      color: 'var(--primary-blue)',
-                      fontSize: '0.8125rem',
-                      textDecoration: 'none',
-                    }}
-                  >
-                    {m.name} · CR {m.cr}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        )}
+        {/* The bar stays stuck only while the stat blocks are on screen */}
+        <div>
+          {hasVariants && (
+            <VariantNav
+              variants={group.members.map((m, i) => ({ slug: m.slug, label: labels[i], cr: m.cr }))}
+            />
+          )}
 
-        {group.members.map((m) => (
-          <section key={m.slug} id={m.slug} style={{ scrollMarginTop: '1rem', marginBottom: '2rem' }}>
-            <StatBlock monster={m} />
-            <MarkdownBody content={m.body} />
-          </section>
-        ))}
+          {group.members.map((m) => (
+            <section
+              key={m.slug}
+              id={m.slug}
+              // Clears the stuck bar, whose labels can wrap to two lines
+              style={{ scrollMarginTop: hasVariants ? '6.5rem' : '1rem', marginBottom: '2rem' }}
+            >
+              <StatBlock monster={m} />
+              <MarkdownBody content={m.body} />
+            </section>
+          ))}
+        </div>
 
         {lore && <LoreSources lore={lore} />}
 

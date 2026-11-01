@@ -15,6 +15,7 @@ import {
   getMonsterGroups,
   getMonsterHref,
   sortedCRs,
+  variantLabels,
 } from './wiki';
 import { loreErrors, stripCitations } from './loreRules';
 
@@ -98,6 +99,18 @@ test('group summaries list every member type and CR', () => {
 test('formatCRRange shows one CR or the lowest and highest', () => {
   assert.equal(formatCRRange(['1/4']), '1/4');
   assert.equal(formatCRRange(['2', '6', '24']), '2–24');
+});
+
+test('variantLabels drops the words every stat block name shares', () => {
+  const labels = (slug: string) =>
+    variantLabels(getMonsterGroupBySlug('Monster', slug)!.members.map((m) => m.name));
+  assert.deepEqual(labels('black-dragons'), ['Wyrmling', 'Young', 'Adult', 'Ancient']);
+  assert.deepEqual(labels('goblins'), ['Minion', 'Warrior', 'Boss']);
+});
+
+test('variantLabels keeps full names when one name is only the shared words', () => {
+  assert.deepEqual(variantLabels(['Zombie', 'Ogre Zombie']), ['Zombie', 'Ogre Zombie']);
+  assert.deepEqual(variantLabels(['Archmage', 'Mage']), ['Archmage', 'Mage']);
 });
 
 test('describeMonsterGroup uses the stat block line when a group has no lore', () => {

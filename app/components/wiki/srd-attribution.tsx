@@ -8,7 +8,12 @@ export function SrdAttribution() {
   return (
     <aside
       className="px-6 py-4 text-xs"
-      style={{ color: 'var(--neutral-600)', borderTop: '1px solid var(--neutral-200)' }}
+      // The license URLs would otherwise widen the page past a 320px screen
+      style={{
+        color: 'var(--neutral-600)',
+        borderTop: '1px solid var(--neutral-200)',
+        overflowWrap: 'anywhere',
+      }}
     >
       <p style={{ margin: 0 }}>
         This work includes material from the System Reference Document 5.2.1 (&quot;SRD
