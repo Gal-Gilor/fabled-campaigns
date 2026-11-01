@@ -20,7 +20,7 @@ export default function WikiModal({ isOpen, onClose }: WikiModalProps) {
           borderRadius: '0.75rem',
           width: 'calc(100% - 3rem)',
           maxWidth: '56rem',
-          height: '80vh',
+          height: '80dvh',
           display: 'flex',
           flexDirection: 'column',
           overflow: 'hidden',

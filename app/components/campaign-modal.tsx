@@ -28,7 +28,7 @@ export function CampaignEditModal({
 
   return (
     <ModalOverlay onClose={onClose}>
-      <div className="bg-white rounded-xl w-full max-w-lg mx-4 max-h-[90vh] flex flex-col overflow-hidden">
+      <div className="bg-white rounded-xl w-full max-w-lg mx-4 max-h-[90dvh] flex flex-col overflow-hidden">
         <div className="px-5 pt-4 pb-3" style={{ borderBottom: '1px solid var(--neutral-200)' }}>
           <p
             className="text-base font-semibold"

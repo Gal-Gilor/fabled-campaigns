@@ -158,7 +158,8 @@ function GuestBanner() {
         onClick={() => setDismissed(true)}
         style={{
           position: 'absolute',
-          right: '16px',
+          right: '10px',
+          padding: '6px',
           color: '#334155',
           background: 'none',
           border: 'none',
@@ -210,13 +211,13 @@ function ImageThumbnail({
       <div className="absolute top-1 right-1 flex md:hidden md:group-hover:flex gap-1">
         <button
           onClick={(e) => { e.stopPropagation(); onDownload(); }}
-          className="w-5 h-5 rounded text-xs flex items-center justify-center"
+          className="w-6 h-6 rounded text-xs flex items-center justify-center"
           style={{ background: 'rgba(255,255,255,0.9)', color: 'var(--neutral-600)' }}
           title="Download"
         >↓</button>
         <button
           onClick={(e) => { e.stopPropagation(); onDelete(); }}
-          className="w-5 h-5 rounded text-xs flex items-center justify-center"
+          className="w-6 h-6 rounded text-xs flex items-center justify-center"
           style={{ background: 'rgba(255,255,255,0.9)', color: '#dc2626' }}
           title="Delete"
         >✕</button>
@@ -238,8 +239,8 @@ function ImageModal({
 }) {
   return (
     <ModalOverlay onClose={onClose} backdrop="rgba(0,0,0,0.7)">
-      <div className="relative bg-white rounded-xl overflow-hidden max-w-2xl w-full mx-4 max-h-[90vh] flex flex-col">
-        <img src={img.src} alt={img.label} className="w-full object-contain max-h-[60vh]" />
+      <div className="relative bg-white rounded-xl overflow-hidden max-w-2xl w-full mx-4 max-h-[90dvh] flex flex-col">
+        <img src={img.src} alt={img.label} className="w-full object-contain max-h-[60dvh]" />
         <div className="px-4 py-3 flex flex-col gap-2">
           <p className="text-sm font-semibold" style={{ color: 'var(--neutral-900)', fontFamily: 'var(--font-cinzel), serif' }}>
             {img.label}
@@ -371,11 +372,11 @@ const CollectionFolder = memo(function CollectionFolder({
         </div>
         <div className="flex items-center gap-1 flex-shrink-0" onClick={(e) => e.stopPropagation()}>
           <span className="text-xs" style={{ color: 'var(--neutral-600)' }}>{images.length}</span>
-          <button className="text-xs rounded px-1" style={{ color: 'var(--neutral-600)' }}
+          <button className="text-xs rounded px-1 min-w-6 h-6" style={{ color: 'var(--neutral-600)' }}
             onClick={(e) => { e.stopPropagation(); setEditing((v) => !v); }} title="Edit">✎</button>
-          <button className="text-xs rounded px-1" style={{ color: 'var(--neutral-600)' }}
+          <button className="text-xs rounded px-1 min-w-6 h-6" style={{ color: 'var(--neutral-600)' }}
             onClick={(e) => { e.stopPropagation(); setOpen((o) => !o); }} title="Toggle">{open ? '▼' : '▶'}</button>
-          <button className="text-xs rounded px-1" style={{ color: '#dc2626' }}
+          <button className="text-xs rounded px-1 min-w-6 h-6" style={{ color: '#dc2626' }}
             onClick={(e) => { e.stopPropagation(); onDelete(collection.id); }} title="Delete">✕</button>
         </div>
       </div>
@@ -1246,7 +1247,7 @@ export default function Chat({ initialSessionId }: ChatProps) {
           >
             <button
               onClick={() => setRightSidebarOpen(false)}
-              className="flex items-center gap-2 text-sm font-medium text-white"
+              className="flex items-center gap-2 py-1 text-sm font-medium text-white"
             >
               ← Back to Chat
             </button>
@@ -1287,7 +1288,7 @@ export default function Chat({ initialSessionId }: ChatProps) {
               <div ref={addMenuRef} className="relative">
                 <button
                   onClick={() => setShowAddMenu((v) => !v)}
-                  className="flex items-center justify-center w-5 h-5 rounded transition-all"
+                  className="flex items-center justify-center w-6 h-6 rounded transition-all"
                   style={{ background: 'var(--neutral-200)', color: 'var(--neutral-600)' }}
                   title="Add collection"
                 >

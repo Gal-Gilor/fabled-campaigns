@@ -156,7 +156,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <SessionContext.Provider value={contextValue}>
-      <div className="flex h-screen overflow-hidden" style={{ background: 'var(--neutral-100)' }}>
+      <div className="flex h-dvh overflow-hidden" style={{ background: 'var(--neutral-100)' }}>
         <Sidebar
           isOpen={sidebarOpen}
           onOpen={() => setSidebarOpen(true)}
