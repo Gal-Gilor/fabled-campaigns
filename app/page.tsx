@@ -106,7 +106,7 @@ export default async function LandingPage() {
         </Link>
         <Link
           href="/wiki"
-          className="text-sm font-medium transition-opacity hover:opacity-75"
+          className="py-1 text-sm font-medium transition-opacity hover:opacity-75"
           style={{ color: 'var(--neutral-700)' }}
         >
           Wiki

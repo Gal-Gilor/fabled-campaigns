@@ -23,7 +23,7 @@ export default function Footer() {
       <nav className="flex items-center gap-5">
         <Link
           href="/wiki"
-          className="text-sm font-medium transition-opacity hover:opacity-75"
+          className="py-1 text-sm font-medium transition-opacity hover:opacity-75"
           style={{ color: 'var(--neutral-700)' }}
         >
           Wiki

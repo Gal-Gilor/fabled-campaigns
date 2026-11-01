@@ -256,7 +256,7 @@ function SessionRow({
           onClick={(e) => e.stopPropagation()}
         >
           <button
-            className="opacity-100 md:opacity-0 md:group-hover:opacity-100 flex-shrink-0 text-xs w-5 h-5 flex items-center justify-center rounded transition-all mt-0.5 leading-none"
+            className="opacity-100 md:opacity-0 md:group-hover:opacity-100 flex-shrink-0 text-xs w-6 h-6 flex items-center justify-center rounded transition-all mt-0.5 leading-none"
             style={{ color: 'var(--neutral-400)', fontSize: '1rem', letterSpacing: '0.05em' }}
             onClick={() => onToggleMenu(uiKey)}
             title="Session actions"
@@ -449,7 +449,7 @@ function CampaignGroup({
           onClick={(e) => e.stopPropagation()}
         >
           <button
-            className="opacity-100 md:opacity-0 md:group-hover:opacity-100 text-xs w-5 h-5 flex items-center justify-center rounded transition-all leading-none"
+            className="opacity-100 md:opacity-0 md:group-hover:opacity-100 text-xs w-6 h-6 flex items-center justify-center rounded transition-all leading-none"
             style={{ color: 'var(--neutral-400)', fontSize: '1rem', letterSpacing: '0.05em' }}
             onClick={() => onToggleMenu(menuKey)}
             title="Campaign actions"
@@ -730,6 +730,22 @@ export default function Sidebar({
     setOpenMenuId((prev) => (prev === id ? null : id));
   }
 
+  // The open sidebar covers the whole screen on phones, so picking a session
+  // or page there closes it. On desktop it stays open beside the chat.
+  function closeOnPhone() {
+    if (!window.matchMedia('(min-width: 768px)').matches) onClose();
+  }
+
+  function selectSession(id: string) {
+    onSelectSession(id);
+    closeOnPhone();
+  }
+
+  function newSession() {
+    onNewSession();
+    closeOnPhone();
+  }
+
   const sortedSessions = [...sessions].sort(
     (a, b) => b.starred - a.starred || b.updated_at - a.updated_at
   );
@@ -860,7 +876,7 @@ export default function Sidebar({
           )}
         </div>
       ) : (
-        <div className="flex flex-col h-full md:w-[22rem]">
+        <div className="flex flex-col h-full overflow-y-auto md:w-[22rem]">
           {/* Mobile topbar — back button, hidden on desktop */}
           <div
             className="flex md:hidden items-center justify-between px-4 py-3 border-b"
@@ -868,7 +884,7 @@ export default function Sidebar({
           >
             <button
               onClick={onClose}
-              className="flex items-center gap-2 text-sm font-medium text-white"
+              className="flex items-center gap-2 py-1 text-sm font-medium text-white"
             >
               ← Back to Chat
             </button>
@@ -902,7 +918,7 @@ export default function Sidebar({
           <div className="px-2 pt-2 pb-1 flex flex-col gap-0.5">
             {/* New session */}
             <button
-              onClick={onNewSession}
+              onClick={newSession}
               className="flex items-center gap-2.5 w-full px-3 py-2 rounded-lg transition-all text-left"
               style={{ color: 'var(--neutral-700)', cursor: 'pointer' }}
               onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-100)')}
@@ -919,6 +935,7 @@ export default function Sidebar({
             {authStatus === 'authenticated' && (
               <Link
                 href="/chat/sessions"
+                onClick={closeOnPhone}
                 className="flex items-center gap-2.5 w-full px-3 py-2 rounded-lg transition-all"
                 style={{ color: 'var(--neutral-700)' }}
                 onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-100)')}
@@ -972,7 +989,7 @@ export default function Sidebar({
                 </p>
                 <button
                   onClick={() => setCampaignModal({})}
-                  className="flex items-center justify-center w-5 h-5 rounded transition-all"
+                  className="flex items-center justify-center w-6 h-6 rounded transition-all"
                   style={{ color: 'var(--neutral-500)' }}
                   title="New campaign"
                   onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--neutral-200)')}
@@ -1020,7 +1037,7 @@ export default function Sidebar({
                             session={session}
                             uiKey={`group:${campaign.id}:${session.id}`}
                             isActive={session.id === activeSessionId}
-                            onSelect={() => onSelectSession(session.id)}
+                            onSelect={() => selectSession(session.id)}
                             onDelete={onDeleteSession}
                             onStar={onStarSession}
                             compact
@@ -1059,7 +1076,7 @@ export default function Sidebar({
                   session={session}
                   uiKey={`recent:${session.id}`}
                   isActive={session.id === activeSessionId}
-                  onSelect={() => onSelectSession(session.id)}
+                  onSelect={() => selectSession(session.id)}
                   onDelete={onDeleteSession}
                   onStar={onStarSession}
                   compact

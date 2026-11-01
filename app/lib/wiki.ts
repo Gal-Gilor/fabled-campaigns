@@ -91,6 +91,16 @@ export function formatCRRange(crs: string[]): string {
   return crs.length > 1 ? `${crs[0]}–${crs[crs.length - 1]}` : crs[0];
 }
 
+// Short names for a group's stat blocks: the words every name shares are
+// dropped, so 'Adult Black Dragon' reads 'Adult'. When a name is only the
+// shared words ('Zombie' next to 'Ogre Zombie'), the full names are kept.
+export function variantLabels(names: string[]): string[] {
+  const words = names.map((n) => n.split(' '));
+  const shared = new Set(words[0].filter((w) => words.every((ws) => ws.includes(w))));
+  const labels = words.map((ws) => ws.filter((w) => !shared.has(w)).join(' '));
+  return labels.some((l) => l === '') ? names : labels;
+}
+
 function summarizeGroup({ slug, name, category, members }: MonsterGroup): MonsterGroupSummary {
   const sizes = new Set(members.map((m) => m.size));
   const types = new Set(members.map((m) => m.type));
